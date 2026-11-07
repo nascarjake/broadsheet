@@ -1,0 +1,76 @@
+{
+  "retrievedAt": "2026-11-07T19:40:34.962588+00:00",
+  "feed": "https://www.nasa.gov/feed/",
+  "stories": [
+    {
+      "id": "44a6b3793253",
+      "title": "NASA Seeks Next Generation of Explorers to Join Astronaut Corps",
+      "url": "https://www.nasa.gov/news-release/nasa-seeks-next-generation-of-explorers-to-join-astronaut-corps/",
+      "excerpt": "NASA is looking for the explorers who will help write the next chapter of human spaceflight. Applications are now open for the agency\u2019s next class of astronauts, who will join NASA as America returns to the Moon, builds the Moon Base, and lays the groundwork for the first crewed missions to Mars. The next generation [\u2026]",
+      "date": "Sat, 07 Nov 2026 18:11:57 +0000",
+      "topic": "Human frontiers",
+      "source": "NASA",
+      "order": 1
+    },
+    {
+      "id": "83b8b7ae95d5",
+      "title": "M30\u2019s Sparkling Stars",
+      "url": "https://www.nasa.gov/image-article/m30s-sparkling-stars/",
+      "excerpt": "This NASA/ESA Hubble Space Telescope image released Nov. 5, 2026, provides a lesson in galactic history. The sparkling collection of stars is named Messier 30 (M30) after the French astronomer, Charles Messier, who cataloged M30 and other diffuse objects that might be mistaken for comets in the early telescopes of Messier\u2019s time. M30 lies about [\u2026]",
+      "date": "Fri, 06 Nov 2026 16:23:41 +0000",
+      "topic": "The universe",
+      "source": "NASA",
+      "order": 2
+    },
+    {
+      "id": "e90733f65aaa",
+      "title": "Supercomputing Tech Demo Schedule",
+      "url": "https://science.nasa.gov/earth/supercomputing-tech-demo-schedule/",
+      "excerpt": "Supercomputing 2026 Join NASA in the Exhibit Hall (Booth #4038) for presentations by NASA experts. Full Tech Demo schedule below. TUESDAY, NOVEMBER 17 10:00 AMType-safe Templates in Fortran 2028Tom Clune10:30 AMType-safe Templates in Fortran 2028Tom Clune11:00 AM Type-safe Templates in Fortran 2028Tom Clune1:00PM Mixing and Matching and Multiple Versions, Oh My!Brad Richardson1:30 PMMixing and Matching and Multiple [\u2026]",
+      "date": "Fri, 06 Nov 2026 16:03:52 +0000",
+      "topic": "Ideas & engineering",
+      "source": "NASA",
+      "order": 3
+    },
+    {
+      "id": "ba58adb14241",
+      "title": "Taking a Gander at Utah\u2019s Goosenecks",
+      "url": "https://science.nasa.gov/earth/earth-observatory/taking-a-gander-at-utahs-goosenecks/",
+      "excerpt": "The San Juan River has carved deep, improbably curvy meanders into the desert landscape.",
+      "date": "Fri, 06 Nov 2026 05:01:00 +0000",
+      "topic": "Earth & environment",
+      "source": "NASA",
+      "order": 4
+    },
+    {
+      "id": "6ca3f2020966",
+      "title": "Midwestern City Lights",
+      "url": "https://www.nasa.gov/image-article/midwestern-city-lights/",
+      "excerpt": "City lights from the Midwestern United States to the East Coast sparkle across the landscape a couple of hours before sunrise on Oct. 18, 2026. Major urban areas visible in the photograph include Chicago, Illinois; Detroit, Michigan; and the New York metropolitan region. The International Space Station was orbiting 259 miles above Earth when this [\u2026]",
+      "date": "Thu, 05 Nov 2026 15:17:19 +0000",
+      "topic": "Earth & environment",
+      "source": "NASA",
+      "order": 5
+    },
+    {
+      "id": "e95078269422",
+      "title": "NASA Astronauts to Answer Questions from Florida Students",
+      "url": "https://www.nasa.gov/learning-resources/nasa-astronauts-to-answer-questions-from-florida-students-2/",
+      "excerpt": "Students in Florida will hear from NASA astronauts Jessica Watkins and Luke Delaney as they answer prerecorded STEM questions while aboard the International Space Station. The Earth-to-space call will begin at 10:40 a.m. EST Tuesday, Nov. 10, and will stream live on the agency\u2019s Learn With NASA YouTube channel. This event is hosted by Freedom Crossing Academy in [\u2026]",
+      "date": "Thu, 05 Nov 2026 15:11:25 +0000",
+      "topic": "Human frontiers",
+      "source": "NASA",
+      "order": 6
+    },
+    {
+      "id": "6b2496f9d25e",
+      "title": "Hubble Learns Galactic History From Stars",
+      "url": "https://science.nasa.gov/missions/hubble/hubble-learns-galactic-history-from-stars/",
+      "excerpt": "This Hubble image features the sparkling collection of stars named Messier 30 (M30), also called NGC 7099.",
+      "date": "Thu, 05 Nov 2026 12:56:21 +0000",
+      "topic": "The universe",
+      "source": "NASA",
+      "order": 7
+    }
+  ]
+}

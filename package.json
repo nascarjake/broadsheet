@@ -1,0 +1,1 @@
+{"name":"spatial-broadsheet","private":true,"scripts":{"dev":"python3 server.py --host 0.0.0.0","test":"python3 -m unittest discover -s tests"}}
