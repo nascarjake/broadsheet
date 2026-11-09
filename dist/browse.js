@@ -1245,7 +1245,7 @@ function fillBrowsingRoom() {
   const rows = Math.ceil(
     canvas.viewport.clientHeight / ((atlas.height + atlas.gap) * z),
   );
-  const target = Math.min(200, Math.max(20, columns * rows * 2));
+  const target = Math.min(200, Math.max(20, (columns + 2) * (rows + 2) * 2));
   if (visible.length >= target) return;
   const viewKey = key();
   clearTimeout(wanderTimer);
