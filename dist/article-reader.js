@@ -88,14 +88,28 @@
       "allow-scripts allow-popups allow-popups-to-escape-sandbox",
     );
     frame.referrerPolicy = "no-referrer";
-    frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https: data:; style-src 'unsafe-inline'; script-src 'nonce-${id}'; frame-src https:; form-action 'none'; base-uri https://www.theguardian.com https://theguardian.com"><base href="${record.url.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" target="_blank"><style>html,body{margin:0;padding:0}body{font:18px/1.7 Georgia,serif;color:#27342b;overflow-wrap:anywhere}p{margin:0 0 1.25em}h2,h3{font:600 26px/1.3 Georgia,serif;margin:1.5em 0 .6em}a{color:#53694c;text-underline-offset:3px}img,video{max-width:100%;height:auto}figure{margin:24px 0}figcaption{font:11px/1.6 Arial,sans-serif;color:#606d5c}blockquote{margin:20px 0;padding-left:20px;border-left:2px solid #bac7ae}iframe{max-width:100%;border:0}</style></head><body>${record.html}<script nonce="${id}">for(const a of document.querySelectorAll('a')){a.target='_blank';a.rel='noopener noreferrer';}const report=()=>parent.postMessage({type:'broadsheet-guardian-height',id:'${id}',height:document.documentElement.scrollHeight},'*');new ResizeObserver(report).observe(document.body);addEventListener('load',report);report();<\/script></body></html>`;
+    // The reader grows with its content; only the surrounding canvas scrolls.
+    frame.setAttribute("scrolling", "no");
+    frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https: data:; style-src 'unsafe-inline'; script-src 'nonce-${id}'; frame-src https:; form-action 'none'; base-uri https://www.theguardian.com https://theguardian.com"><base href="${record.url.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" target="_blank"><style>html,body{margin:0;padding:0;overflow:hidden}body{display:flow-root;font:18px/1.7 Georgia,serif;color:#27342b;overflow-wrap:anywhere}p{margin:0 0 1.25em}h2,h3{font:600 26px/1.3 Georgia,serif;margin:1.5em 0 .6em}a{color:#53694c;text-underline-offset:3px}img,video{max-width:100%;height:auto}figure{margin:24px 0}figcaption{font:11px/1.6 Arial,sans-serif;color:#606d5c}blockquote{margin:20px 0;padding-left:20px;border-left:2px solid #bac7ae}iframe{max-width:100%;border:0}</style></head><body>${record.html}<script nonce="${id}">
+for(const a of document.querySelectorAll('a')){a.target='_blank';a.rel='noopener noreferrer';}
+// Measure the body, not the document viewport: text can shrink after widening.
+const report=()=>parent.postMessage({type:'broadsheet-guardian-height',id:'${id}',height:Math.ceil(Math.max(document.body.getBoundingClientRect().height,document.body.scrollHeight))+2},'*');
+new ResizeObserver(report).observe(document.body);addEventListener('load',report);report();
+// Wheel events do not bubble across a frame boundary, even without overflow.
+addEventListener('wheel',e=>{
+  e.preventDefault();
+  const unit=e.deltaMode===1?18:e.deltaMode===2?innerHeight:1;
+  parent.postMessage({type:'broadsheet-guardian-wheel',id:'${id}',deltaX:e.deltaX*unit,deltaY:e.deltaY*unit,clientX:e.clientX,clientY:e.clientY,ctrlKey:e.ctrlKey,metaKey:e.metaKey},'*');
+},{passive:false});
+<\/script></body></html>`;
     return frame;
   }
   root.addEventListener?.("message", (event) => {
     const data = event.data;
     if (
-      data?.type !== "broadsheet-guardian-height" ||
-      !Number.isFinite(data.height)
+      !["broadsheet-guardian-height", "broadsheet-guardian-wheel"].includes(
+        data?.type,
+      )
     )
       return;
     for (const frame of document.querySelectorAll("iframe.guardian-article"))
@@ -103,8 +117,30 @@
         event.source === frame.contentWindow &&
         data.id === frame.dataset.readerFrame
       ) {
-        frame.style.height =
-          Math.ceil(Math.max(200, Math.min(40000, data.height))) + "px";
+        if (data.type === "broadsheet-guardian-height") {
+          if (!Number.isFinite(data.height)) return;
+          frame.style.height =
+            Math.ceil(Math.max(200, Math.min(40000, data.height))) + "px";
+        } else {
+          if (
+            ![data.deltaX, data.deltaY, data.clientX, data.clientY].every(
+              Number.isFinite,
+            )
+          ) return;
+          const rect = frame.getBoundingClientRect();
+          // The canvas scales the frame. Restore the pointer's page position
+          // so pinch-to-zoom stays anchored under the cursor at every zoom.
+          frame.dispatchEvent(new WheelEvent("wheel", {
+            bubbles: true,
+            cancelable: true,
+            deltaX: data.deltaX,
+            deltaY: data.deltaY,
+            clientX: rect.left + data.clientX * rect.width / frame.clientWidth,
+            clientY: rect.top + data.clientY * rect.height / frame.clientHeight,
+            ctrlKey: data.ctrlKey === true,
+            metaKey: data.metaKey === true,
+          }));
+        }
         break;
       }
   });
