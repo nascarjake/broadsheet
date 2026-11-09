@@ -23,10 +23,10 @@ const { Miniflare, Response, convertV4MiniflareOptions } = require(
         new Response(html, { headers: { "Content-Type": "text/html" } }),
     }),
   );
-  const request = () =>
+  const request = (url = "https://www.nasa.gov/news/test-story/") =>
     mf.dispatchFetch(
       "https://reader.test/api/article?url=" +
-        encodeURIComponent("https://www.nasa.gov/news/test-story/"),
+        encodeURIComponent(url),
     );
   try {
     let response = await request(),
@@ -58,6 +58,18 @@ const { Miniflare, Response, convertV4MiniflareOptions } = require(
     html = "<nav>" + paragraphs + "</nav>";
     data = await (await request()).json();
     assert.equal(data.status, "unavailable");
+    html = `<script type="application/ld+json">${JSON.stringify({ "@type": "VideoObject", name: "A public video report", description: "The publisher's short video description.", embedUrl: "https://players.brightcove.net/665003303001/6tKQRAx7lu_default/index.html?videoId=6408121386112" })}</script><main><div class="wysiwyg"></div></main>`;
+    data = await (await request("https://www.aljazeera.com/video/newsfeed/2026/11/9/example")).json();
+    assert.equal(data.status, "ready", "Video reports do not require a long text article");
+    assert.equal(data.kind, "video");
+    assert.equal(data.media.length, 1);
+    assert.equal(data.blocks[0].text, "The publisher's short video description.");
+    html = `<main><amp-live-list id="live-blog-updates"><div><h2>Latest update headline</h2><div class="wysiwyg">${paragraphs}</div></div></amp-live-list></main>`;
+    data = await (await request("https://www.aljazeera.com/amp/news/liveblog/2026/11/9/example")).json();
+    assert.equal(data.status, "ready");
+    assert.equal(data.kind, "liveblog");
+    assert.equal(data.blocks[0].text, "Latest update headline");
+    assert.equal(data.blocks.length, 9, "Alternate selectors never duplicate update text");
     console.log(
       "Native Worker article extraction: full prose through the final paragraph, nested lists, bylines, navigation/script exclusion, restricted articles and unavailable pages passed",
     );

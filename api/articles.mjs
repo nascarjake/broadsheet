@@ -46,7 +46,7 @@ const publishers = [
     id: "aljazeera",
     name: "Al Jazeera",
     hosts: ["www.aljazeera.com", "aljazeera.com"],
-    roots: ["main .wysiwyg"],
+    roots: ["main .wysiwyg", "main #live-blog-updates"],
   },
   {
     id: "lemonde",
@@ -66,6 +66,16 @@ export const restrictedPreview = (value) =>
   /(?:^|[,\s])(?:nosnippet|noarchive)(?:[,;\s]|$)|max-snippet\s*:\s*\d+/i.test(
     value || "",
   );
+export function articleVideo(value) {
+  try {
+    const u = new URL(value);
+    // Only the public player and account supplied by Al Jazeera's metadata.
+    if (u.origin !== "https://players.brightcove.net" || u.username || u.password ||
+        !/^\/665003303001\/[A-Za-z0-9_-]+_default\/index.html$/.test(u.pathname) ||
+        !/^\d{6,20}$/.test(u.searchParams.get("videoId") || "")) return "";
+    return u.origin + u.pathname + "?videoId=" + u.searchParams.get("videoId");
+  } catch { return ""; }
+}
 export function articleRequest(value, expected) {
   let url;
   try {
@@ -159,6 +169,11 @@ export function articleMetadata(documents) {
     modifiedAt: clean(main.dateModified),
     copyright: clean(main.copyrightNotice).slice(0, 500),
     title: clean(main.headline),
+    videos: records.filter((r) => r["@type"] === "VideoObject").slice(0, 3).map((r) => ({
+      src: articleVideo(r.embedUrl),
+      title: clean(r.name).slice(0, 300),
+      description: clean(r.description).slice(0, 20000),
+    })).filter((r) => r.src),
   };
 }
 export async function extractArticle(html, url, publisher) {
@@ -188,6 +203,9 @@ export async function extractArticle(html, url, publisher) {
         if (["author", "og:title", "article:published_time"].includes(name))
           meta[name] = clean(value);
       },
+    })
+    .on('link[rel="amphtml"]', {
+      element(e) { meta.amp = e.getAttribute("href"); },
     })
     .on('script[type="application/ld+json"]', {
       element(e) {
@@ -280,7 +298,7 @@ export async function extractArticle(html, url, publisher) {
     try {
       documents.push(JSON.parse(s.text));
     } catch {}
-  const metadata = articleMetadata(documents);
+  const { videos, ...metadata } = articleMetadata(documents);
   if (restricted || metadata.restricted)
     return unavailable(
       "restricted",
@@ -302,12 +320,26 @@ export async function extractArticle(html, url, publisher) {
       .filter((b) => b.text),
   );
   // Alternate selectors are fallbacks, never concatenated duplicate copies.
-  const blocks =
+  let blocks =
     candidates.sort(
       (a, b) =>
         b.reduce((n, x) => n + x.text.length, 0) -
         a.reduce((n, x) => n + x.text.length, 0),
     )[0] || [];
+  const isAlJazeera = publisher.id === "aljazeera",
+    kind = isAlJazeera && /\/news\/liveblog\//.test(url.pathname)
+      ? "liveblog" : isAlJazeera && /^\/video\//.test(url.pathname) ? "video" : "article",
+    media = isAlJazeera ? videos.map(({ src, title }) => ({ type: "embed", src, title })) : [];
+  let alternate = "";
+  if (kind === "liveblog" && meta.amp) {
+    try {
+      const candidate = articleRequest(new URL(meta.amp, url).href, publisher.id).url;
+      if (candidate.origin === url.origin && candidate.pathname === "/amp" + url.pathname)
+        alternate = candidate.href;
+    } catch {}
+  }
+  if (kind === "video" && media.length && !blocks.length && videos[0].description)
+    blocks = [{ type: "paragraph", text: videos[0].description }];
   const characters = blocks.reduce((n, b) => n + b.text.length, 0);
   if (characters > MAX_TEXT)
     return unavailable(
@@ -316,18 +348,23 @@ export async function extractArticle(html, url, publisher) {
       url,
       publisher,
     );
-  if (characters < 200 || !blocks.some((b) => b.type === "paragraph"))
-    return unavailable(
+  if (kind !== "video" && (characters < 200 || !blocks.some((b) => b.type === "paragraph")))
+    return { ...unavailable(
       "unavailable",
       "The publisher did not provide a readable article page. You can retry or open the original.",
       url,
       publisher,
-    );
+    ), alternate };
+  if (!blocks.length && !media.length)
+    return unavailable("unavailable", "The publisher did not supply readable text or a supported video.", url, publisher);
   return {
     status: "ready",
     url: url.href,
     publisher: publisher.name,
     ...metadata,
+    kind,
+    media,
+    alternate,
     author: metadata.author || meta.author || "",
     blocks,
     wordCount: blocks.reduce((n, b) => n + b.text.split(/\s+/).length, 0),
@@ -341,7 +378,9 @@ export async function readArticle(
   let { url, publisher } = articleRequest(request.searchParams.get("url"));
   if (publisher.id === "guardian")
     return guardianArticle(url, publisher, guardianKey, { get, cache, ctx });
-  for (let redirects = 0; redirects < 4; redirects++) {
+  let usedAlternate = false;
+  const canonical = url.href;
+  for (let redirects = 0; redirects < 6; redirects++) {
     const response = await get(url.href, {
       redirect: "manual",
       credentials: "omit",
@@ -360,16 +399,19 @@ export async function readArticle(
     }
     if (!response.ok) {
       await response.body?.cancel();
-      return unavailable(
+      const denied = [401, 402, 403].includes(response.status);
+      return { ...unavailable(
         response.status === 401 ||
           response.status === 402 ||
           response.status === 403
           ? "restricted"
           : "unavailable",
-        "This article is not available to the reader right now. Retry or open it at the publisher.",
+        denied
+          ? `${publisher.name} declined the reader's request. Read this story directly at ${publisher.name}.`
+          : "This article is not available to the reader right now. Retry or open it at the publisher.",
         url,
         publisher,
-      );
+      ), retryable: !denied };
     }
     if (
       !response.headers.get("Content-Type")?.toLowerCase().includes("text/html")
@@ -391,7 +433,20 @@ export async function readArticle(
         publisher,
       );
     }
-    return extract(await boundedHTML(response), url, publisher);
+    const result = await extract(await boundedHTML(response), url, publisher);
+    const { alternate, ...article } = result;
+    // Follow only the publisher-advertised public live-blog alternate, after
+    // a successful page fetch. Never retry denial or subscription pages there.
+    if (!usedAlternate && publisher.id === "aljazeera" &&
+        (result.status === "ready" || result.reason === "unavailable") && alternate) {
+      const candidate = articleRequest(alternate, publisher.id).url;
+      if (candidate.origin === url.origin && candidate.pathname === "/amp" + url.pathname) {
+        usedAlternate = true;
+        url = candidate;
+        continue;
+      }
+    }
+    return { ...article, url: usedAlternate ? canonical : article.url };
   }
   throw Error("The publisher redirected too many times.");
 }

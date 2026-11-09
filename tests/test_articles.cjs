@@ -6,6 +6,7 @@ const assert = require("node:assert/strict");
     readArticle,
     boundedHTML,
     restrictedPreview,
+    articleVideo,
   } = await import("../api/articles.mjs");
   for (const url of [
     "https://127.0.0.1/a",
@@ -41,6 +42,10 @@ const assert = require("node:assert/strict");
   assert.equal(restrictedPreview("index, max-snippet:-1"), false);
   assert.equal(restrictedPreview("max-snippet:0"), true);
   assert.equal(restrictedPreview("nosnippet"), true);
+  const ajPlayer = "https://players.brightcove.net/665003303001/6tKQRAx7lu_default/index.html?videoId=6408121386112";
+  assert.equal(articleVideo(ajPlayer + "&autoplay=true"), ajPlayer);
+  for (const bad of [ajPlayer.replace("665003303001", "123456789"), ajPlayer.replace("https:", "http:"), ajPlayer.replace("players.brightcove.net", "players.brightcove.net.evil.test"), ajPlayer.replace("6408121386112", "javascript:alert(1)")])
+    assert.equal(articleVideo(bad), "");
   const query = new URL(
     "https://reader.test/api/article?url=" +
       encodeURIComponent("https://www.nasa.gov/news/test-article/"),
@@ -76,6 +81,7 @@ const assert = require("node:assert/strict");
     get: async () => new Response("Denied", { status: 403 }),
   });
   assert.equal(data.reason, "restricted");
+  assert.equal(data.retryable, false, "Publisher denials should lead to the original, not a futile retry");
   assert.equal(extractions, 1);
   data = await readArticle(query, {
     extract,
@@ -111,6 +117,26 @@ const assert = require("node:assert/strict");
     boundedHTML(new Response("x".repeat(1800001))),
     /too large/,
   );
+  const liveURL = "https://www.aljazeera.com/news/liveblog/2026/11/9/example";
+  const liveQuery = new URL("https://reader.test/api/article?url=" + encodeURIComponent(liveURL));
+  const liveCalls = [];
+  data = await readArticle(liveQuery, {
+    get: async (url) => {
+      liveCalls.push(url);
+      return new Response("<main>Public coverage</main>", { headers: { "Content-Type": "text/html" } });
+    },
+    extract: async (_html, url) => url.pathname.startsWith("/amp/")
+      ? { status: "ready", kind: "liveblog", blocks: [{ type: "paragraph", text: "Latest published update" }], url: url.href }
+      : { status: "unavailable", reason: "unavailable", alternate: liveURL.replace("/news/", "/amp/news/") },
+  });
+  assert.deepEqual(liveCalls, [liveURL, liveURL.replace("/news/", "/amp/news/")]);
+  assert.equal(data.status, "ready");
+  assert.equal(data.url, liveURL, "Retain the original story URL for linked alternates");
+  assert.equal(data.alternate, undefined);
+  let deniedCalls = 0;
+  data = await readArticle(liveQuery, { get: async () => { deniedCalls++; return new Response("Denied", { status: 403 }); } });
+  assert.equal(deniedCalls, 1, "Never follow alternate pages after publisher denial");
+  assert.equal(data.retryable, false);
   const { guardianArticle } = await import("../api/guardian.mjs");
   const guardianURL = new URL(
       "https://www.theguardian.com/world/2026/nov/09/example",
@@ -228,6 +254,10 @@ const assert = require("node:assert/strict");
   );
   const guardianValidated = client.validate(licensed);
   assert.equal(guardianValidated.html, html);
+  const video = client.validate({ status: "ready", url: "https://www.aljazeera.com/video/example", kind: "video", media: [{ src: ajPlayer, title: "A public video report" }], blocks: [] });
+  assert.equal(video.media[0].src, ajPlayer);
+  assert.equal(video.kind, "video");
+  assert.throws(() => client.validate({ status: "ready", url: "https://evil.test/article", media: [{ src: ajPlayer }], blocks: [] }));
   assert.throws(() =>
     client.validate({ ...licensed, url: "https://evil.org/article" }),
   );

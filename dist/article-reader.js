@@ -20,6 +20,15 @@
       return "";
     }
   };
+  function articleVideo(value) {
+    try {
+      const u = new URL(value);
+      return u.origin === "https://players.brightcove.net" && !u.username && !u.password &&
+        /^\/665003303001\/[A-Za-z0-9_-]+_default\/index.html$/.test(u.pathname) &&
+        /^\d{6,20}$/.test(u.searchParams.get("videoId") || "")
+        ? u.origin + u.pathname + "?videoId=" + u.searchParams.get("videoId") : "";
+    } catch { return ""; }
+  }
   function validate(data) {
     if (data?.status !== "ready")
       return {
@@ -28,6 +37,8 @@
           data?.message ||
             "This article could not be loaded. Try again or read it at the publisher.",
         ).slice(0, 300),
+        retryable: data?.retryable !== false,
+        publisher: String(data?.publisher || "the publisher").slice(0, 100),
       };
     if (data.format === "guardian") {
       if (
@@ -51,9 +62,13 @@
         wordCount: Number(data.wordCount) || 1,
       };
     }
+    const media = Array.isArray(data.media) &&
+      ["www.aljazeera.com", "aljazeera.com"].includes(new URL(safe(data.url) || "https://invalid.test").hostname)
+      ? data.media.slice(0, 3).map((m) => ({ src: articleVideo(m.src), title: String(m.title || "Video report").slice(0, 300) })).filter((m) => m.src)
+      : [];
     if (
       !Array.isArray(data.blocks) ||
-      !data.blocks.length ||
+      (!data.blocks.length && !media.length) ||
       data.blocks.length > 600
     )
       throw Error("The publisher did not return a readable article.");
@@ -72,6 +87,9 @@
     return {
       status: "ready",
       blocks,
+      media,
+      kind: ["video", "liveblog"].includes(data.kind) ? data.kind : "article",
+      retrievedAt: Number.isFinite(Date.parse(data.retrievedAt)) ? data.retrievedAt : "",
       publisher: String(data.publisher || "Publisher").slice(0, 100),
       author: String(data.author || "").slice(0, 300),
       copyright: String(data.copyright || "").slice(0, 500),
@@ -183,6 +201,23 @@ addEventListener('wheel',e=>{
         node.append(attribution, guardianFrame(record));
         return;
       }
+      if (record.kind === "liveblog") {
+        node.append(el("p", "article-reader-byline", "Latest published updates · loaded " + new Date(record.retrievedAt || record.time || Date.now()).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })));
+        const refresh = el("button", "article-reader-retry", "↻ Refresh updates");
+        refresh.type = "button";
+        refresh.onclick = () => void load(node.dataset.readerUrl, true);
+        node.append(refresh);
+      }
+      for (const media of record.media || []) {
+        const video = el("iframe", "article-video");
+        video.src = media.src;
+        video.title = media.title;
+        video.loading = "lazy";
+        video.referrerPolicy = "strict-origin-when-cross-origin";
+        video.setAttribute("allow", "fullscreen; picture-in-picture; encrypted-media");
+        video.setAttribute("allowfullscreen", "");
+        node.append(video);
+      }
       const prose = el("div", "article-prose");
       for (const b of record.blocks)
         prose.append(
@@ -202,10 +237,18 @@ addEventListener('wheel',e=>{
     node.append(el("p", "article-reader-status", record.message));
     const excerpt = node.dataset.excerpt;
     if (excerpt) node.append(el("p", "article-reader-excerpt", excerpt));
-    const retry = el("button", "article-reader-retry", "↻ Try loading again");
-    retry.type = "button";
-    retry.onclick = () => void load(node.dataset.readerUrl, true);
-    node.append(retry);
+    if (record.retryable !== false) {
+      const retry = el("button", "article-reader-retry", "↻ Try loading again");
+      retry.type = "button";
+      retry.onclick = () => void load(node.dataset.readerUrl, true);
+      node.append(retry);
+    } else {
+      const source = el("a", "article-reader-retry", "Read at " + record.publisher + " ↗");
+      source.href = node.dataset.readerUrl;
+      source.target = "_blank";
+      source.rel = "noopener noreferrer";
+      node.append(source);
+    }
   }
   function notify(url) {
     const r = records.get(url);
@@ -218,7 +261,7 @@ addEventListener('wheel',e=>{
       old &&
       !force &&
       (old.status === "loading" ||
-        Date.now() - old.time < (old.status === "ready" ? 900000 : 30000))
+        Date.now() - old.time < (old.status === "ready" ? old.kind === "liveblog" ? 60000 : 900000 : 30000))
     )
       return old;
     const record = { status: "loading", time: Date.now() };
