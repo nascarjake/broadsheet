@@ -26,6 +26,12 @@ The Python adapter verifies HTTPS certificates. On python.org macOS installation
 
 Channels, followed sources/topics, saved stories, manual card positions/sizes, and view preferences persist in browser local storage. Panning and zoom are session controls; **Home** resets them. Storage failures are disclosed. The canvas continues in every direction and repeats the loaded source collection. Counts and list views refer to unique stories. Only cards near the canvas viewport are mounted.
 
+## A newspaper in an endless space
+
+Stories use variable-width newspaper spreads: short briefs, text reports, photographic leads, video reports and regional locators. Headline length, available image dimensions, video, retained reading depth and neighboring cards drive placement. Natural card heights are measured after rendering. Open a headline to expand its width and height in place, reflowing the surrounding spread; no reader popup is used. Dragging changes the story's position/order within its spread while preserving collision-free flow. News edits use a separate `pressLayouts` field, preserving earlier grid edits and other modules. The loaded edition remains finite and repeats in every direction.
+
+Publisher photos are now visible directly on the canvas. Supplied video opens with playback controls inside the expanded card, without autoplay. **Find & filter → Story media** selects photographs, video reports, regional locators or retained in-depth NASA reading. Source facts, publication/collection dates, supplied bylines, related headlines and regional context appear inside expanded stories. Regional maps are labeled overviews from named headline places, not verified event locations. Related headlines are lexical suggestions, not an assertion that the stories describe the same event. Sources and media rights remain linked. See [SOURCES.md](SOURCES.md).
+
 ## Import another feed
 
 In the source library, expand **Add your own RSS or Atom feed**. Paste a feed URL or import a downloaded XML/RSS/Atom file. URL import requires the publisher to allow browser CORS access. Imported feeds are local snapshots: re-import the URL or file to update them. File imports support absolute links, and relative links when the feed has a valid website URL. Imports reject entity declarations, non-HTTP(S) article links, and files over 5 MB. Text is rendered without publisher HTML/scripts. Remove an import from the library without deleting saved stories.
@@ -40,7 +46,7 @@ Publisher feeds supply bounded excerpts and links to original articles. Broadshe
 
 ## Static and offline editions
 
-The existing public site is hosted on GitHub Pages: https://nascarjake.github.io/broadsheet/ . Changes in this working copy have not been published. Pages serves `dist/`; it cannot execute the Python feed adapter. The static UI identifies its collection time and explains that live publisher refresh needs the local server. New collected snapshots must be published to update that static edition.
+The existing public site is hosted on GitHub Pages: https://nascarjake.github.io/broadsheet/ . Pages serves `dist/`; it cannot execute the Python feed adapter. The static UI identifies its collection time and explains that live publisher refresh needs the local server. New collected snapshots must be published to update that static edition.
 
 To refresh and rebuild an offline snapshot:
 
@@ -49,7 +55,7 @@ python3 feed.py
 python3 build_standalone.py
 ```
 
-Open `Broadsheet-news-preview.html` directly. It contains the source catalog, feed snapshot, retained NASA archive, and embedded images, and can be read offline. A browser may restrict persistence for file URLs; the UI reports storage failures. No synthetic articles are generated.
+Open `Broadsheet-news-preview.html` directly. It contains the source catalog, feed snapshot, retained NASA archive, embedded NASA archive images, and locator geography. This retained text and geography can be read offline; publisher-hosted photos and video need an internet connection. A browser may restrict persistence for file URLs; the UI reports storage failures. No synthetic articles are generated.
 
 ## Validation
 
@@ -60,6 +66,6 @@ node --check dist/app.js
 node --check dist/model.js
 ```
 
-Tests cover corpus attribution, RSS/Atom parsing, unsafe links and entities, feed size bounds, partial failure retention, complete failure preservation, filtering and source/topic intersections, saved filtering, sorting, safe import URL resolution, layout bounds, and non-overlapping automatic placement. `tests/ui.cjs` is an optional Playwright smoke test for a locally running server; install Playwright separately to run it.
+Tests additionally cover Media RSS variants/credits, safe video references, inline-photo order, geographic aliases, negative/distant newspaper coordinates, natural sizing, expansion, reflow, persistence and collision-free movement/resizing. Tests cover corpus attribution, RSS/Atom parsing, unsafe links and entities, feed size bounds, partial failure retention, complete failure preservation, filtering and source/topic intersections, saved filtering, sorting, safe import URL resolution, layout bounds, and non-overlapping automatic placement. `tests/ui.cjs` is an optional Playwright smoke test for a locally running server; install Playwright separately to run it.
 
 Browser checks were performed on desktop and a 390px mobile viewport for source/topic filtering, channel creation and reload persistence, saving, card keyboard move/resize and persistence, in-card NASA reading, source mix, follow/unfollow empty states, and feed import. Physical touch/pinch and cross-browser performance are not certified. The canvas supports one-pointer panning and Ctrl/Command+scroll zoom; two-finger pinch on the background is implemented by the shared canvas but requires physical-device validation.

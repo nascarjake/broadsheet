@@ -11,6 +11,7 @@
     <title>Broadsheet · News · Broadsheet</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="immersive.css" />
+    <link rel="stylesheet" href="news.css" />
   </head>
   <body>
     <header class="masthead">
@@ -89,6 +90,7 @@
       <section class="toolbar" aria-label="Filter and organize stories">
         <div id="topic-chips" class="chips"></div>
         <div class="toolbar-controls">
+          <select id="news-media-filter" aria-label="Story media"><option value="all">All stories</option><option value="photos">With photos</option><option value="video">Video reports</option><option value="maps">With a locator</option><option value="depth">In-depth reading</option></select>
           <label class="search-box"
             ><span>⌕</span
             ><input
@@ -328,6 +330,9 @@
     <script src="spatial.js"></script>
     <script src="canvas.js"></script>
     <script src="model.js"></script>
+    <script src="news-model.js"></script>
+    <script src="news-layout.js"></script>
+    <script src="news-view.js"></script>
     <script type="module" src="app.js"></script>
     <script type="module" src="immersive.js"></script>
   </body>

@@ -21,7 +21,7 @@ for story in corpus['stories']:
    path=(dist/block['src']).resolve()
    if path.is_relative_to(dist.resolve()) and path.exists():
     block['src']='data:'+(mimetypes.guess_type(path.name)[0] or 'image/jpeg')+';base64,'+base64.b64encode(path.read_bytes()).decode()
-news={'corpus':corpus,'feed':json.loads((dist/'feed.json').read_text()),'sources':json.loads((dist/'sources.json').read_text())}
+news={'geography':json.loads((dist/'news-geography.json').read_text()),'corpus':corpus,'feed':json.loads((dist/'feed.json').read_text()),'sources':json.loads((dist/'sources.json').read_text())}
 discovery=json.loads((dist/'discovery.json').read_text())
 routes={'index.html':'Broadsheet-preview.html',**{f'{key}.html':f'Broadsheet-{key}-preview.html' for key in ['news','recipes','places','movies']}}
 for page,dest in routes.items():

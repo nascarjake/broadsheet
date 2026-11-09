@@ -214,3 +214,34 @@ infinite.destroy();
 console.log(
   "Endless renderer quadrants, bounded DOM, repeated edits, and inline reading scroll routes passed",
 );
+// Natural closed-card measurements may reflow neighbors but must not move the
+// camera toward an off-screen image that finishes loading during initial paint.
+const naturalAtlas = {
+  measure: () => true,
+  entry: () => ({ rect: { x: 100, y: 200, w: 300, h: 900 } }),
+};
+const naturalCanvas = new scope.BroadsheetCanvas({
+  viewport: element(),
+  world: element(),
+  container: element(),
+  getAtlas: () => naturalAtlas,
+  getItems: () => [],
+  getPositions: () => ({}),
+  createCard: () => element(),
+});
+const measuredNode = element();
+measuredNode.dataset = { instance: "0:0:0", autoHeight: "true" };
+measuredNode.isConnected = true;
+measuredNode.offsetHeight = 900;
+naturalCanvas.nodes.set("0:0:0", measuredNode);
+naturalCanvas.instancePositions["0:0:0"] = { x: 0, y: 0, w: 300, h: 600 };
+const naturalView = { ...naturalCanvas.view };
+naturalCanvas.measureExpanded(measuredNode);
+assert.deepEqual({ ...naturalCanvas.view }, naturalView);
+measuredNode.dataset.expanded = "true";
+naturalCanvas.measureExpanded(measuredNode);
+assert.ok(
+  naturalCanvas.view.y < naturalView.y,
+  "Expanded reading keeps its existing screen anchor",
+);
+naturalCanvas.destroy();

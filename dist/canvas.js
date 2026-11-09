@@ -99,7 +99,10 @@
       )
         return;
       if (this.atlas?.measure(key, node.offsetHeight)) {
-        this.reflow(key);
+        // Initial, natural card measurements must not drag the camera toward
+        // whichever off-screen neighbor happened to finish loading last.
+        if (node.dataset.expanded === "true") this.reflow(key);
+        else this.request();
         this.options.onLayout?.();
       }
     }
@@ -196,9 +199,9 @@
             if (node.dataset.autoHeight === "true")
               this.cardResize.observe(node);
           }
-          if (entry.expanded) {
+          if (entry.expanded || node.dataset.autoHeight !== undefined) {
             node.dataset.autoHeight = String(entry.autoHeight);
-            node.style.minHeight = entry.autoHeight
+            node.style.minHeight = entry.expanded && entry.autoHeight
               ? (this.atlas.overrides[key]?.closedH || this.atlas.height) +
                 80 +
                 "px"

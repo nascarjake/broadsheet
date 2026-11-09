@@ -1,5 +1,7 @@
 const $ = (s) => document.querySelector(s),
-  M = window.BroadsheetModel;
+  M = window.BroadsheetModel,
+  N = window.BroadsheetNews,
+  V = window.BroadsheetNewsView;
 const viewport = $("#viewport"),
   world = $("#world"),
   STORE = "broadsheet.workspace.v3";
@@ -30,6 +32,8 @@ const defaults = {
   mode: "canvas",
   layouts: {},
   atlasLayouts: {},
+  pressLayouts: {},
+  media: "all",
   channels: [
     {
       id: "space-science",
@@ -57,6 +61,8 @@ let state = structuredClone(defaults),
   catalog = [],
   stories = [],
   edition = {},
+  geography = { countries: [] },
+  layoutSaveTimer,
   filtered = [],
   nodes = new Map(),
   positions = {},
@@ -102,11 +108,7 @@ function safeURL(value) {
   }
 }
 function imageURL(value) {
-  if (/^images\/[a-zA-Z0-9_./-]+$/.test(value || "") && !value.includes(".."))
-    return value;
-  if (/^data:image\/(jpeg|png|webp);base64,[a-zA-Z0-9+/=]+$/.test(value || ""))
-    return value;
-  return "";
+  return N.publicURL(value);
 }
 function date(value, year = false) {
   const d = new Date(value);
@@ -200,6 +202,12 @@ function selection() {
 }
 function layoutKey() {
   return [
+    "press-v1",
+    innerWidth <= 600 ? 2 : 6,
+    state.size,
+    state.sort,
+    state.query,
+    state.media,
     state.activeChannel || "all",
     state.savedOnly ? "saved" : "",
     state.topics.join(","),
@@ -220,20 +228,44 @@ function setView({
   state.savedOnly = saved;
   state.activeChannel = active;
   state.query = "";
+  state.media = "all";
+  $("#news-media-filter").value = "all";
   $("#search").value = "";
   closeNav();
   update(true);
 }
 function rebuildAtlas() {
-  state.atlasLayouts[layoutKey()] ??= {};
-  atlas = new window.BroadsheetSpatial.InfiniteLayout(filtered, {
-    width: state.size === "compact" ? 320 : state.size === "large" ? 520 : 400,
-    height: state.size === "compact" ? 340 : state.size === "large" ? 600 : 420,
-    overrides: state.atlasLayouts[layoutKey()],
-  });
+  state.pressLayouts[layoutKey()] ??= {};
+  atlas = new window.BroadsheetNewspaper.NewspaperLayout(
+    N.editionOrder(filtered),
+    {
+      unit:
+        innerWidth <= 600
+          ? state.size === "compact"
+            ? 160
+            : state.size === "large"
+              ? 220
+              : 180
+          : state.size === "compact"
+            ? 200
+            : state.size === "large"
+              ? 290
+              : 240,
+      columns: innerWidth <= 600 ? 2 : 6,
+      geography,
+      overrides: state.pressLayouts[layoutKey()],
+    },
+  );
 }
 function update(reset = false) {
-  filtered = M.filter(stories, selection());
+  filtered = M.filter(stories, selection()).filter((s) => {
+    if (state.media === "all") return true;
+    if (state.media === "maps") return N.locations(s, geography).length > 0;
+    if (state.media === "depth") return s.wordCount > 600;
+    return N.media(s).some(
+      (m) => m.type === (state.media === "photos" ? "image" : "video"),
+    );
+  });
   rebuildAtlas();
   clearNodes();
   sidebar();
@@ -282,7 +314,8 @@ function heading() {
     state.filterSources.length ||
     state.query ||
     state.savedOnly ||
-    state.activeChannel
+    state.activeChannel ||
+    state.media !== "all"
   );
   $("#empty-state").hidden = filtered.length > 0;
   $("#empty-message").textContent =
@@ -376,13 +409,18 @@ function place(n, p) {
 }
 function makeCard(s, instance) {
   const pub = source(s.sourceId),
-    card = el("article", "story");
+    card = el("article", "story press-story");
+  const profile = instance?.profile || N.profile(s, { geography });
+  card.dataset.shape = profile.shape;
+  card.dataset.autoHeight = String(instance?.autoHeight !== false);
+  card.style.setProperty("--headline-size", profile.headlineSize + "px");
+  card.style.setProperty("--cover-height", profile.coverHeight + "px");
   card.dataset.id = s.id;
   card.setAttribute("aria-label", s.title);
   const top = el("div", "card-top");
   const move = el("button", "move-handle", "⠿");
   move.setAttribute("aria-label", "Move article: " + s.title);
-  move.title = "Drag to move · Arrow keys when focused";
+  move.title = "Drag to reflow this spread · Arrow keys when focused";
   move.onpointerdown = (e) => startGesture(e, "move", s.id);
   move.onkeydown = (e) => handleKeys(e, "move", s.id);
   top.append(avatar(pub), el("span", "card-source", pub.name));
@@ -406,29 +444,19 @@ function makeCard(s, instance) {
     card.dataset.expanded = "true";
     card.dataset.autoHeight = String(instance.autoHeight);
   }
-  const image = (s.blocks || []).find(
-    (b) => b.type === "image" && imageURL(b.src),
-  );
-  if (image && !unfolded) {
-    const f = figure(image, false),
-      img = f.querySelector("img");
-    img.tabIndex = 0;
-    img.setAttribute("role", "button");
-    img.setAttribute("aria-label", "Unfold " + s.title);
-    img.onclick = () => openReader(s, instance?.key);
-    img.onkeydown = (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openReader(s, instance?.key);
-      }
-    };
-    content.append(f);
+  if (!unfolded) {
+    const cover = V.cover(s, profile, () => openReader(s, instance?.key));
+    if (cover) content.prepend(cover);
   }
   const headline = el("button", "headline", s.title);
   headline.onclick = () => openReader(s, instance?.key);
   content.append(headline);
   if (unfolded) {
     const body = el("div", "inline-body");
+    body.append(V.videos(s));
+    if (!s.blocks?.length && !profile.clip)
+      for (const image of N.media(s).filter((m) => m.type === "image"))
+        body.append(figure(image));
     for (const b of s.blocks || []) {
       if (b.type === "image" && imageURL(b.src)) body.append(figure(b));
       else if (b.text)
@@ -459,6 +487,14 @@ function makeCard(s, instance) {
         s.rights || "Full reporting remains with the original publisher.",
       ),
     );
+    body.append(
+      V.context(s, {
+        publisher: pub,
+        stories,
+        open: openReader,
+        collectedAt: health(s.sourceId)?.retrievedAt || edition.retrievedAt,
+      }),
+    );
     content.append(body);
   } else
     content.append(
@@ -468,6 +504,20 @@ function makeCard(s, instance) {
         s.excerpt || "Open this story at its publisher to read more.",
       ),
     );
+  if (!unfolded) {
+    const context = el("div", "reading-context");
+    for (const label of [
+      profile.clip ? "▶ Video report" : "",
+      profile.places.length ? "◉ Regional context" : "",
+      s.wordCount ? Math.ceil(s.wordCount / 220) + " min read" : "",
+      N.related(s, stories, 1).length ? "Related headlines" : "",
+    ].filter(Boolean)) {
+      const b = el("button", "", label);
+      b.onclick = () => openReader(s, instance?.key);
+      context.append(b);
+    }
+    content.append(context);
+  }
   const kind = el("div", "card-kind", pub.kind + " · " + pub.region);
   const tagList = el("div", "card-tags");
   for (const t of tags.slice(0, 3)) tagList.append(el("span", "", t));
@@ -501,18 +551,7 @@ function makeCard(s, instance) {
   return card;
 }
 function figure(b, caption = true) {
-  const f = el("figure", "story-photo"),
-    img = el("img");
-  img.src = imageURL(b.src);
-  img.alt = b.alt || b.caption || "";
-  img.loading = "lazy";
-  img.decoding = "async";
-  f.append(img);
-  if (caption)
-    f.append(
-      el("figcaption", "", [b.caption, b.credit].filter(Boolean).join(" — ")),
-    );
-  return f;
+  return V.figure(b, caption);
 }
 const canvas = new window.BroadsheetCanvas({
   viewport,
@@ -528,7 +567,10 @@ const canvas = new window.BroadsheetCanvas({
   isActive: () => state.mode === "canvas",
   createCard: makeCard,
   onCommit: () => persist(),
-  onLayout: () => persist(),
+  onLayout: () => {
+    clearTimeout(layoutSaveTimer);
+    layoutSaveTimer = setTimeout(persist, 350);
+  },
   onView: (next) => {
     view = next;
     $("#zoom-label").value = Math.round(next.z * 100) + "%";
@@ -545,8 +587,8 @@ function home() {
   const available = $("#viewport").clientWidth || $(".workspace").clientWidth;
   const height = $("#viewport").clientHeight || $(".workspace").clientHeight;
   canvas.home({
-    width: state.size === "compact" ? 320 : state.size === "large" ? 520 : 400,
-    height: state.size === "compact" ? 340 : state.size === "large" ? 600 : 420,
+    width: atlas.spreadWidth,
+    height: innerWidth <= 600 ? 760 : 1050,
     availableWidth: available,
     availableHeight: height,
   });
@@ -558,6 +600,26 @@ function startGesture(e, type, id) {
   canvas.startGesture(e, type, id);
 }
 function handleKeys(e, type, id) {
+  if (
+    type === "move" &&
+    ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+    const key = canvas.cellKey(e, id),
+      entry = atlas.entry(key);
+    if (!entry) return;
+    const amount = e.shiftKey ? 2 : 1,
+      rect = { ...entry.rect };
+    rect.x +=
+      (e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0) *
+      (atlas.unit + atlas.gap) *
+      amount;
+    rect.y +=
+      (e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0) * 264 * amount;
+    canvas.commit(key, rect, "move");
+    return;
+  }
   canvas.handleKeys(e, type, id);
 }
 function toggleSaved(s) {
@@ -585,6 +647,8 @@ function toggleSaved(s) {
 function openReader(s, cellKey) {
   if (!filtered.some((item) => item.id === s.id)) {
     state.savedOnly = false;
+    state.media = "all";
+    $("#news-media-filter").value = "all";
     state.topics = [];
     state.filterSources = [];
     state.activeChannel = null;
@@ -612,7 +676,7 @@ function openReader(s, cellKey) {
             Math.min(760, (viewport.clientWidth - 40) / view.z),
           )
         : atlas.width * 2 + atlas.gap;
-    atlas.toggle(entry.key, width);
+    atlas.toggle(entry.key, Math.min(atlas.spreadWidth, width));
     canvas.reflow(entry.key);
     canvas.invalidateItem(s.id);
   }
@@ -627,7 +691,7 @@ function openReader(s, cellKey) {
       excerpt: s.excerpt,
       source: s.source,
       sourceId: s.sourceId,
-      image: s.blocks?.find((b) => b.type === "image")?.src || "",
+      image: N.media(s).find((b) => b.type === "image")?.src || "",
     });
   persist();
 }
@@ -669,6 +733,15 @@ function renderList() {
       const content = el("div"),
         title = el("button", "headline", s.title);
       title.onclick = () => openReader(s);
+      const photo = N.media(s).find((m) => m.type === "image");
+      if (photo) {
+        const img = el("img", "news-list-photo");
+        img.src = imageURL(photo.src);
+        img.alt = photo.alt || "";
+        img.loading = "lazy";
+        img.referrerPolicy = "no-referrer";
+        content.append(img);
+      }
       content.append(title, el("p", "excerpt", s.excerpt));
       const b = el(
         "button",
@@ -906,6 +979,7 @@ function normalize(corpus, feed) {
   for (const s of corpus.stories || []) {
     const previous = merged.get(s.url);
     merged.set(s.url, {
+      ...previous,
       ...s,
       sourceId: "nasa",
       topics: M.tags({ ...s, sourceId: "nasa" }),
@@ -1038,8 +1112,60 @@ function parseImport(text, feedURL, fileName) {
       .filter((n) => n.localName === "category")
       .map((n) => n.getAttribute("term") || n.textContent)
       .filter((t) => M.TOPICS.includes(t));
+    const mediaNS = "http://search.yahoo.com/mrss/",
+      media = [];
+    const fields = [...item.getElementsByTagName("*")];
+    if (
+      !fields.some(
+        (n) => n.namespaceURI === mediaNS && n.localName === "restriction",
+      )
+    ) {
+      for (const n of fields) {
+        const kind = n.getAttribute("type") || "",
+          mrss = n.namespaceURI === mediaNS;
+        if (!(
+          (mrss && ["content", "thumbnail"].includes(n.localName)) ||
+          n.localName === "enclosure" ||
+          (n.localName === "link" && n.getAttribute("rel") === "enclosure")
+        ))
+          continue;
+        const src = N.publicURL(
+          M.resolveURL(
+            n.getAttribute("url") || n.getAttribute("href"),
+            resolved,
+          ),
+        );
+        if (
+          !src ||
+          !(
+            kind.startsWith("image/") ||
+            (mrss &&
+              (n.localName === "thumbnail" ||
+                n.getAttribute("medium") === "image" ||
+                /\.(jpe?g|png|webp|avif)(?:$|\?)/i.test(src)))
+          )
+        )
+          continue;
+        const scope = n.parentElement,
+          field = (name) =>
+            [...scope.children, ...n.children].find(
+              (c) => c.namespaceURI === mediaNS && c.localName === name,
+            )?.textContent || "";
+        media.push({
+          type: "image",
+          src,
+          width: Math.max(0, Math.min(20000, +n.getAttribute("width") || 0)),
+          height: Math.max(0, Math.min(20000, +n.getAttribute("height") || 0)),
+          caption: plain(field("description")),
+          credit: plain(field("credit")) || "Image supplied by " + name,
+          sourceUrl: resolved,
+        });
+      }
+      media.sort((a, b) => b.width - a.width);
+    }
     result.push({
       id: "import-" + hash(resolved),
+      media: [...new Map(media.map((m) => [m.src, m])).values()].slice(0, 3),
       title,
       url: resolved,
       sourceId: id,
@@ -1184,15 +1310,21 @@ $("#sort").onchange = (e) => {
 $("#card-size").value = state.size;
 $("#card-size").onchange = (e) => {
   state.size = e.target.value;
-  state.atlasLayouts[layoutKey()] = {};
+  state.pressLayouts[layoutKey()] = {};
   update(true);
   toast("Applied " + state.size + " cards to this view.");
 };
 $("#arrange").onclick = () => {
-  state.atlasLayouts[layoutKey()] = {};
+  state.pressLayouts[layoutKey()] = {};
   update(true);
-  toast("Cards arranged in a tidy grid for this view.");
+  toast("Stories arranged into newspaper spreads for this view.");
 };
+$("#news-media-filter").value = state.media;
+$("#news-media-filter").onchange = (e) => {
+  state.media = e.target.value;
+  update(true);
+};
+matchMedia("(max-width:600px)").addEventListener("change", () => update(true));
 $("#search").value = state.query;
 $("#search").oninput = (e) => {
   state.query = e.target.value;
@@ -1226,12 +1358,21 @@ async function init() {
     const data =
       window.BROADSHEET_DATA ||
       (await Promise.all(
-        ["corpus.json", "feed.json", "sources.json"].map(async (path) => {
-          const r = await fetch(path);
-          if (!r.ok) throw Error("Could not load " + path);
-          return r.json();
-        }),
-      ).then(([corpus, feed, sources]) => ({ corpus, feed, sources })));
+        ["corpus.json", "feed.json", "sources.json", "news-geography.json"].map(
+          async (path) => {
+            const r = await fetch(path);
+            if (!r.ok) throw Error("Could not load " + path);
+            return r.json();
+          },
+        ),
+      ).then(([corpus, feed, sources, geography]) => ({
+        corpus,
+        feed,
+        sources,
+        geography,
+      })));
+    geography = data.geography || { countries: [] };
+    V.configure(geography);
     window._corpus = data.corpus || data;
     edition = data.feed || { stories: [] };
     catalog = [...(data.sources || []), ...state.customSources];
