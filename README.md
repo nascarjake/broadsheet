@@ -76,7 +76,7 @@ Provider terms and image rights apply. TheMealDB development access, Ghibli meta
 - `dist/index.html`, `dist/hub.js`: hub and cross-space saved collection.
 - `dist/news.html`, `dist/app.js`, `dist/model.js`: retained News domain and its reader-specific behavior.
 - `providers.py`: server adapters and development-time starter collection capture.
-- `api/worker.mjs`, `api/wrangler.jsonc`: optional read-only TMDB gateway, with server-side token, fixed upstream, per-IP rate limit, CORS allowlist, and public-metadata cache. Deploy only with the verified personal profile. It uses the account’s existing Workers plan; no subscription change is performed by this repository.
+- `api/worker.mjs`, `api/wrangler.jsonc`: read-only TMDB gateway, with server-side token, fixed upstream, per-IP rate limit, CORS allowlist, and public-metadata cache. The hosted site connects through `BROADSHEET_API_BASE`. Deploy only with the verified personal profile. The current deployment uses Workers Free and its built-in CPU limit; a custom `limits.cpu_ms` setting requires a paid plan and is deliberately omitted. No subscription change is performed by this repository. Free request allowances are shared with the account's other Workers; requests stop when that allowance is exhausted.
 - `streetview.py`: metadata-first, uncached Google Street View image delivery.
 - `dist/discovery.json`: attributed starter data; recipe/film images remain provider-hosted.
 
