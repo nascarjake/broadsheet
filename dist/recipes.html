@@ -71,11 +71,12 @@
           >
           <div id="movie-catalog" hidden>
             <button id="collection-mode" class="pill active">
-              Ghibli collection</button
+              Starter collection</button
+            ><button id="live-catalog" class="pill">Live film discovery</button
             ><button id="now-playing" class="pill">Now playing ↗</button>
           </div>
           <button id="search-provider" class="primary-button" hidden>
-            Find more recipes ↗
+            Explore live recipes ↗
           </button>
         </div>
       </section>
@@ -117,6 +118,9 @@
         <span id="result-status" role="status">Opening this space…</span
         ><button id="clear-space" class="link-button" hidden>
           Clear filters</button
+        ><button id="load-more" class="link-button" hidden>Load more</button
+        ><button id="refresh-catalog" class="link-button" hidden>
+          ↻ Refresh</button
         ><span id="collection-note"></span>
       </div>
       <main
@@ -190,6 +194,8 @@
     </dialog>
     <div id="space-toast" role="status" hidden></div>
     <script src="spaces.js"></script>
+    <script src="config.js"></script>
+    <script src="live.js"></script>
     <script src="spatial.js"></script>
     <script src="canvas.js"></script>
     <script src="vendor/leaflet.js"></script>

@@ -4,3 +4,7 @@ __pycache__/
 .transfer/
 Broadsheet*preview.html
 node_modules/
+.dev.vars*
+.env*
+.wrangler/
+api/worker-configuration.d.ts

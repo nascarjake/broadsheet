@@ -1,5 +1,6 @@
 const $ = (s) => document.querySelector(s),
   S = window.BroadsheetSpaces,
+  Live = window.BroadsheetLive,
   id = document.body.dataset.space,
   space = S.registry[id];
 const initial = {
@@ -12,6 +13,8 @@ const initial = {
   saved: [],
   layouts: {},
   atlasLayouts: {},
+  atlasPins: {},
+  liveCatalog: true,
   cameras: {},
   data: null,
 };
@@ -22,6 +25,7 @@ const stored = S.load(id),
     saved: Array.isArray(stored.saved) ? stored.saved : [],
     layouts: stored.layouts || {},
     atlasLayouts: stored.atlasLayouts || {},
+    atlasPins: stored.atlasPins || {},
     cameras: stored.cameras || {},
   };
 let bundle = {},
@@ -39,6 +43,10 @@ let bundle = {},
   saveTimer,
   currentDetail = null,
   pending = false;
+let searchTimer,
+  searchRevision = 0,
+  catalogController;
+const detailRequests = new Map();
 const key = () =>
   [
     state.savedOnly ? "saved" : "all",
@@ -121,6 +129,7 @@ function changeFilter(filter) {
   state.filter = filter;
   state.savedOnly = false;
   update(true);
+  if (id !== "places" && state.liveCatalog) queueCatalogSearch(0);
 }
 function filterOptions() {
   return [
@@ -158,18 +167,33 @@ function controls() {
   $("#item-count").textContent = items.length;
   $("#clear-space").hidden =
     state.filter === "All" && !state.query && !state.savedOnly;
-  $("#collection-mode").classList.toggle(
+  $("#collection-mode").classList.toggle("active", !state.liveCatalog);
+  $("#live-catalog").classList.toggle(
     "active",
-    state.data?.provider !== "TMDB",
+    state.liveCatalog && state.data?.catalog !== "now-playing",
   );
-  $("#now-playing").classList.toggle("active", state.data?.provider === "TMDB");
+  $("#now-playing").classList.toggle(
+    "active",
+    state.data?.catalog === "now-playing",
+  );
+  $("#load-more").hidden = state.savedOnly || !state.data?.next;
+  $("#refresh-catalog").hidden =
+    id === "places" || !state.liveCatalog || state.savedOnly;
 }
 function update(reset = false) {
   const data = mergeItems();
-  visible = S.filter(items, state);
+  const remoteMatched =
+    state.data?.live &&
+    state.data.query === state.query.trim() &&
+    state.data.filter === state.filter;
+  visible = S.filter(
+    items,
+    remoteMatched ? { ...state, query: "", filter: "All" } : state,
+  );
   const scale =
     state.size === "compact" ? 0.8 : state.size === "large" ? 1.22 : 1;
   state.atlasLayouts[key()] ??= {};
+  state.atlasPins[key()] ??= {};
   atlas = new window.BroadsheetSpatial.InfiniteLayout(visible, {
     width: Math.round(space.card.w * scale),
     height: Math.round(space.card.h * scale),
@@ -178,11 +202,11 @@ function update(reset = false) {
         ? [0, 52, -30, 25].map((n) => Math.round(n * scale))
         : [0],
     overrides: state.atlasLayouts[key()],
+    pins: state.atlasPins[key()],
   });
   canvas?.clear();
   controls();
-  $("#result-status").textContent =
-    `${visible.length} ${visible.length === 1 ? space.noun.slice(0, -1) : space.noun}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}`;
+  renderResultStatus();
   $("#collection-note").textContent = state.savedOnly
     ? "Saved items from your collection"
     : id === "places"
@@ -203,7 +227,7 @@ function update(reset = false) {
   $("#no-results-text").textContent = state.savedOnly
     ? "Save a few favorites with the heart to find them here."
     : id === "recipes"
-      ? "Try another ingredient, or use “Find more recipes” to search the provider."
+      ? "Try another ingredient, dish name, or category. Live search checks the recipe catalog."
       : "Try another search or category.";
   if (reset) {
     const camera = state.cameras[key()];
@@ -218,6 +242,11 @@ function update(reset = false) {
   } else canvas?.request();
   renderMode();
   persist();
+}
+function renderResultStatus() {
+  const data = state.data;
+  $("#result-status").textContent =
+    `${visible.length} ${space.noun}${data?.live && !state.savedOnly ? " loaded" : ""}${data?.total && !state.savedOnly ? " of " + data.total : ""}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}`;
 }
 function home() {
   const factor =
@@ -267,21 +296,32 @@ function gallery(item) {
   };
 }
 function businessPhoto(item, cls = "") {
+  const browserKey = window.BROADSHEET_CONFIG?.googleMapsBrowserKey;
+  const connected = capabilities.streetView || !!browserKey;
   const cover = el("div", "venue-static " + cls),
     placeholder = el(
       "span",
       "streetview-placeholder",
-      capabilities.streetView
-        ? "Street View unavailable"
-        : "Street View not connected",
+      connected ? "Street View unavailable" : "Street View not connected",
     );
   cover.append(placeholder);
   if (
-    capabilities.streetView &&
+    connected &&
     Number.isFinite(item.lat) &&
     Number.isFinite(item.lon) &&
     !window.BROADSHEET_OFFLINE
   ) {
+    if (browserKey) {
+      const frame = el("iframe", "streetview-embed");
+      frame.title = "Google Street View near " + item.title;
+      frame.loading = "lazy";
+      frame.tabIndex = -1;
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.src = Live.streetViewURL(browserKey, item);
+      frame.onload = () => (placeholder.hidden = true);
+      cover.append(frame);
+      return cover;
+    }
     const img = el("img", "streetview-photo");
     img.alt = "Google Street View near " + item.title;
     img.loading = "lazy";
@@ -366,7 +406,9 @@ function makeCard(item, instance) {
   heading.append(title);
   const sub =
     id === "recipes"
-      ? `${item.ingredients?.length || 0} ingredients · ${item.cuisine || ""}`
+      ? item.needsDetails
+        ? "Recipe · details load when opened"
+        : `${item.ingredients?.length || 0} ingredients · ${item.cuisine || ""}`
       : id === "movies"
         ? [
             item.year,
@@ -449,7 +491,13 @@ function fillDetails(item, root) {
   );
   const meta =
     id === "recipes"
-      ? [item.cuisine, item.category, item.ingredients?.length + " ingredients"]
+      ? [
+          item.cuisine,
+          item.category,
+          item.needsDetails
+            ? "Loading recipe details…"
+            : item.ingredients?.length + " ingredients",
+        ]
       : id === "movies"
         ? [
             item.originalTitle,
@@ -499,6 +547,17 @@ function fillDetails(item, root) {
   }
   content.append(actions);
   if (id === "recipes") {
+    if (item.needsDetails) {
+      const retry = el(
+        "button",
+        "link-button",
+        detailRequests.has(item.id)
+          ? "Loading ingredients and method…"
+          : "Load ingredients and method ↻",
+      );
+      retry.onclick = () => hydrateRecipe(item);
+      content.append(retry);
+    }
     const cols = el("div", "detail-columns"),
       ingredients = el("div"),
       method = el("div"),
@@ -521,6 +580,7 @@ function fillDetails(item, root) {
       steps.append(el("li", "", step));
     method.append(steps);
     cols.append(ingredients, method);
+    cols.hidden = !!item.needsDetails;
     content.append(cols);
     if (item.video)
       content.append(link("Watch the recipe video ↗", item.video));
@@ -532,7 +592,9 @@ function fillDetails(item, root) {
         "small",
         item.catalog === "Now playing"
           ? "Cinema availability is regional and can change. This is a provider listing, not a showtime or ticket offer."
-          : "This is a curated film collection, not a list of films currently in theaters.",
+          : item.source === "Wikipedia"
+            ? "Live film discovery from Wikipedia; this is not a cinema availability listing."
+            : "This is a curated film collection, not a list of films currently in theaters.",
       ),
     );
   else {
@@ -578,6 +640,20 @@ function fillDetails(item, root) {
     link("Source & attribution ↗", item.sourceUrl, "link-button"),
   );
   content.append(sourceNote);
+  if (item.textLicense) {
+    const credit = el("p", "source-note", item.textLicense + " · ");
+    credit.append(
+      link(
+        "Text license ↗",
+        "https://creativecommons.org/licenses/by-sa/4.0/",
+      ),
+    );
+    content.append(credit);
+  }
+  if (item.imageSourceUrl)
+    content.append(
+      link("Artwork source and credits ↗", item.imageSourceUrl, "link-button"),
+    );
   root.append(content);
 }
 function expandedCard(item, instance) {
@@ -638,7 +714,10 @@ function openDetails(item, cellKey) {
     canvas.invalidateItem(item.id);
   }
   if (!explicit) canvas.focus(entry.key);
-  if (atlas.entry(entry.key)?.expanded) S.record(item);
+  if (atlas.entry(entry.key)?.expanded) {
+    S.record(item);
+    if (item.needsDetails) hydrateRecipe(item);
+  }
   persist();
 }
 function renderList() {
@@ -748,9 +827,12 @@ function renderMode() {
   else canvas.request();
 }
 async function request(path, options = {}) {
-  const r = await fetch(path, {
+  const target = window.BROADSHEET_CONFIG?.apiBase
+    ? new URL(path, window.BROADSHEET_CONFIG.apiBase).href
+    : path;
+  const r = await fetch(target, {
     ...options,
-    signal: AbortSignal.timeout(40000),
+    signal: options.signal || AbortSignal.timeout(40000),
   });
   let body;
   try {
@@ -778,29 +860,168 @@ async function busy(button, fn) {
   } finally {
     pending = false;
     button.disabled = false;
-    $("#result-status").textContent =
-      `${visible.length} ${visible.length === 1 ? space.noun.slice(0, -1) : space.noun}${state.filter !== "All" ? " · " + state.filter : ""}`;
+    renderResultStatus();
   }
 }
 async function searchRecipes() {
-  await busy($("#search-provider"), async () => {
-    const q = state.query.trim();
-    if (!q) {
-      toast(
-        "Enter a dish name, then choose Find more recipes. You can search ingredients within the saved collection.",
+  state.liveCatalog = true;
+  await loadCatalog();
+}
+function pinLoadedCards() {
+  const pins = state.atlasPins[key()] || (state.atlasPins[key()] = {});
+  for (const cell of new Set([
+    ...Object.keys(canvas.instancePositions),
+    ...Object.keys(state.atlasLayouts[key()] || {}),
+  ])) {
+    const entry = atlas.entry(cell);
+    if (entry) pins[cell] = entry.item.id;
+  }
+}
+function queueCatalogSearch(delay = 650) {
+  clearTimeout(searchTimer);
+  searchRevision++;
+  catalogController?.abort();
+  if (
+    id === "places" ||
+    !state.liveCatalog ||
+    state.savedOnly ||
+    window.BROADSHEET_OFFLINE
+  )
+    return;
+  searchTimer = setTimeout(() => loadCatalog(), delay);
+}
+async function loadCatalog({
+  append = false,
+  catalog = "all",
+  refresh = false,
+} = {}) {
+  if (window.BROADSHEET_OFFLINE) {
+    toast("Open the hosted site or local server to search live catalogs.");
+    return;
+  }
+  if (append && !state.data?.next) return;
+  if (
+    append &&
+    (state.data.query !== state.query.trim() ||
+      state.data.filter !== state.filter)
+  )
+    append = false;
+  clearTimeout(searchTimer);
+  catalogController?.abort();
+  const revision = ++searchRevision;
+  const controller = (catalogController = new AbortController());
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  const query = state.query.trim(),
+    filter = state.filter;
+  const previous = state.data;
+  const cursor = append ? previous.next : null;
+  if (append) catalog = previous.catalog || "all";
+  if (refresh) Live.clearCache();
+  $("#load-more").disabled = true;
+  $("#refresh-catalog").disabled = true;
+  $("#result-status").textContent = append
+    ? "Loading more…"
+    : "Searching live catalog…";
+  try {
+    let data;
+    if (id === "recipes")
+      data = await Live.recipes({
+        query,
+        category: filter,
+        cursor,
+        signal: controller.signal,
+      });
+    else if (capabilities.movies) {
+      const mode =
+        catalog === "now-playing"
+          ? "now-playing"
+          : query
+            ? "search"
+            : "popular";
+      data = await request(
+        "api/movies?" +
+          new URLSearchParams({
+            q: query,
+            genre: filter,
+            mode,
+            region: "US",
+            page: cursor?.page || 1,
+          }),
+        { signal: controller.signal },
       );
-      return;
+    } else {
+      if (catalog === "now-playing")
+        throw Error(
+          "Current cinema listings require a connected TMDB account. Live film discovery is available now.",
+        );
+      data = await Live.movies({
+        query,
+        genre: filter,
+        cursor,
+        signal: controller.signal,
+      });
     }
-    const data = await request("api/recipes?q=" + encodeURIComponent(q));
+    if (revision !== searchRevision) return;
+    const refreshSameView =
+      refresh &&
+      previous?.live &&
+      previous.query === query &&
+      previous.filter === filter &&
+      previous.provider === data.provider;
+    if (append || refreshSameView) {
+      pinLoadedCards();
+      data.items = [
+        ...new Map(
+          [...previous.items, ...data.items].map((item) => [item.id, item]),
+        ).values(),
+      ];
+      if (refreshSameView && previous.next) data.next = previous.next;
+    }
     state.data = data;
-    state.filter = "All";
-    update(true);
+    state.liveCatalog = true;
+    update(!(append || refreshSameView));
+    if (!data.items.length)
+      toast(
+        "No matches from this catalog. Try another title, ingredient, or category.",
+      );
+  } catch (error) {
+    if (revision !== searchRevision) return;
     toast(
-      data.items.length
-        ? "Loaded " + data.items.length + " recipes from TheMealDB."
-        : "No recipes found for that dish name. Try another search.",
+      error.name === "AbortError"
+        ? "The catalog took too long. Try again; your loaded collection is still here."
+        : error.message,
     );
-  });
+  } finally {
+    clearTimeout(timeout);
+    if (revision === searchRevision) {
+      $("#load-more").disabled = false;
+      $("#refresh-catalog").disabled = false;
+      renderResultStatus();
+    }
+  }
+}
+async function hydrateRecipe(item) {
+  if (detailRequests.has(item.id)) return detailRequests.get(item.id);
+  const task = (async () => {
+    try {
+      const full = await Live.recipeDetails(item);
+      Object.assign(item, full);
+      for (const collection of [state.data?.items, base.items, state.saved]) {
+        for (const record of collection || [])
+          if (record.id === full.id) Object.assign(record, full);
+      }
+      S.record(item);
+      canvas.invalidateItem(item.id);
+      persist();
+    } catch (error) {
+      toast(error.message);
+    } finally {
+      detailRequests.delete(item.id);
+      canvas.invalidateItem(item.id);
+    }
+  })();
+  detailRequests.set(item.id, task);
+  return task;
 }
 async function searchPlaces(query) {
   await busy($("#city-form button"), async () => {
@@ -868,21 +1089,11 @@ async function useLocation() {
   );
 }
 async function loadNowPlaying() {
-  await busy($("#now-playing"), async () => {
-    if (!capabilities.nowPlaying)
-      throw Error(
-        "Live cinema listings are not connected yet. You can explore and save films from the Ghibli collection.",
-      );
-    const data = await request("api/movies?region=US");
-    state.data = data;
-    state.query = "";
-    state.filter = "All";
-    $("#space-search").value = "";
-    update(true);
-    toast(
-      "Now playing listings loaded for the United States. These are regional listings, not local showtimes.",
-    );
-  });
+  state.liveCatalog = true;
+  state.query = "";
+  state.filter = "All";
+  $("#space-search").value = "";
+  await loadCatalog({ catalog: "now-playing" });
 }
 function showSources() {
   const root = $("#source-detail");
@@ -904,7 +1115,7 @@ function showSources() {
       el(
         "p",
         "",
-        "Recipes, ingredient lists, methods, and food photographs come from TheMealDB. The developer API is used in this local prototype. No preparation times, nutrition, or allergy guarantees have been inferred.",
+        "Live recipe search, categories, ingredients, methods, and photographs come from TheMealDB. More results load on demand; the provider catalog is finite. Personal/development access uses its public test key. Public production use should have a supporter key. No preparation times, nutrition, or allergy guarantees have been inferred.",
       ),
       link("TheMealDB ↗", "https://www.themealdb.com/api.php"),
     );
@@ -918,10 +1129,11 @@ function showSources() {
       el(
         "p",
         "",
-        "Now playing uses TMDB when a provider connection is configured on the local server. Regional cinema listings do not include local showtimes.",
+        "Live film discovery searches Wikipedia and loads further result pages on demand. Text is credited to Wikipedia contributors under CC BY-SA 4.0. Images retain their original rights; each film links its artwork source. TMDB provides broader film search and now-playing listings when connected to a server. Regional cinema listings do not include local showtimes.",
       ),
       link("Studio Ghibli API ↗", "https://ghibliapi.vercel.app/"),
       link("TMDB ↗", "https://www.themoviedb.org/"),
+      link("Wikipedia ↗", "https://en.wikipedia.org/wiki/Portal:Film"),
     );
   else
     root.append(
@@ -938,7 +1150,7 @@ function showSources() {
       el(
         "p",
         "",
-        "Business covers use Google Street View when connected and available. Google attribution is kept uncropped. Hover food previews are illustrative TheMealDB photographs, not venue photos. Street View may show the street near a business rather than its exact entrance.",
+        "Business covers use Google's free Maps Embed API in Street View mode when connected and available. The full Google frame and attribution stay visible. The panorama shows the street near a business and may face away from its entrance. Hover food previews are illustrative TheMealDB photographs, not venue photos. Open Street View to explore the panorama interactively.",
       ),
       link(
         "OpenStreetMap attribution ↗",
@@ -1020,11 +1232,14 @@ $("#space-tidy").onclick = () => {
 };
 $("#space-search").oninput = (e) => {
   state.query = e.target.value;
-  if (id === "recipes" && !state.query) state.data = null;
   update(true);
+  queueCatalogSearch();
 };
 $("#space-search").onkeydown = (e) => {
-  if (e.key === "Enter" && id === "recipes") searchRecipes();
+  if (e.key === "Enter" && id !== "places") {
+    state.liveCatalog = true;
+    loadCatalog();
+  }
 };
 $("#space-sort").onchange = (e) => {
   state.sort = e.target.value;
@@ -1052,8 +1267,12 @@ $("#browse-all").onclick =
       $("#space-search").value = "";
       if (id === "recipes") state.data = null;
       update(true);
+      queueCatalogSearch(0);
     };
 $("#browse-saved").onclick = () => {
+  clearTimeout(searchTimer);
+  searchRevision++;
+  catalogController?.abort();
   state.savedOnly = true;
   state.query = "";
   state.filter = "All";
@@ -1069,7 +1288,18 @@ $("#city-form").onsubmit = (e) => {
 };
 $("#use-location").onclick = useLocation;
 $("#now-playing").onclick = loadNowPlaying;
+$("#live-catalog").onclick = () => {
+  state.liveCatalog = true;
+  loadCatalog();
+};
+$("#load-more").onclick = () => loadCatalog({ append: true });
+$("#refresh-catalog").onclick = () =>
+  loadCatalog({ refresh: true, catalog: state.data?.catalog || "all" });
 $("#collection-mode").onclick = () => {
+  clearTimeout(searchTimer);
+  searchRevision++;
+  catalogController?.abort();
+  state.liveCatalog = false;
   state.data = null;
   state.query = "";
   state.filter = "All";
@@ -1096,6 +1326,22 @@ for (const d of document.querySelectorAll("dialog")) {
   });
 }
 window.addEventListener("pagehide", persist);
+function refreshVisibleCatalog() {
+  if (
+    id === "places" ||
+    !state.liveCatalog ||
+    state.savedOnly ||
+    window.BROADSHEET_OFFLINE ||
+    document.visibilityState !== "visible" ||
+    document.activeElement === $("#space-search")
+  )
+    return;
+  const age = Date.now() - Date.parse(state.data?.collectedAt || 0);
+  if (age > 900000)
+    loadCatalog({ refresh: true, catalog: state.data?.catalog || "all" });
+}
+document.addEventListener("visibilitychange", refreshVisibleCatalog);
+setInterval(refreshVisibleCatalog, 900000);
 window.addEventListener("keydown", (e) => {
   if (
     e.target.closest("input,select,button,a,textarea") ||
@@ -1138,18 +1384,20 @@ async function init() {
     }
     try {
       if (window.BROADSHEET_OFFLINE) throw Error("Offline snapshot");
-      const r = await fetch("api/capabilities");
       if (
-        r.ok &&
-        (r.headers.get("content-type") || "").includes("application/json")
+        location.hostname.endsWith("github.io") &&
+        !window.BROADSHEET_CONFIG?.apiBase
       )
-        capabilities = await r.json();
+        throw Error("Static host");
+      capabilities = await request("api/capabilities");
       if (id === "places") {
         canvas.clear();
         canvas.request();
         if (state.mode === "list") renderList();
       }
     } catch {}
+    if (id !== "places" && state.liveCatalog && !state.savedOnly && !focus)
+      queueCatalogSearch(0);
     if (id === "places") {
       $("#city-input").value =
         state.locationChosen && state.data?.city !== "Near you"

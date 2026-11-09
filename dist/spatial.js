@@ -21,9 +21,21 @@
         variation = [0],
         gap = 22,
         overrides = {},
+        pins = {},
       } = {},
     ) {
-      Object.assign(this, { items, width, height, variation, gap, overrides });
+      Object.assign(this, {
+        items,
+        width,
+        height,
+        variation,
+        gap,
+        overrides,
+        pins,
+      });
+      this.itemById = new Map(items.map((item) => [item.id, item]));
+      for (const [key, itemId] of Object.entries(pins))
+        if (!parse(key) || !this.itemById.has(itemId)) delete pins[key];
       this.stride = 7;
       while (this.gcd(this.stride, Math.max(1, items.length)) !== 1)
         this.stride += 2;
@@ -43,7 +55,8 @@
           items.length &&
           v.itemId &&
           v.itemId !==
-            items[mod(cell.c + cell.r * this.stride, items.length)].id
+            (pins[key] ||
+              items[mod(cell.c + cell.r * this.stride, items.length)].id)
         )
           delete overrides[key];
       }
@@ -208,7 +221,9 @@
         key,
         c,
         r,
-        item: this.items[mod(c + r * this.stride, this.items.length)],
+        item:
+          this.itemById.get(this.pins[key]) ||
+          this.items[mod(c + r * this.stride, this.items.length)],
         expanded: !!o.expanded,
         autoHeight: o.autoHeight !== false,
         rect: this.cells.get(key) || {
@@ -329,8 +344,18 @@
           e = this.entry(c + ":" + r),
           p = e.rect,
           d = (p.x - point.x) ** 2 + (p.y - point.y) ** 2;
-        if (d < distance) {
+        if (e.item.id === itemId && d < distance) {
           best = e;
+          distance = d;
+        }
+      }
+      for (const [key, pinned] of Object.entries(this.pins)) {
+        if (pinned !== itemId) continue;
+        const entry = this.entry(key),
+          p = entry.rect;
+        const d = (p.x - point.x) ** 2 + (p.y - point.y) ** 2;
+        if (d < distance) {
+          best = entry;
           distance = d;
         }
       }

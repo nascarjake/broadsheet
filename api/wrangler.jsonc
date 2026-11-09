@@ -1,0 +1,21 @@
+{
+  "name": "broadsheet-catalog",
+  "main": "worker.mjs",
+  "account_id": "01f53095bb8f6eec6d75040c4232602a",
+  "compatibility_date": "2026-11-08",
+  "workers_dev": true,
+  "secrets": { "required": ["TMDB_READ_TOKEN"] },
+  "limits": { "cpu_ms": 10 },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.01,
+    "logs": { "enabled": true, "invocation_logs": false },
+  },
+  "ratelimits": [
+    {
+      "name": "SEARCH_LIMIT",
+      "namespace_id": "1001",
+      "simple": { "limit": 30, "period": 60 },
+    },
+  ],
+}

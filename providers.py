@@ -46,7 +46,7 @@ def recipes(query=''):
     q=plain(query)[:80]
     def load():
         data=get_json('https://www.themealdb.com/api/json/v1/'+urllib.parse.quote(os.environ.get('MEALDB_KEY','1'),safe='')+'/search.php?'+urllib.parse.urlencode({'s':q}))
-        return {'items':[recipe_item(m) for m in (data.get('meals') or [])[:40]],'provider':'TheMealDB','collectedAt':datetime.now(timezone.utc).isoformat(),'query':q,'note':'Recipe collection · TheMealDB. Development API.'}
+        return {'items':[recipe_item(m) for m in (data.get('meals') or [])],'provider':'TheMealDB','collectedAt':datetime.now(timezone.utc).isoformat(),'query':q,'note':'Recipe collection · TheMealDB. Development API.'}
     return cached(('recipes',q),load)
 
 FILM_TAGS={'Castle in the Sky':['Fantasy','Adventure'],'Grave of the Fireflies':['Drama','War'],'My Neighbor Totoro':['Fantasy','Family'],'Kiki\'s Delivery Service':['Fantasy','Family'],'Only Yesterday':['Drama'],'Porco Rosso':['Adventure'],'Pom Poko':['Fantasy'],'Whisper of the Heart':['Romance','Drama'],'Princess Mononoke':['Fantasy','Adventure'],'My Neighbors the Yamadas':['Comedy','Family'],'Spirited Away':['Fantasy','Adventure'],'The Cat Returns':['Fantasy','Family'],'Howl\'s Moving Castle':['Fantasy','Romance'],'Tales from Earthsea':['Fantasy'],'Ponyo':['Fantasy','Family'],'Arrietty':['Fantasy','Family'],'From Up on Poppy Hill':['Romance','Drama'],'The Wind Rises':['Drama'],'The Tale of the Princess Kaguya':['Fantasy','Drama'],'When Marnie Was There':['Drama','Mystery'],'The Red Turtle':['Fantasy','Drama'],'Earwig and the Witch':['Fantasy','Family']}
@@ -67,27 +67,41 @@ def film_collection():
     return cached(('movies','collection'),load,86400)
 
 GENRES={28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Science fiction',10770:'TV movie',53:'Thriller',10752:'War',37:'Western'}
-def now_playing(query='',region='US'):
+def now_playing(query='',region='US',page=1):
+    return movie_catalog(query,region,page,'now-playing')
+
+def movie_catalog(query='',region='US',page=1,mode='popular',genre='All'):
     token=os.environ.get('TMDB_READ_TOKEN')
     if not token:raise ValueError('Live cinema listings are not connected. The film collection is still available.')
     region=region.upper()
     if not re.fullmatch('[A-Z]{2}',region):raise ValueError('Choose a two-letter country code.')
     q=plain(query)[:80]
+    page=int(page)
+    if not 1<=page<=500:raise ValueError('Choose a movie page between 1 and 500.')
+    if mode not in ['popular','search','now-playing']:raise ValueError('Unknown movie catalog.')
     def load():
-        params={'region':region,'language':'en-US','page':1}
-        # Search only within the now-playing list, so a search never masquerades as current releases.
-        data=get_json('https://api.themoviedb.org/3/movie/now_playing?'+urllib.parse.urlencode(params),headers={'Authorization':'Bearer '+token})
+        params={'region':region,'language':'en-US','page':page}
+        endpoint={'popular':'movie/popular','search':'search/movie','now-playing':'movie/now_playing'}[mode]
+        if mode=='search':params.update(query=q,include_adult='false')
+        genre_id=next((g for g,name in GENRES.items() if name.casefold()==genre.casefold()),None)
+        if mode=='popular' and genre_id:
+            endpoint='discover/movie';params.update(with_genres=genre_id,include_adult='false',sort_by='popularity.desc')
+        data=get_json('https://api.themoviedb.org/3/'+endpoint+'?'+urllib.parse.urlencode(params),headers={'Authorization':'Bearer '+token})
         result=[]
         for f in data.get('results',[]):
-            if q and q.casefold() not in (f.get('title','')+' '+f.get('overview','')).casefold():continue
+            if mode=='now-playing' and q and q.casefold() not in (f.get('title','')+' '+f.get('overview','')).casefold():continue
+            if genre_id and genre_id not in f.get('genre_ids',[]):continue
             path=f.get('poster_path');image='https://image.tmdb.org/t/p/w500'+path if path else ''
             tags=[GENRES[g] for g in f.get('genre_ids',[]) if g in GENRES]
             result.append({'id':'tmdb-'+str(f['id']),'kind':'movies','title':plain(f['title']),'image':image,'images':[image],
                 'description':plain(f.get('overview')),'year':f.get('release_date','')[:4],'releaseDate':f.get('release_date'),
                 'tags':tags,'category':tags[0] if tags else 'Film','source':'TMDB','sourceUrl':'https://www.themoviedb.org/',
-                'url':'https://www.themoviedb.org/movie/'+str(f['id']),'imageCredit':'TMDB / original film rights holders','catalog':'Now playing'})
-        return {'items':result,'provider':'TMDB','region':region,'collectedAt':datetime.now(timezone.utc).isoformat(),'note':'Now playing · '+region+' · first provider page; not local showtimes'}
-    return cached(('now_playing',q,region),load,1800)
+                'url':'https://www.themoviedb.org/movie/'+str(f['id']),'imageCredit':'TMDB / original film rights holders','catalog':'Now playing' if mode=='now-playing' else 'TMDB film catalog'})
+        pages=min(int(data.get('total_pages',page)),500)
+        return {'items':result,'provider':'TMDB','region':region,'query':q,'filter':genre,'live':True,'catalog':mode,
+            'page':page,'next':{'page':page+1} if page<pages else None,
+            'collectedAt':datetime.now(timezone.utc).isoformat(),'note':('Now playing' if mode=='now-playing' else 'Live movie catalog')+' · TMDB · '+region+' · not local showtimes'}
+    return cached(('movies',mode,q,region,page,genre),load,1800)
 
 def geocode(city):
     city=plain(city)[:100]

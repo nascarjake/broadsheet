@@ -36,6 +36,20 @@ class ProviderTests(unittest.TestCase):
  def test_cache_avoids_repeated_requests(self):
   calls=[]
   self.assertEqual(p.cached('test',lambda:calls.append(1) or 3),3);self.assertEqual(p.cached('test',lambda:calls.append(2) or 4),3);self.assertEqual(calls,[1])
+ def test_recipe_results_are_not_cut_off_at_forty(self):
+  meals=[{'idMeal':str(n),'strMeal':'Recipe '+str(n)} for n in range(84)]
+  with patch.object(p,'get_json',return_value={'meals':meals}):self.assertEqual(len(p.recipes('seafood')['items']),84)
+ def test_movie_catalog_search_and_pagination(self):
+  data={'results':[{'id':99,'title':'Space film','genre_ids':[878]}],'total_pages':4}
+  with patch.dict('os.environ',{'TMDB_READ_TOKEN':'test-provider-token'}),patch.object(p,'get_json',return_value=data) as get:
+   result=p.movie_catalog('space','US',2,'search')
+   self.assertIn('/search/movie?',get.call_args.args[0]);self.assertIn('query=space',get.call_args.args[0]);self.assertIn('page=2',get.call_args.args[0]);self.assertEqual(result['next'],{'page':3});self.assertEqual(result['catalog'],'search');self.assertTrue(result['live'])
+ def test_movie_pages_are_bounded_to_provider_limits(self):
+  with patch.dict('os.environ',{'TMDB_READ_TOKEN':'test-provider-token'}),patch.object(p,'get_json') as get:
+   for page in [0,501]:
+    with self.assertRaises(ValueError):p.movie_catalog(page=page)
+   with self.assertRaises(ValueError):p.movie_catalog(mode='unknown')
+   get.assert_not_called()
  def test_snapshot_has_attribution_and_real_coordinates(self):
   data=json.loads((p.ROOT/'discovery.json').read_text())
   for kind in ['recipes','movies','places']:

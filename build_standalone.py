@@ -2,9 +2,18 @@
 Recipe/film photos and map tiles remain provider-hosted and need a connection.
 """
 from pathlib import Path
-import json, base64, mimetypes, re
+import json, base64, mimetypes, re, os
 import build_spaces
 root=Path(__file__).parent;dist=root/'dist'
+browser_key=os.environ.get('GOOGLE_MAPS_BROWSER_KEY','')
+if browser_key and not re.fullmatch(r'[A-Za-z0-9_-]{20,100}',browser_key):raise ValueError('Invalid browser key format')
+public_config={}
+if browser_key:public_config['googleMapsBrowserKey']=browser_key
+api_base=os.environ.get('BROADSHEET_API_BASE','')
+if api_base:
+ if not re.fullmatch(r'https://[A-Za-z0-9.-]+\.workers\.dev/?',api_base):raise ValueError('Invalid public API origin')
+ public_config['apiBase']=api_base.rstrip('/')+'/'
+(dist/'config.js').write_text('/* Public configuration only. Never put server tokens here. */\nwindow.BROADSHEET_CONFIG = '+json.dumps(public_config)+';\n')
 corpus=json.loads((dist/'corpus.json').read_text())
 for story in corpus['stories']:
  for block in story.get('blocks',[]):
@@ -28,6 +37,7 @@ for page,dest in routes.items():
   attrs=m.group(1);src=m.group(2);path=(dist/src).resolve()
   assert path.is_relative_to(dist.resolve())
   js=path.read_text()
+  if src=='config.js':js='window.BROADSHEET_CONFIG = {};'
   if src=='vendor/leaflet.js':js='/*\n'+(dist/'vendor/LEAFLET-LICENSE').read_text()+'\n*/\n'+js
   logo=dist/'vendor/tmdb-logo.svg'
   if logo.exists():js=js.replace('vendor/tmdb-logo.svg','data:image/svg+xml;base64,'+base64.b64encode(logo.read_bytes()).decode())

@@ -5,6 +5,19 @@ import json, os, time, threading
 from feed import refresh
 import providers
 import streetview
+def load_local_settings(path=None):
+ path=Path(path) if path else Path(__file__).parent/'.env.local'
+ if not path.is_file():return
+ allowed={'TMDB_READ_TOKEN','MEALDB_KEY','GOOGLE_MAPS_BROWSER_KEY','GOOGLE_MAPS_API_KEY','NOMINATIM_URL','OVERPASS_URL'}
+ for line in path.read_text().splitlines():
+  key,separator,value=line.partition('=');key=key.strip();value=value.strip()
+  if separator and key in allowed:
+   if len(value)>1 and value[0]==value[-1] and value[0] in ['"',"'"]:value=value[1:-1]
+   os.environ.setdefault(key,value)
+load_local_settings()
+def public_configuration():
+ key=os.environ.get('GOOGLE_MAPS_BROWSER_KEY')
+ return {'googleMapsBrowserKey':key} if key else {}
 ROOT=Path(__file__).parent/'dist'; lock=threading.Lock(); last=0
 class Handler(SimpleHTTPRequestHandler):
  def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
@@ -13,14 +26,16 @@ class Handler(SimpleHTTPRequestHandler):
  def do_GET(self):
   parsed=urlsplit(self.path);q=parse_qs(parsed.query)
   try:
-   if parsed.path=='/api/capabilities':self.json_response({'refresh':True,'recipes':True,'places':True,'nowPlaying':bool(os.environ.get('TMDB_READ_TOKEN')),'streetView':bool(os.environ.get('GOOGLE_MAPS_API_KEY'))});return
+   if parsed.path=='/config.js' and public_configuration():
+    body=('window.BROADSHEET_CONFIG = '+json.dumps(public_configuration())+';').encode();self.send_response(200);self.send_header('Content-Type','application/javascript');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
+   if parsed.path=='/api/capabilities':self.json_response({'refresh':True,'recipes':True,'places':True,'movies':bool(os.environ.get('TMDB_READ_TOKEN')),'nowPlaying':bool(os.environ.get('TMDB_READ_TOKEN')),'streetView':bool(os.environ.get('GOOGLE_MAPS_API_KEY'))});return
    if parsed.path=='/api/streetview':
     if self.headers.get('Sec-Fetch-Site')=='cross-site':self.send_error(403);return
     try:data,mime=streetview.fetch_image(q.get('lat',[''])[0],q.get('lon',[''])[0])
     except streetview.Unavailable:self.json_response({'error':'Street View is unavailable or not connected.'},404);return
     self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.end_headers();self.wfile.write(data);return
    if parsed.path=='/api/recipes':self.json_response(providers.recipes(q.get('q',[''])[0]));return
-   if parsed.path=='/api/movies':self.json_response(providers.now_playing(q.get('q',[''])[0],q.get('region',['US'])[0]));return
+   if parsed.path=='/api/movies':self.json_response(providers.movie_catalog(q.get('q',[''])[0],q.get('region',['US'])[0],q.get('page',['1'])[0],q.get('mode',['now-playing'])[0],q.get('genre',['All'])[0]));return
   except (ValueError,TypeError) as e:self.json_response({'error':str(e)},400);return
   except Exception:self.json_response({'error':'The provider could not be reached. Your saved collection is still available.'},503);return
   super().do_GET()

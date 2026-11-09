@@ -159,3 +159,33 @@ assert.equal(
   false,
   "Height edits make an internally scrolling window",
 );
+
+const pinnedOverrides = {},
+  pins = {};
+const beforeAppend = new InfiniteLayout(items, {
+  overrides: pinnedOverrides,
+  pins,
+});
+const stableCell = "-3:2";
+const stableId = beforeAppend.entry(stableCell).item.id;
+beforeAppend.toggle(stableCell);
+pins[stableCell] = stableId;
+const afterAppend = new InfiniteLayout([...items, { id: "new-recipe" }], {
+  overrides: pinnedOverrides,
+  pins,
+});
+assert.equal(afterAppend.entry(stableCell).item.id, stableId);
+assert.ok(
+  afterAppend.entry(stableCell).expanded,
+  "Loading more must preserve an open card",
+);
+assert.equal(
+  afterAppend.find(stableId, afterAppend.entry(stableCell).rect).item.id,
+  stableId,
+);
+const refreshed = new InfiniteLayout([{ id: "replacement" }], {
+  overrides: pinnedOverrides,
+  pins,
+});
+assert.deepEqual(pins, {});
+assert.equal(refreshed.entry(stableCell).expanded, false);
