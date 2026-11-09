@@ -519,31 +519,14 @@ function makeCard(s, instance) {
       else if (b.text)
         body.append(el(b.type === "heading" ? "h3" : "p", "", b.text));
     }
-    if (!s.blocks?.length) {
-      body.append(
-        el("p", "", s.excerpt || "Read the original article at its publisher."),
-        el(
-          "p",
-          "small",
-          pub.kind +
-            " · " +
-            pub.region +
-            " · Bias and reliability: unrated. Publisher excerpt, not the full article.",
-        ),
-      );
-    }
+    if (!s.blocks?.some((block) => block.text))
+      body.append(window.BroadsheetArticleReader.mount(s));
     const link = el("a", "source-link", "Original story ↗");
     link.href = safeURL(s.url);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    body.append(
-      link,
-      el(
-        "p",
-        "small",
-        s.rights || "Full reporting remains with the original publisher.",
-      ),
-    );
+    body.append(link);
+    if (s.rights) body.append(el("p", "small", s.rights));
     body.append(
       V.context(s, {
         publisher: pub,

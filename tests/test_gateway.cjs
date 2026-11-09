@@ -1,10 +1,7 @@
 const assert = require("node:assert/strict");
 (async () => {
-  const {
-    default: worker,
-    movieRequest,
-    movieResponse,
-  } = await import("../api/worker.mjs");
+  const { default: worker } = await import("../api/worker.mjs");
+  const { movieRequest, movieResponse } = await import("../api/movies.mjs");
   const cached = new Map();
   global.caches = {
     default: {
@@ -79,6 +76,8 @@ const assert = require("node:assert/strict");
     movieDiscovery: true,
     movieDetails: true,
     venueCovers: true,
+    articleReader: true,
+    guardianArticles: false,
   });
   res = await worker.fetch(
     req("movies"),

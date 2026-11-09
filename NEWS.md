@@ -44,7 +44,7 @@ In the source library, expand **Add your own RSS or Atom feed**. Paste a feed UR
 
 Political bias and reliability are explicitly **unrated**. No third-party rating dataset, political scoring model, or same-event clustering is integrated. Topic classification uses source-feed topics, imported categories, and simple headline rules; it is approximate. The initial catalog is a starting selection, not comprehensive world coverage.
 
-Publisher feeds supply bounded excerpts and links to original articles. Broadsheet does not bypass paywalls or republish third-party full articles. The previously curated NASA full-text archive and its credited local images remain available, with original dates and source/rights metadata. See [SOURCES.md](SOURCES.md).
+Publisher feeds supply headlines and excerpts for browsing. Unfolding a story loads public article text on demand through the existing gateway and renders paragraphs, headings, lists, supplied bylines and source links inside that card. Guardian uses its official Open Platform API with the registered gateway secret; its full body HTML and original links/notices are retained in a sandboxed frame that grows with the card, alongside the official attribution logo. It supports the configured publishers; custom sources need an adapter. The gateway accepts only HTTPS article URLs on explicit publisher hosts, validates every redirect, never forwards cookies or credentials, and keeps the original page's access restrictions. Subscriber flags, publisher preview restrictions, denial/challenge pages and failed extraction produce an in-card retry/source option rather than a pretend full article. It does not obtain subscription-only content. Article text is not added to GitHub, feed snapshots, saved stories or localStorage. Successful readings are shared briefly by repeated cards in a bounded memory cache; the gateway response is not cached. Loading updates the existing prose container, preserving reading position while the card grows and neighboring columns reflow. The previously curated NASA full-text archive and its credited local images remain available, with original dates and source/rights metadata. See [SOURCES.md](SOURCES.md).
 
 ## Static and offline editions
 
@@ -71,3 +71,11 @@ node --check dist/model.js
 Tests additionally cover Media RSS variants/credits, safe video references, inline-photo order, geographic aliases, negative/distant newspaper coordinates, natural sizing, expansion, reflow, persistence and collision-free movement/resizing. Tests cover corpus attribution, RSS/Atom parsing, unsafe links and entities, feed size bounds, partial failure retention, complete failure preservation, filtering and source/topic intersections, saved filtering, sorting, safe import URL resolution, layout bounds, and non-overlapping automatic placement. `tests/ui.cjs` is an optional Playwright smoke test for a locally running server; install Playwright separately to run it.
 
 Browser checks were performed on desktop and a 390px mobile viewport for source/topic filtering, channel creation and reload persistence, saving, card keyboard move/resize and persistence, in-card NASA reading, source mix, follow/unfollow empty states, and feed import. Physical touch/pinch and cross-browser performance are not certified. The canvas supports one-pointer panning and Ctrl/Command+scroll zoom; two-finger pinch on the background is implemented by the shared canvas but requires physical-device validation.
+
+Optional native Worker parser verification uses Node 22 and Miniflare after a Wrangler dry-run build:
+
+```sh
+MINIFLARE_PATH=/path/to/node_modules/miniflare BROADSHEET_WORKER_BUNDLE=/path/to/dry-run/worker.js node tests/test_article_runtime.cjs
+```
+
+This checks the real HTMLRewriter engine with original fixture prose, including the final paragraph, nested lists, bylines, suppressed navigation/scripts, and restricted or unavailable content.

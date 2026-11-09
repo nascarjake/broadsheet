@@ -259,7 +259,7 @@
         "Reading",
         story.wordCount
           ? story.wordCount.toLocaleString() + " words · NASA archive prose"
-          : "Publisher feed excerpt · follow the original for full reporting",
+          : "",
       ],
       [
         "Collected",

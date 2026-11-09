@@ -11,7 +11,7 @@
     <title>Broadsheet · News · Broadsheet</title>
     <link rel="stylesheet" href="style.css?v=a20fe3801baa" />
     <link rel="stylesheet" href="immersive.css?v=b6861b43f782" />
-    <link rel="stylesheet" href="news.css?v=e2ee5a52671e" />
+    <link rel="stylesheet" href="news.css?v=ef955eeae2a3" />
   </head>
   <body>
     <header class="masthead">
@@ -90,7 +90,13 @@
       <section class="toolbar" aria-label="Filter and organize stories">
         <div id="topic-chips" class="chips"></div>
         <div class="toolbar-controls">
-          <select id="news-media-filter" aria-label="Story media"><option value="all">All stories</option><option value="photos">With photos</option><option value="video">Video reports</option><option value="maps">With a locator</option><option value="depth">In-depth reading</option></select>
+          <select id="news-media-filter" aria-label="Story media">
+            <option value="all">All stories</option>
+            <option value="photos">With photos</option>
+            <option value="video">Video reports</option>
+            <option value="maps">With a locator</option>
+            <option value="depth">In-depth reading</option>
+          </select>
           <label class="search-box"
             ><span>⌕</span
             ><input
@@ -315,10 +321,11 @@
         home. Layouts, channels, and saved stories persist in this browser.
       </p>
       <p>
-        News cards show bounded publisher feed excerpts and link to original
-        articles. The retained NASA archive includes attributed prose and
-        images. A feed refresh is available on the local Python server; the
-        static edition is a saved snapshot with visible collection dates.
+        News cards unfold to load public article text in place, with bylines and
+        source links. Publisher access restrictions remain in effect. The
+        retained NASA archive includes attributed prose and images. A feed
+        refresh is available on the local Python server; the static edition is a
+        saved snapshot with visible collection dates.
       </p>
       <p class="small">
         NASA does not endorse this independent reader. There are no invented
@@ -332,8 +339,10 @@
     <script src="model.js?v=9e7c782294c4"></script>
     <script src="news-model.js?v=5c35d19fc9e0"></script>
     <script src="news-layout.js?v=e700e8bb64f6"></script>
-    <script src="news-view.js?v=c93bdd5c7982"></script>
-    <script type="module" src="app.js?v=560418c8331b"></script>
+    <script src="news-view.js?v=e3b11124b085"></script>
+    <script src="config.js"></script>
+    <script src="article-reader.js?v=188fcf1b96ed"></script>
+    <script type="module" src="app.js?v=c870b4b81ca2"></script>
     <script type="module" src="immersive.js?v=0ce82a57e553"></script>
   </body>
 </html>

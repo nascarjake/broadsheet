@@ -1,13 +1,12 @@
+import { articleRequest, readArticle } from "./articles.mjs";
 import { coverIDs, venueCovers } from "./venues.mjs";
 import {
   movieRequest,
-  movieResponse,
   movieCatalog,
   movieDetails,
   movieOptions,
   movieLookup,
 } from "./movies.mjs";
-export { movieRequest, movieResponse };
 const originAllowed = (origin) =>
   origin === "https://nascarjake.github.io" ||
   /^http:\/\/(localhost|127\.0\.0\.1):(8000|8134|8767)$/.test(origin);
@@ -105,10 +104,52 @@ export default {
           movieDiscovery: true,
           movieDetails: true,
           venueCovers: true,
+          articleReader: true,
+          guardianArticles: !!env.GUARDIAN_API_KEY,
         },
         200,
         origin,
       );
+    if (url.pathname === "/api/article") {
+      try {
+        articleRequest(url.searchParams.get("url"));
+      } catch (error) {
+        return reply({ error: error.message }, 400, origin);
+      }
+      if (
+        env.SEARCH_LIMIT &&
+        !(
+          await env.SEARCH_LIMIT.limit({
+            key: request.headers.get("CF-Connecting-IP") || "unknown",
+          })
+        ).success
+      )
+        return reply(
+          { error: "Please wait a moment before opening another article." },
+          429,
+          origin,
+        );
+      try {
+        return reply(
+          await readArticle(url, {
+            guardianKey: env.GUARDIAN_API_KEY,
+            cache: caches.default,
+            ctx,
+          }),
+          200,
+          origin,
+        );
+      } catch {
+        return reply(
+          {
+            error:
+              "The article could not be loaded. Retry or open the publisher.",
+          },
+          503,
+          origin,
+        );
+      }
+    }
     if (url.pathname === "/api/venue-covers") {
       let ids;
       try {
