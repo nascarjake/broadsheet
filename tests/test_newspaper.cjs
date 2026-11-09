@@ -109,6 +109,16 @@ tightColumns(restored, { x: 0, y: 0 });
 a.toggle(key);
 assert.equal(a.columnWidth(0), a.baseWidth(0));
 assert.equal(a.entry(key).rect.h, original.rect.h);
+assert.equal(
+  a.entry(key).autoHeight,
+  true,
+  "Closing an automatic reader must remeasure its card rather than freeze an estimated height",
+);
+a.measure(key, 333);
+a.toggle(key, 1100);
+a.measure(key, 2800);
+a.toggle(key);
+assert.equal(a.entry(key).rect.h, 333);
 const measured = a.entry("1:2");
 a.measure(measured.key, 187);
 assert.equal(
@@ -125,6 +135,15 @@ assert.equal(a.entry(moved.key).item.id, destination.item.id);
 tightColumns(a, { x: 0, y: 0 });
 a.commit(movedKey, { ...a.entry(movedKey).rect, w: 850, h: 1100 }, "resize");
 assert.equal(a.columnWidth(2), 850);
+a.toggle(movedKey, 1200);
+a.measure(movedKey, 2400);
+a.toggle(movedKey);
+assert.equal(
+  a.entry(movedKey).rect.h,
+  1100,
+  "An explicit manual card height survives opening and closing",
+);
+assert.equal(a.entry(movedKey).autoHeight, false);
 tightColumns(a, { x: 0, y: 0 });
 noOverlap(a.visible({ left: -1000, top: -1000, right: 5000, bottom: 6000 }));
 for (const item of sample)

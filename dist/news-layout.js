@@ -318,6 +318,19 @@
           return true;
         });
     }
+    toggle(key, width = 800) {
+      const entry = this.entry(key);
+      if (!entry) return;
+      const previous = this.overrides[key] || {};
+      const natural = entry.autoHeight || !previous.resized;
+      super.toggle(key, Math.min(width, this.spreadWidth));
+      const next = this.overrides[key];
+      if (entry.expanded) {
+        next.autoHeight = previous.closedAutoHeight !== false;
+        if (next.autoHeight) delete next.h;
+        this.invalidate();
+      } else next.closedAutoHeight = natural;
+    }
     measure(key, height) {
       const e = this.entry(key);
       if (
