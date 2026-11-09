@@ -26,7 +26,7 @@ jobs:
           GOOGLE_MAPS_BROWSER_KEY: ${{ vars.GOOGLE_MAPS_BROWSER_KEY }}
           BROADSHEET_API_BASE: ${{ vars.BROADSHEET_API_BASE }}
       - run: npm test
-      - run: node --check dist/app.js && node --check dist/model.js && node --check dist/canvas.js && node --check dist/spatial.js && node --check dist/spaces.js && node --check dist/browse.js && node --check dist/hub.js && node --check dist/live.js && node --check dist/config.js
+      - run: node --check dist/app.js && node --check dist/model.js && node --check dist/canvas.js && node --check dist/spatial.js && node --check dist/spaces.js && node --check dist/browse.js && node --check dist/hub.js && node --check dist/live.js && node --check dist/config.js && node --check dist/immersive.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -15,6 +15,8 @@ Double-click **Play Broadsheet.command**, or run `python3 server.py` and open th
 
 ## Endless browsing and in-place reading
 
+Every browsing space fills the window. A shared floating control layer replaces the fixed masthead, sidebar, and toolbar: the space switcher is at the top left, **Browse** at the left edge, **Find & filter** at the top right, and **Zoom & arrange** below. Controls brighten near the pointer and recede while exploring. Panels overlay the canvas without changing its dimensions; clicking the canvas or pressing Escape dismisses them. Press `/` to open search. Touch controls remain visible, closed panels leave the keyboard tab order, and reduced-motion preferences disable transitions. Active searches and topics remain named on the Find control.
+
 All four spatial modules continue left, right, up, and down. There is no outermost row or column. The loaded source collection is finite and repeats deterministically across that endless layout; the unique-item count is separate from the number of visible card instances. Filters and list views still describe the actual unique collection.
 
 Click a photo, title, or read button to unfold that particular card **inside the canvas**. Its width grows to span neighboring columns and its height grows to fit its details. Nearby cards reflow around the opened panel. Several cards can remain open. Fold a card to restore its compact size and release its space. Source links still open the original publisher/provider externally.

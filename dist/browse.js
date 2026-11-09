@@ -270,7 +270,7 @@ function home() {
     availableWidth: $(".space-workspace").clientWidth,
     availableHeight:
       $("#space-viewport").clientHeight ||
-      $(".space-workspace").clientHeight - 350,
+      $(".space-workspace").clientHeight,
   });
 }
 function saveItem(item) {

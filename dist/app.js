@@ -542,11 +542,8 @@ function transform() {
   canvas.apply();
 }
 function home() {
-  const available = $(".workspace").clientWidth;
-  const height =
-    $(".workspace").clientHeight -
-    (innerWidth <= 650 ? 237 : innerWidth <= 900 ? 248 : 217) -
-    (innerWidth <= 650 ? 96 : 102);
+  const available = $("#viewport").clientWidth || $(".workspace").clientWidth;
+  const height = $("#viewport").clientHeight || $(".workspace").clientHeight;
   canvas.home({
     width: state.size === "compact" ? 320 : state.size === "large" ? 520 : 400,
     height: state.size === "compact" ? 340 : state.size === "large" ? 600 : 420,
