@@ -2045,6 +2045,17 @@ body[data-space="places"] .list-streetview {
   overflow: clip;
   overflow-anchor: none;
 }
+@media (max-width: 600px) {
+  #collection-note {
+    display: none;
+  }
+  .space-status {
+    gap: 8px;
+  }
+  .space-status .link-button {
+    white-space: nowrap;
+  }
+}
 .expanded-card .detail-content h2 {
   font:
     37px/1.1 Georgia,

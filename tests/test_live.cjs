@@ -88,6 +88,11 @@ const meal = (n) => ({
   });
   assert.equal(calls[0].url.searchParams.get("gsroffset"), "24");
   assert.equal(calls[0].url.searchParams.get("origin"), "*");
+  assert.equal(
+    calls[0].url.searchParams.get("gsrlimit"),
+    "20",
+    "Respect the extract limit so search continuation is returned",
+  );
   assert.match(
     calls[0].url.searchParams.get("gsrsearch"),
     /hastemplate:Infobox_film/,
@@ -99,17 +104,83 @@ const meal = (n) => ({
   assert.match(films.items[0].textLicense, /CC BY-SA/);
   assert.ok(!("year" in films.items[0])); // do not infer film facts from an article
   assert.equal(live.safeURL("javascript:alert(1)"), "");
+  live.clearCache();
+  calls.length = 0;
+  const venue = {
+    type: "node",
+    id: 123,
+    lat: 35.68,
+    lon: 139.69,
+    tags: { name: "Test cafe", amenity: "cafe", website: "javascript:bad()" },
+  };
+  respond = (u) =>
+    u.hostname === "geocoding-api.open-meteo.com"
+      ? {
+          results: [
+            {
+              name: "Tokyo",
+              country: "Japan",
+              latitude: 35.68,
+              longitude: 139.69,
+            },
+          ],
+        }
+      : {
+          features: [
+            {
+              geometry: { coordinates: [venue.lon, venue.lat] },
+              properties: {
+                osm_type: "N",
+                osm_id: venue.id,
+                osm_key: "amenity",
+                osm_value: "cafe",
+                name: venue.tags.name,
+                extra: { website: "javascript:bad()" },
+              },
+            },
+          ],
+        };
+  const nearby = await live.places({ city: "Tokyo" });
+  assert.equal(calls[0].url.searchParams.get("name"), "Tokyo");
+  assert.equal(calls[1].url.searchParams.get("lat"), "35.68");
+  assert.equal(calls[1].url.searchParams.get("lon"), "139.69");
+  assert.ok(
+    calls[1].url.searchParams.getAll("osm_tag").includes("amenity:cafe"),
+  );
+  assert.equal(nearby.items[0].website, "");
+  assert.equal(nearby.items[0].category, "Cafés");
+  assert.equal(nearby.city, "Tokyo, Japan");
+  calls.length = 0;
+  live.clearCache();
+  const around = await live.places({ lat: 48.856678, lon: 2.352221 });
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url.searchParams.get("lat"), "48.857");
+  assert.equal(calls[0].url.searchParams.get("lon"), "2.352");
+  assert.equal(around.city, "Near you");
+  const beforeInvalid = calls.length;
+  await assert.rejects(live.places({ lat: NaN, lon: 0 }));
+  await assert.rejects(live.places({ lat: 0, lon: 181 }));
+  assert.equal(calls.length, beforeInvalid);
+  calls.length = 0;
+  live.clearCache();
+  respond = (u) => {
+    if (u.hostname === "photon.komoot.io") throw Error("Unavailable");
+    return { elements: [venue] };
+  };
+  const fallback = await live.places({
+    lat: 35.68,
+    lon: 139.69,
+    category: "Cafés",
+  });
+  assert.equal(fallback.dataService, "Overpass");
+  assert.equal(fallback.items[0].category, "Cafés");
+  assert.match(calls[1].url.searchParams.get("data"), /amenity="cafe"/);
   const embed = new URL(
     live.streetViewURL("public-test-key", { lat: 41, lon: -87 }),
   );
   assert.equal(embed.pathname, "/maps/embed/v1/streetview");
   assert.equal(embed.searchParams.get("location"), "41,-87");
   assert.equal(live.streetViewURL("key", { lat: 100, lon: 0 }), "");
-  assert.equal(
-    calls[0].url.searchParams.get("gsrlimit"),
-    "20",
-    "Stay within the extract limit so the search continuation is returned",
-  );
   console.log(
     "Live catalog pagination, deduplication, ingredient search, hydration, request boundaries, and film attribution passed",
   );

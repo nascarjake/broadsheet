@@ -33,7 +33,7 @@ let bundle = {},
   items = [],
   visible = [],
   positions = {},
-  capabilities = {},
+  capabilities = { places: true },
   canvas,
   atlas,
   map,
@@ -46,6 +46,9 @@ let bundle = {},
 let searchTimer,
   searchRevision = 0,
   catalogController;
+let catalogBusy = false,
+  wanderAnchor,
+  wanderTimer;
 const detailRequests = new Map();
 const key = () =>
   [
@@ -53,6 +56,7 @@ const key = () =>
     state.filter,
     state.query.trim(),
     state.data?.provider || "",
+    ...(id === "places" ? [state.data?.city || "preview"] : []),
   ].join("|");
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -130,6 +134,14 @@ function changeFilter(filter) {
   state.savedOnly = false;
   update(true);
   if (id !== "places" && state.liveCatalog) queueCatalogSearch(0);
+  else if (id === "places" && state.locationChosen && state.data?.center)
+    searchPlaces({
+      lat: state.data.center.lat,
+      lon: state.data.center.lon,
+      city: state.data.city === "Near you" ? "" : state.data.city,
+      category: filter,
+      locationMode: state.locationMode,
+    });
 }
 function filterOptions() {
   return [
@@ -879,6 +891,7 @@ function pinLoadedCards() {
 }
 function queueCatalogSearch(delay = 650) {
   clearTimeout(searchTimer);
+  clearTimeout(wanderTimer);
   searchRevision++;
   catalogController?.abort();
   if (
@@ -889,6 +902,40 @@ function queueCatalogSearch(delay = 650) {
   )
     return;
   searchTimer = setTimeout(() => loadCatalog(), delay);
+}
+function exploreAsYouWander(view) {
+  const viewKey = key();
+  if (
+    !wanderAnchor ||
+    wanderAnchor.key !== viewKey ||
+    Math.abs(wanderAnchor.z - view.z) > 0.01
+  ) {
+    wanderAnchor = { ...view, key: viewKey };
+    return;
+  }
+  if (
+    !canvas ||
+    id === "places" ||
+    !state.liveCatalog ||
+    state.savedOnly ||
+    !state.data?.next ||
+    catalogBusy ||
+    window.BROADSHEET_OFFLINE ||
+    state.data.query !== state.query.trim() ||
+    state.data.filter !== state.filter
+  )
+    return;
+  const distance = Math.hypot(
+    (view.x - wanderAnchor.x) / canvas.viewport.clientWidth,
+    (view.y - wanderAnchor.y) / canvas.viewport.clientHeight,
+  );
+  if (distance < 1.5) return;
+  wanderAnchor = { ...view, key: viewKey };
+  clearTimeout(wanderTimer);
+  wanderTimer = setTimeout(() => {
+    if (!catalogBusy && key() === viewKey && state.data?.next)
+      loadCatalog({ append: true });
+  }, 350);
 }
 async function loadCatalog({
   append = false,
@@ -907,8 +954,10 @@ async function loadCatalog({
   )
     append = false;
   clearTimeout(searchTimer);
+  clearTimeout(wanderTimer);
   catalogController?.abort();
   const revision = ++searchRevision;
+  catalogBusy = true;
   const controller = (catalogController = new AbortController());
   const timeout = setTimeout(() => controller.abort(), 30000);
   const query = state.query.trim(),
@@ -994,6 +1043,7 @@ async function loadCatalog({
   } finally {
     clearTimeout(timeout);
     if (revision === searchRevision) {
+      catalogBusy = false;
       $("#load-more").disabled = false;
       $("#refresh-catalog").disabled = false;
       renderResultStatus();
@@ -1026,11 +1076,7 @@ async function hydrateRecipe(item) {
 async function searchPlaces(query) {
   await busy($("#city-form button"), async () => {
     $("#result-status").textContent = "Searching map listings…";
-    const data = await request("api/places", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query),
-    });
+    const data = await Live.places(query);
     if (!data.items?.length) {
       toast(
         "No mapped places were returned for that area. Try a nearby city or neighborhood.",
@@ -1039,12 +1085,13 @@ async function searchPlaces(query) {
     }
     state.data = data;
     state.query = "";
-    state.filter = "All";
+    state.filter = query.category || "All";
     state.savedOnly = false;
     state.mapView = null;
     state.mapNeedsFit = true;
     state.locationChosen = true;
-    state.locationMode = query.lat === undefined ? "city" : "browser";
+    state.locationMode =
+      query.locationMode || (query.lat === undefined ? "city" : "browser");
     $("#city-input").value = data.city === "Near you" ? "" : data.city;
     $("#space-search").value = "";
     update(true);
@@ -1054,13 +1101,13 @@ async function searchPlaces(query) {
 async function useLocation() {
   if (!navigator.geolocation) {
     toast(
-      "Location is unavailable in this browser. Search for a city or address instead.",
+      "Location is unavailable in this browser. Search for a city or town instead.",
     );
     return;
   }
   if (!capabilities.places) {
     toast(
-      "Location search needs the local Broadsheet server. The preview collection is available here.",
+      "Location search is unavailable. You can still browse the preview collection.",
     );
     return;
   }
@@ -1081,8 +1128,8 @@ async function useLocation() {
       button.textContent = "◎ Use my location";
       toast(
         error.code === 1
-          ? "Location permission was declined. You can still search for any city or address."
-          : "Your location could not be found. Try a city or address instead.",
+          ? "Location permission was declined. You can still search for any city or town."
+          : "Your location could not be found. Try a city or town instead.",
       );
     },
     { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 },
@@ -1145,7 +1192,7 @@ function showSources() {
       el(
         "p",
         "",
-        "Use your browser location or search for any city or address. Your chosen search area is sent to OpenStreetMap services; exact location permission is controlled by your browser. Listings and opening hours may be incomplete. The initial Chicago collection is a preview, not a claim about where you are.",
+        "Use your browser location or search for a city or town. Your rounded search area is sent to Photon (komoot), with Overpass as a fallback, for OpenStreetMap listings. City names are resolved with Open-Meteo's GeoNames database. Location permission is controlled by your browser. Community services may be busy and listings may be incomplete. The initial Chicago collection is a preview, not a claim about where you are.",
       ),
       el(
         "p",
@@ -1155,6 +1202,14 @@ function showSources() {
       link(
         "OpenStreetMap attribution ↗",
         "https://www.openstreetmap.org/copyright",
+      ),
+      link(
+        "City lookup: Open-Meteo / GeoNames ↗",
+        "https://open-meteo.com/en/docs/geocoding-api",
+      ),
+      link(
+        "Nearby search: Photon / komoot ↗",
+        "https://github.com/komoot/photon",
       ),
     );
   if (id === "movies") {
@@ -1218,6 +1273,7 @@ canvas = new window.BroadsheetCanvas({
     state.cameras[key()] = { ...view };
     clearTimeout(saveTimer);
     saveTimer = setTimeout(persist, 180);
+    exploreAsYouWander(view);
   },
 });
 $("#space-home").onclick = home;
@@ -1284,7 +1340,7 @@ $("#city-form").onsubmit = (e) => {
   e.preventDefault();
   const city = $("#city-input").value.trim();
   if (city) searchPlaces({ city });
-  else toast("Enter a city or address, or choose Use my location.");
+  else toast("Enter a city or town, or choose Use my location.");
 };
 $("#use-location").onclick = useLocation;
 $("#now-playing").onclick = loadNowPlaying;
@@ -1389,7 +1445,7 @@ async function init() {
         !window.BROADSHEET_CONFIG?.apiBase
       )
         throw Error("Static host");
-      capabilities = await request("api/capabilities");
+      capabilities = { places: true, ...(await request("api/capabilities")) };
       if (id === "places") {
         canvas.clear();
         canvas.request();
@@ -1399,10 +1455,11 @@ async function init() {
     if (id !== "places" && state.liveCatalog && !state.savedOnly && !focus)
       queueCatalogSearch(0);
     if (id === "places") {
-      $("#city-input").value =
-        state.locationChosen && state.data?.city !== "Near you"
-          ? state.data?.city || ""
-          : "";
+      if (!$("#city-input").value)
+        $("#city-input").value =
+          state.locationChosen && state.data?.city !== "Near you"
+            ? state.data?.city || ""
+            : "";
       if (state.locationMode !== "city" && capabilities.places) {
         try {
           if (

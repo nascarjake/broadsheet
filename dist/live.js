@@ -242,6 +242,196 @@
         " · not cinema listings",
     };
   }
+  function placeItem(p, city) {
+    const t = p.tags || {},
+      center = p.center || p;
+    const lat = Number(center.lat),
+      lon = Number(center.lon);
+    if (
+      !t.name ||
+      !["node", "way", "relation"].includes(p.type) ||
+      !Number.isSafeInteger(p.id) ||
+      !Number.isFinite(lat) ||
+      !Number.isFinite(lon) ||
+      Math.abs(lat) > 90 ||
+      Math.abs(lon) > 180
+    )
+      return null;
+    const category =
+      {
+        restaurant: "Restaurants",
+        cafe: "Cafés",
+        cinema: "Cinema",
+        museum: "Museums",
+        gallery: "Art & culture",
+        attraction: "Things to do",
+      }[t.amenity || t.tourism] || "Things to do";
+    const image = safeURL(t.image),
+      cuisine = (t.cuisine || "").replace(/;/g, ", ").replace(/_/g, " ");
+    return {
+      id: "osm-" + p.type + "-" + p.id,
+      kind: "places",
+      title: t.name,
+      lat,
+      lon,
+      image,
+      images: image ? [image] : [],
+      category,
+      tags: [category, ...(cuisine ? [cuisine] : [])],
+      cuisine,
+      address: [t["addr:housenumber"], t["addr:street"]]
+        .filter(Boolean)
+        .join(" "),
+      city,
+      hours: t.opening_hours || "",
+      website: safeURL(t.website || t["contact:website"]),
+      description: cuisine || category,
+      url: "https://www.openstreetmap.org/" + p.type + "/" + p.id,
+      source: "OpenStreetMap",
+      sourceUrl: "https://www.openstreetmap.org/copyright",
+      dataLicense: "ODbL 1.0",
+      imageCredit: image ? "Image linked by OpenStreetMap contributor" : "",
+    };
+  }
+  async function places({
+    city = "",
+    lat,
+    lon,
+    signal,
+    category = "All",
+  } = {}) {
+    city = city.trim().slice(0, 100);
+    let center;
+    if (lat !== undefined || lon !== undefined) {
+      if (
+        typeof lat !== "number" ||
+        typeof lon !== "number" ||
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lon) ||
+        Math.abs(lat) > 90 ||
+        Math.abs(lon) > 180
+      )
+        throw Error("Invalid map coordinates.");
+      center = {
+        lat: Number(lat.toFixed(3)),
+        lon: Number(lon.toFixed(3)),
+        name: "Near your chosen location",
+      };
+    } else {
+      if (city.length < 2)
+        throw Error(
+          "Enter a city or town, optionally followed by its country.",
+        );
+      const result = await json(
+        "https://geocoding-api.open-meteo.com/v1/search?" +
+          new URLSearchParams({
+            name: city,
+            count: 1,
+            language: "en",
+            format: "json",
+          }),
+        signal,
+      );
+      const first = result.results?.[0];
+      if (!first)
+        throw Error("City not found. Try adding a country or region.");
+      center = {
+        lat: Number(first.latitude),
+        lon: Number(first.longitude),
+        name: [
+          ...new Set([first.name, first.admin1, first.country].filter(Boolean)),
+        ].join(", "),
+      };
+      city = center.name;
+      if (
+        !Number.isFinite(center.lat) ||
+        !Number.isFinite(center.lon) ||
+        Math.abs(center.lat) > 90 ||
+        Math.abs(center.lon) > 180
+      )
+        throw Error("The city provider returned invalid coordinates.");
+    }
+    const categories = {
+      Restaurants: "amenity:restaurant",
+      Cafés: "amenity:cafe",
+      Cinema: "amenity:cinema",
+      Museums: "tourism:museum",
+      "Art & culture": "tourism:gallery",
+      "Things to do": "tourism:attraction",
+    };
+    if (category !== "All" && !categories[category])
+      throw Error("Choose a valid place category.");
+    const params = new URLSearchParams({
+      lat: center.lat,
+      lon: center.lon,
+      radius: 3,
+      limit: 50,
+      lang: "en",
+    });
+    for (const tag of category === "All"
+      ? Object.values(categories)
+      : [categories[category]])
+      params.append("osm_tag", tag);
+    let data,
+      dataService = "Photon / komoot";
+    try {
+      const result = await json(
+        "https://photon.komoot.io/reverse?" + params,
+        signal,
+      );
+      data = {
+        elements: (result.features || []).map((feature) => {
+          const p = feature.properties || {},
+            coordinates = feature.geometry?.coordinates || [];
+          return {
+            type: { N: "node", W: "way", R: "relation" }[p.osm_type],
+            id: p.osm_id,
+            lon: coordinates[0],
+            lat: coordinates[1],
+            tags: {
+              ...p.extra,
+              name: p.name,
+              [p.osm_key]: p.osm_value,
+              "addr:street": p.street,
+              "addr:housenumber": p.housenumber,
+            },
+          };
+        }),
+      };
+    } catch (error) {
+      if (signal?.aborted) throw error;
+      dataService = "Overpass";
+      const clauses = (
+        category === "All" ? Object.values(categories) : [categories[category]]
+      )
+        .map((tag) => {
+          const [key, value] = tag.split(":");
+          return `node(around:1500,${center.lat},${center.lon})[${key}="${value}"][name];`;
+        })
+        .join("");
+      const query = `[out:json][timeout:10];(${clauses});out 50;`;
+      data = await json(
+        "https://overpass-api.de/api/interpreter?" +
+          new URLSearchParams({ data: query }),
+        signal,
+      );
+    }
+    if (data.remark && !data.elements?.length)
+      throw Error("The map provider is busy. Try this area again shortly.");
+    return {
+      items: (data.elements || [])
+        .map((p) => placeItem(p, city || "Near you"))
+        .filter(Boolean),
+      provider: "OpenStreetMap",
+      dataService,
+      filter: category,
+      city: city || "Near you",
+      center,
+      collectedAt: new Date().toISOString(),
+      geocoder: city ? "Open-Meteo / GeoNames" : "",
+      note: "Nearby OpenStreetMap listings · bounded area, not every business",
+    };
+  }
   function streetViewURL(key, item) {
     if (
       !key ||
@@ -268,6 +458,8 @@
     recipeItem,
     movies,
     filmItem,
+    places,
+    placeItem,
     safeURL,
     streetViewURL,
     PAGE_SIZE,

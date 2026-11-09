@@ -28,7 +28,7 @@ class Handler(SimpleHTTPRequestHandler):
   try:
    if parsed.path=='/config.js' and public_configuration():
     body=('window.BROADSHEET_CONFIG = '+json.dumps(public_configuration())+';').encode();self.send_response(200);self.send_header('Content-Type','application/javascript');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
-   if parsed.path=='/api/capabilities':self.json_response({'refresh':True,'recipes':True,'places':True,'movies':bool(os.environ.get('TMDB_READ_TOKEN')),'nowPlaying':bool(os.environ.get('TMDB_READ_TOKEN')),'streetView':bool(os.environ.get('GOOGLE_MAPS_API_KEY'))});return
+   if parsed.path=='/api/capabilities':self.json_response({'refresh':True,'recipes':True,'places':True,'placesServer':True,'movies':bool(os.environ.get('TMDB_READ_TOKEN')),'nowPlaying':bool(os.environ.get('TMDB_READ_TOKEN')),'streetView':bool(os.environ.get('GOOGLE_MAPS_API_KEY'))});return
    if parsed.path=='/api/streetview':
     if self.headers.get('Sec-Fetch-Site')=='cross-site':self.send_error(403);return
     try:data,mime=streetview.fetch_image(q.get('lat',[''])[0],q.get('lon',[''])[0])
