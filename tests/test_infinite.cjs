@@ -189,3 +189,84 @@ const refreshed = new InfiniteLayout([{ id: "replacement" }], {
 });
 assert.deepEqual(pins, {});
 assert.equal(refreshed.entry(stableCell).expanded, false);
+
+// Regression: a fixed seven-column row offset repeated films inside a single
+// wide viewport. Check large contiguous neighborhoods and diagonal swipes,
+// including negative/distant coordinates, against distinct catalog identities.
+function distinctBox(atlas, c0, r0, columns, rows) {
+  const seen = new Map();
+  for (let c = c0; c < c0 + columns; c++)
+    for (let r = r0; r < r0 + rows; r++) {
+      const key = `${c}:${r}`,
+        id = atlas.entry(key).item.id;
+      assert.ok(
+        !seen.has(id),
+        `Nearby duplicate ${id}: ${seen.get(id)} and ${key}`,
+      );
+      seen.set(id, key);
+    }
+  return seen;
+}
+for (const [count, columns, rows] of [
+  [40, 10, 4],
+  [100, 16, 6],
+  [200, 24, 8],
+  [358, 32, 11],
+  [560, 40, 14],
+]) {
+  const films = Array.from({ length: count }, (_, i) => ({ id: `film-${i}` }));
+  const cinema = new InfiniteLayout(films);
+  for (const [c, r] of [
+    [0, 0],
+    [-19, -12],
+    [999997, -999991],
+  ])
+    distinctBox(cinema, c, r, columns, rows);
+  if (count === 358) {
+    const seen = new Map();
+    for (let swipe = 0; swipe < 4; swipe++)
+      for (let c = swipe * 5; c < swipe * 5 + 14; c++)
+        for (let r = -swipe * 2; r < -swipe * 2 + 4; r++) {
+          const key = `${c}:${r}`,
+            id = cinema.entry(key).item.id;
+          assert.ok(
+            !seen.has(id) || seen.get(id) === key,
+            `Diagonal swipe repeated ${id} at a different cell`,
+          );
+          seen.set(id, key);
+        }
+  }
+}
+const filmCatalog = Array.from({ length: 560 }, (_, i) => ({
+    id: `live-film-${i}`,
+  })),
+  legacyPins = {};
+for (let c = -7; c < 7; c++)
+  for (let r = -2; r < 2; r++)
+    legacyPins[`${c}:${r}`] = filmCatalog[(((c + r * 7) % 100) + 100) % 100].id;
+const repaired = new InfiniteLayout(filmCatalog.slice(0, 358), {
+  pins: legacyPins,
+});
+distinctBox(repaired, -7, -2, 32, 11);
+const retained = {};
+for (let c = -7; c < 7; c++)
+  for (let r = -2; r < 2; r++)
+    retained[`${c}:${r}`] = repaired.entry(`${c}:${r}`).item.id;
+const beforeAppendPins = { ...retained };
+const appended = new InfiniteLayout(filmCatalog, { pins: retained });
+for (const [cell, id] of Object.entries(beforeAppendPins))
+  assert.equal(
+    appended.entry(cell).item.id,
+    id,
+    "Appending catalog pages must preserve retained card identities",
+  );
+distinctBox(appended, -7, -2, 40, 14);
+for (const film of filmCatalog)
+  assert.equal(
+    appended.find(film.id, { x: -10000, y: 20000 }).item.id,
+    film.id,
+    "Item lookup must respect the retained-card permutation",
+  );
+console.log(
+  "Large-catalog neighborhoods, diagonal swipes, legacy duplicate-pin repair, and stable pagination passed",
+);

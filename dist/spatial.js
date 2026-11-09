@@ -36,9 +36,10 @@
       this.itemById = new Map(items.map((item) => [item.id, item]));
       for (const [key, itemId] of Object.entries(pins))
         if (!parse(key) || !this.itemById.has(itemId)) delete pins[key];
-      this.stride = 7;
-      while (this.gcd(this.stride, Math.max(1, items.length)) !== 1)
-        this.stride += 2;
+      this.stride = this.distributionStride(items.length);
+      this.permutation = items.map((_, i) => i);
+      this.inverse = [...this.permutation];
+      this.reconcilePins();
       for (const [key, v] of Object.entries(overrides)) {
         const cell = parse(key);
         if (
@@ -54,17 +55,82 @@
         if (
           items.length &&
           v.itemId &&
-          v.itemId !==
-            (pins[key] ||
-              items[mod(cell.c + cell.r * this.stride, items.length)].id)
+          v.itemId !== (pins[key] || this.itemAt(cell.c, cell.r).id)
         )
           delete overrides[key];
       }
       this.invalidate();
     }
-    gcd(a, b) {
-      while (b) [a, b] = [b, a % b];
-      return a;
+    distributionStride(count) {
+      if (count < 2) return 1;
+      // Maximize the nearest repeated cell in both axes. A landscape viewport
+      // typically spans about three times as many columns as rows. The old
+      // fixed stride of seven aliased nearby diagonals regardless of catalog size.
+      const aspect = Math.sqrt(3),
+        target = Math.sqrt(count * 3);
+      let best = 1,
+        bestScore = -1;
+      const rows = Math.ceil(Math.sqrt(count / 3) * 2);
+      for (
+        let stride = 1;
+        stride <= Math.min(count - 1, Math.ceil(target * 2));
+        stride++
+      ) {
+        let score = count / aspect;
+        for (let r = 1; r <= rows; r++) {
+          const residue = mod(r * stride, count);
+          score = Math.min(
+            score,
+            Math.max(Math.min(residue, count - residue) / aspect, r * aspect),
+          );
+          if (score < bestScore - 1e-9) break;
+        }
+        if (
+          score > bestScore + 1e-9 ||
+          (Math.abs(score - bestScore) < 1e-9 &&
+            Math.abs(stride - target) < Math.abs(best - target))
+        ) {
+          best = stride;
+          bestScore = score;
+        }
+      }
+      return best;
+    }
+    indexAt(c, r) {
+      return mod(c + r * this.stride, this.items.length);
+    }
+    itemAt(c, r) {
+      return this.items[this.permutation[this.indexAt(c, r)]];
+    }
+    reconcilePins() {
+      const byId = new Map(this.items.map((item, i) => [item.id, i]));
+      const occupied = new Set(),
+        assigned = new Set();
+      // Edited/open cards take priority, then the most recently retained cells.
+      // Pins permute the deck instead of adding extra copies of those films.
+      const pins = Object.entries(this.pins)
+        .reverse()
+        .sort(
+          ([a], [b]) =>
+            Number(!!this.overrides[b]) - Number(!!this.overrides[a]),
+        );
+      for (const [key, id] of pins) {
+        const cell = parse(key),
+          index = this.indexAt(cell.c, cell.r),
+          wanted = byId.get(id);
+        if (occupied.has(index) || assigned.has(wanted)) {
+          if (!this.overrides[key]) delete this.pins[key];
+          continue;
+        }
+        const previous = this.permutation[index],
+          from = this.inverse[wanted];
+        this.permutation[index] = wanted;
+        this.permutation[from] = previous;
+        this.inverse[wanted] = index;
+        this.inverse[previous] = from;
+        occupied.add(index);
+        assigned.add(wanted);
+      }
     }
     baseHeight(c, r) {
       return (
@@ -221,9 +287,7 @@
         key,
         c,
         r,
-        item:
-          this.itemById.get(this.pins[key]) ||
-          this.items[mod(c + r * this.stride, this.items.length)],
+        item: this.itemById.get(this.pins[key]) || this.itemAt(c, r),
         expanded: !!o.expanded,
         autoHeight: o.autoHeight !== false,
         rect: this.cells.get(key) || {
@@ -327,8 +391,9 @@
       return true;
     }
     find(itemId, point = { x: 0, y: 0 }) {
-      const index = this.items.findIndex((i) => i.id === itemId);
-      if (index < 0) return null;
+      const sourceIndex = this.items.findIndex((i) => i.id === itemId);
+      if (sourceIndex < 0) return null;
+      const index = this.inverse[sourceIndex];
       const centerC = this.columnAt(point.x),
         centerR = this.rowAt(centerC, point.y),
         n = this.items.length;

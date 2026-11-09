@@ -1171,10 +1171,13 @@ function pinLoadedCards() {
     ...Object.keys(state.atlasLayouts[key()] || {}),
   ])) {
     const entry = atlas.entry(cell);
-    if (entry) pins[cell] = entry.item.id;
+    if (entry) {
+      delete pins[cell];
+      pins[cell] = entry.item.id;
+    }
   }
 }
-function queueCatalogSearch(delay = 650) {
+function queueCatalogSearch(delay = 650, { refresh = false } = {}) {
   clearTimeout(searchTimer);
   clearTimeout(wanderTimer);
   searchRevision++;
@@ -1186,7 +1189,7 @@ function queueCatalogSearch(delay = 650) {
     window.BROADSHEET_OFFLINE
   )
     return;
-  searchTimer = setTimeout(() => loadCatalog(), delay);
+  searchTimer = setTimeout(() => loadCatalog({ refresh }), delay);
 }
 function exploreAsYouWander(view) {
   const viewKey = key();
@@ -1223,6 +1226,39 @@ function exploreAsYouWander(view) {
       loadCatalog({ append: true });
   }, 350);
 }
+function fillBrowsingRoom() {
+  if (
+    !canvas ||
+    !atlas ||
+    state.mode !== "spatial" ||
+    id === "places" ||
+    !state.liveCatalog ||
+    state.savedOnly ||
+    !state.data?.next ||
+    window.BROADSHEET_OFFLINE
+  )
+    return;
+  const z = canvas.view.z;
+  const columns = Math.ceil(
+    canvas.viewport.clientWidth / ((atlas.width + atlas.gap) * z),
+  );
+  const rows = Math.ceil(
+    canvas.viewport.clientHeight / ((atlas.height + atlas.gap) * z),
+  );
+  const target = Math.min(200, Math.max(20, columns * rows * 2));
+  if (visible.length >= target) return;
+  const viewKey = key();
+  clearTimeout(wanderTimer);
+  wanderTimer = setTimeout(() => {
+    if (
+      !catalogBusy &&
+      key() === viewKey &&
+      state.mode === "spatial" &&
+      state.data?.next
+    )
+      loadCatalog({ append: true });
+  }, 350);
+}
 async function loadCatalog({
   append = false,
   catalog = id === "movies" ? state.movie.mode : "all",
@@ -1251,6 +1287,7 @@ async function loadCatalog({
   const query = state.query.trim(),
     filter = state.filter;
   const previous = state.data;
+  let filled = false;
   const cursor = append ? previous.next : null;
   if (append) catalog = previous.catalog || "all";
   if (refresh) Live.clearCache();
@@ -1312,6 +1349,9 @@ async function loadCatalog({
       ];
       if (refreshSameView && previous.next) data.next = previous.next;
     }
+    filled =
+      data.items.length > 0 &&
+      (!append || data.items.length > previous.items.length);
     state.data = data;
     if (id === "movies" && capabilities.movies)
       state.movie.mode =
@@ -1338,6 +1378,7 @@ async function loadCatalog({
       $("#load-more").disabled = false;
       $("#refresh-catalog").disabled = false;
       renderResultStatus();
+      if (filled) fillBrowsingRoom();
     }
   }
 }
@@ -1620,6 +1661,9 @@ canvas = new window.BroadsheetCanvas({
     state.cameras[key()] = { ...view };
     clearTimeout(saveTimer);
     saveTimer = setTimeout(persist, 180);
+    // Retain the viewport we are leaving as well as the one receiving a new
+    // page, so catalog growth cannot immediately recycle a film just seen.
+    if (canvas && atlas) pinLoadedCards();
     exploreAsYouWander(view);
   },
 });
@@ -1825,7 +1869,7 @@ async function init() {
         .catch((error) => toast(error.message));
     else if (id === "movies") $("#discovery-facets").hidden = true;
     if (id !== "places" && state.liveCatalog && !state.savedOnly && !focus)
-      queueCatalogSearch(0);
+      queueCatalogSearch(0, { refresh: !!state.data?.live });
     if (id === "places") {
       if (!$("#city-input").value)
         $("#city-input").value =
