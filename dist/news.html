@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta
+      name="description"
+      content="Your own perspective on the world. Browse trusted sources, follow topics, and arrange a spatial reading workspace."
+    />
+    <title>Broadsheet · News · Broadsheet</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <button
+        id="menu-toggle"
+        class="icon-button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        ☰</button
+      ><a class="brand" href="index.html"
+        >Broadsheet<span class="brand-dot">.</span></a
+      ><a class="suite-back" href="index.html">← All spaces</a
+      ><span class="tagline">NEWS / A WIDER PERSPECTIVE</span>
+      <div class="header-actions">
+        <span id="edition-date">Loading the edition</span
+        ><button id="refresh" class="button">
+          ↻ <span>Refresh feeds</span></button
+        ><button
+          id="about"
+          class="icon-button"
+          aria-label="How Broadsheet works"
+        >
+          ?
+        </button>
+      </div>
+    </header>
+    <aside id="sidebar" aria-label="News navigation">
+      <div class="sidebar-top">
+        <span class="eyebrow">YOUR READING ROOM</span
+        ><button id="all-news" class="side-link active">
+          <span>▦</span> All stories <small id="all-count"></small></button
+        ><button id="saved-news" class="side-link">
+          <span>♧</span> Saved for later <small id="saved-count">0</small>
+        </button>
+      </div>
+      <div class="section-label">
+        YOUR CHANNELS
+        <button id="add-channel" aria-label="Create channel">+</button>
+      </div>
+      <div id="channels"></div>
+      <div class="section-label">
+        FOLLOWING
+        <button id="manage-topics" aria-label="Choose topics">Edit</button>
+      </div>
+      <div id="topic-list"></div>
+      <div class="section-label">
+        SOURCES
+        <button id="manage-sources" aria-label="Manage sources">+</button>
+      </div>
+      <div id="source-list"></div>
+      <div class="sidebar-bottom">
+        <span class="live-dot"></span
+        ><span id="source-summary">A wider view of the world</span
+        ><button id="coverage" class="text-button">
+          Explore your source mix ↗
+        </button>
+      </div>
+    </aside>
+    <div class="workspace">
+      <section class="workspace-heading">
+        <div>
+          <span class="eyebrow" id="view-eyebrow">THE OPEN EDITION</span>
+          <h1 id="view-title">All stories<span>.</span></h1>
+          <p id="view-description">
+            Different sources. More perspectives. A space to make your own.
+          </p>
+        </div>
+        <div class="heading-actions">
+          <button id="coverage-top" class="button">Source mix ↗</button
+          ><button id="source-library" class="button dark">
+            + Add sources
+          </button>
+        </div>
+      </section>
+      <section class="toolbar" aria-label="Filter and organize stories">
+        <div id="topic-chips" class="chips"></div>
+        <div class="toolbar-controls">
+          <label class="search-box"
+            ><span>⌕</span
+            ><input
+              id="search"
+              type="search"
+              aria-label="Search stories"
+              placeholder="Search stories…" /></label
+          ><select id="sort" aria-label="Sort stories">
+            <option value="latest">Latest first</option>
+            <option value="source">By source</option>
+          </select>
+          <div class="view-switch">
+            <button
+              id="canvas-mode"
+              class="active"
+              aria-label="Canvas view"
+              aria-pressed="true"
+            >
+              ▦</button
+            ><button id="list-mode" aria-label="List view" aria-pressed="false">
+              ☷
+            </button>
+          </div>
+        </div>
+      </section>
+      <div class="edition-strip">
+        <span id="edition-status">Preparing stories…</span
+        ><button id="clear-filters" class="text-button" hidden>
+          Clear filters</button
+        ><span class="workspace-hint"
+          >DRAG TO EXPLORE · MAKE ROOM FOR CURIOSITY</span
+        >
+      </div>
+      <main
+        id="viewport"
+        tabindex="0"
+        aria-label="News canvas. Drag the background to pan. Move cards by their handles and resize from the bottom right."
+      >
+        <div id="world"><div id="cards"></div></div>
+        <div id="empty-state" hidden>
+          <span>◌</span>
+          <h2>A little room for discovery.</h2>
+          <p id="empty-message">
+            Try another topic or add a source to this view.
+          </p>
+          <button id="empty-reset" class="button">Show all stories</button>
+        </div>
+      </main>
+      <section id="list-view" aria-label="Filtered story list" hidden>
+        <div id="list-results"></div>
+      </section>
+      <div id="map-tools">
+        <button id="home" class="button" title="Return to start (H)">
+          ⌂ <span>Home</span>
+        </button>
+        <div class="zoom">
+          <button id="minus" aria-label="Zoom out">−</button
+          ><output id="zoom-label">85%</output
+          ><button id="plus" aria-label="Zoom in">+</button>
+        </div>
+        <select id="card-size" aria-label="Default card size">
+          <option value="compact">Compact cards</option>
+          <option value="comfortable" selected>Comfortable cards</option>
+          <option value="large">Large cards</option></select
+        ><button id="arrange" class="button">↔ Tidy layout</button>
+      </div>
+      <footer>
+        <span id="status" role="status">Preparing your reading room…</span
+        ><span id="storage-status">WORKSPACE SAVED ON THIS DEVICE</span>
+      </footer>
+    </div>
+    <dialog id="library-dialog" class="wide-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">BUILD YOUR EDITION</span>
+          <h2>A world of sources.</h2>
+        </div>
+        <button class="close-dialog" aria-label="Close source library">
+          ×
+        </button>
+      </div>
+      <p>
+        Follow the publishers you want in your reading room. Use their original
+        stories to read beyond the feed excerpt.
+      </p>
+      <input
+        id="source-search"
+        type="search"
+        aria-label="Search source library"
+        placeholder="Find a source or topic…"
+      />
+      <div id="library-sources"></div>
+      <details class="import-panel">
+        <summary>Add your own RSS or Atom feed</summary>
+        <p>
+          Paste a feed URL. The publisher must allow browser access (CORS). You
+          can also import a downloaded RSS/Atom XML file. Imported stories stay
+          on this device.
+        </p>
+        <form id="import-form">
+          <input
+            id="feed-url"
+            type="url"
+            placeholder="https://example.com/feed.xml"
+            aria-label="RSS or Atom feed URL"
+            required
+          /><button class="button dark">Add feed</button>
+        </form>
+        <label class="file-import"
+          >Import XML file
+          <input
+            id="feed-file"
+            type="file"
+            accept=".xml,.rss,.atom,application/xml,text/xml,application/rss+xml,application/atom+xml"
+        /></label>
+        <p id="import-status" role="status"></p>
+      </details>
+      <button id="library-done" class="button dark">
+        Back to the edition →
+      </button>
+    </dialog>
+    <dialog id="topics-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">FOLLOW YOUR CURIOSITY</span>
+          <h2>Your interests.</h2>
+        </div>
+        <button class="close-dialog" aria-label="Close topics">×</button>
+      </div>
+      <p>
+        Choose topics for your sidebar. Click any topic there to filter stories.
+        Channels can combine several topics and sources.
+      </p>
+      <div id="topic-options" class="topic-options"></div>
+      <button id="topics-done" class="button dark">Save interests</button>
+    </dialog>
+    <dialog id="channel-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">A FOCUS OF YOUR OWN</span>
+          <h2 id="channel-dialog-title">Create a channel.</h2>
+        </div>
+        <button class="close-dialog" aria-label="Close channel editor">
+          ×
+        </button>
+      </div>
+      <form id="channel-form">
+        <label class="field-label"
+          >Channel name<input
+            id="channel-name"
+            required
+            maxlength="40"
+            placeholder="My space & AI briefing"
+        /></label>
+        <fieldset>
+          <legend>Topics <small>(any selected topic)</small></legend>
+          <div id="channel-topics" class="topic-options"></div>
+        </fieldset>
+        <fieldset>
+          <legend>Sources <small>(any selected source)</small></legend>
+          <div id="channel-sources"></div>
+        </fieldset>
+        <p class="small">
+          Choose topics, sources, or both. With no topics selected, the channel
+          includes every topic from its selected sources.
+        </p>
+        <div class="dialog-actions">
+          <button id="delete-channel" type="button" class="text-button" hidden>
+            Delete channel</button
+          ><button class="button dark">Save channel →</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="coverage-dialog" class="wide-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">CONTEXT, BEFORE CONCLUSIONS</span>
+          <h2>Your source mix.</h2>
+        </div>
+        <button class="close-dialog" aria-label="Close source analysis">
+          ×
+        </button>
+      </div>
+      <p>
+        How the stories in your current view are distributed. Counts measure
+        your feed selection, not the world's coverage or the accuracy of a
+        claim.
+      </p>
+      <div id="coverage-summary"></div>
+      <div id="coverage-sources"></div>
+      <div class="analysis-note">
+        <h3>Where are the bias ratings?</h3>
+        <p>
+          Political bias and factual reliability are <strong>unrated</strong>.
+          Broadsheet has no licensed rating dataset and does not infer ratings
+          from headlines, publisher location, or your reading habits. Source
+          types describe the publisher, not a verdict on its reporting.
+        </p>
+        <p>
+          Topic tags come from source-feed topics, imported categories, and
+          simple headline rules. They can miss or misclassify a story. Publisher
+          base is not the location of an event. This edition does not yet match
+          the same event across publishers.
+        </p>
+      </div>
+    </dialog>
+    <dialog id="help">
+      <div class="dialog-heading">
+        <h2>Your own reading room.</h2>
+        <button class="close-dialog" aria-label="Close help">×</button>
+      </div>
+      <p>
+        Follow sources, filter by topics, and save combinations as channels.
+        Drag the canvas to explore. Drag a card's dotted handle to move it, or
+        its bottom corner to resize it. Focus either handle and use arrow keys
+        for the same controls. Retained NASA stories can unfold in a card, so
+        several complete articles can stay open together.
+      </p>
+      <p>
+        Scroll inside a card to read its excerpt. Use the canvas background to
+        scroll around the workspace. Ctrl/Command + scroll zooms. H returns
+        home. Layouts, channels, and saved stories persist in this browser.
+      </p>
+      <p>
+        News cards show bounded publisher feed excerpts and link to original
+        articles. The retained NASA archive includes attributed prose and
+        images. A feed refresh is available on the local Python server; the
+        static edition is a saved snapshot with visible collection dates.
+      </p>
+      <p class="small">
+        NASA does not endorse this independent reader. There are no invented
+        articles or inferred political bias scores.
+      </p>
+    </dialog>
+    <div id="toast" role="status" hidden></div>
+    <script src="spaces.js"></script>
+    <script src="spatial.js"></script>
+    <script src="canvas.js"></script>
+    <script src="model.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

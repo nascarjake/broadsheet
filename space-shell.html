@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f6f4ee" />
+    <meta
+      name="description"
+      content="Explore @LABEL@ in a visual, zoomable Broadsheet workspace."
+    />
+    <title>@LABEL@ · Broadsheet</title>
+    <link rel="stylesheet" href="explore.css" />
+    <link rel="stylesheet" href="vendor/leaflet.css" />
+  </head>
+  <body class="space-page" data-space="@SPACE@">
+    <header class="global-header">
+      <a href="index.html" class="brand">Broadsheet<span>.</span></a
+      ><span class="header-divider"></span>
+      <nav aria-label="Spaces">
+        <a href="index.html">Explore</a><a href="news.html">News</a
+        ><a href="recipes.html" data-nav="recipes">Recipes</a
+        ><a href="places.html" data-nav="places">Places</a
+        ><a href="movies.html" data-nav="movies">Movies</a>
+      </nav>
+      <a href="index.html#collection" class="collection-link"
+        >♡ <span>Your collection</span></a
+      >
+    </header>
+    <aside class="space-sidebar">
+      <a href="index.html" class="back-link">← All spaces</a>
+      <div class="space-symbol" id="space-symbol"></div>
+      <span class="eyebrow">YOUR LITTLE CORNER</span>
+      <h2 id="sidebar-title">@LABEL@</h2>
+      <button id="browse-all" class="side-button active">
+        ▦ Browse everything <span id="item-count"></span></button
+      ><button id="browse-saved" class="side-button">
+        ♡ Saved in this space <span id="saved-count">0</span>
+      </button>
+      <div class="sidebar-label">EXPLORE BY <span id="filter-kind"></span></div>
+      <div id="side-filters"></div>
+      <div class="sidebar-bottom">
+        <span class="eyebrow">A DIFFERENT WAY TO DISCOVER</span>
+        <p>Pan out for possibilities.<br />Zoom in for the little things.</p>
+        <button id="help-open" class="link-button">A quick tour ↗</button
+        ><button id="sources-open" class="link-button">
+          About this collection ↗
+        </button>
+      </div>
+    </aside>
+    <div class="space-workspace">
+      <section class="space-heading">
+        <div>
+          <span id="space-eyebrow" class="eyebrow"></span>
+          <h1 id="space-title"></h1>
+          <p id="space-description"></p>
+        </div>
+        <div class="heading-right">
+          <label id="city-label" hidden
+            ><span class="eyebrow">EXPLORE AROUND YOU</span>
+            <form id="city-form">
+              <input
+                id="city-input"
+                aria-label="City"
+                placeholder="City or address"
+                maxlength="100"
+              /><button aria-label="Search this city">→</button>
+            </form>
+            <button id="use-location" class="link-button">
+              ◎ Use my location
+            </button></label
+          >
+          <div id="movie-catalog" hidden>
+            <button id="collection-mode" class="pill active">
+              Ghibli collection</button
+            ><button id="now-playing" class="pill">Now playing ↗</button>
+          </div>
+          <button id="search-provider" class="primary-button" hidden>
+            Find more recipes ↗
+          </button>
+        </div>
+      </section>
+      <section class="discovery-toolbar" aria-label="Browse controls">
+        <div class="filter-pills" id="filter-pills"></div>
+        <div class="browse-actions">
+          <label class="space-search"
+            ><span>⌕</span
+            ><input
+              id="space-search"
+              type="search"
+              aria-label="Search this space" /></label
+          ><select id="space-sort" aria-label="Sort items">
+            <option value="collection">Collection order</option>
+            <option value="title">A–Z</option>
+          </select>
+          <div class="view-buttons">
+            <button
+              id="spatial-mode"
+              class="active"
+              aria-label="Spatial view"
+              aria-pressed="true"
+            >
+              ▦</button
+            ><button
+              id="map-mode"
+              aria-label="Map view"
+              aria-pressed="false"
+              hidden
+            >
+              ◎</button
+            ><button id="list-mode" aria-label="List view" aria-pressed="false">
+              ☷
+            </button>
+          </div>
+        </div>
+      </section>
+      <div class="space-status">
+        <span id="result-status" role="status">Opening this space…</span
+        ><button id="clear-space" class="link-button" hidden>
+          Clear filters</button
+        ><span id="collection-note"></span>
+      </div>
+      <main
+        id="space-viewport"
+        tabindex="0"
+        aria-label="Endless zoomable browsing canvas. Drag the background to pan. Use card handles to move and resize items."
+      >
+        <div id="space-world"><div id="space-cards"></div></div>
+      </main>
+      <section
+        id="space-list"
+        aria-label="Items in this space"
+        hidden
+      ></section>
+      <section id="place-map" aria-label="Map of places" hidden></section>
+      <div id="no-results" hidden>
+        <span>◌</span>
+        <h2>A little more room to explore.</h2>
+        <p id="no-results-text">Try another search or category.</p>
+        <button id="reset-space" class="primary-button">
+          Browse everything
+        </button>
+      </div>
+      <div class="space-canvas-tools">
+        <button id="space-home" aria-label="Return to start">⌂</button
+        ><span class="tool-divider"></span
+        ><button id="space-minus" aria-label="Zoom out">−</button
+        ><output id="space-zoom">85%</output
+        ><button id="space-plus" aria-label="Zoom in">+</button
+        ><span id="zoom-level">BROWSE</span><span class="tool-divider"></span
+        ><select id="space-size" aria-label="Card size">
+          <option value="compact">Small cards</option>
+          <option value="comfortable" selected>Medium cards</option>
+          <option value="large">Large cards</option></select
+        ><button id="space-tidy">↔ Tidy up</button
+        ><button id="space-fit">⊡ Overview</button>
+      </div>
+      <footer class="space-footer">
+        <span id="space-tip">DRAG TO WANDER · ZOOM TO DISCOVER</span
+        ><span id="save-status">YOUR WORKSPACE STAYS ON THIS DEVICE</span>
+      </footer>
+    </div>
+    <dialog id="space-help">
+      <div class="dialog-top">
+        <h2>Make a little space.</h2>
+        <button class="dialog-close" aria-label="Close tour">×</button>
+      </div>
+      <p>
+        Drag the background to wander. Use + / − or Ctrl/Command + scroll to
+        zoom. Two fingers on the canvas background can pinch to zoom on a
+        touchscreen.
+      </p>
+      <p>
+        At a distance, images lead the way. Zoom closer for context. Open a card
+        for the full details. Drag a card's dotted handle to move it or its
+        bottom corner to resize it. Focus a handle and use arrow keys for the
+        same controls.
+      </p>
+      <p>
+        Save items with the heart. Find everything you saved across spaces in
+        <a href="index.html#collection">Your collection</a>. Every space
+        remembers its own filters and layout on this device.
+      </p>
+    </dialog>
+    <dialog id="space-sources">
+      <div class="dialog-top">
+        <h2>Behind this collection.</h2>
+        <button class="dialog-close" aria-label="Close sources">×</button>
+      </div>
+      <div id="source-detail"></div>
+    </dialog>
+    <div id="space-toast" role="status" hidden></div>
+    <script src="spaces.js"></script>
+    <script src="spatial.js"></script>
+    <script src="canvas.js"></script>
+    <script src="vendor/leaflet.js"></script>
+    <script type="module" src="browse.js"></script>
+  </body>
+</html>

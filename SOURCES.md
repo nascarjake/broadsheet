@@ -30,3 +30,44 @@ Images are editorial illustrations and visibly labeled as such, not presented as
 NASA usage guidance: https://www.nasa.gov/nasa-brand-center/images-and-media/ . Selection excludes images with third-party ownership credits. Logos/insignia are not used as branding, and no NASA endorsement is claimed. Individual story and image metadata preserve credits and usage-guidance links.
 
 The UI repeats this finite corpus across an unbounded virtual canvas, visibly disclosed under “How this world works.” New unique stories require refreshing/expanding the source corpus; the UI does not generate factual articles.
+
+## Multi-source edition (03)
+
+`dist/sources.json` is the canonical feed catalog. Each record retains the feed URL, publisher site, feed directory/evidence link, configured topic scope, publisher-base label, and descriptive source type. `dist/feed.json` contains collected headlines, brief plain-text excerpts (bounded to 350 characters), original article URLs/dates, and per-feed collection status. It contains no imported third-party full articles or newly downloaded third-party image assets.
+
+Publisher references checked while extending the reader:
+
+- BBC feed documentation: https://support.bbc.co.uk/platform/feeds/NewsFeeds.htm
+- Guardian feed instructions: https://www.theguardian.com/help/feeds (section pages expose `/rss`, including World and Food).
+- NASA feed directory: https://www.nasa.gov/rss-feeds/
+- Le Monde feed directory: https://www.lemonde.fr/en/rss/article/2022/06/23/the-rss-feeds-of-monde-fr_5987755_165.html
+- ScienceDaily feed directory: https://www.sciencedaily.com/newsfeeds.htm (requests attribution/source links and excludes full-text republication).
+- Other feed endpoints and publisher URLs are retained directly in the catalog. All nine endpoints returned parseable items during local verification on November 8, 2026. Future availability and third-party terms can change.
+
+Names identify the sources of the reporting; they do not imply endorsement or independent verification. Source avatars are typographic initials rendered in CSS, not downloaded publisher logos. Source types and publisher bases are manually curated descriptions and are not political bias/reliability ratings. No Ground News or other proprietary ratings are copied or invented. The initial source list is illustrative, not comprehensive. User-imported feed metadata is explicitly unverified and stays on that user's device.
+
+The original NASA archive and all of its attribution, historical notes, image files, and rights metadata remain retained. No new image packs, external font files, or library assets were added. The reading UI uses system Arial and Georgia fonts.
+
+## Modular spaces (04)
+
+`dist/discovery.json` retains normalized items with source URLs and image-credit metadata. The new starter spaces were collected on November 8, 2026. These bounded samples are not exhaustive or continuously refreshed.
+
+- **Recipes:** [TheMealDB API](https://www.themealdb.com/api.php), development key `1`; recipe titles, ingredient measures, method text, and contributor photo URLs are retained. Photos stay hosted on TheMealDB. The provider permits the test key during development/educational use; it is not represented as a universal production license. No preparation times or nutritional values are fabricated. Full original source links are preserved where supplied, otherwise the meal's TheMealDB page is linked.
+- **Films:** [Studio Ghibli API](https://ghibliapi.vercel.app/films); film metadata and poster/banner URLs are retained. This is an unofficial starter collection, not current cinema listings. Posters are hosted by TMDB and belong to the film artwork's respective rights holders; no general artwork redistribution license is asserted. Browse genres are editorial labels in `providers.py`. Original descriptions are provider-supplied, not generated reviews. Per-film source and image-credit fields remain attached to saved items.
+- **Live cinema adapter:** [TMDB authentication](https://developer.themoviedb.org/docs/authentication-application), [Now Playing](https://developer.themoviedb.org/reference/movie-now-playing-list), [attribution/usage](https://developer.themoviedb.org/docs/faq). Requires a user-configured server-side token. No token has been bundled or obtained from another application. The default collection must not be mislabeled as now playing.
+- **Places:** data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0. Nominatim provides chosen-city/address geocoding; Overpass provides bounded nearby listings. [Nominatim service policy](https://operations.osmfoundation.org/policies/nominatim/) informs identifying requests, serialized geocoding, caching, and configurable server endpoints. Initial Chicago venue records retain OSM element URLs and actual contributor coordinates. That initial city is only a preview; live requests use browser-provided or user-entered locations. Opening-hour strings are displayed as provided, not interpreted as reliable “open now” claims.
+- **Venue previews:** when verified venue imagery/logos are absent, the interface uses typographic initials and explicitly labeled illustrative TheMealDB food images. The food is not claimed to be served by a displayed venue. Real external imagery linked in OSM remains credited separately; unsupported media hosts are not rendered.
+- **Maps library:** Leaflet 1.9.4 by Volodymyr Agafonkin and contributors / CloudMade; BSD 2-Clause. Unmodified JS/CSS retrieved from `https://unpkg.com/leaflet@1.9.4/dist/leaflet.js` and `https://unpkg.com/leaflet@1.9.4/dist/leaflet.css`; retained license at `dist/vendor/LEAFLET-LICENSE`. On-demand map tiles use `https://tile.openstreetmap.org/{z}/{x}/{y}.png` with visible attribution. No bulk tile archive is included.
+- **Hub visual:** the small conceptual map is original SVG interface artwork, not a geographic map. NASA photography comes from the already attributed local corpus (Hubble telescope story); recipe and film covers use the same credited provider items as their spaces. No generated food, venue logos, or fictitious movie posters were substituted for sourced material.
+
+The new spaces are local development work. Commercial/public provider access and original artwork rights remain provider-specific; logging or retaining an image URL does not establish ownership or a new license.
+
+TMDB's unmodified approved blue short logo is retained at `dist/vendor/tmdb-logo.svg`, retrieved from `https://www.themoviedb.org/assets/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg`. The Movies source-information panel includes the logo and TMDB's required non-endorsement notice. Logo use follows the provider's linked attribution policy; trademark ownership is retained by TMDB.
+
+## Endless spatial interaction and Street View (05)
+
+The current canvas repeats its finite, attributed collection across unbounded positive/negative cell coordinates. This supersedes edition 04's finite mosaic; unique source-item counts remain visible. Replication preserves each item's source identity and credits. No additional recipes, reports, or business photos are fabricated to fill the world. Opened details expand inside their cell, and local span packing reserves room for them.
+
+Google Street View business covers use the documented [Street View Static API](https://developers.google.com/maps/documentation/streetview/request-streetview), [metadata endpoint](https://developers.google.com/maps/documentation/streetview/metadata), and [API key setup](https://developers.google.com/maps/documentation/streetview/get-api-key). The server checks for a nearby panorama, calculates the camera heading toward the existing business coordinates, and streams a bounded image response. It does not save or cache Google's images/metadata, put image URLs into saved items, or include Google content/keys in snapshots. The client uses uncropped imagery so returned Google copyright and attribution remain present. [Google policies](https://developers.google.com/maps/documentation/streetview/policies) apply.
+
+No Google Maps API key was configured during implementation; provider behavior was tested with fixtures, and the UI's honest unavailable state was browser-checked. Venue cover initials have been replaced with this Street View cover path/fallback. Food imagery remains explicitly illustrative and appears on hover, rather than masquerading as a business exterior. The geographic map continues to use separately attributed OpenStreetMap data and tiles.

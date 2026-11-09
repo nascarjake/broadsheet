@@ -1,48 +1,1305 @@
-const $=s=>document.querySelector(s), viewport=$('#viewport'), world=$('#world');
-const W=432,GAP=24,STEP=W+GAP,ROW=610,MIN=.3,MAX=1.55;
-let stories=[],view={x:32,y:28,z:.8}, selected=null,listing=false,scheduled=0,drag=null,moved=false,pointers=new Map(),focusTimer;
-const expanded=new Map(),nodes=new Map();
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mod=(n,m)=>((n%m)+m)%m;
-const key=(c,r)=>`${c}:${r}`;
-const parse=k=>k.split(':').map(Number);
-function storyAt(c,r){return stories[mod(r*7+c,stories.length)]}
-function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
-function date(v){let d=new Date(v);return isNaN(+d)?'From the archive':d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
-function safeURL(s){try{const u=new URL(s,location.href);return ['https:','http:','data:','file:'].includes(u.protocol)?s:''}catch{return ''}}
-function rowY(c,r){let y=r*ROW;for(const [k,h] of expanded){const [ec,er]=parse(k);if(ec!==c)continue;if(er<r)y+=h-(ROW-GAP)}return y}
-function rowNear(c,y){let total=0;for(const [k,h]of expanded)if(parse(k)[0]===c)total+=h-(ROW-GAP);let low=Math.floor((y-total)/ROW)-2,high=Math.floor(y/ROW)+2;while(low<=high){const r=Math.floor((low+high)/2),a=rowY(c,r),h=expanded.get(key(c,r))||ROW-GAP;if(y<a)high=r-1;else if(y>=a+h+GAP)low=r+1;else return r}return low}
-function queue(){if(!scheduled)scheduled=requestAnimationFrame(()=>{scheduled=0;render()})}
-function transform(){world.style.transform=`translate(${view.x}px,${view.y}px) scale(${view.z})`;world.classList.toggle('overview',view.z<.48);$('#zoom-label').value=Math.round(view.z*100)+'%';queue()}
-function zoom(f,x=viewport.clientWidth/2,y=viewport.clientHeight/2){world.style.transition='';const z=Math.max(MIN,Math.min(MAX,view.z*f));view.x=x-(x-view.x)*z/view.z;view.y=y-(y-view.y)*z/view.z;view.z=z;transform()}
-function go(c,r,z=.9){clearTimeout(focusTimer);world.style.transition=reduced?'none':'transform 380ms cubic-bezier(.2,.8,.2,1)';view.z=Math.min(z,(viewport.clientWidth-32)/W);view.x=(viewport.clientWidth-W*view.z)/2-c*STEP*view.z;view.y=25-rowY(c,r)*view.z;transform();focusTimer=setTimeout(()=>world.style.transition='',400)}
-function home(){world.style.transition='';view={x:28,y:22,z:Math.min(.85,(viewport.clientWidth-40)/(W*(viewport.clientWidth<650?1:2.4)))};transform()}
-function figure(image){const f=el('figure','story-photo'),im=el('img');im.src=safeURL(image.src);im.alt=image.caption||image.alt||'';im.loading='lazy';im.decoding='async';im.tabIndex=0;im.setAttribute('role','button');im.setAttribute('aria-label','Enlarge image: '+(image.caption||'article photograph'));const enlarge=()=>{const d=$('#photo-dialog');$('#photo-large').src=im.src;$('#photo-large').alt=im.alt;$('#photo-caption').textContent=[image.caption,image.credit].filter(Boolean).join(' — ');d.showModal()};im.onclick=enlarge;im.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enlarge()}};f.append(im);if(image.caption)f.append(el('figcaption','',image.caption));if(image.credit)f.append(el('small','image-credit',image.credit));return f}
-function imageBlocks(s){return (s.blocks||[]).filter(b=>b.type==='image'&&b.src)}
-function makeCard(c,r){const k=key(c,r),s=storyAt(c,r),open=expanded.has(k),card=el('article','story'+(open?' unfolded':''));card.dataset.key=k;card.dataset.id=s.id;card.style.width=W+'px';const meta=el('div','kicker');meta.append(el('span','',s.topic),el('span','',s.source));card.append(meta);
- const images=imageBlocks(s);if(!open&&images[0])card.append(figure(images[0]));
- const title=el('button','headline',s.title);title.onclick=()=>{if(!moved)toggle(k)};card.append(title,el('div','date',`${date(s.date)} · ${s.wordCount||Math.round((s.blocks||[]).reduce((a,b)=>a+(b.text||'').length,0)/6)} words`));
- if(open){const body=el('div','story-body');for(const b of s.blocks||[]){if(b.type==='image'&&b.src)body.append(figure(b));else if(b.type==='heading')body.append(el('h3','',b.text));else if(b.text)body.append(el('p','',b.text))}card.append(body);const a=el('a','source-link','Original story ↗');a.href=safeURL(s.url);a.target='_blank';a.rel='noopener noreferrer';card.append(a,el('small','rights',s.rights||'Source credited. Full text in this research prototype.'));}
- else card.append(el('p','excerpt',s.excerpt||''));
- const bottom=el('div','bottom'),b=el('button','fold-toggle',open?'− Refold story':'+ Read full story');b.onclick=()=>{if(!moved)toggle(k)};bottom.append(el('span','',`ARCHIVE ${mod(r*7+c,stories.length)+1} / ${stories.length}`),b);card.append(bottom);return card}
-function toggle(k){const [c,r]=parse(k);if(expanded.has(k)){expanded.delete(k);if(selected===k)selected=null}else{expanded.set(k,ROW-GAP);selected=k}nodes.get(k)?.remove();nodes.delete(k);render();if(selected===k)go(c,r);}
-function render(){if(!stories.length||listing)return;const started=performance.now();const left=-view.x/view.z,top=-view.y/view.z,right=left+viewport.clientWidth/view.z,bottom=top+viewport.clientHeight/view.z,keep=new Set();let measure=false;
- for(let c=Math.floor(left/STEP)-1;c<=Math.ceil(right/STEP)+1;c++){let start=rowNear(c,top-ROW);for(let r=start;r<start+24;r++){const y=rowY(c,r);if(y>bottom+ROW)break;const h=expanded.get(key(c,r))||ROW-GAP;if(y+h<top-ROW)continue;const k=key(c,r);keep.add(k);let card=nodes.get(k);if(!card){card=makeCard(c,r);nodes.set(k,card);$('#cards').append(card);if(expanded.has(k)){const h=card.offsetHeight;if(h!==expanded.get(k)){expanded.set(k,h);measure=true}}}card.style.left=c*STEP+'px';card.style.top=y+'px';card.classList.toggle('selected',k===selected)}}
- for(const [k,node]of nodes)if(!keep.has(k)){node.remove();nodes.delete(k)}
- if(measure)queue();$('#status').textContent=`${stories.length} full stories · ${expanded.size} unfolded · Wander in any direction`;
- $('#coordinate').textContent=`${Math.floor(left/STEP)}, ${Math.floor(top/ROW)}`;map();document.body.dataset.rendered=nodes.size;document.body.dataset.open=expanded.size;document.body.dataset.renderMs=(performance.now()-started).toFixed(2);
+const $ = (s) => document.querySelector(s),
+  M = window.BroadsheetModel;
+const viewport = $("#viewport"),
+  world = $("#world"),
+  STORE = "broadsheet.workspace.v3";
+const defaults = {
+  sources: [
+    "bbc",
+    "guardian",
+    "aljazeera",
+    "lemonde",
+    "nasa",
+    "verge",
+    "ars",
+    "sciencedaily",
+    "guardian-food",
+  ],
+  interests: ["World", "Space", "Technology", "AI", "Cooking"],
+  topics: [],
+  filterSources: [],
+  query: "",
+  saved: [],
+  savedStories: [],
+  savedSources: [],
+  openCards: [],
+  savedOnly: false,
+  activeChannel: null,
+  sort: "latest",
+  size: "comfortable",
+  mode: "canvas",
+  layouts: {},
+  atlasLayouts: {},
+  channels: [
+    {
+      id: "space-science",
+      name: "Space & science",
+      topics: ["Space", "Science"],
+      sources: [],
+    },
+    {
+      id: "tech-ai",
+      name: "Tech & AI",
+      topics: ["Technology", "AI"],
+      sources: [],
+    },
+    {
+      id: "the-kitchen",
+      name: "The kitchen",
+      topics: ["Cooking"],
+      sources: [],
+    },
+  ],
+  customSources: [],
+  customStories: [],
+};
+let state = structuredClone(defaults),
+  catalog = [],
+  stories = [],
+  edition = {},
+  filtered = [],
+  nodes = new Map(),
+  positions = {},
+  atlas,
+  view = { x: 26, y: 18, z: 0.85 },
+  toastTimer,
+  editingChannel = null,
+  refreshAvailable = false,
+  storageOK = true;
+try {
+  const stored = JSON.parse(localStorage.getItem(STORE) || "null");
+  if (stored && typeof stored === "object") {
+    for (const key of Object.keys(defaults))
+      if (
+        Array.isArray(defaults[key])
+          ? Array.isArray(stored[key])
+          : typeof defaults[key] === "object"
+            ? stored[key] && typeof stored[key] === "object"
+            : typeof stored[key] === typeof defaults[key]
+      )
+        state[key] = stored[key];
+    state.activeChannel =
+      typeof stored.activeChannel === "string" ? stored.activeChannel : null;
+    state.layouts = Object.fromEntries(
+      Object.entries(state.layouts).map(([k, v]) => [k, M.cleanLayout(v)]),
+    );
+  }
+} catch {
+  storageOK = false;
 }
-function map(){const svg=$('#minimap');svg.replaceChildren();const cx=Math.floor(-view.x/view.z/STEP),cy=Math.floor(-view.y/view.z/ROW);for(let x=-3;x<=3;x++)for(let y=-2;y<=2;y++){const r=document.createElementNS(svg.namespaceURI,'rect');for(const [k,v]of Object.entries({x:10+(x+3)*24,y:8+(y+2)*20,width:20,height:16,rx:2,fill:expanded.has(key(cx+x,cy+y))?'#3d756d':'#b8cbc6',opacity:x===0&&y===0?1:.5}))r.setAttribute(k,v);svg.append(r)}}
-function renderList(){const q=$('#search').value.toLowerCase();$('#list-results').replaceChildren(...stories.filter(s=>(s.title+' '+s.topic+' '+s.excerpt).toLowerCase().includes(q)).map((s)=>{const b=el('button');b.append(el('small','',s.topic+' / '+date(s.date)),el('h3','',s.title),el('p','',s.excerpt));b.onclick=()=>{setList(false);const i=stories.indexOf(s);const c=mod(i,7),r=Math.floor(i/7);expanded.set(key(c,r),ROW-GAP);selected=key(c,r);nodes.get(key(c,r))?.remove();nodes.delete(key(c,r));go(c,r);render()};return b}))}
-function setList(on){listing=on;$('#list-view').hidden=!on;viewport.hidden=on;$('#map-tools').hidden=on;$('#list-toggle').textContent=on?'Return to canvas':'Find a story';$('#list-toggle').setAttribute('aria-pressed',on);if(on)renderList();else queue()}
-$('#close-photo').onclick=()=>$('#photo-dialog').close();
-$('#list-toggle').onclick=()=>setList(!listing);$('#search').oninput=renderList;$('#home').onclick=home;$('#plus').onclick=()=>zoom(1.2);$('#minus').onclick=()=>zoom(1/1.2);$('#about').onclick=()=>$('#help').showModal();$('#close-help').onclick=()=>$('#help').close();$('#start-exploring').onclick=()=>$('#help').close();
-viewport.addEventListener('wheel',e=>{e.preventDefault();world.style.transition='';const r=viewport.getBoundingClientRect();if(e.ctrlKey||e.metaKey)zoom(Math.exp(-e.deltaY*.005),e.clientX-r.left,e.clientY-r.top);else{view.x-=e.deltaX;view.y-=e.deltaY;transform()}},{passive:false});
-viewport.addEventListener('pointerdown',e=>{moved=false;if(e.target.closest('.story-body,a,img'))return;world.style.transition='';pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});drag={x:e.clientX,y:e.clientY};if(!e.target.closest('button'))viewport.setPointerCapture(e.pointerId)});
-viewport.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);if(pointers.size===2){const other=[...pointers.entries()].find(([id])=>id!==e.pointerId)[1],before=Math.hypot(old.x-other.x,old.y-other.y),after=Math.hypot(e.clientX-other.x,e.clientY-other.y),rect=viewport.getBoundingClientRect();if(before)zoom(after/before,(e.clientX+other.x)/2-rect.left,(e.clientY+other.y)/2-rect.top);moved=true}else{if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>5)moved=true;if(moved){view.x+=e.clientX-old.x;view.y+=e.clientY-old.y;transform()}}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
-for(const name of ['pointerup','pointercancel','lostpointercapture'])viewport.addEventListener(name,e=>{pointers.delete(e.pointerId);if(!pointers.size)drag=null});window.addEventListener('blur',()=>{pointers.clear();drag=null});
-window.addEventListener('keydown',e=>{if(e.target.matches('input,textarea')||$('#help').open||$('#photo-dialog').open)return;if(e.key==='Escape'&&selected){toggle(selected);return}if(e.key==='+'||e.key==='=')zoom(1.2);else if(e.key==='-')zoom(1/1.2);else if(e.key.toLowerCase()==='h')home();else if(e.key.toLowerCase()==='f')setList(!listing);else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();world.style.transition='';view.x+=e.key==='ArrowLeft'?120:e.key==='ArrowRight'?-120:0;view.y+=e.key==='ArrowUp'?120:e.key==='ArrowDown'?-120:0;transform()}});
-function apply(data){stories=data.stories.filter(s=>s.blocks?.some(b=>b.type==='paragraph'));$('#edition-date').textContent=`${stories.length} complete stories · Science archive`;for(const topic of [...new Set(stories.map(s=>s.topic))]){const b=el('button','',topic);b.onclick=()=>{const i=stories.findIndex(s=>s.topic===topic);go(mod(i,7),Math.floor(i/7),.7)};$('#topics').append(b)}transform()}
-async function init(){try{const data=window.BROADSHEET_DATA||await (await fetch('corpus.json')).json();apply(data);home()}catch(e){$('#status').textContent='Could not load the full-story archive.';console.error(e)}}
-window.addEventListener('resize',()=>{home()});
-window.broadsheetDebug={get state(){return {view:{...view},rendered:nodes.size,open:expanded.size,stories:stories.length}},pan(x,y){view.x-=x;view.y-=y;transform()},open(c,r){toggle(key(c,r))},storyAt, rowY};init();
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+function safeURL(value) {
+  try {
+    const u = new URL(value);
+    return ["http:", "https:"].includes(u.protocol) ? u.href : "";
+  } catch {
+    return "";
+  }
+}
+function imageURL(value) {
+  if (/^images\/[a-zA-Z0-9_./-]+$/.test(value || "") && !value.includes(".."))
+    return value;
+  if (/^data:image\/(jpeg|png|webp);base64,[a-zA-Z0-9+/=]+$/.test(value || ""))
+    return value;
+  return "";
+}
+function date(value, year = false) {
+  const d = new Date(value);
+  return Number.isFinite(+d)
+    ? d.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        ...(year ? { year: "numeric" } : {}),
+      })
+    : "Undated";
+}
+function timestamp(value) {
+  const d = new Date(value);
+  return Number.isFinite(+d)
+    ? d.toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    : "not yet fetched";
+}
+function source(id) {
+  return (
+    catalog.find((s) => s.id === id) ||
+    state.savedSources.find((s) => s.id === id) || {
+      id,
+      name: "Unknown source",
+      short: "?",
+      color: "#737e68",
+      topics: [],
+      region: "Unknown",
+      kind: "Imported feed",
+    }
+  );
+}
+function avatar(s) {
+  const a = el("span", "source-avatar", s.short);
+  a.style.setProperty("--source-color", s.color);
+  return a;
+}
+function persist() {
+  try {
+    localStorage.setItem(STORE, JSON.stringify(state));
+    storageOK = true;
+    $("#storage-status").textContent = "WORKSPACE SAVED ON THIS DEVICE";
+  } catch {
+    storageOK = false;
+    $("#storage-status").textContent =
+      "WORKSPACE NOT SAVED · STORAGE UNAVAILABLE";
+    toast(
+      "Browser storage is unavailable or full. Changes will last only for this session.",
+    );
+  }
+}
+function toast(message) {
+  clearTimeout(toastTimer);
+  $("#toast").textContent = message;
+  $("#toast").hidden = false;
+  toastTimer = setTimeout(() => ($("#toast").hidden = true), 5500);
+}
+function showDialog(id) {
+  $(id).showModal();
+}
+function closeNav() {
+  document.body.classList.remove("sidebar-open");
+  $("#menu-toggle").setAttribute("aria-expanded", "false");
+}
+function channel() {
+  return state.channels.find((c) => c.id === state.activeChannel);
+}
+function selection() {
+  const c = channel();
+  let sources = state.savedOnly
+    ? [
+        ...new Set([
+          ...state.sources,
+          ...state.savedStories.map((s) => s.sourceId),
+        ]),
+      ]
+    : state.sources;
+  if (c?.sources.length)
+    sources = sources.filter((id) => c.sources.includes(id));
+  if (state.filterSources.length)
+    sources = sources.filter((id) => state.filterSources.includes(id));
+  return {
+    ...state,
+    sources,
+    topics: state.topics.length ? state.topics : c?.topics || [],
+  };
+}
+function layoutKey() {
+  return [
+    state.activeChannel || "all",
+    state.savedOnly ? "saved" : "",
+    state.topics.join(","),
+    state.filterSources.join(","),
+  ].join("|");
+}
+function clearNodes() {
+  canvas.clear();
+}
+function setView({
+  topics = [],
+  sources = [],
+  saved = false,
+  active = null,
+} = {}) {
+  state.topics = topics;
+  state.filterSources = sources;
+  state.savedOnly = saved;
+  state.activeChannel = active;
+  state.query = "";
+  $("#search").value = "";
+  closeNav();
+  update(true);
+}
+function rebuildAtlas() {
+  state.atlasLayouts[layoutKey()] ??= {};
+  atlas = new window.BroadsheetSpatial.InfiniteLayout(filtered, {
+    width: state.size === "compact" ? 320 : state.size === "large" ? 520 : 400,
+    height: state.size === "compact" ? 340 : state.size === "large" ? 600 : 420,
+    overrides: state.atlasLayouts[layoutKey()],
+  });
+}
+function update(reset = false) {
+  filtered = M.filter(stories, selection());
+  rebuildAtlas();
+  clearNodes();
+  sidebar();
+  heading();
+  if (reset) home();
+  else queue();
+  renderList();
+  setMode(state.mode, false);
+  persist();
+}
+function heading() {
+  const c = channel(),
+    s = state.filterSources[0];
+  let title = state.savedOnly
+    ? "Saved for later"
+    : c
+      ? c.name
+      : s
+        ? state.filterSources.length > 1
+          ? "Selected sources"
+          : source(s).name
+        : state.topics.length
+          ? state.topics.join(" + ")
+          : "All stories";
+  $("#view-title").replaceChildren(
+    document.createTextNode(title),
+    el("span", "", "."),
+  );
+  $("#view-eyebrow").textContent = state.savedOnly
+    ? "YOUR NEXT GOOD READ"
+    : c
+      ? "YOUR PERSONAL CHANNEL"
+      : state.topics.length
+        ? "FOLLOW YOUR CURIOSITY"
+        : "THE OPEN EDITION";
+  $("#view-description").textContent = state.savedOnly
+    ? "Good stories, kept close. Saved on this device."
+    : c
+      ? "Your chosen topics and sources, together in one place."
+      : "Different sources. More perspectives. A space to make your own.";
+  const count = new Set(filtered.map((s) => s.sourceId)).size;
+  $("#edition-status").textContent =
+    `${filtered.length} ${filtered.length === 1 ? "story" : "stories"} · ${count} ${count === 1 ? "feed" : "feeds"}${state.query ? " · matching “" + state.query + "”" : ""}`;
+  $("#clear-filters").hidden = !(
+    state.topics.length ||
+    state.filterSources.length ||
+    state.query ||
+    state.savedOnly ||
+    state.activeChannel
+  );
+  $("#empty-state").hidden = filtered.length > 0;
+  $("#empty-message").textContent =
+    state.sources.length === 0
+      ? "Follow a source in the source library to start your edition."
+      : state.savedOnly
+        ? "Use “Save” on any story to keep it here."
+        : "No saved stories match this view. Try another topic, follow a source, or refresh feeds.";
+  $("#status").textContent =
+    `${filtered.length} stories · ${state.mode === "canvas" ? "Endless canvas · collection repeats" : "Reading list"}`;
+  $("#all-count").textContent = stories.filter((s) =>
+    state.sources.includes(s.sourceId),
+  ).length;
+  $("#saved-count").textContent = state.saved.length;
+}
+function sidebar() {
+  const all =
+    !state.activeChannel &&
+    !state.topics.length &&
+    !state.filterSources.length &&
+    !state.savedOnly;
+  $("#all-news").classList.toggle("active", all);
+  $("#saved-news").classList.toggle("active", state.savedOnly);
+  $("#channels").replaceChildren(
+    ...state.channels.map((c) => {
+      const row = el("div", "channel-row"),
+        b = el(
+          "button",
+          "side-link" + (state.activeChannel === c.id ? " active" : ""),
+        );
+      b.append(el("span", "", "#"), el("span", "", c.name));
+      b.onclick = () => setView({ active: c.id });
+      const edit = el("button", "channel-edit", "⋯");
+      edit.setAttribute("aria-label", "Edit channel " + c.name);
+      edit.onclick = () => openChannel(c);
+      row.append(b, edit);
+      return row;
+    }),
+  );
+  $("#topic-list").replaceChildren(
+    ...state.interests.map((t) => {
+      const b = el(
+        "button",
+        "side-link" + (state.topics.includes(t) ? " active" : ""),
+      );
+      b.append(el("span", "", "◦"), el("span", "", t));
+      b.onclick = () => setView({ topics: [t] });
+      return b;
+    }),
+  );
+  $("#source-list").replaceChildren(
+    ...catalog
+      .filter((s) => state.sources.includes(s.id))
+      .map((s) => {
+        const b = el(
+          "button",
+          "side-link source-link-row" +
+            (state.filterSources.includes(s.id) ? " active" : ""),
+        );
+        b.append(avatar(s), document.createTextNode(s.name));
+        b.onclick = () => setView({ sources: [s.id] });
+        return b;
+      }),
+  );
+  $("#source-summary").textContent =
+    `${state.sources.length} feeds in your reading room`;
+  $("#topic-chips").replaceChildren(
+    ...["All topics", ...state.interests].map((t, i) => {
+      const active =
+          i === 0 ? !selection().topics.length : selection().topics.includes(t),
+        b = el("button", "chip" + (active ? " active" : ""), t);
+      b.setAttribute("aria-pressed", active);
+      b.onclick = () => {
+        if (i === 0)
+          setView({ sources: channel()?.sources || state.filterSources });
+        else
+          setView({
+            topics: [t],
+            sources: channel()?.sources || state.filterSources,
+          });
+      };
+      return b;
+    }),
+  );
+}
+function place(n, p) {
+  n.style.left = p.x + "px";
+  n.style.top = p.y + "px";
+  n.style.width = p.w + "px";
+  n.style.height = p.h + "px";
+}
+function makeCard(s, instance) {
+  const pub = source(s.sourceId),
+    card = el("article", "story");
+  card.dataset.id = s.id;
+  card.setAttribute("aria-label", s.title);
+  const top = el("div", "card-top");
+  const move = el("button", "move-handle", "⠿");
+  move.setAttribute("aria-label", "Move article: " + s.title);
+  move.title = "Drag to move · Arrow keys when focused";
+  move.onpointerdown = (e) => startGesture(e, "move", s.id);
+  move.onkeydown = (e) => handleKeys(e, "move", s.id);
+  top.append(avatar(pub), el("span", "card-source", pub.name));
+  const time = el("time", "", date(s.date));
+  if (Number.isFinite(Date.parse(s.date))) time.dateTime = s.date;
+  time.title = date(s.date, true);
+  top.append(time, move);
+  if (instance?.expanded) {
+    const fold = el("button", "fold-story", "− Fold");
+    fold.setAttribute("aria-label", "Collapse " + s.title);
+    fold.onclick = () => openReader(s, instance.key);
+    top.append(fold);
+  }
+  card.append(top);
+  const content = el("div", "card-content");
+  const tags = M.tags(s);
+  content.append(el("div", "eyebrow", tags.join(" / ") || "FROM YOUR SOURCES"));
+  const unfolded = !!instance?.expanded;
+  if (unfolded) {
+    card.classList.add("spatial-expanded");
+    card.dataset.expanded = "true";
+    card.dataset.autoHeight = String(instance.autoHeight);
+  }
+  const image = (s.blocks || []).find(
+    (b) => b.type === "image" && imageURL(b.src),
+  );
+  if (image && !unfolded) {
+    const f = figure(image, false),
+      img = f.querySelector("img");
+    img.tabIndex = 0;
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Unfold " + s.title);
+    img.onclick = () => openReader(s, instance?.key);
+    img.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openReader(s, instance?.key);
+      }
+    };
+    content.append(f);
+  }
+  const headline = el("button", "headline", s.title);
+  headline.onclick = () => openReader(s, instance?.key);
+  content.append(headline);
+  if (unfolded) {
+    const body = el("div", "inline-body");
+    for (const b of s.blocks || []) {
+      if (b.type === "image" && imageURL(b.src)) body.append(figure(b));
+      else if (b.text)
+        body.append(el(b.type === "heading" ? "h3" : "p", "", b.text));
+    }
+    if (!s.blocks?.length) {
+      body.append(
+        el("p", "", s.excerpt || "Read the original article at its publisher."),
+        el(
+          "p",
+          "small",
+          pub.kind +
+            " · " +
+            pub.region +
+            " · Bias and reliability: unrated. Publisher excerpt, not the full article.",
+        ),
+      );
+    }
+    const link = el("a", "source-link", "Original story ↗");
+    link.href = safeURL(s.url);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    body.append(
+      link,
+      el(
+        "p",
+        "small",
+        s.rights || "Full reporting remains with the original publisher.",
+      ),
+    );
+    content.append(body);
+  } else
+    content.append(
+      el(
+        "p",
+        "excerpt",
+        s.excerpt || "Open this story at its publisher to read more.",
+      ),
+    );
+  const kind = el("div", "card-kind", pub.kind + " · " + pub.region);
+  const tagList = el("div", "card-tags");
+  for (const t of tags.slice(0, 3)) tagList.append(el("span", "", t));
+  content.append(kind, tagList);
+  card.append(content);
+  const bottom = el("div", "card-bottom"),
+    read = el(
+      "button",
+      "read-button",
+      unfolded ? "− Fold story" : "+ Unfold story",
+    );
+  read.onclick = () => openReader(s, instance?.key);
+  const save = el(
+    "button",
+    "save-button" + (state.saved.includes(s.id) ? " saved" : ""),
+    state.saved.includes(s.id) ? "✓ Saved" : "+ Save",
+  );
+  save.setAttribute(
+    "aria-label",
+    (state.saved.includes(s.id) ? "Unsave " : "Save ") + s.title,
+  );
+  save.setAttribute("aria-pressed", state.saved.includes(s.id));
+  save.onclick = () => toggleSaved(s);
+  const resize = el("button", "resize-handle");
+  resize.setAttribute("aria-label", "Resize article: " + s.title);
+  resize.title = "Drag to resize · Arrow keys when focused";
+  resize.onpointerdown = (e) => startGesture(e, "resize", s.id);
+  resize.onkeydown = (e) => handleKeys(e, "resize", s.id);
+  bottom.append(read, save, resize);
+  card.append(bottom);
+  return card;
+}
+function figure(b, caption = true) {
+  const f = el("figure", "story-photo"),
+    img = el("img");
+  img.src = imageURL(b.src);
+  img.alt = b.alt || b.caption || "";
+  img.loading = "lazy";
+  img.decoding = "async";
+  f.append(img);
+  if (caption)
+    f.append(
+      el("figcaption", "", [b.caption, b.credit].filter(Boolean).join(" — ")),
+    );
+  return f;
+}
+const canvas = new window.BroadsheetCanvas({
+  viewport,
+  world,
+  container: $("#cards"),
+  nodes,
+  minZoom: 0.25,
+  minWidth: 280,
+  minHeight: 300,
+  getItems: () => filtered,
+  getPositions: () => positions,
+  getAtlas: () => atlas,
+  isActive: () => state.mode === "canvas",
+  createCard: makeCard,
+  onCommit: () => persist(),
+  onLayout: () => persist(),
+  onView: (next) => {
+    view = next;
+    $("#zoom-label").value = Math.round(next.z * 100) + "%";
+  },
+});
+function queue() {
+  canvas.request();
+}
+function transform() {
+  canvas.view = view;
+  canvas.apply();
+}
+function home() {
+  const available = $(".workspace").clientWidth;
+  const height =
+    $(".workspace").clientHeight -
+    (innerWidth <= 650 ? 237 : innerWidth <= 900 ? 248 : 217) -
+    (innerWidth <= 650 ? 96 : 102);
+  canvas.home({
+    width: state.size === "compact" ? 320 : state.size === "large" ? 520 : 400,
+    height: state.size === "compact" ? 340 : state.size === "large" ? 600 : 420,
+    availableWidth: available,
+    availableHeight: height,
+  });
+}
+function zoom(f, x, y) {
+  canvas.zoom(f, x, y);
+}
+function startGesture(e, type, id) {
+  canvas.startGesture(e, type, id);
+}
+function handleKeys(e, type, id) {
+  canvas.handleKeys(e, type, id);
+}
+function toggleSaved(s) {
+  const was = state.saved.includes(s.id);
+  state.saved = was
+    ? state.saved.filter((id) => id !== s.id)
+    : [...state.saved, s.id];
+  state.savedStories = state.savedStories.filter((x) => x.id !== s.id);
+  if (!was) {
+    state.savedStories.push(s);
+    if (!state.savedSources.some((x) => x.id === s.sourceId))
+      state.savedSources.push(source(s.sourceId));
+  }
+  if (state.savedOnly) update();
+  else {
+    canvas.invalidateItem(s.id);
+    heading();
+    renderList();
+    persist();
+  }
+  toast(
+    was ? "Removed from saved stories." : "Saved for later on this device.",
+  );
+}
+function openReader(s, cellKey) {
+  if (!filtered.some((item) => item.id === s.id)) {
+    state.savedOnly = false;
+    state.topics = [];
+    state.filterSources = [];
+    state.activeChannel = null;
+    state.query = "";
+    $("#search").value = "";
+    if (!stories.some((item) => item.id === s.id)) stories.unshift(s);
+    update();
+    if (!filtered.some((item) => item.id === s.id)) {
+      filtered.unshift(s);
+      rebuildAtlas();
+      clearNodes();
+      heading();
+      queue();
+    }
+  }
+  const explicit = typeof cellKey === "string",
+    entry = explicit ? atlas.entry(cellKey) : canvas.openItem(s.id);
+  if (!entry) return;
+  if (state.mode !== "canvas") setMode("canvas", false);
+  if (explicit || !entry.expanded) {
+    const width =
+      viewport.clientWidth < 600
+        ? Math.max(
+            entry.rect.w + 40,
+            Math.min(760, (viewport.clientWidth - 40) / view.z),
+          )
+        : atlas.width * 2 + atlas.gap;
+    atlas.toggle(entry.key, width);
+    canvas.reflow(entry.key);
+    canvas.invalidateItem(s.id);
+  }
+  if (!explicit) canvas.focus(entry.key);
+  if (atlas.entry(entry.key)?.expanded)
+    window.BroadsheetSpaces?.record({
+      id: s.id,
+      kind: "news",
+      title: s.title,
+      url: s.url,
+      date: s.date,
+      excerpt: s.excerpt,
+      source: s.source,
+      sourceId: s.sourceId,
+      image: s.blocks?.find((b) => b.type === "image")?.src || "",
+    });
+  persist();
+}
+function setMode(mode, save = true) {
+  state.mode = mode === "list" ? "list" : "canvas";
+  const list = state.mode === "list";
+  viewport.hidden = list;
+  $("#list-view").hidden = !list;
+  $("#map-tools").hidden = list;
+  for (const [id, on] of [
+    ["#canvas-mode", !list],
+    ["#list-mode", list],
+  ]) {
+    $(id).classList.toggle("active", on);
+    $(id).setAttribute("aria-pressed", on);
+  }
+  if (list) renderList();
+  else {
+    clearNodes();
+    queue();
+  }
+  if (save) {
+    heading();
+    persist();
+  }
+}
+function renderList() {
+  if (state.mode !== "list") return;
+  $("#list-results").replaceChildren(
+    ...filtered.map((s) => {
+      const row = el("article", "list-story"),
+        pub = source(s.sourceId),
+        meta = el("div", "list-meta");
+      meta.append(
+        avatar(pub),
+        document.createTextNode(pub.name),
+        el("time", "", date(s.date)),
+      );
+      const content = el("div"),
+        title = el("button", "headline", s.title);
+      title.onclick = () => openReader(s);
+      content.append(title, el("p", "excerpt", s.excerpt));
+      const b = el(
+        "button",
+        "button",
+        state.saved.includes(s.id) ? "✓ Saved" : "+ Save",
+      );
+      b.setAttribute(
+        "aria-label",
+        (state.saved.includes(s.id) ? "Unsave " : "Save ") + s.title,
+      );
+      b.onclick = () => toggleSaved(s);
+      row.append(meta, content, b);
+      return row;
+    }),
+  );
+  if (!filtered.length)
+    $("#list-results").append(
+      el(
+        "p",
+        "small",
+        "No stories match this view. Try another topic or source.",
+      ),
+    );
+}
+function health(id) {
+  return edition.sources?.find((s) => s.id === id);
+}
+function renderLibrary() {
+  const q = $("#source-search").value.toLowerCase();
+  $("#library-sources").replaceChildren(
+    ...catalog
+      .filter((s) => [s.name, ...s.topics].join(" ").toLowerCase().includes(q))
+      .map((s) => {
+        const row = el("div", "library-source"),
+          body = el("div"),
+          title = el("h3", "", s.name);
+        body.append(
+          title,
+          el(
+            "p",
+            "",
+            `${s.kind} · ${s.region} · ${s.topics.join(", ") || "Your feed"}`,
+          ),
+        );
+        const a = el("a", "", "Publisher feed ↗");
+        a.href = safeURL(s.feed) || safeURL(s.url);
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        body.append(a);
+        const h = health(s.id),
+          label = el(
+            "span",
+            "source-health",
+            h
+              ? `${h.count} stories · ${h.status === "ok" ? "collected " + timestamp(h.retrievedAt) : h.status === "stale" ? "using last saved stories" : "currently unavailable"}`
+              : s.id.startsWith("custom-")
+                ? "Imported on this device"
+                : s.id === "nasa"
+                  ? "Retained NASA archive"
+                  : "Not yet collected",
+          );
+        body.append(label);
+        if (s.id.startsWith("custom-")) {
+          const remove = el("button", "remove-import", "Remove imported feed");
+          remove.onclick = () => {
+            state.customSources = state.customSources.filter(
+              (x) => x.id !== s.id,
+            );
+            state.customStories = state.customStories.filter(
+              (x) => x.sourceId !== s.id,
+            );
+            state.sources = state.sources.filter((id) => id !== s.id);
+            catalog = catalog.filter((x) => x.id !== s.id);
+            normalize(window._corpus, edition);
+            renderLibrary();
+            update(true);
+            toast("Imported feed removed. Saved articles are retained.");
+          };
+          body.append(remove);
+        }
+        const followed = state.sources.includes(s.id),
+          b = el(
+            "button",
+            "button follow-button" + (followed ? " following" : ""),
+            followed ? "✓ Following" : "+ Follow",
+          );
+        b.setAttribute(
+          "aria-label",
+          (followed ? "Unfollow " : "Follow ") + s.name,
+        );
+        b.setAttribute("aria-pressed", followed);
+        b.onclick = () => {
+          state.sources = followed
+            ? state.sources.filter((id) => id !== s.id)
+            : [...state.sources, s.id];
+          renderLibrary();
+          update(true);
+        };
+        row.append(avatar(s), body, b);
+        return row;
+      }),
+  );
+}
+function openLibrary() {
+  renderLibrary();
+  showDialog("#library-dialog");
+}
+function check(label, value, on, cls = "check-chip") {
+  const l = el("label", cls),
+    input = el("input");
+  input.type = "checkbox";
+  input.value = value;
+  input.checked = on;
+  l.append(input, document.createTextNode(label));
+  return l;
+}
+function openTopics() {
+  $("#topic-options").replaceChildren(
+    ...M.TOPICS.map((t) => check(t, t, state.interests.includes(t))),
+  );
+  showDialog("#topics-dialog");
+}
+function checked(selector) {
+  return [...document.querySelectorAll(selector + " input:checked")].map(
+    (n) => n.value,
+  );
+}
+function openChannel(c = null) {
+  editingChannel = c?.id || null;
+  $("#channel-dialog-title").textContent = c
+    ? "Edit your channel."
+    : "Create a channel.";
+  $("#channel-name").value = c?.name || "";
+  const current = selection();
+  $("#channel-topics").replaceChildren(
+    ...M.TOPICS.map((t) =>
+      check(t, t, (c?.topics || current.topics).includes(t)),
+    ),
+  );
+  $("#channel-sources").replaceChildren(
+    ...catalog.map((s) =>
+      check(
+        s.name,
+        s.id,
+        (c?.sources.length ? c.sources : current.sources).includes(s.id),
+        "source-check",
+      ),
+    ),
+  );
+  $("#delete-channel").hidden = !c;
+  showDialog("#channel-dialog");
+}
+$("#channel-form").onsubmit = (e) => {
+  e.preventDefault();
+  const name = $("#channel-name").value.trim(),
+    sources = checked("#channel-sources"),
+    topics = checked("#channel-topics");
+  if (!name) {
+    $("#channel-name").setCustomValidity("Enter a channel name.");
+    $("#channel-name").reportValidity();
+    return;
+  }
+  if (!sources.length) {
+    toast("Choose at least one source for this channel.");
+    return;
+  }
+  const c = {
+    id: editingChannel || "channel-" + crypto.randomUUID(),
+    name,
+    topics,
+    sources,
+  };
+  state.channels = state.channels.filter((x) => x.id !== c.id).concat(c);
+  state.sources = [...new Set([...state.sources, ...sources])];
+  $("#channel-dialog").close();
+  setView({ active: c.id });
+};
+$("#channel-name").oninput = () => $("#channel-name").setCustomValidity("");
+$("#delete-channel").onclick = () => {
+  state.channels = state.channels.filter((c) => c.id !== editingChannel);
+  $("#channel-dialog").close();
+  setView();
+};
+function coverage() {
+  const counts = new Map();
+  for (const s of filtered)
+    counts.set(s.sourceId, (counts.get(s.sourceId) || 0) + 1);
+  const regions = new Set([...counts.keys()].map((id) => source(id).region));
+  const box = el("div", "coverage-stat");
+  for (const [value, label] of [
+    [filtered.length, "stories in this view"],
+    [counts.size, "feeds represented"],
+    [regions.size, "publisher bases"],
+  ]) {
+    const item = el("div");
+    item.append(el("strong", "", value), el("span", "", label));
+    box.append(item);
+  }
+  $("#coverage-summary").replaceChildren(box);
+  $("#coverage-sources").replaceChildren(
+    ...[...counts]
+      .sort((a, b) => b[1] - a[1])
+      .map(([id, count]) => {
+        const pub = source(id),
+          row = el("div", "coverage-row"),
+          label = el("div", "", pub.name);
+        label.append(el("small", "", `${pub.kind} · ${pub.region}`));
+        const bar = el("div", "coverage-bar"),
+          fill = el("span");
+        bar.style.setProperty("--source-color", pub.color);
+        fill.style.width = (count / filtered.length) * 100 + "%";
+        bar.append(fill);
+        row.append(
+          label,
+          bar,
+          el("strong", "", Math.round((count / filtered.length) * 100) + "%"),
+        );
+        return row;
+      }),
+  );
+  if (!counts.size)
+    $("#coverage-sources").append(
+      el("p", "", "There are no stories in this view to analyze."),
+    );
+  showDialog("#coverage-dialog");
+}
+function normalize(corpus, feed) {
+  const merged = new Map();
+  for (const s of feed.stories || [])
+    merged.set(s.url, {
+      ...s,
+      sourceId: s.sourceId || "nasa",
+      topics: M.tags(s),
+    });
+  for (const s of corpus.stories || []) {
+    const previous = merged.get(s.url);
+    merged.set(s.url, {
+      ...s,
+      sourceId: "nasa",
+      topics: M.tags({ ...s, sourceId: "nasa" }),
+      ...(previous ? { id: previous.id } : {}),
+      excerpt:
+        (s.excerpt || "").length > 350
+          ? s.excerpt.slice(0, 350).replace(/\s+\S*$/, "") + "…"
+          : s.excerpt || "",
+      archive: true,
+    });
+  }
+  for (const s of state.customStories) merged.set(s.url, s);
+  for (const saved of state.savedStories) {
+    const latest = merged.get(saved.url);
+    merged.set(saved.url, latest ? { ...latest, id: saved.id } : saved);
+  }
+  stories = [...merged.values()];
+}
+async function refreshFeeds() {
+  if (!refreshAvailable) {
+    toast(
+      "This is the saved static edition. Use the local Python server to refresh publisher feeds.",
+    );
+    return;
+  }
+  const b = $("#refresh");
+  b.disabled = true;
+  b.lastElementChild.textContent = "Refreshing…";
+  $("#status").textContent = "Collecting publisher feeds…";
+  try {
+    const r = await fetch("api/refresh", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}",
+      signal: AbortSignal.timeout(45000),
+    });
+    const data = await r.json();
+    if (!r.ok) throw Error(data.error || "Refresh unavailable");
+    edition = data;
+    normalize(window._corpus, data);
+    update();
+    editionLabel();
+    const unavailable = data.sources.filter((s) => s.status !== "ok").length;
+    toast(
+      `Edition refreshed${unavailable ? " · " + unavailable + " feeds unavailable; saved stories retained" : ""}.`,
+    );
+  } catch (e) {
+    toast(
+      e.name === "TimeoutError"
+        ? "Feed refresh timed out. Your saved edition is still available."
+        : e.message,
+    );
+  } finally {
+    b.disabled = false;
+    b.lastElementChild.textContent = "Refresh feeds";
+    heading();
+  }
+}
+function editionLabel() {
+  const ok = edition.sources?.filter((s) => s.status === "ok").length || 0;
+  $("#edition-date").textContent =
+    `Saved edition · ${timestamp(edition.retrievedAt)}`;
+  $("#edition-date").title =
+    `Last collection attempt: ${timestamp(edition.retrievedAt)}. ${ok} feeds collected successfully. Individual feed dates are in the source library.`;
+  $("#refresh").title = refreshAvailable
+    ? "Fetch the latest stories from the source catalog"
+    : "Static saved edition · run the local server for live refresh";
+}
+function parseImport(text, feedURL, fileName) {
+  if (text.length > 5000000 || /<!DOCTYPE|<!ENTITY/i.test(text))
+    throw Error(
+      "Use an RSS/Atom file under 5 MB without XML entity declarations.",
+    );
+  const xml = new DOMParser().parseFromString(text, "application/xml");
+  if (xml.querySelector("parsererror"))
+    throw Error("This is not a valid XML feed.");
+  const root = xml.documentElement,
+    atom = root.localName === "feed",
+    get = (n, name) => [...n.children].find((c) => c.localName === name),
+    txt = (n, name) => get(n, name)?.textContent || "",
+    plain = (s) =>
+      s
+        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+  if (!["feed", "rss", "RDF"].includes(root.localName))
+    throw Error("Choose an RSS or Atom feed.");
+  const parent = atom ? root : get(root, "channel") || root;
+  const name = plain(txt(parent, "title")) || fileName || "Imported feed";
+  const url =
+    feedURL ||
+    safeURL(
+      atom ? get(parent, "link")?.getAttribute("href") : txt(parent, "link"),
+    );
+  const id = "custom-" + hash(feedURL || name);
+  const pub = {
+    id,
+    name,
+    short: name.slice(0, 2).toUpperCase(),
+    feed: feedURL || "",
+    url,
+    topics: [],
+    region: "Unknown",
+    kind: "Imported feed · unverified",
+    color: "#6b7861",
+  };
+  const result = [];
+  for (const item of [...xml.getElementsByTagName("*")]
+    .filter((n) => ["item", "entry"].includes(n.localName))
+    .slice(0, 80)) {
+    const title = plain(txt(item, "title")),
+      link = atom
+        ? [...item.children]
+            .find(
+              (n) =>
+                n.localName === "link" &&
+                (!n.getAttribute("rel") ||
+                  n.getAttribute("rel") === "alternate"),
+            )
+            ?.getAttribute("href")
+        : txt(item, "link");
+    const resolved = link
+      ? M.resolveURL(link, feedURL || url || undefined)
+      : "";
+    if (!title || !resolved) continue;
+    let rawDate =
+      txt(item, atom ? "published" : "pubDate") || txt(item, "updated");
+    const topics = [...item.children]
+      .filter((n) => n.localName === "category")
+      .map((n) => n.getAttribute("term") || n.textContent)
+      .filter((t) => M.TOPICS.includes(t));
+    result.push({
+      id: "import-" + hash(resolved),
+      title,
+      url: resolved,
+      sourceId: id,
+      source: name,
+      excerpt: plain(
+        txt(item, "description") ||
+          txt(item, "summary") ||
+          txt(item, "content"),
+      ).slice(0, 350),
+      date: Number.isFinite(Date.parse(rawDate))
+        ? new Date(rawDate).toISOString()
+        : "",
+      topics: M.tags({ title, topics }),
+    });
+  }
+  if (!result.length)
+    throw Error(
+      "No usable stories with public HTTP(S) article links were found.",
+    );
+  return { pub, stories: result };
+}
+function hash(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++)
+    h = Math.imul(h ^ s.charCodeAt(i), 16777619);
+  return (h >>> 0).toString(16);
+}
+function importFeed(text, url, name) {
+  const data = parseImport(text, url, name);
+  state.customSources = state.customSources
+    .filter((s) => s.id !== data.pub.id)
+    .concat(data.pub);
+  state.customStories = state.customStories
+    .filter((s) => s.sourceId !== data.pub.id)
+    .concat(data.stories);
+  state.sources = [...new Set([...state.sources, data.pub.id])];
+  catalog = catalog.filter((s) => s.id !== data.pub.id).concat(data.pub);
+  normalize(window._corpus, edition);
+  $("#import-status").textContent =
+    `Added ${data.stories.length} ${data.stories.length === 1 ? "story" : "stories"} from ${data.pub.name}.`;
+  renderLibrary();
+  update(true);
+  persist();
+}
+$("#import-form").onsubmit = async (e) => {
+  e.preventDefault();
+  const url = safeURL($("#feed-url").value);
+  if (!url) {
+    $("#import-status").textContent = "Enter an HTTP(S) feed URL.";
+    return;
+  }
+  const b = e.submitter;
+  b.disabled = true;
+  $("#import-status").textContent = "Fetching feed…";
+  try {
+    const r = await fetch(url, {
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!r.ok) throw Error("Publisher returned " + r.status);
+    const reader = r.body.getReader();
+    let size = 0,
+      parts = [];
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.length;
+      if (size > 5000000) {
+        await reader.cancel();
+        throw Error("Feed exceeds 5 MB.");
+      }
+      parts.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const part of parts) {
+      bytes.set(part, offset);
+      offset += part.length;
+    }
+    importFeed(new TextDecoder().decode(bytes), url);
+  } catch (e) {
+    $("#import-status").textContent =
+      `Could not import feed: ${e.message}. If browser access is blocked, download the XML feed and import that file below.`;
+  } finally {
+    b.disabled = false;
+  }
+};
+$("#feed-file").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    if (f.size > 5000000) throw Error("File exceeds 5 MB.");
+    importFeed(await f.text(), "", f.name);
+  } catch (err) {
+    $("#import-status").textContent = err.message;
+  }
+  e.target.value = "";
+};
+for (const b of document.querySelectorAll(".close-dialog"))
+  b.onclick = () => b.closest("dialog").close();
+for (const d of document.querySelectorAll("dialog"))
+  d.addEventListener("click", (e) => {
+    if (e.target === d) {
+      const r = d.getBoundingClientRect();
+      if (
+        e.clientX < r.left ||
+        e.clientX > r.right ||
+        e.clientY < r.top ||
+        e.clientY > r.bottom
+      )
+        d.close();
+    }
+  });
+$("#all-news").onclick = () => setView();
+$("#saved-news").onclick = () => setView({ saved: true });
+$("#clear-filters").onclick = $("#empty-reset").onclick = () => setView();
+$("#home").onclick = home;
+$("#plus").onclick = () => zoom(1.2);
+$("#minus").onclick = () => zoom(1 / 1.2);
+$("#canvas-mode").onclick = () => setMode("canvas");
+$("#list-mode").onclick = () => setMode("list");
+$("#source-library").onclick = $("#manage-sources").onclick = openLibrary;
+$("#library-done").onclick = () => $("#library-dialog").close();
+$("#source-search").oninput = renderLibrary;
+$("#manage-topics").onclick = openTopics;
+$("#topics-done").onclick = () => {
+  state.interests = checked("#topic-options");
+  $("#topics-dialog").close();
+  sidebar();
+  persist();
+};
+$("#add-channel").onclick = () => openChannel();
+$("#coverage").onclick = $("#coverage-top").onclick = coverage;
+$("#about").onclick = () => showDialog("#help");
+$("#refresh").onclick = refreshFeeds;
+$("#sort").value = state.sort;
+$("#sort").onchange = (e) => {
+  state.sort = e.target.value;
+  update();
+};
+$("#card-size").value = state.size;
+$("#card-size").onchange = (e) => {
+  state.size = e.target.value;
+  state.atlasLayouts[layoutKey()] = {};
+  update(true);
+  toast("Applied " + state.size + " cards to this view.");
+};
+$("#arrange").onclick = () => {
+  state.atlasLayouts[layoutKey()] = {};
+  update(true);
+  toast("Cards arranged in a tidy grid for this view.");
+};
+$("#search").value = state.query;
+$("#search").oninput = (e) => {
+  state.query = e.target.value;
+  update(true);
+};
+$("#menu-toggle").onclick = () => {
+  const on = document.body.classList.toggle("sidebar-open");
+  $("#menu-toggle").setAttribute("aria-expanded", on);
+};
+window.addEventListener("keydown", (e) => {
+  if (
+    e.target.closest("input,textarea,select,button,a") ||
+    document.querySelector("dialog[open]")
+  )
+    return;
+  if (e.key.toLowerCase() === "h") home();
+  else if (e.key === "+" || e.key === "=") zoom(1.2);
+  else if (e.key === "-") zoom(1 / 1.2);
+  else if (
+    ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)
+  ) {
+    e.preventDefault();
+    view.x += e.key === "ArrowLeft" ? 100 : e.key === "ArrowRight" ? -100 : 0;
+    view.y += e.key === "ArrowUp" ? 100 : e.key === "ArrowDown" ? -100 : 0;
+    transform();
+  }
+});
+
+async function init() {
+  try {
+    const data =
+      window.BROADSHEET_DATA ||
+      (await Promise.all(
+        ["corpus.json", "feed.json", "sources.json"].map(async (path) => {
+          const r = await fetch(path);
+          if (!r.ok) throw Error("Could not load " + path);
+          return r.json();
+        }),
+      ).then(([corpus, feed, sources]) => ({ corpus, feed, sources })));
+    window._corpus = data.corpus || data;
+    edition = data.feed || { stories: [] };
+    catalog = [...(data.sources || []), ...state.customSources];
+    if (!catalog.length) throw Error("Source catalog is missing.");
+    normalize(window._corpus, edition);
+    state.sources = state.sources.filter((id) =>
+      catalog.some((s) => s.id === id),
+    );
+    if (new URLSearchParams(location.search).get("saved") === "1") {
+      state.savedOnly = true;
+      state.query = "";
+      state.topics = [];
+      state.filterSources = [];
+      state.activeChannel = null;
+      $("#search").value = "";
+    }
+    update(true);
+    const focusId = new URLSearchParams(location.search).get("focus");
+    if (focusId) {
+      const story =
+        stories.find((s) => s.id === focusId) ||
+        window.BroadsheetSpaces?.recent().find(
+          (s) => s.id === focusId && s.kind === "news",
+        );
+      if (story) openReader(story);
+    }
+    editionLabel();
+    if (location.protocol !== "file:" && !window.BROADSHEET_DATA) {
+      try {
+        const r = await fetch("api/capabilities");
+        if (
+          r.ok &&
+          (r.headers.get("content-type") || "").includes("application/json")
+        )
+          refreshAvailable = (await r.json()).refresh === true;
+      } catch {}
+    }
+    editionLabel();
+    if (!storageOK)
+      $("#storage-status").textContent = "BROWSER STORAGE UNAVAILABLE";
+  } catch (e) {
+    $("#status").textContent = "Could not load the saved edition.";
+    $("#empty-message").textContent =
+      "The edition files could not be loaded. Start the local server or open the standalone preview.";
+    $("#empty-state").hidden = false;
+    console.error(e);
+  }
+}
+window.broadsheetDebug = {
+  get state() {
+    return {
+      stories: stories.length,
+      filtered: filtered.length,
+      rendered: nodes.size,
+      view: { ...view },
+      positions: structuredClone(canvas.positions),
+      selection: selection(),
+      refreshAvailable,
+    };
+  },
+  pan(x, y) {
+    view.x -= x;
+    view.y -= y;
+    transform();
+  },
+  parseImport,
+};
+init();

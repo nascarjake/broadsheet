@@ -2,5 +2,5 @@ __pycache__/
 *.pyc
 .DS_Store
 .transfer/
-Broadsheet-preview.html
+Broadsheet*preview.html
 node_modules/

@@ -1,10 +1,207 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#eef2f1"><title>Broadsheet · Stories without edges</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><span class="edition">A SPATIAL READING EXPERIMENT</span><h1>Broadsheet<span> / 02</span></h1></div><div class="header-right"><span id="edition-date">Preparing the archive</span><button id="about" class="text-button">How this world works ↗</button></div></header>
-<nav aria-label="Edition controls"><div id="topics"></div><div class="utilities"><button id="list-toggle" aria-pressed="false">Find a story</button></div></nav>
-<main id="viewport" tabindex="0" aria-label="Spatial newspaper. Drag or scroll in any direction, use plus or minus to zoom. Arrow keys move through the canvas."><div id="world"><div id="cards"></div></div></main>
-<section id="list-view" aria-label="Search all stories" hidden><label>Find a story <input id="search" type="search" placeholder="Search the complete archive"></label><div id="list-results"></div></section>
-<div id="map-tools"><button id="home">⌂ Home</button><div class="zoom"><button id="minus" aria-label="Zoom out">−</button><output id="zoom-label">80%</output><button id="plus" aria-label="Zoom in">+</button></div><svg id="minimap" viewBox="0 0 190 120" role="img" aria-label="Nearby story map"></svg></div>
-<footer><span id="status" role="status">Loading stories…</span><span>CONTINUOUS ARCHIVE · <span id="coordinate">0, 0</span></span></footer>
-<dialog id="help"><button id="close-help" aria-label="Close help">×</button><h2>Keep wandering.</h2><p>Scroll or drag in any direction. New neighboring stories appear as you move. Click a headline to unfold its complete text in place. Several can stay open side by side.</p><ul><li>Scroll down an unfolded story to read while the surrounding world stays visible.</li><li>Pinch, Ctrl + scroll, or + / − zoom. Arrow keys pan.</li><li>H returns home; F opens search. Escape refolds your selected story.</li><li>Text remains selectable. Use empty space or a story margin to drag.</li></ul><p class="small">This is an endless layout of a finite, attributed archive. Stories repeat as you explore farther; no news is invented. Dates are the original publication dates, not a live-news claim. Only nearby cards are mounted to keep the canvas light. The bundled preview is a snapshot. NASA is the source of the editorial content and credited imagery; NASA does not endorse this independent interface experiment.</p><button id="start-exploring">Explore the edition →</button></dialog>
-<dialog id="photo-dialog"><button id="close-photo" aria-label="Close image">×</button><img id="photo-large" alt=""><p id="photo-caption"></p></dialog>
-<script type="module" src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f6f4ee" />
+    <meta
+      name="description"
+      content="One canvas. Endless ways to explore. Find news, recipes, places, and films in your own zoomable browsing spaces."
+    />
+    <title>Broadsheet · A wider world to explore</title>
+    <link rel="stylesheet" href="explore.css" />
+  </head>
+  <body class="hub-page">
+    <header class="global-header">
+      <a href="index.html" class="brand">Broadsheet<span>.</span></a
+      ><span class="header-divider"></span>
+      <nav aria-label="Spaces">
+        <a href="index.html" class="active">Explore</a
+        ><a href="news.html">News</a><a href="recipes.html">Recipes</a
+        ><a href="places.html">Places</a><a href="movies.html">Movies</a>
+      </nav>
+      <a href="#collection" class="collection-link"
+        >♡ <span>Your collection <span id="total-saved"></span></span
+      ></a>
+    </header>
+    <main class="hub-main">
+      <section class="hub-intro">
+        <div>
+          <span class="eyebrow">A WIDER WORLD. YOUR OWN WAY IN.</span>
+          <h1>Less scrolling.<br />More <em>possibility.</em></h1>
+        </div>
+        <p>
+          Good stories. Something delicious. Somewhere new.<br />Find your next
+          little obsession in a space that moves with you. Pick a world, then
+          make it your own.
+        </p>
+      </section>
+      <div class="hub-caption">
+        <span>FOUR SPACES. ONE DIFFERENT WAY TO BROWSE.</span
+        ><span>FOLLOW YOUR CURIOSITY ↘</span>
+      </div>
+      <section class="hub-spaces" aria-label="Choose a browsing space">
+        <a href="news.html" class="portal portal-news"
+          ><div class="portal-art">
+            <span class="portal-badge">THE READING ROOM</span>
+            <div class="mini-news">
+              <span class="eyebrow">A WIDER PERSPECTIVE</span
+              ><img
+                src="images/corpus/9e5b35c208e31925.jpg"
+                alt="NASA Hubble Space Telescope"
+              />
+              <h3>A little context.<br />A much bigger world.</h3>
+              <p>
+                Independent feeds, different perspectives, and room to read.
+              </p>
+            </div>
+          </div>
+          <div class="portal-body">
+            <span class="portal-kicker">01 / NEWS</span>
+            <h2>The world, unfolding.</h2>
+            <p>
+              Bring your sources together.<br />Make room for another
+              perspective.
+            </p>
+            <div class="portal-bottom">
+              <span>Open the reading room</span><span>↗</span>
+            </div>
+          </div></a
+        >
+        <a href="recipes.html" class="portal portal-recipes"
+          ><div class="portal-art">
+            <span class="portal-badge">THE KITCHEN</span
+            ><img
+              id="recipe-cover"
+              alt="A recipe from the Broadsheet kitchen"
+              loading="eager"
+            />
+          </div>
+          <div class="portal-body">
+            <span class="portal-kicker">02 / RECIPES</span>
+            <h2>Follow your appetite.</h2>
+            <p>A feast for your eyes.<br />A new favorite for your table.</p>
+            <div class="portal-bottom">
+              <span>Find something delicious</span><span>↗</span>
+            </div>
+          </div></a
+        >
+        <a href="places.html" class="portal portal-places"
+          ><div class="portal-art">
+            <span class="portal-badge">OUT & ABOUT</span>
+            <div class="map-illustration">
+              <svg viewBox="0 0 300 280" aria-hidden="true">
+                <rect width="300" height="280" fill="#e9e8db" />
+                <path
+                  d="M225 -10 Q197 70 226 142 T245 290 H310 V-10Z"
+                  fill="#c1d7d1"
+                />
+                <g fill="none" stroke="#fffdf4" stroke-width="12">
+                  <path
+                    d="M-10 70L260 135M-10 165L245 220M45 -10L-5 290M115 -10L55 290M182 -10L123 290M245 -10L186 290"
+                  />
+                </g>
+                <g fill="none" stroke="#cfd6bc" stroke-width="8">
+                  <path d="M-10 245L213 290M-10 0L215 60" />
+                </g>
+                <path
+                  d="M-10 115Q80 90 123 161T230 198"
+                  stroke="#b6cec4"
+                  stroke-width="7"
+                  fill="none"
+                />
+              </svg>
+              <div class="map-pin"><span>☕</span> A really good coffee</div>
+              <div class="map-pin"><span>◎</span> Somewhere unexpected</div>
+              <div class="map-pin">
+                <span>↗</span> Your next favorite table
+              </div>
+            </div>
+          </div>
+          <div class="portal-body">
+            <span class="portal-kicker">03 / PLACES</span>
+            <h2>Make a day of it.</h2>
+            <p>
+              Find a table. Take a detour.<br />See what’s around the corner.
+            </p>
+            <div class="portal-bottom">
+              <span>Explore around you</span><span>↗</span>
+            </div>
+          </div></a
+        >
+        <a href="movies.html" class="portal portal-movies"
+          ><div class="portal-art">
+            <span class="portal-badge">THE PICTURE HOUSE</span>
+            <div class="poster-collage">
+              <img
+                id="film-cover-one"
+                alt="Film poster from the collection"
+              /><img
+                id="film-cover-two"
+                alt="Film poster from the collection"
+              />
+            </div>
+          </div>
+          <div class="portal-body">
+            <span class="portal-kicker">04 / MOVIES</span>
+            <h2>Get a little lost.</h2>
+            <p>
+              A different genre. A new world.<br />A film that stays with you.
+            </p>
+            <div class="portal-bottom">
+              <span>Find your next film</span><span>↗</span>
+            </div>
+          </div></a
+        >
+      </section>
+      <section class="browsing-note">
+        <span>⊞</span>
+        <div>
+          <strong>One canvas. A different point of view.</strong>
+          <p>
+            Zoom out to explore. Move things around. Zoom in to follow what
+            catches your eye. Each space keeps its own layout, filters, and
+            favorites.
+          </p>
+        </div>
+        <a href="recipes.html">Try a different way to browse →</a>
+      </section>
+      <section id="collection">
+        <div class="collection-heading">
+          <div>
+            <span class="eyebrow">THE THINGS THAT CAUGHT YOUR EYE</span>
+            <h2>Your collection.</h2>
+            <p>Good finds from every space, kept together.</p>
+          </div>
+          <div
+            id="collection-filters"
+            aria-label="Filter saved collection"
+          ></div>
+        </div>
+        <div id="collection-grid"></div>
+      </section>
+      <section id="recent-section" hidden>
+        <div class="collection-heading">
+          <div>
+            <span class="eyebrow">PICK UP A THREAD</span>
+            <h2>Recently explored.</h2>
+            <p>A trail through the things that caught your eye.</p>
+          </div>
+          <button id="clear-recent" class="link-button">
+            Clear recent history
+          </button>
+        </div>
+        <div id="recent-grid"></div>
+      </section>
+      <footer class="hub-footer">
+        <span>Broadsheet / An experiment in following your curiosity.</span
+        ><span
+          >Recipe imagery: TheMealDB · Film artwork: original rights holders via
+          Studio Ghibli API / TMDB · Map illustration is conceptual.</span
+        >
+      </footer>
+    </main>
+    <script src="spaces.js"></script>
+    <script type="module" src="hub.js"></script>
+  </body>
+</html>

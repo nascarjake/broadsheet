@@ -15,5 +15,5 @@ class CorpusTests(unittest.TestCase):
    for b in s['blocks']:
     if b['type']=='image':self.assertTrue((R/'dist'/b['src']).is_file());self.assertTrue(b['credit']);self.assertTrue(b['url'].startswith('https://'))
  def test_standalone(self):
-  h=(R/'Broadsheet-preview.html').read_text();self.assertIn('window.BROADSHEET_DATA=',h);self.assertIn('data:image/jpeg;base64,',h)
+  h=(R/'Broadsheet-news-preview.html').read_text();self.assertIn('window.BROADSHEET_DATA=',h);self.assertIn('data:image/jpeg;base64,',h)
 if __name__=='__main__':unittest.main()

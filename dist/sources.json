@@ -1,0 +1,110 @@
+[
+  {
+    "id": "bbc",
+    "name": "BBC News",
+    "short": "BBC",
+    "url": "https://www.bbc.com/news",
+    "feed": "https://feeds.bbci.co.uk/news/world/rss.xml",
+    "topics": ["World"],
+    "region": "United Kingdom",
+    "kind": "Newsroom",
+    "color": "#9b3032",
+    "directory": "https://support.bbc.co.uk/platform/feeds/NewsFeeds.htm"
+  },
+  {
+    "id": "guardian",
+    "name": "The Guardian",
+    "short": "G",
+    "url": "https://www.theguardian.com/world",
+    "feed": "https://www.theguardian.com/world/rss",
+    "topics": ["World"],
+    "region": "United Kingdom",
+    "kind": "Newsroom",
+    "color": "#36566d",
+    "directory": "https://www.theguardian.com/help/feeds"
+  },
+  {
+    "id": "aljazeera",
+    "name": "Al Jazeera",
+    "short": "AJ",
+    "url": "https://www.aljazeera.com",
+    "feed": "https://www.aljazeera.com/xml/rss/all.xml",
+    "topics": ["World"],
+    "region": "Qatar",
+    "kind": "Newsroom",
+    "color": "#99772a",
+    "directory": "https://www.aljazeera.com/xml/rss/all.xml"
+  },
+  {
+    "id": "lemonde",
+    "name": "Le Monde · English",
+    "short": "M",
+    "url": "https://www.lemonde.fr/en/",
+    "feed": "https://www.lemonde.fr/en/rss/une.xml",
+    "topics": ["World"],
+    "region": "France",
+    "kind": "Newsroom",
+    "color": "#344d67",
+    "directory": "https://www.lemonde.fr/en/rss/article/2022/06/23/the-rss-feeds-of-monde-fr_5987755_165.html"
+  },
+  {
+    "id": "nasa",
+    "name": "NASA",
+    "short": "N",
+    "url": "https://www.nasa.gov",
+    "feed": "https://www.nasa.gov/feed/",
+    "topics": ["Space", "Science"],
+    "region": "United States",
+    "kind": "Primary source",
+    "color": "#465d9b",
+    "directory": "https://www.nasa.gov/rss-feeds/"
+  },
+  {
+    "id": "verge",
+    "name": "The Verge",
+    "short": "V",
+    "url": "https://www.theverge.com",
+    "feed": "https://www.theverge.com/rss/index.xml",
+    "topics": ["Technology"],
+    "region": "United States",
+    "kind": "Specialist newsroom",
+    "color": "#7252a1",
+    "directory": "https://www.theverge.com/rss/index.xml"
+  },
+  {
+    "id": "ars",
+    "name": "Ars Technica",
+    "short": "ars",
+    "url": "https://arstechnica.com",
+    "feed": "https://feeds.arstechnica.com/arstechnica/index",
+    "topics": ["Technology"],
+    "region": "United States",
+    "kind": "Specialist newsroom",
+    "color": "#b56832",
+    "directory": "https://feeds.arstechnica.com/arstechnica/index"
+  },
+  {
+    "id": "sciencedaily",
+    "name": "ScienceDaily · AI",
+    "short": "SD",
+    "url": "https://www.sciencedaily.com",
+    "feed": "https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml",
+    "topics": ["AI", "Science"],
+    "region": "United States",
+    "kind": "Research news",
+    "color": "#447867",
+    "directory": "https://www.sciencedaily.com/newsfeeds.htm"
+  },
+  {
+    "id": "guardian-food",
+    "name": "The Guardian · Food",
+    "short": "Gf",
+    "url": "https://www.theguardian.com/food",
+    "feed": "https://www.theguardian.com/food/rss",
+    "topics": ["Cooking"],
+    "region": "United Kingdom",
+    "kind": "Food & recipes",
+    "color": "#9b633c",
+    "directory": "https://www.theguardian.com/help/feeds"
+  }
+]

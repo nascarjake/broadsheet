@@ -1,76 +1,2923 @@
 {
-  "retrievedAt": "2026-11-07T19:40:34.962588+00:00",
-  "feed": "https://www.nasa.gov/feed/",
+  "retrievedAt": "2026-11-08T23:50:12.059031+00:00",
+  "sources": [
+    {
+      "id": "bbc",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.732470+00:00",
+      "count": 28
+    },
+    {
+      "id": "guardian",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.747905+00:00",
+      "count": 40
+    },
+    {
+      "id": "aljazeera",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.763375+00:00",
+      "count": 25
+    },
+    {
+      "id": "lemonde",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.795129+00:00",
+      "count": 14
+    },
+    {
+      "id": "nasa",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.797957+00:00",
+      "count": 7
+    },
+    {
+      "id": "verge",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.916179+00:00",
+      "count": 10
+    },
+    {
+      "id": "ars",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.910369+00:00",
+      "count": 20
+    },
+    {
+      "id": "sciencedaily",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:11.908455+00:00",
+      "count": 40
+    },
+    {
+      "id": "guardian-food",
+      "status": "ok",
+      "retrievedAt": "2026-11-08T23:50:12.058965+00:00",
+      "count": 31
+    }
+  ],
   "stories": [
     {
-      "id": "44a6b3793253",
+      "id": "379d0639d8e7925b",
+      "title": "Surgeon having lunch near Krakow shooting undoubtedly saved officer's life, colleague says",
+      "url": "https://www.bbc.co.uk/news/articles/c5x2vw4e1gx1o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Further details have emerged about two police officers hailed for preventing a Polish gunman from killing more.",
+      "date": "2026-11-08T23:34:18+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "07141ad7abea7551",
+      "title": "Seven dead and more than 100 injured after trains collide in Egypt",
+      "url": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Several carriages derailed after two trains travelling in the same direction crashed outside the city of Giza.",
+      "date": "2026-11-08T19:58:02+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "d2b9303010106a59",
+      "title": "Homes and temples glow across India to mark Diwali",
+      "url": "https://www.bbc.co.uk/news/articles/cm70pdwz122ro?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Millions of Indians are marking the festival of lights with glowing lamps, fireworks and traditional sweets.",
+      "date": "2026-11-08T14:42:09+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "659206a1382c3234",
+      "title": "Iran executes three men for 'armed unrest' after January protests",
+      "url": "https://www.bbc.co.uk/news/articles/ckly0ex633ydo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "It is claimed Hassan Dioband, Hamid Kazemi and Reza Zanganeh were part of anti-government protests earlier this year.",
+      "date": "2026-11-08T13:37:50+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "6d8a06c4630839f6",
+      "title": "Houthis say at least 33 killed in Saudi air strike",
+      "url": "https://www.bbc.co.uk/news/articles/c65yn1v99ypmo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Saudi Arabia, which leads a coalition fighting the Houthis in Yemen, has not commented.",
+      "date": "2026-11-08T04:03:12+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "c4c648932b3d7ff1",
+      "title": "'Flat', 'tired', 'cynical': Unusually gloomy Kiwis deliver New Zealand's tightest election in years",
+      "url": "https://www.bbc.co.uk/news/articles/cxr5yyg2nj9eo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The national mood is low, and faith in politics even lower - with voters deserting the major parties at the polls.",
+      "date": "2026-11-07T21:36:16+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "8bd0144092331135",
+      "title": "Paraguay's former president charged after bank collapse",
+      "url": "https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Santiago Peña was ousted due to a banking crisis which left millions of people unable to access their money.",
+      "date": "2026-11-07T19:17:22+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "42531dc9299c2c06",
+      "title": "Pope in 'pretty good health' as he starts Latin America tour",
+      "url": "https://www.bbc.co.uk/news/articles/c60e0001ve9wo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Pope Leo travels to Uruguay just three weeks after having surgery for lung cancer.",
+      "date": "2026-11-07T06:59:48+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "c6ae51f0f919c58b",
+      "title": "Italian foreign minister says hackers leaked his personal data",
+      "url": "https://www.bbc.co.uk/news/articles/cr20wvge32j3o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Prime Minister Giorgia Meloni has blamed pro-Russian hackers for publishing the details online.",
+      "date": "2026-11-07T16:50:06+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "7bc889d73f785e59",
+      "title": "Russian strikes wound nine and damage Ukraine's power network ahead of talks",
+      "url": "https://www.bbc.co.uk/news/articles/cm4g1nq8158po?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The attacks come before Ukrainian and Russian delegations are due to take part in trilateral talks in Abu Dhabi next week.",
+      "date": "2026-11-07T12:49:36+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "082aa9ac915444e4",
+      "title": "US offers $20m reward for information about Iran's nuclear programme",
+      "url": "https://www.bbc.co.uk/news/articles/c6d091ev3p0jo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Donald Trump has repeatedly raised the prospect of renewing strikes against Iran's nuclear facilities.",
+      "date": "2026-11-07T18:14:38+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "55e3db745181cc1d",
+      "title": "Meghan's father Thomas Markle under house arrest after child sex abuse material charge",
+      "url": "https://www.bbc.co.uk/news/articles/cqgkvv8m8pgyo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The 82-year-old appeared in court in Florida after the FBI searched two Los Angeles-area storage units he rented.",
+      "date": "2026-11-07T07:27:44+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "062a70b67af36c2c",
+      "title": "UK cannot 'cherry pick' EU single market deal, Barnier tells BBC",
+      "url": "https://www.bbc.co.uk/news/articles/c9kgjj206nzpo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The former Brexit negotiator says EU countries would reject any British attempts to follow economic rules \"a la carte\".",
+      "date": "2026-11-07T15:19:35+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "7ec4b19be3283c20",
+      "title": "Texas mayor instructs police to limit co-operation with ICE",
+      "url": "https://www.bbc.co.uk/news/articles/c8dx33d22zkro?at_medium=RSS&at_campaign=rss",
+      "excerpt": "There has been months of public outcry in Houston after an Immigration and Customs Enforcement (ICE) officer fatally shot a man who was driving to work.",
+      "date": "2026-11-07T08:15:55+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "de0c28c9953fb6e7",
+      "title": "AI stocks climb after trillions wiped from market values",
+      "url": "https://www.bbc.co.uk/news/articles/c35ynnpzdq51o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Investors had been selling off tech shares in part due to concerns the Democrat election victory would mean slower AI development.",
+      "date": "2026-11-06T21:06:25+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "AI",
+        "World"
+      ]
+    },
+    {
+      "id": "55e7c02a81d113ed",
+      "title": "New wave of bomb threats hit European airlines",
+      "url": "https://www.bbc.co.uk/news/articles/cq62yy064vjpo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "No link has been established between the threats against the airlines and those against the media outlets.",
+      "date": "2026-11-06T15:25:35+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "1ac43336cbc52c0f",
+      "title": "Spain's rail authorities face European fraud probe after Urda rail disaster",
+      "url": "https://www.bbc.co.uk/news/articles/c6x2wwnz5445o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Prosecutors begin investigating EU funds meant for upgrading the Spanish railway line where a train crash killed 69 people.",
+      "date": "2026-11-06T17:44:02+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "efbeca1e8e750597",
+      "title": "Kenyan doomsday cult leader given life sentence for murdering 191 people",
+      "url": "https://www.bbc.co.uk/news/articles/cm5yne5984l0o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Paul Mackenzie ordered his followers to starve their children to death in a forest so they could \"meet Jesus\".",
+      "date": "2026-11-06T14:46:03+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "154b6124576d3e4c",
+      "title": "Doctor who treated victims of Krakow shooting speaks to the BBC",
+      "url": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Two doctors were eating near the city's Main Market Square when a gunman began firing at random.",
+      "date": "2026-11-08T22:05:12+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "f386653fd1a3aece",
+      "title": "Footage shows derailed carriages after fatal train crash in Egypt",
+      "url": "https://www.bbc.co.uk/news/videos/cw78p2km7d94o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "At least seven people died when two trains collided, causing several carriages to derail and fall down an embankment.",
+      "date": "2026-11-08T16:05:57+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e85d434e59bbd389",
+      "title": "How the deadly shooting in Krakow unfolded",
+      "url": "https://www.bbc.co.uk/news/videos/cq74p2zpwyjmo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Video authenticated by BBC Verify shows the moment gunshots rang out in Krakow's main market square.",
+      "date": "2026-11-08T09:29:24+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "6f87cce88ee43aa9",
+      "title": "Gaza wedding festival sees 250 couples married at the same time",
+      "url": "https://www.bbc.co.uk/news/videos/ckr5ygm78j76o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "A mass wedding for Palestinian brides and grooms has taken place in the rubble-strewn streets of Gaza.",
+      "date": "2026-11-07T17:58:41+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "8af314bb7a85de8c",
+      "title": "Watch: Is it the end of the road for Tesla's Cybertruck?",
+      "url": "https://www.bbc.co.uk/news/videos/cv8ezz9ll7nyo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The car company's CEO Elon Musk has said production will halt in Texas, to focus on the firm's self-driving Cybercabs.",
+      "date": "2026-11-06T15:02:03+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "3d868371b5a44de0",
+      "title": "The Trump coalition is shattered - what will Republicans do now?",
+      "url": "https://www.bbc.co.uk/news/articles/cm3r5gnxqz3jo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Republicans can stick with Trumpism or chart a new path, writes BBC Washington correspondent Daniel Bush.",
+      "date": "2026-11-08T00:52:39+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "ff8dac294fc817cb",
+      "title": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
+      "url": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
+      "excerpt": "While some believe the site should be partially or completely rebuilt, others want it abandoned and all memory of its Nazi past forgotten.",
+      "date": "2026-11-08T00:48:59+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "1d2074db1a3e5ae0",
+      "title": "This man refused life-saving treatment because of his religion - days later the rules changed",
+      "url": "https://www.bbc.co.uk/news/articles/cx5ynly549njo?at_medium=RSS&at_campaign=rss",
+      "excerpt": "Jehovah's Witness leaders relaxed strict rules on blood transfusions, but the change came 23 days too late for Isaac Valdez.",
+      "date": "2026-11-07T01:27:47+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "6918e8874575f88f",
+      "title": "With Stephen Miller pick, Trump readies for a battle",
+      "url": "https://www.bbc.co.uk/news/articles/crp3gg2z171go?at_medium=RSS&at_campaign=rss",
+      "excerpt": "The US president's promotion of Miller, a loyal partisan firebrand to be his new chief of staff sets up likely clashes with Congress.",
+      "date": "2026-11-06T23:24:15+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0fde867bcd6db493",
+      "title": "The young Somali woman changing how the world sees Mogadishu",
+      "url": "https://www.bbc.co.uk/news/articles/cq0k0lg48705o?at_medium=RSS&at_campaign=rss",
+      "excerpt": "For some tourists, the contrast between Somalia's reputation and what they experience on the ground can be striking.",
+      "date": "2026-11-07T01:19:49+00:00",
+      "topic": "The universe",
+      "source": "BBC News",
+      "sourceId": "bbc",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "dfb7c585a47464e2",
+      "title": "Collision of two trains in Egypt kills at least seven",
+      "url": "https://www.theguardian.com/world/2026/nov/08/egypt-two-trains-deadly-collision",
+      "excerpt": "President orders prompt investigation after one train derails in collision in al-Ayyat about 30 miles from Cairo Seven people were killed and more than 100 injured when two trains collided on Sunday south of the Egyptian capital, Cairo, officials said. The crash occurred in al-Ayyat district in Giza province, about 30 miles south of Cairo, when a…",
+      "date": "2026-11-08T17:51:17+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "d2755ebc4728e1ef",
+      "title": "How African philosophies inspired a new approach to staging film festivals in Manchester",
+      "url": "https://www.theguardian.com/news/2026/nov/08/african-philosophies-see-my-world-film-festival-manchester",
+      "excerpt": "See My World, an event highlighting the pan-African thought via film, poetry and dance, builds on momentum sparked by local activists and creatives African philosophies including exploring how lessons from the past can shape the present and near future have inspired a film festival coming to Manchester. See My World , a day dedicated to…",
+      "date": "2026-11-08T12:00:39+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "d32891547ec5720d",
+      "title": "Kenyan doomsday sect leader jailed for 200 years for murder of 190 children",
+      "url": "https://www.theguardian.com/world/2026/nov/06/kenyan-doomsday-sect-leader-jailed-murders-paul-mackenzie",
+      "excerpt": "Paul Mackenzie convicted over deaths of children and one adult after followers were ordered to starve themselves and their families The leader of a Kenyan doomsday sect has been sentenced to 200 years in prison for the murders of 190 children and one adult in one of the world’s worst cult disasters in recent history. The sentence, comprising 100…",
+      "date": "2026-11-06T15:08:43+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "127af6818ff60c96",
+      "title": "ANC faces bruising defeat in South African local elections with 80% of ballots counted",
+      "url": "https://www.theguardian.com/world/2026/nov/06/anc-faces-defeat-south-african-local-elections",
+      "excerpt": "Former liberation movement’s share of national vote almost 14 percentage points below 2021 result The African National Congress is on course to suffer a bruising defeat in South Africa’s local elections, with the once dominant party of Nelson Mandela falling to under a third of the vote nationally with more than 80% of ballots counted. Wednesday’s…",
+      "date": "2026-11-06T12:48:37+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9aa01155d2e9936c",
+      "title": "British healthcare worker with Ebola evacuated from DR Congo to UK",
+      "url": "https://www.theguardian.com/world/2026/nov/04/british-healthcare-worker-ebola-evacuated-drc-to-uk-document-shows",
+      "excerpt": "Patient is ⁠in ​stable condition and will be transferred to a specialist ‘high consequence’ infectious disease unit A British healthcare worker with Ebola is being evacuated from the Democratic Republic of the Congo to the UK for medical treatment, it has been confirmed. “A British citizen currently in the DR Congo has tested positive for Ebola,”…",
+      "date": "2026-11-04T18:18:37+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "ec33d3f2667e6fcc",
+      "title": "Pope’s visit to Argentina sets up showdown with ‘hyper-capitalist’ Milei",
+      "url": "https://www.theguardian.com/world/2026/nov/08/popes-visit-to-argentina-sets-up-showdown-with-hyper-capitalist-milei",
+      "excerpt": "President has opposing views on many issues, and once called Leo’s predecessor the ‘representative of the Evil One’ Trees are being planted in the garden. The brightly coloured buildings are getting another coat of paint. The choir rehearses. Hundreds of other residents, several of them using wheelchairs, practise their positions outside the…",
+      "date": "2026-11-08T09:00:35+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "987516c0a83f4e36",
+      "title": "Banana producers in Latin America want better pay to cope with effects of climate crisis",
+      "url": "https://www.theguardian.com/business/2026/nov/08/banana-producers-in-latin-america-want-better-pay-to-cope-with-effects-of-climate-crisis",
+      "excerpt": "Farmers face big drop in production from extreme weather during this year’s super El Niño event Banana producers in Latin America are calling for better pay to help cope with the impact of the climate crisis, as they face big drops in production resulting from extreme weather during this year’s super El Niño event. High winds in parts of Colombia,…",
+      "date": "2026-11-08T07:00:34+00:00",
+      "topic": "Earth & environment",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "Climate",
+        "World"
+      ]
+    },
+    {
+      "id": "c5e964702c258c04",
+      "title": "Ousted Paraguay president under house arrest after banking crisis leaves 60% of country unable to access accounts",
+      "url": "https://www.theguardian.com/world/2026/nov/07/ousted-paraguay-president-under-house-arrest-after-banking-crisis-leaves-60-of-country-unable-to-access-accounts",
+      "excerpt": "Santiago Peña was detained minutes after he was impeached by Congress, as protesters took to the streets demanding answers after the suspension of the Ueno bank Paraguay’s rightwing president has been placed under house arrest minutes after he was impeached by Congress, amid a severe crisis that left more than half the country’s population unable…",
+      "date": "2026-11-07T01:55:11+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0d8ff67061a9f55f",
+      "title": "Sebastián Lelio, director of A Fantastic Woman and Gloria, dies aged 52",
+      "url": "https://www.theguardian.com/film/2026/nov/06/sebastian-lelio-chilean-director-dies",
+      "excerpt": "The Chilean film-maker, whose films starred Florence Pugh, Julianne Moore and Rachel Weisz, died at his home in Santiago Chilean film-maker Sebastián Lelio has died at the age of 52. He was best known for the Oscar-winning trans drama A Fantastic Woman and his English-language films included Gloria Bell and The Wonder. Continue reading...",
+      "date": "2026-11-06T19:23:24+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "1cc47884efbd15f4",
+      "title": "Flávio Bolsonaro battles to remain relevant as he speaks at rightwing conference at Mar-a-Lago",
+      "url": "https://www.theguardian.com/world/2026/nov/06/flavio-bolsonaro-upbeat-brazil-election-us",
+      "excerpt": "Far-right politician addresses Conservative Political Action Conference and makes unsubstantiated claims about election fraud Flávio Bolsonaro, the far-right politician who lost Brazil’s presidential election last month, has insisted his defeat is not “the end for Brazil” as he battles to maintain political relevance after fleeing to the US.…",
+      "date": "2026-11-06T13:03:38+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "75eee0dcbc87b091",
+      "title": "Nvidia opens investigation after report CEO Jensen Huang was target of foreign intelligence",
+      "url": "https://www.theguardian.com/us-news/2026/nov/08/nvidia-jensen-huang-investigation",
+      "excerpt": "CEO reportedly ‌had close relationship ‌with a Chinese businesswoman who passed information to ‌Beijing Nvidia said ⁠on Sunday it “is initiating an independent investigation in light of recent reporting that founder and CEO Jensen Huang has been the target of a foreign intelligence effort”. The Republican-led foreign affairs and intelligence…",
+      "date": "2026-11-08T21:00:58+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e9f47d95482fd022",
+      "title": "Uyghurs facing deportation by Thailand say they will be ‘like slaves’ in China",
+      "url": "https://www.theguardian.com/global-development/2026/nov/08/uyghurs-thailand-china-forced-deportation",
+      "excerpt": "Activists fear Bangkok will give in to pressure from Beijing despite reports of torture and human rights abuses against the mostly muslim ethnic minority The deportation of two more Uyghurs to China from Thailand would put their lives in grave danger, activists have said, with one of the men saying he would be “like a slave” if he was sent back.…",
+      "date": "2026-11-08T03:00:28+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "f9ce569d6615b2e5",
+      "title": "NZ election 2026: New Zealand faces weeks of uncertainty with results ‘too close to call’",
+      "url": "https://www.theguardian.com/world/2026/nov/07/new-zealand-election-too-close-to-call-vote-count",
+      "excerpt": "National party will be largest in parliament but ultimate shape of next government won’t be settled for some time New Zealand could be facing a weeks-long wait to know the shape of its next government, after its nail-biting election failed to hand a decisive victory to either the incumbent rightwing coalition or opposition left bloc. On…",
+      "date": "2026-11-08T01:00:48+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0bd9f34f26827a02",
+      "title": "New Zealand election coalition talks will likely take weeks – as it happened",
+      "url": "https://www.theguardian.com/world/live/2026/nov/07/nz-general-election-2026-live-updates-results-new-zealand-polls",
+      "excerpt": "This blog is closed, you can read our report on the New Zealand election here Another update here with 8% of the vote counted . National on 31.2%, Labour 28.4%, the Greens 12.9%, Act 11.2%, NZ First 9.6%, Opportunity 5.7% and Te Pāti Māori 0.4%. On these numbers, we would have a right bloc coalition back in power. Long way to go . Continue…",
+      "date": "2026-11-07T13:12:22+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "20e5ea8a8d513923",
+      "title": "Global stocks fall amid ‘big worries over AI’ after Democrats’ midterms triumph",
+      "url": "https://www.theguardian.com/business/2026/nov/06/global-stocks-plunge-amid-ai-slowdown-fears-after-democrats-midterm-triumph",
+      "excerpt": "Asian and European markets follow US tech rout with many analysts predicting more waves of selling to come European and Asian stock markets fell sharply on Friday after the Democrats’ decisive victory in the midterms triggered a rout in US tech stocks a day earlier. A sell-off on Wall Street on Thursday was followed by sharp falls in Asian stock…",
+      "date": "2026-11-06T21:23:54+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "AI",
+        "World"
+      ]
+    },
+    {
+      "id": "a42a744c9ca89355",
+      "title": "Man charged with murder over fatal stabbing of HungryPanda delivery rider in Melbourne",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/09/man-charged-fatal-stabbing-hungrypanda-delivery-driver-jianming-feng-melbourne-ntwnfb",
+      "excerpt": "Footscray man charged over death of 47-year-old Feng Jianming in the CBD on Friday night Get our breaking news email , free app or daily news podcast A man has been charged with murder after a delivery rider was stabbed to death while working, leaving his family bereft and a city in mourning. On Friday night, HungryPanda delivery rider Feng…",
+      "date": "2026-11-08T22:03:59+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9c52717d8356d9fd",
+      "title": "Cold blast brings springtime snow to alpine regions as temperatures plummet across Australia’s south-east",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/08/australia-weather-cold-blast-springtime-snow-thredbo-perisher-hotham-victoria-tasmania-el-nino",
+      "excerpt": "Thredbo, Perisher and Mount Hotham all recorded falls, along with Kunanyi/Mount Wellington in Tasmania Get our breaking news email , free app or daily news podcast Snow blanketed parts of New South Wales, Victoria and Tasmania across the weekend as an unseasonal cold blast whipped through Australia’s south-east, but forecasters say warm…",
+      "date": "2026-11-08T21:25:10+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "4e0e57590300e582",
+      "title": "Weakening AI copyright law will spell ‘disaster for creativity’, global music body warns Albanese",
+      "url": "https://www.theguardian.com/technology/2026/nov/09/weakening-ai-copyright-law-will-spell-disaster-for-creativity-australia",
+      "excerpt": "Exclusive: Head of IFPI says allowing AI companies access to online content would be a ‘huge mistake’ and damage Australia’s reputation Get our breaking news email , free app or daily news podcast Australia weakening copyright protections to aid AI companies would be “ridiculous and dangerous”, the global peak body for the music recording industry…",
+      "date": "2026-11-08T14:00:43+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "AI",
+        "World"
+      ]
+    },
+    {
+      "id": "9add0c107628fa5e",
+      "title": "Cop31 must deliver climate progress that people can see is real, host says",
+      "url": "https://www.theguardian.com/environment/2026/nov/08/cop31-climate-summit-deliver-progress-real-host-says",
+      "excerpt": "High-stakes talks involving 190 countries begin on Monday as world grapples with El Niño supercharged by fossil fuels The Cop31 summit must produce progress, “a tangible outcome ... that people can see is real”, its host has said as scores of world leaders and representatives of close to 190 countries gather in Turkey for the UN climate talks. The…",
+      "date": "2026-11-08T13:24:00+00:00",
+      "topic": "Earth & environment",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "Climate",
+        "World"
+      ]
+    },
+    {
+      "id": "ed224a74ead9763e",
+      "title": "Who’s who at Cop31: key players at the climate talks",
+      "url": "https://www.theguardian.com/environment/2026/nov/08/cop31-key-players-climate-talks",
+      "excerpt": "What are the relationships and dominant interests in play, as the summit kicks off after a bitter row over its hosting? Hosting Cop was a key pledge from Australia’s prime minister, Anthony Albanese in 2021 , while in opposition, before his successful election campaign. But arcane rules meant the country had to wait its turn to bid and was then…",
+      "date": "2026-11-08T11:48:56+00:00",
+      "topic": "Earth & environment",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "Climate",
+        "World"
+      ]
+    },
+    {
+      "id": "892996f722c40901",
+      "title": "Two police officers hailed as heroes for confronting Kraków gunman",
+      "url": "https://www.theguardian.com/world/2026/nov/08/two-police-officers-heroes-confronting-krakow-gunman-poland",
+      "excerpt": "Jakub Kulik critically injured and Artur Morański also wounded after actions that ‘prevented further casualties’ Two Polish police officers who were injured as they pursued and detained the gunman in Kraków on Saturday have been hailed as heroes. One of them is Jakub Kulik, a former paratrooper and volunteer firefighter, who was left critically…",
+      "date": "2026-11-08T21:11:40+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "cddd52a41816fee6",
+      "title": "Lisa Nandy wary of ‘circular arguments’ about rejoining EU",
+      "url": "https://www.theguardian.com/politics/2026/nov/08/lisa-nandy-wary-of-circular-arguments-about-rejoining-eu",
+      "excerpt": "Culture secretary pushes back against talk of revisiting Brexit but says closer ties would fulfil referendum promises One of Andy Burnham’s cabinet ministers has said she wants to avoid “circular arguments” about whether the UK should rejoin the EU, underlining divisions at the top of government over revisiting Brexit. Lisa Nandy, the culture…",
+      "date": "2026-11-08T18:20:06+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e234be1478cf3d5e",
+      "title": "Chinese carmaker BYD’s offices in Netherlands raided over JLR ‘copycat car’ claim",
+      "url": "https://www.theguardian.com/business/2026/nov/08/chinese-carmaker-byd-offices-raided-netherlands-land-rover-copycat-claim",
+      "excerpt": "Bailiffs reportedly seized digital records before court case over alleged intellectual property breaches on Land Rover Defender Bailiffs acting for Jaguar Land Rover raided the Dutch offices of a Chinese “copycat” rival before a legal showdown this week over whether its “Defender clone” infringes intellectual property rights. Bailiffs acting on…",
+      "date": "2026-11-08T16:50:58+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "a2c35f3bff1e1ac2",
+      "title": "UK spent £100m on zombie Brexit border inspection posts",
+      "url": "https://www.theguardian.com/politics/2026/nov/08/uk-zombie-brexit-border-inspection-posts-check-goods",
+      "excerpt": "Five of seven facilities in England and Wales never reached operational stage as Tories vacillated over plans to check goods The UK wasted at least £100m in taxpayers’ money to set up zombie Brexit border inspection posts that were never used, it has been revealed. The overall cost of Brexit was put at an estimated £4.7bn by the National Audit…",
+      "date": "2026-11-08T13:32:58+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "34430db32ce5c9d8",
+      "title": "Polish prosecutors open terrorism investigation into Kraków shooting",
+      "url": "https://www.theguardian.com/world/2026/nov/08/krakow-shooting-poland-terrorism-investigation",
+      "excerpt": "Six people killed in attack probably inspired by far right, according to officials, as police say suspect’s parents and sister found dead at his home Polish prosecutors have opened a terrorism investigation after a 24-year-old man opened fire in a busy market square in Kraków, killing six people including a Briton and injuring 17, in an attack…",
+      "date": "2026-11-08T11:50:15+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0710a39b76016560",
+      "title": "Gadi Eisenkot reaches out to Netanyahu allies as he strives to form government",
+      "url": "https://www.theguardian.com/world/2026/nov/08/gadi-eisenkot-netanyahu-allies-form-israel-government",
+      "excerpt": "Former military chief says prime minister brought Israel to historic crisis and it is approaching ‘point of no return’ Israel’s former military chief Gadi Eisenkot started the tough task of forming a government on Sunday, reaching out to Benjamin Netanyahu’s allies as he said the veteran prime minister had brought the country to a historic crisis.…",
+      "date": "2026-11-08T17:53:59+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "fe43e4b6ce3d3106",
+      "title": "Israel’s president picks Yashar leader Gadi Eisenkot to form government",
+      "url": "https://www.theguardian.com/world/2026/nov/07/israel-president-gadi-eisenkot-form-government",
+      "excerpt": "Knesset has been deadlocked since the election last month when Benjamin Netanyahu’s coalition lost its majority Israel’s president has ⁠chosen Gadi Eisenkot, the prime minister Benjamin Netanyahu’s ⁠strongest rival, to ⁠try to ​form a new government, after a deadlocked election that left neither man ⁠with a clear path to power. Isaac Herzog’s…",
+      "date": "2026-11-08T14:26:14+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9f4c8241a45c8310",
+      "title": "Court rules against Home Office in asylum seeker kidnapping case",
+      "url": "https://www.theguardian.com/law/2026/nov/07/court-of-appeal-rules-kidnap-for-ransom-libya-exploitation-trafficking-victims-asylum-seeker-home-office",
+      "excerpt": "Department had claimed that being kidnapped for ransom was not exploitation of trafficking victims in case of Syrian man abducted in Libya The court of appeal has rejected claims by the Home Office that being kidnapped for ransom is not exploitation of trafficking victims. The ruling means that many people who have been kidnapped for ransom, whom…",
+      "date": "2026-11-07T13:00:11+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "68f798da31acd99f",
+      "title": "Strait of Hormuz could reopen as part of Qatari plan for Iran nuclear inspections",
+      "url": "https://www.theguardian.com/world/2026/nov/07/strait-of-hormuz-qatar-plan-iran-nuclear-inspections",
+      "excerpt": "Trump still considering new assault on Iran nuclear sites – though threats less credible after Vance remarks Qatar, the lead mediator in the US-Iran conflict, is seeking to persuade Tehran to allow UN nuclear weapons inspectors to visit Iran’s bombed nuclear sites, including those housing the country’s stockpile of highly enriched uranium. Iran…",
+      "date": "2026-11-07T07:00:04+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "dadbcd2010b3996e",
+      "title": "US midterm results may help unite Israeli coalition to unseat Netanyahu",
+      "url": "https://www.theguardian.com/world/2026/nov/07/us-midterm-results-may-help-unite-israeli-coalition-to-unseat-netanyahu",
+      "excerpt": "Democrats’ sweep could urge Israel’s divided opposition to join forces and remove prime minister closely allied with Trump The Democrats’ sweep of Congress may make it easier for Israel’s splintered opposition to overcome deep internal divisions and form a coalition government, by increasing the urgency of unseating Benjamin Netanyahu, who has…",
+      "date": "2026-11-07T06:00:04+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9237fc2c3e8d06bd",
+      "title": "Environmentalists criticise choice of Earthshot prize venue owned by fossil fuel firm",
+      "url": "https://www.theguardian.com/environment/2026/nov/08/earthshot-prize-venue-criticism-fossil-fuel-firm-reliance-industries-india-mumbai",
+      "excerpt": "Mumbai facility is part of Reliance Industries, owner of world’s biggest oil refinery and funder of controversial mega-zoo The Prince of Wales’s Earthshot prize will host its forthcoming annual awards ceremony at a venue owned by the billionaire Ambani family conglomerate, drawing criticism from conservationists over their fossil fuel businesses…",
+      "date": "2026-11-08T06:00:33+00:00",
+      "topic": "Earth & environment",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "6ecd0e14a1389cad",
+      "title": "The private creative world of Rabindranath Tagore, the man Yeats called ‘greater than any of us’",
+      "url": "https://www.theguardian.com/world/2026/nov/03/rabindranath-tagore-yeats-nobel-prize-india",
+      "excerpt": "A previously unseen family archive offers a glimpse into the Indian Nobel prize winner’s artistic process and personal relationships in his final years Don’t get This is India delivered to your inbox? Sign up here It’s easy to run out of words to describe Rabindranath Tagore. The first non-European to win the Nobel prize in literature, Tagore was…",
+      "date": "2026-11-03T15:24:53+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "5ddd38b520a91cc0",
+      "title": "UK ministers told not to engage formally with Indian mega-zoo after lobbying",
+      "url": "https://www.theguardian.com/environment/2026/nov/03/uk-ministers-anant-ambani-indian-zoo-vantara-freedom-information-endangered-animals-cites",
+      "excerpt": "Guardian and Mongabay reveal approaches to officials and MPs on behalf of Vantara zoo ahead of UK-chaired Cites meeting on endangered animal imports British government ministers were told not to engage formally with Vantara, the controversial mega-zoo run by the Indian billionaire Anant Ambani, after lobbying efforts by the private animal…",
+      "date": "2026-11-03T06:00:39+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "aee68fc2e0feba9e",
+      "title": "Tens of thousands protest against Narendra Modi regime in Delhi",
+      "url": "https://www.theguardian.com/world/2026/nov/01/india-opposition-protest-rally-delhi",
+      "excerpt": "Led by Congress party, India’s opposition alliance channels anger over removal of 130 million names from voter roll Thousands of opposition supporters have gathered in Delhi as protests against the Narendra Modi government continue to gather momentum. Led by the Congress party, India’s opposition alliance has brought together supporters from…",
+      "date": "2026-11-01T16:11:50+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "4b43920ccda0c035",
+      "title": "What Marco Rubio’s sidestepping of New Delhi says about the US’s stance on India",
+      "url": "https://www.theguardian.com/world/2026/oct/26/marco-rubio-us-secretary-of-state-india-visit-mumbai",
+      "excerpt": "Rubio’s decision not to meet Narendra Modi last week was seen by some as a snub – but by focusing on business leaders and oil, the secretary of state made American priorities clear. Plus: the artist bringing a female perspective to men’s clothing • Don’t get This is India delivered to your inbox? Sign up here When the US secretary of state, Marco…",
+      "date": "2026-10-27T09:21:33+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "525f23dd6ea5d6ab",
+      "title": "GPs to offer 300,000 patients extra support to ease winter strain on NHS",
+      "url": "https://www.theguardian.com/society/2026/nov/08/gps-extra-checks-winter-nhs-hospitals-england",
+      "excerpt": "£40m scheme in England aims to keep most vulnerable people well at home and avoid unnecessary hospital stays Hundreds of thousands of vulnerable patients in England are to receive extra support from their GP as part of a £40m drive aimed at keeping them out of hospital this winter. As the NHS gears up for the pressures of the coming months, family…",
+      "date": "2026-11-08T22:30:51+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "52d64f6ee7ee9b44",
+      "title": "Russell Brand case must be wake-up call to protect women in media, Lisa Nandy says",
+      "url": "https://www.theguardian.com/media/2026/nov/08/women-abuse-media-industry-lisa-nandy-russell-brand",
+      "excerpt": "Culture secretary says there is still a problem with exploitation and abuse in the industry and public life The culture secretary, Lisa Nandy, has said there is still a problem with exploitation and abuse in the media industry and a failure to properly deal with allegations after Russell Brand’s conviction for rape and sexual assault. She said…",
+      "date": "2026-11-08T19:05:04+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "19a03350da9284a5",
+      "title": "Riot breaks out at influencer boxing event attended by Tommy Robinson in Ireland",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/08/riot-influencer-boxing-event-attended-tommy-robinson-ireland",
+      "excerpt": "Two people arrested after Robinson’s presence inflames tensions in scenes witnessed by many on social media Two people were arrested at an influencer boxing event that descended into a riot in Ireland after the presence of the far-right activist Tommy Robinson inflamed tensions in the crowd. The riot took place at about midnight on Saturday at an…",
+      "date": "2026-11-08T18:33:34+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "d9f954947601d7f3",
+      "title": "Teaching GCSE topics younger risks turning schools into ‘early exam factories’, Powell warns",
+      "url": "https://www.theguardian.com/education/2026/nov/08/gcses-teaching-england-curriculum-education-secretary-lucy-powell",
+      "excerpt": "Lucy Powell says proposals to end widespread practice will be included in overhaul of England’s national curriculum Pushing GCSE subjects on younger pupils risks turning England’s secondary schools into “early exam factories”, the education secretary has said, warning that it is increasing disengagement from education. Lucy Powell wants schools to…",
+      "date": "2026-11-08T18:07:54+00:00",
+      "topic": "The universe",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "fc1f1b889b4b5274",
+      "title": "Climate always comes second: are green issues slipping down Burnham’s agenda?",
+      "url": "https://www.theguardian.com/environment/2026/nov/08/andy-burnham-uk-climate-crisis-rosebank-jackdaw",
+      "excerpt": "Prime minister says he’s committed to meeting climate targets, but some believe his actions suggest otherwise Labour expected to cut EV targets for car industry despite MPs’ climate concerns Andy Burnham insists he is committed to the green transition, but his MPs worry that in decision after decision, he is showing that other priorities come…",
+      "date": "2026-11-08T18:01:01+00:00",
+      "topic": "Earth & environment",
+      "source": "The Guardian",
+      "sourceId": "guardian",
+      "topics": [
+        "Climate",
+        "World"
+      ]
+    },
+    {
+      "id": "1ddd14f34af236b3",
+      "title": "Chancellor Merz to nominate Aigner as Germany’s first woman president",
+      "url": "https://www.aljazeera.com/news/2026/11/8/chancellor-merz-to-nominate-aigner-as-germanys-first-woman-president?traffic_source=rss",
+      "excerpt": "Ilse Aigner, speaker of the Bavarian state parliament, belongs to the Christian Social Union in Bavaria (CSU) party.",
+      "date": "2026-11-08T23:39:47+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9c46647fa5fdb88f",
+      "title": "Lopez double fires Barcelona to win at Atletico Madrid",
+      "url": "https://www.aljazeera.com/sports/2026/11/8/lopez-double-fires-barcelona-to-win-at-atletico-madrid?traffic_source=rss",
+      "excerpt": "Fermin Lopez brace has Barcelona come from behind to win 2-1 at Atletico Madrid to go three points clear in La Liga.",
+      "date": "2026-11-08T22:42:12+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "8b7d019b6f53fa59",
+      "title": "President Milei welcomes Pope Leo during historic visit to Argentina",
+      "url": "https://www.aljazeera.com/news/2026/11/8/president-milei-welcomes-pope-leo-during-historic-visit-to-argentina?traffic_source=rss",
+      "excerpt": "Pope Leo XIV's visit marks the first papal trip to Argentina in nearly four decades, amid tensions with the government.",
+      "date": "2026-11-08T22:16:50+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "1cbc1575dea5d6fe",
+      "title": "US chipmaker Nvidia investigates CEO Jensen Huang over affair",
+      "url": "https://www.aljazeera.com/news/2026/11/8/us-chipmaker-nvidia-investigates-ceo-jensen-huang-over-affair?traffic_source=rss",
+      "excerpt": "Huang has confirmed he had been having an affair with a woman accused of spying for China.",
+      "date": "2026-11-08T22:16:10+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "1658f3afe53080af",
+      "title": "Why Trump wants UFC chief Dana White as his new White House press secretary",
+      "url": "https://www.aljazeera.com/news/2026/11/8/why-trump-wants-ufc-chief-dana-white-as-his-new-white-house-press-secretary?traffic_source=rss",
+      "excerpt": "The two have business ties going back decades, and White has helped Trump reach out to younger voters.",
+      "date": "2026-11-08T22:03:54+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0fec8f0159716b0d",
+      "title": "Deadly sand cliff collapses on displaced families in Gaza",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/deadly-sand-cliff-collapses-on-displaced-families-in-gaza?traffic_source=rss",
+      "excerpt": "Deadly sand cliff collapses on displaced families in Gaza",
+      "date": "2026-11-08T21:05:07+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "ee8a82eeb43dfcd5",
+      "title": "Why Abdul El-Sayed’s ‘JD, habibi’ is going viral online",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/why-abdul-el-sayeds-jd-habibi-is-going-viral-online?traffic_source=rss",
+      "excerpt": "‘JD, habibi’ is going viral after Michigan Senator-elect Abdul El-Sayed used the phrase to mock JD Vance in a speech.",
+      "date": "2026-11-08T21:01:33+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "df95f8a3211e59a4",
+      "title": "Iran waiting to resume talks after US midterms ‘shock’",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/iran-waiting-to-resume-talks-after-us-midterms-shockiranian-foreign-minis?traffic_source=rss",
+      "excerpt": "Iranian Foreign Minister Abbas Araghchi says there has been no progress in talks with the US.",
+      "date": "2026-11-08T20:51:22+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "24f5bbb9c4ee44c6",
+      "title": "Pope Leo XIV delivers homily to thousands in Uruguay",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/pope-leo-xiv-delivers-homily-to-thousands-in-uruguay?traffic_source=rss",
+      "excerpt": "Pope Leo XIV delivers homily to thousands in Uruguay",
+      "date": "2026-11-08T20:29:47+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "0d0e0389af34c1fe",
+      "title": "Rangoli makers adapt to rising costs to preserve colourful Diwali tradition",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/_8-11-sv-rangoli-diwali-india-081126?traffic_source=rss",
+      "excerpt": "Rangoli makers in India are adapting to rising material costs by turning to organic alternatives.",
+      "date": "2026-11-08T20:26:01+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "25a0d75774a9bda7",
+      "title": "Iran threatens to ‘rain down hell’ if US escalates war",
+      "url": "https://www.aljazeera.com/news/2026/11/8/iran-threatens-to-rain-down-hell-if-us-escalates-war?traffic_source=rss",
+      "excerpt": "President Trump warns that US forces are 'locked and loaded' and ready to strike, if necessary.",
+      "date": "2026-11-08T20:13:39+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "2a0125287138a383",
+      "title": "Al Jazeera tries Baseball5 at Youth Olympics",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/al-jazeera-tries-baseball5-at-youth-olympics?traffic_source=rss",
+      "excerpt": "Al Jazeera tries Baseball5 at Youth Olympics",
+      "date": "2026-11-08T19:26:38+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "c921a77dce278b7f",
+      "title": "Man United earn 4-4 draw against Aston Villa but remain in relegation zone",
+      "url": "https://www.aljazeera.com/sports/2026/11/8/man-united-earn-4-4-draw-against-aston-villa-but-remain-in-relegation-zone?traffic_source=rss",
+      "excerpt": "Michael Carrick's team continue forgettable season with last-gasp draw at Old Trafford in front of angry home fans.",
+      "date": "2026-11-08T19:15:36+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "024d6444e5e61bd5",
+      "title": "After the midterms, where does the Republican Party stand?",
+      "url": "https://www.aljazeera.com/opinions/2026/11/8/after-the-midterms-where-does-the-republican-party-stand?traffic_source=rss",
+      "excerpt": "GOP suffered a loss, but it is hardly a historic one. A party in power has always been held to account in the midterms.",
+      "date": "2026-11-08T19:09:18+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "02a116f75331bf70",
+      "title": "Carlos Alcaraz beats Ben Shelton to win Paris Masters tennis title",
+      "url": "https://www.aljazeera.com/sports/2026/11/8/carlos-alcaraz-beats-ben-shelton-to-win-paris-masters-tennis-title?traffic_source=rss",
+      "excerpt": "Alcaraz bagged a 7-6 (7/5), 7-5 straight sets for an elusive Paris crown before the year-end ATP Finals.",
+      "date": "2026-11-08T18:22:58+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "dcf74648f917546b",
+      "title": "Eisenkot open to Netanyahu joining Israel’s next government",
+      "url": "https://www.aljazeera.com/news/2026/11/8/israels-president-tasks-eisenkot-to-form-new-coalition-government?traffic_source=rss",
+      "excerpt": "Israel's president officially tasks the opposition leader with forming a new government.",
+      "date": "2026-11-08T18:12:27+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "34dbd7e3a503db61",
+      "title": "Infantino’s Japanese challenger claims he could unseat FIFA president",
+      "url": "https://www.aljazeera.com/sports/2026/11/8/infantinos-japanese-challenger-claims-he-could-unseat-fifa-president?traffic_source=rss",
+      "excerpt": "Kozo Tashima believes he has a '20 to 30 percent' chance of winning the FIFA presidency election against Infantino.",
+      "date": "2026-11-08T18:01:05+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "3a163a2d2a09f1bc",
+      "title": "Hundreds of thousands join Amsterdam’s ‘Red Line’ protest against Israel",
+      "url": "https://www.aljazeera.com/news/2026/11/8/hundreds-of-thousands-protesters-storm-amsterdam?traffic_source=rss",
+      "excerpt": "Protesters seek stricter trade restrictions on Israel and a halt to all arms sales.",
+      "date": "2026-11-08T17:44:51+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "96d04fc8300d51d6",
+      "title": "Jerusalem Daily: Eisenkot picked over Netanyahu to form government",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/dnrbltn-261108-hegazyn-jerusalem_daily-081126?traffic_source=rss",
+      "excerpt": "Israel's president picks Gadi Eisenkot to form the next government, passing over Benjamin Netanyahu.",
+      "date": "2026-11-08T17:11:52+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "9a5f12381671b80d",
+      "title": "Photos: Diwali celebrations light up India and its global diaspora",
+      "url": "https://www.aljazeera.com/gallery/2026/11/8/photos-diwali-celebrations-light-up-india-and-its-global-diaspora?traffic_source=rss",
+      "excerpt": "Celebrations feature fireworks, prayers, reunions, rangoli designs, feasting, and the sharing of sweets and gifts.",
+      "date": "2026-11-08T17:03:14+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "a0aeaba50789a963",
+      "title": "Atletico Madrid 1-2 Barcelona – La Liga – as it happened",
+      "url": "https://www.aljazeera.com/sports/liveblog/2026/11/8/atletico-madrid-vs-barcelona-la-liga-live?traffic_source=rss",
+      "excerpt": "Relive the action as Barcelona come from behind to win at Atletico Madrid in football's La Liga.",
+      "date": "2026-11-08T17:00:00+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "954fe16017fe8a64",
+      "title": "India’s ‘cockroach’ movement seeks to restore culture of accountability",
+      "url": "https://www.aljazeera.com/video/talk-to-al-jazeera/2026/11/8/indias-cockroach-movement-seeks-to-restore-culture-of-accountability?traffic_source=rss",
+      "excerpt": "India's Cockroach Janta Party is a youth movement demanding political accountability, employment and fair elections.",
+      "date": "2026-11-08T16:59:31+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "36f0f593609e81ee",
+      "title": "Fan hospitalised after falling through stand at Norwegian football match",
+      "url": "https://www.aljazeera.com/sports/2026/11/8/fan-hospitalised-after-falling-through-stand-at-norwegian-football-match?traffic_source=rss",
+      "excerpt": "A stand in the away end of Tromso's stadium gave way during a match against Bodo/Glimt, causing fans to fall through.",
+      "date": "2026-11-08T16:53:03+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "030e446e431de481",
+      "title": "Israeli opposition leader warns of ‘point of no return’ for democracy",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/8-11-clip-eisenkot-address-il?traffic_source=rss",
+      "excerpt": "Israeli opposition leader Gadi Eisenkot has been tasked by Israeli President Isaac Herzog with forming a new government.",
+      "date": "2026-11-08T16:51:41+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "2054c1d5960b70ba",
+      "title": "Train crash kills seven, injures dozens near Egypt’s Cairo city",
+      "url": "https://www.aljazeera.com/news/2026/11/8/train-crash-kills-four-injures-dozens-near-egypts-cairo-city?traffic_source=rss",
+      "excerpt": "The passenger train was travelling from Egypt's capital to Aswan in the south when it derailed, overturning carriages.",
+      "date": "2026-11-08T16:37:20+00:00",
+      "topic": "The universe",
+      "source": "Al Jazeera",
+      "sourceId": "aljazeera",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e9dc3f6bec6fee01",
+      "title": "COP31 conference in Turkey aims to move climate up the agenda in a crisis-rocked world",
+      "url": "https://www.lemonde.fr/en/environment/article/2026/11/08/cop31-conference-turkey-aims-to-move-climate-up-the-agenda-in-a-crisis-rocked-world_6775243_114.html",
+      "excerpt": "The 31st Conference of the Parties opens on Monday in Antalya. Against a backdrop of an energy crisis and geopolitical tensions, the international negotiations aim to remove the obstacles slowing decarbonization.",
+      "date": "2026-11-08T18:50:10+01:00",
+      "topic": "Earth & environment",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "Climate",
+        "World"
+      ]
+    },
+    {
+      "id": "eec6382a7e796a8c",
+      "title": "Gadi Eisenkot, the political newcomer tasked with forming Israel's government",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/gadi-eisenkot-the-political-newcomer-tasked-with-forming-israel-s-government_6774913_4.html",
+      "excerpt": "The former military chief turned leader of the opposition to incumbent Prime Minister Benjamin Netanyahu is set to be officially tasked with forming the next Israeli government, after elections that produced no majority in the Knesset.",
+      "date": "2026-11-08T12:27:05+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "c266a7059de5a230",
+      "title": "Trump says mass deportation policy was 'too tough'",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/09/trump-says-mass-deportation-policy-was-too-tough_6775309_4.html",
+      "excerpt": "The US president made the remarks in an interview with CBS aired Sunday. Yet on Friday, he appointed Stephen Miller, the architect of his hardline immigration policy, as his chief of staff.",
+      "date": "2026-11-09T00:39:48+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "04f3b8a7ee57654e",
+      "title": "'Kaiser' and his shock group: The men in charge of security at Le Pen's events",
+      "url": "https://www.lemonde.fr/en/politics/article/2026/11/08/kaiser-and-his-shock-group-the-men-in-charge-of-security-at-le-pen-s-events_6775012_5.html",
+      "excerpt": "The launch of Marine Le Pen's presidential campaign was marked by violent tactics from the Rassemblement National's security unit. Le Monde observed the presence of an internal shock group, the 'Groupe Action Mobile 75,' tasked with identifying and expelling possible counter-protesters.",
+      "date": "2026-11-08T15:00:09+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "5dd69ecb758d9376",
+      "title": "In Argentina, Pope Leo's next stop, the Church stands in stark opposition to Milei's vision",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/in-argentina-pope-leo-s-next-stop-the-church-stands-in-stark-opposition-to-milei-s-vision_6775045_4.html",
+      "excerpt": "Named in honor of Pope Francis, who was born in the country, 'Ciudad Papa Francisco' is a cluster of working-class neighborhoods on the outskirts of Buenos Aires. It has become a symbol of the Catholic Church's fight against the far-right libertarian policies of Argentina's president.",
+      "date": "2026-11-08T16:00:05+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e3682e313f4adbd0",
+      "title": "'A Man of His Time': Director Emmanuel Marre breaks down his film's opening scene",
+      "url": "https://www.lemonde.fr/en/culture/video/2026/11/08/a-man-of-his-time-director-emmanuel-marre-breaks-down-his-film-s-opening-scene_6774715_30.html",
+      "excerpt": "'Notre Salut' ('A Man of His Time'), which tells the story of an ordinary wartime collaborator during the Vichy regime, has become a box-office success in France. In this video, director Emmanuel Marre explains to Le Monde how he crafted the film's opening scene.",
+      "date": "2026-11-08T09:00:03+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "b5f8bec4ca1c2c18",
+      "title": "Migrant boat sinks off Senegal, leaving 34 dead",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/migrant-boat-sinks-off-senegal-leaving-34-dead_6775276_4.html",
+      "excerpt": "It is the latest disaster on a route where thousands have died in recent years trying to reach Spain's Canary Islands from West Africa.",
+      "date": "2026-11-08T22:47:12+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "93775e9f65f62aa7",
+      "title": "Poland in shock after Krakow mass shooting",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/poland-in-shock-after-krakow-mass-shooting_6775013_4.html",
+      "excerpt": "Six people were killed and 15 others wounded on Saturday in the historic center of Krakow when a 24-year-old Polish man, described by the interior minister as 'fascinated by far-right ideologies,' opened fire. On Sunday, prosecutors launched an investigation into what they called a 'terrorist act.'",
+      "date": "2026-11-08T15:16:52+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "41d7830c1d898c86",
+      "title": "Yemen's Houthis claim attack on Riyadh financial district, Aramco skyscraper damaged",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/saudi-capital-s-financial-district-targeted-in-attack-aramco-skyscraper-damaged_6774880_4.html",
+      "excerpt": "Riyadh has regularly been targeted by strikes by Yemen's Houthis in recent weeks.",
+      "date": "2026-11-08T12:13:42+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "118cac209440d5c4",
+      "title": "2027 French presidential election: Jean-Luc Mélenchon energizes his base and seeks to broaden his electorate",
+      "url": "https://www.lemonde.fr/en/politics/article/2026/11/08/2027-french-presidential-election-jean-luc-melenchon-energizes-his-base-and-seeks-to-broaden-his-electorate_6774847_5.html",
+      "excerpt": "Jean-Luc Mélenchon, the radical left's presidential candidate, unveiled his presidential platform before thousands of supporters on Saturday. While insisting he had no intention of 'watering down' his policies, the veteran campaigner adopted a less confrontational tone.",
+      "date": "2026-11-08T12:04:30+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "f17d9f5ce1485cdd",
+      "title": "Is it ever a good idea to... take your suit to the dry cleaner?",
+      "url": "https://www.lemonde.fr/en/lifestyle/article/2026/11/08/is-it-ever-a-good-idea-to-take-your-suit-to-the-dry-cleaner_6774781_37.html",
+      "excerpt": "In both fashion and life, it is important to know which boundaries not to cross, or at least, to cross them knowingly.",
+      "date": "2026-11-08T11:15:09+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "b8d0afd257c0bcf5",
+      "title": "Europe will be represented at US-mediated Ukraine talks in Abu Dhabi",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/08/europe-will-be-represented-at-us-mediated-ukraine-talks-in-abu-dhabi_6774979_4.html",
+      "excerpt": "French Foreign Minister Jean-Noël Barrot said Europe will be represented in scheduled talks on Tuesday and Wednesday aimed at ending the war in Ukraine.",
+      "date": "2026-11-08T14:12:08+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "ded8e55c3f33c5cd",
+      "title": "French high school protests: Tensions rose where students resumed blockades after midterm break",
+      "url": "https://www.lemonde.fr/en/france/article/2026/11/07/french-high-school-protests-tensions-rose-where-students-resumed-blockades-after-midterm-break_6774488_7.html",
+      "excerpt": "Blockades have continued at a core group of high schools across France, with confrontations between students, parents, teachers, principals and law enforcement becoming more frequent.",
+      "date": "2026-11-07T19:00:13+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e054a16fed0b29bd",
+      "title": "Train collision in Egypt kills at least seven, injures over 100",
+      "url": "https://www.lemonde.fr/en/le-monde-africa/article/2026/11/08/train-collision-in-egypt-s-giza-kills-at-least-4-injures-88_6775111_124.html",
+      "excerpt": "A train travelling from Giza to Faoyum crashed on Sunday, killing at least four people.",
+      "date": "2026-11-08T17:29:04+01:00",
+      "topic": "The universe",
+      "source": "Le Monde · English",
+      "sourceId": "lemonde",
+      "topics": [
+        "World"
+      ]
+    },
+    {
+      "id": "e12ad5f5bdc739ac",
+      "title": "NASA Announces $1 Million to Students for Moon Base Challenge",
+      "url": "https://www.nasa.gov/news-release/nasa-announces-1-million-to-students-for-moon-base-challenge/",
+      "excerpt": "On Sunday, NASA announced the opening of its $1 million Moon Base Student Challenge during a MAX POWER event at Kennedy Space Center Visitor Complex in Florida. As part of a Golden Age of Science, the competition invites student teams at U.S. high schools and post-secondary schools to contribute designs for the Moon Base. “We’re […]",
+      "date": "2026-11-08T15:26:38+00:00",
+      "topic": "Human frontiers",
+      "source": "NASA",
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space"
+      ]
+    },
+    {
+      "id": "7723ccbf8c3a4f1a",
+      "title": "NASA Awards Moon Base Transportation, Technology, Science Projects",
+      "url": "https://www.nasa.gov/news-release/nasa-awards-moon-base-transportation-technology-science-projects/",
+      "excerpt": "NASA announced a suite of awards and mission updates on Saturday to expand the agency’s Moon Base exploration, science, and infrastructure capabilities. The investments will advance commercial robotic deliveries, a nuclear-powered rover named PROMISE, launch and orbital transfer services, and surface infrastructure as the agency works with…",
+      "date": "2026-11-07T22:47:03+00:00",
+      "topic": "Human frontiers",
+      "source": "NASA",
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space",
+        "Technology"
+      ]
+    },
+    {
+      "id": "44a6b3793253ee6a",
       "title": "NASA Seeks Next Generation of Explorers to Join Astronaut Corps",
       "url": "https://www.nasa.gov/news-release/nasa-seeks-next-generation-of-explorers-to-join-astronaut-corps/",
-      "excerpt": "NASA is looking for the explorers who will help write the next chapter of human spaceflight. Applications are now open for the agency\u2019s next class of astronauts, who will join NASA as America returns to the Moon, builds the Moon Base, and lays the groundwork for the first crewed missions to Mars. The next generation [\u2026]",
-      "date": "Sat, 07 Nov 2026 18:11:57 +0000",
+      "excerpt": "NASA is looking for the explorers who will help write the next chapter of human spaceflight. Applications are now open for the agency’s next class of astronauts, who will join NASA as America returns to the Moon, builds the Moon Base, and lays the groundwork for the first crewed missions to Mars. The next generation […]",
+      "date": "2026-11-07T18:11:57+00:00",
       "topic": "Human frontiers",
       "source": "NASA",
-      "order": 1
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space"
+      ]
     },
     {
-      "id": "83b8b7ae95d5",
-      "title": "M30\u2019s Sparkling Stars",
+      "id": "83b8b7ae95d54e1d",
+      "title": "M30’s Sparkling Stars",
       "url": "https://www.nasa.gov/image-article/m30s-sparkling-stars/",
-      "excerpt": "This NASA/ESA Hubble Space Telescope image released Nov. 5, 2026, provides a lesson in galactic history. The sparkling collection of stars is named Messier 30 (M30) after the French astronomer, Charles Messier, who cataloged M30 and other diffuse objects that might be mistaken for comets in the early telescopes of Messier\u2019s time. M30 lies about [\u2026]",
-      "date": "Fri, 06 Nov 2026 16:23:41 +0000",
+      "excerpt": "This NASA/ESA Hubble Space Telescope image released Nov. 5, 2026, provides a lesson in galactic history. The sparkling collection of stars is named Messier 30 (M30) after the French astronomer, Charles Messier, who cataloged M30 and other diffuse objects that might be mistaken for comets in the early telescopes of Messier’s time. M30 lies about […]",
+      "date": "2026-11-06T16:23:41+00:00",
       "topic": "The universe",
       "source": "NASA",
-      "order": 2
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space"
+      ]
     },
     {
-      "id": "e90733f65aaa",
+      "id": "e90733f65aaa56b6",
       "title": "Supercomputing Tech Demo Schedule",
       "url": "https://science.nasa.gov/earth/supercomputing-tech-demo-schedule/",
-      "excerpt": "Supercomputing 2026 Join NASA in the Exhibit Hall (Booth #4038) for presentations by NASA experts. Full Tech Demo schedule below. TUESDAY, NOVEMBER 17 10:00 AMType-safe Templates in Fortran 2028Tom Clune10:30 AMType-safe Templates in Fortran 2028Tom Clune11:00 AM Type-safe Templates in Fortran 2028Tom Clune1:00PM Mixing and Matching and Multiple Versions, Oh My!Brad Richardson1:30 PMMixing and Matching and Multiple [\u2026]",
-      "date": "Fri, 06 Nov 2026 16:03:52 +0000",
+      "excerpt": "Supercomputing 2026 Join NASA in the Exhibit Hall (Booth #4038) for presentations by NASA experts. Full Tech Demo schedule below. TUESDAY, NOVEMBER 17 10:00 AMType-safe Templates in Fortran 2028Tom Clune10:30 AMType-safe Templates in Fortran 2028Tom Clune11:00 AM Type-safe Templates in Fortran 2028Tom Clune1:00PM Mixing and Matching and Multiple…",
+      "date": "2026-11-06T16:03:52+00:00",
       "topic": "Ideas & engineering",
       "source": "NASA",
-      "order": 3
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space",
+        "Technology"
+      ]
     },
     {
-      "id": "ba58adb14241",
-      "title": "Taking a Gander at Utah\u2019s Goosenecks",
+      "id": "ba58adb142417f99",
+      "title": "Taking a Gander at Utah’s Goosenecks",
       "url": "https://science.nasa.gov/earth/earth-observatory/taking-a-gander-at-utahs-goosenecks/",
       "excerpt": "The San Juan River has carved deep, improbably curvy meanders into the desert landscape.",
-      "date": "Fri, 06 Nov 2026 05:01:00 +0000",
+      "date": "2026-11-06T05:01:00+00:00",
       "topic": "Earth & environment",
       "source": "NASA",
-      "order": 4
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space"
+      ]
     },
     {
-      "id": "6ca3f2020966",
+      "id": "6ca3f20209661162",
       "title": "Midwestern City Lights",
       "url": "https://www.nasa.gov/image-article/midwestern-city-lights/",
-      "excerpt": "City lights from the Midwestern United States to the East Coast sparkle across the landscape a couple of hours before sunrise on Oct. 18, 2026. Major urban areas visible in the photograph include Chicago, Illinois; Detroit, Michigan; and the New York metropolitan region. The International Space Station was orbiting 259 miles above Earth when this [\u2026]",
-      "date": "Thu, 05 Nov 2026 15:17:19 +0000",
+      "excerpt": "City lights from the Midwestern United States to the East Coast sparkle across the landscape a couple of hours before sunrise on Oct. 18, 2026. Major urban areas visible in the photograph include Chicago, Illinois; Detroit, Michigan; and the New York metropolitan region. The International Space Station was orbiting 259 miles above Earth when this…",
+      "date": "2026-11-05T15:17:19+00:00",
       "topic": "Earth & environment",
       "source": "NASA",
-      "order": 5
+      "sourceId": "nasa",
+      "topics": [
+        "Science",
+        "Space"
+      ]
     },
     {
-      "id": "e95078269422",
-      "title": "NASA Astronauts to Answer Questions from Florida Students",
-      "url": "https://www.nasa.gov/learning-resources/nasa-astronauts-to-answer-questions-from-florida-students-2/",
-      "excerpt": "Students in Florida will hear from NASA astronauts Jessica Watkins and Luke Delaney as they answer prerecorded STEM questions while aboard the International Space Station. The Earth-to-space call will begin at 10:40 a.m. EST Tuesday, Nov. 10, and will stream live on the agency\u2019s Learn With NASA YouTube channel. This event is hosted by Freedom Crossing Academy in [\u2026]",
-      "date": "Thu, 05 Nov 2026 15:11:25 +0000",
-      "topic": "Human frontiers",
-      "source": "NASA",
-      "order": 6
-    },
-    {
-      "id": "6b2496f9d25e",
-      "title": "Hubble Learns Galactic History From Stars",
-      "url": "https://science.nasa.gov/missions/hubble/hubble-learns-galactic-history-from-stars/",
-      "excerpt": "This Hubble image features the sparkling collection of stars named Messier 30 (M30), also called NGC 7099.",
-      "date": "Thu, 05 Nov 2026 12:56:21 +0000",
+      "id": "f0be6325bfc4dec9",
+      "title": "Here’s the full text of Jensen Huang’s memo to Nvidia",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029595/full-text-jensen-huang-affair-memo-nvidia",
+      "excerpt": "On Sunday, Nvidia announced it was launching an investigation into CEO Jensen Huang's relationship with Alice Huang, an AI executive and agent of the Chinese government. In addition to the Board of Directors announcing the investigation, Huang sent a memo to Nvidia employees acknowledging the affair. You can read the full text below. To my […]",
+      "date": "2026-11-08T17:54:50-05:00",
       "topic": "The universe",
-      "source": "NASA",
-      "order": 7
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "d08dc641958eb323",
+      "title": "Soul Glo’s Diaspora Problems is a hardcore record like no other",
+      "url": "https://www.theverge.com/entertainment/1029579/soul-glo-diaspora-problems-hardcore-punk-review",
+      "excerpt": "Soul Glo has a new record called NA I'M GON GRAB ALLAT coming out in January, and I, for one, can not wait. While two singles have dropped, it's not enough to truly tide me over, so I've been revisiting Songs to Yeet at the Sun and my favorite album of 2022 - Diaspora Problems. […]",
+      "date": "2026-11-08T17:37:22-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "d1d29453d583846b",
+      "title": "Epic Games Launcher is coming to SteamOS",
+      "url": "https://www.theverge.com/games/1029557/epic-games-launcher-is-coming-to-steamos",
+      "excerpt": "In October, Epic Games said that it was \"investigating\" making Fortnite compatible with Valve's Linux-based SteamOS. At the time, Epic Games Launcher was in preview, but SteamOS was not specifically listed as a supported distro. Now, Communications Director Jake Jones has confirmed SteamOS compatibility, along with a handful of other distros, to…",
+      "date": "2026-11-08T15:52:05-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "54c06e97d6e0a2b7",
+      "title": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+      "excerpt": "Nvidia has announced that it is opening an investigation into CEO Jensen Huang and his relationship with Megaspeed executive Alice Huang, who was reportedly recruited by China's Ministry of State Security to spy on the company. A statement posted by the board of directors reads: The NVIDIA Board is initiating an independent investigation in light…",
+      "date": "2026-11-08T15:22:39-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "b9c0dd474c98ba84",
+      "title": "Apple is racing to make Siri more agentic",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic",
+      "excerpt": "Bloomberg's Mark Gurman says CEO John Ternus is pressuring AI czar Craig Federighi to accelerate the Siri roadmap and deliver a powerful AI agent that can compete with OpenAI's Dots or Meta's Muse. While Federighi has delivered a functional version of Siri AI on an incredibly short timeline, the company has no illusions that it's […]",
+      "date": "2026-11-08T14:18:19-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "c08233254ab55692",
+      "title": "Elvis and Eminem rights holders are suing Suno",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029533/elvis-eminem-suno-ai-music-clone-lawsuit",
+      "excerpt": "Suno is facing yet another pair of lawsuits. A group of rights holders of Elvis Presley's music and the publisher of some of Eminem's biggest records are suing the AI music company, claiming it illegally generates music and lyrics that mimic those artists. The lawyers in the Presley suit claim that Suno has violated Tennessee's […]",
+      "date": "2026-11-08T12:23:19-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "184c1db3f9a4bbec",
+      "title": "Apple’s M5 MacBook Air is down to its lowest price since July",
+      "url": "https://www.theverge.com/gadgets/1029019/apple-macbook-air-13-15-inch-m5-deal-sale",
+      "excerpt": "The latest 13-inch MacBook Air is currently available for $1,099.99, marking the second time we’ve seen this $200 discount following the company’s hefty price increases over the summer. Although the base model — which features Apple’s M5 processor, 16GB of RAM, and 512GB of storage — often sold for around $950 to $1,000 shortly after […]",
+      "date": "2026-11-08T11:00:00-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "7ff53c833c040800",
+      "title": "Chatbots might be coming to Apple’s HomeView",
+      "url": "https://www.theverge.com/tech/1029526/chatbots-might-be-coming-to-apples-homeview",
+      "excerpt": "Code in the iOS 27.3 beta suggests that Apple could add support for chatbots to its smart home hub. There's a flag listed for a \"Conversational Apps\" category. While there are no details about what apps would fall under that heading, it seems reasonable that AI chatbots like ChatGPT and Claude could be added to […]",
+      "date": "2026-11-08T10:00:30-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "6236bf51005cbc77",
+      "title": "There’s no slowing down media’s pivot-to-video 2.0",
+      "url": "https://www.theverge.com/column/1026252/video-media-news-tiktok-pivot",
+      "excerpt": "This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on the pressures of creating content for the internet, follow Mia Sato. The Stepback arrives in our subscribers' inboxes on Sunday at 8AM ET. Opt in for The Stepback here. How it started Almost exactly a decade […]",
+      "date": "2026-11-08T08:00:00-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "70f1531fce2b0561",
+      "title": "The UV-tracking Gem made me rethink how sunlight affects my health, not just my appearance",
+      "url": "https://www.theverge.com/tech/1023230/the90-gem-necklace-hands-on-impressions",
+      "excerpt": "With temperatures rising to the 90s in Los Angeles, avoiding the heat wasn't exactly an option while I was at a relative's outdoor party in August. So I sat beneath a patio umbrella with a powerful fan nearby, figuring I was protected from the sun and heat. Half an hour later, I felt exhausted, dizzy, […]",
+      "date": "2026-11-07T12:00:00-05:00",
+      "topic": "The universe",
+      "source": "The Verge",
+      "sourceId": "verge",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "9e3feb6bb8fadf24",
+      "title": "Physicists listened to electrical noise to crack a superconductor mystery",
+      "url": "https://arstechnica.com/science/2026/11/physicists-listened-to-electrical-noise-to-crack-a-superconductor-mystery/",
+      "excerpt": "Tuning in to electronic noise can tell us whether electrons have paired up or not.",
+      "date": "2026-11-08T12:15:31+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "b62c9c03eb5f1202",
+      "title": "The Bantu expansion changed Africa. Scientists are still tracing how.",
+      "url": "https://arstechnica.com/science/2026/11/the-migration-that-transformed-africas-languages-genes-and-cultures/",
+      "excerpt": "Genes and archaeology are revealing how Bantu speakers spread across much of Africa.",
+      "date": "2026-11-07T12:15:55+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "ad36c2a7e444f2e2",
+      "title": "British soldier ignored order to pull his SIM card, then got blackmailed",
+      "url": "https://arstechnica.com/security/2026/11/british-soldier-ignored-order-to-pull-his-sim-card-then-got-blackmailed/",
+      "excerpt": "Soldier told repeatedly to lock down devices before deploying, got sextorted, court-martialed.",
+      "date": "2026-11-07T11:00:34+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "b6f2bcabcdce26e1",
+      "title": "Doctors pull knife from man's eye that went through his brain—and he's fine now",
+      "url": "https://arstechnica.com/health/2026/11/man-unexpectedly-recovers-from-a-knife-wound-through-his-eye-and-brain/",
+      "excerpt": "It's the exact path, not the apparent severity that matters most, doctors say.",
+      "date": "2026-11-06T23:09:45+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "c828464b88b192e8",
+      "title": "Ships loiter near subsea cables amid Iran's warnings to Trump",
+      "url": "https://arstechnica.com/gadgets/2026/11/ships-loiter-near-subsea-cables-amid-irans-warnings-to-trump/",
+      "excerpt": "Iran threatened to attack subsea cables if US escalates military strikes again.",
+      "date": "2026-11-06T22:41:37+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "59a23201da2e2512",
+      "title": "Re-releases of Wing Commander, Ultima titles hit Steam and GOG",
+      "url": "https://arstechnica.com/gaming/2026/11/ea-producer-tells-the-inside-story-behind-new-wing-commander-remasters/",
+      "excerpt": "It's mostly bad news from EA lately, but preservation efforts are nice to see.",
+      "date": "2026-11-06T22:08:47+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "0d0fe76a48838123",
+      "title": "Chainalysis says hackers stole credentials and tokens for all of its customers",
+      "url": "https://arstechnica.com/security/2026/11/chainalysis-says-hackers-stole-credentials-and-tokens-for-all-of-its-customers/",
+      "excerpt": "Company said a \"multifront cyberattack\" included AI agents and an on-path data snatch.",
+      "date": "2026-11-06T20:56:41+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "d96fde15d60ceefd",
+      "title": "Earth's churning mantle may have created the Great Unconformity",
+      "url": "https://arstechnica.com/science/2026/11/earths-churning-mantle-may-have-created-the-great-unconformity/",
+      "excerpt": "Explaining the Great Unconformity, where Cambrian deposits sit on top of older rocks.",
+      "date": "2026-11-06T20:24:20+00:00",
+      "topic": "Earth & environment",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "43ea3ada9c080dbf",
+      "title": "Nvidia hardware worth $11.4M vanished between Oakland and Texas",
+      "url": "https://arstechnica.com/gadgets/2026/11/nvidia-hardware-worth-11-4m-vanished-between-oakland-and-texas/",
+      "excerpt": "6 pallets of hardware vanished en route to Texas, with no arrests 2 months later.",
+      "date": "2026-11-06T20:05:30+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "35b3d6631ca50318",
+      "title": "Developer ends lucrative screensaver deal with Roku because Fox bought it",
+      "url": "https://arstechnica.com/gadgets/2026/11/artist-pulls-popular-screensaver-from-roku-os-because-of-fox-acquisition/",
+      "excerpt": "Developer: “I can’t be part of the Fox world.”",
+      "date": "2026-11-06T19:50:18+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "1de05e7ba82bef3b",
+      "title": "FAA to finally ditch floppy disks in what it calls \"historic\" tech upgrade",
+      "url": "https://arstechnica.com/tech-policy/2026/11/faa-to-finally-ditch-floppy-disks-in-what-it-calls-historic-tech-upgrade/",
+      "excerpt": "FAA information display systems to be floppy-free at 435 sites by end of 2028.",
+      "date": "2026-11-06T19:12:28+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "7e8114761040ce5e",
+      "title": "The folks behind John Wick are back with Karōshi trailer",
+      "url": "https://arstechnica.com/culture/2026/11/the-folks-behind-john-wick-are-back-with-karoshi-trailer/",
+      "excerpt": "Stuntman/director Chad Stahelski and 87Eleven bring us an action-packed dystopian, futuristic thriller.",
+      "date": "2026-11-06T18:30:19+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "84a88c7c4fe90953",
+      "title": "You know the launch market is tough when satellite companies start building rockets",
+      "url": "https://arstechnica.com/space/2026/11/ast-spacemobile-is-so-desperate-for-launch-theyre-building-their-own-rocket/",
+      "excerpt": "\"The Blacklift rocket is the springboard to significantly expand our total addressable market.\"",
+      "date": "2026-11-06T18:20:47+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "562d9908327b6d6f",
+      "title": "“Does Meta think we can’t read?” Meta abandons sketchy commercial terms update.",
+      "url": "https://arstechnica.com/tech-policy/2026/11/does-meta-think-we-cant-read-meta-abandons-sketchy-commercial-terms-update/",
+      "excerpt": "Meta won't force Facebook page owners to allow AI training on linked content.",
+      "date": "2026-11-06T17:43:02+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "ac91f8bd6c4b4df8",
+      "title": "Wisconsin reports measles death of a baby, first death in over 35 years",
+      "url": "https://arstechnica.com/health/2026/11/wisconsin-reports-measles-death-of-a-baby-first-death-in-over-35-years/",
+      "excerpt": "Next week, experts will determine if the US has lost its measles elimination status.",
+      "date": "2026-11-06T17:06:32+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "9e40c95d4da9e2b4",
+      "title": "Could potential AI clones of GTA VI force a quicker official port?",
+      "url": "https://arstechnica.com/gaming/2026/11/could-potential-ai-clones-of-gta-vi-force-a-quicker-official-port/",
+      "excerpt": "A former Rockstar tech director thinks the developer is facing new time pressures.",
+      "date": "2026-11-06T16:19:12+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "AI",
+        "Technology"
+      ]
+    },
+    {
+      "id": "e52dda216870c0ab",
+      "title": "It's a weird time to buy a laptop, but the new MacBook Pro doesn't skimp on quality",
+      "url": "https://arstechnica.com/apple/2026/11/its-a-weird-time-to-buy-a-laptop-but-the-new-macbook-pro-doesnt-skimp-on-quality/",
+      "excerpt": "It has the best laptop screen we've used, but there may be reasons to wait.",
+      "date": "2026-11-06T15:28:07+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "400f973a2207ac85",
+      "title": "Nvidia CEO Jensen Huang summoned by Congress over Chinese espionage concerns",
+      "url": "https://arstechnica.com/tech-policy/2026/11/nvidia-ceo-jensen-huang-summoned-by-congress-over-chinese-espionage-concerns/",
+      "excerpt": "Lawmakers want answers about Jensen Huang’s ties to an alleged Chinese intelligence asset.",
+      "date": "2026-11-06T14:13:32+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "09ea3fb92203e6a8",
+      "title": "No more Cybertrucks; Musk moves on from the angular metallic flop",
+      "url": "https://arstechnica.com/cars/2026/11/the-cybertruck-is-dead-makes-way-for-cybercab-says-elon-musk/",
+      "excerpt": "Tesla wanted to unseat the Ford F-150, instead it made the Edsel look successful.",
+      "date": "2026-11-06T13:50:20+00:00",
+      "topic": "The universe",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Technology"
+      ]
+    },
+    {
+      "id": "3717024ac63681fd",
+      "title": "Rocket Report: Artemis II literally tore through the atmosphere; New Glenn delay",
+      "url": "https://arstechnica.com/space/2026/11/rocket-report-new-glenn-wont-fly-this-year-china-launches-mini-falcon-heavy/",
+      "excerpt": "Interstellar Technologies announces more government funding for the Japanese Zero rocket.",
+      "date": "2026-11-06T13:33:20+00:00",
+      "topic": "Human frontiers",
+      "source": "Ars Technica",
+      "sourceId": "ars",
+      "topics": [
+        "Space",
+        "Technology"
+      ]
+    },
+    {
+      "id": "7287f273bb744d29",
+      "title": "A hidden limit of space and time could unlock electronics 100,000 times faster",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261106174537.htm",
+      "excerpt": "Scientists have discovered a surprising quantum limit that prevents electrons from being tracked with unlimited precision in both space and time. The breakthrough could pave the way for manipulating chemical reactions and developing electronics hundreds of thousands of times faster than today's technology.",
+      "date": "2026-11-07T18:34:19-05:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "3ccdf31e4506de18",
+      "title": "A tiny supercurrent could unlock quantum information without destroying it",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261102202831.htm",
+      "excerpt": "Researchers have proposed a breakthrough technique for reading quantum information without destroying the delicate states that make quantum computers work. By detecting an electrical signal generated by the qubit itself, their method achieved up to 99.85% accuracy in simulations and could make future quantum computers simpler and more efficient.",
+      "date": "2026-11-04T22:47:09-05:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "54ab6a90455a94bd",
+      "title": "Tiny magnetic vortices could help computers work more like your brain",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261025073038.htm",
+      "excerpt": "Scientists have filmed tiny magnetic vortices called skyrmions melting out of an organized lattice for the first time, revealing new ways to manipulate these unusual structures. The breakthrough could help make brain-like computers a reality, potentially enabling dramatically smaller and more energy-efficient technology.",
+      "date": "2026-10-26T06:06:16-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "a9baacb01853f7e8",
+      "title": "Scientists overcome a hidden obstacle to more powerful quantum computers",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261024222024.htm",
+      "excerpt": "Scientists have discovered a way to operate multiple silicon qubits simultaneously with remarkable accuracy, overcoming a major challenge in scaling up quantum computers. Their new technique maintained accuracy of approximately 99.9% even when all five qubits were running at once, opening the door to larger and more powerful quantum processors.",
+      "date": "2026-10-25T21:42:48-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "fadf2f862b798bc2",
+      "title": "Cambridge scientists create a $10 chip that could put a medical lab on your wrist",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261022081312.htm",
+      "excerpt": "Cambridge researchers have created a groundbreaking $10 optical sensor that delivers the precision of laboratory equipment in a device small enough for wearable technology. It identified foods, plastics, and medicines with 100% accuracy in tests and demonstrated the ability to monitor blood glucose, alcohol, and other health markers without…",
+      "date": "2026-10-22T21:21:47-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Technology"
+      ]
+    },
+    {
+      "id": "75dbfa3dbb189064",
+      "title": "MIT scientists build a tiny robot that swims using living muscle cells",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261022081308.htm",
+      "excerpt": "MIT engineers have built a paper-thin swimming robot powered by living muscle cells that respond to flashes of light, allowing it to swim and steer through water. The breakthrough could pave the way for tiny, self-healing biological robots capable of exploring fragile environments that ordinary machines cannot safely navigate.",
+      "date": "2026-10-23T06:33:56-04:00",
+      "topic": "Ideas & engineering",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "c5e0ced41e4cc234",
+      "title": "People are taking an unapproved weight-loss drug. AI found something surprising",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261020085018.htm",
+      "excerpt": "Researchers analyzing nearly 150,000 Reddit posts uncovered unexpected symptom reports linked by users to unapproved versions of retatrutide, including increased appetite, sleep disturbances, and elevated heart rates. The findings differ from clinical trial results and highlight how AI could help identify potential drug safety signals that warrant…",
+      "date": "2026-10-21T22:37:01-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "fdcc7aa249c6186f",
+      "title": "AI can act exactly like a human, but we still don't think it's conscious",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261012185017.htm",
+      "excerpt": "A new study reveals that people draw a surprisingly sharp line between human consciousness and artificial intelligence, even when both behave identically. Researchers found that participants considered even the most responsive AI less conscious than the least responsive human. Yet when asked about \"awareness\" instead, people judged humans and AI…",
+      "date": "2026-10-13T21:41:55-04:00",
+      "topic": "Human frontiers",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "e8f833c21abbe460",
+      "title": "Physicists discover “astonishing” property of light that defies expectations",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261011211615.htm",
+      "excerpt": "Scientists have uncovered a surprising hidden ability of light that allows it to develop spinning, twisting behavior as it travels through empty space, without special lenses, mirrors, or materials. Researchers discovered that light’s internal geometry can naturally produce left- and right-handed patterns, challenging long-standing assumptions…",
+      "date": "2026-10-13T00:19:32-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "e398058e1e0abb0b",
+      "title": "Scientists recreate a bizarre quantum effect that stops a particle cold",
+      "url": "https://www.sciencedaily.com/releases/2026/10/261011211554.htm",
+      "excerpt": "Oxford physicists have recreated a bizarre quantum effect in which a particle responds to a magnetic field without ever traveling through it. Using a hybrid quantum computer, they demonstrated how introducing a simulated magnetic flux could completely halt a particle's movement through quantum interference. The experiment brings a decades-old…",
+      "date": "2026-10-13T05:47:22-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "2f3cd75ecef93e7f",
+      "title": "This new qubit could be 100 times less error-prone in superfluid quantum computer breakthrough",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260930020309.htm",
+      "excerpt": "A proposed qubit made with superfluid helium could cut quantum computing error rates by around 100 times by shielding quantum information from common forms of electromagnetic noise. If experiments confirm the predictions, the technology could eventually work alongside today’s superconducting qubits or serve as a new kind of quantum memory.",
+      "date": "2026-10-01T09:17:13-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "1d1d1e21317653f9",
+      "title": "This light-powered AI can spot deepfakes with nearly 98% accuracy",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260929053534.htm",
+      "excerpt": "UCLA researchers built an AI system that uses light to analyze more than a dozen videos simultaneously, detecting deepfakes with nearly 98% accuracy. Its speed, low energy demands, and resistance to attacks could make it a powerful tool for screening the growing flood of AI-generated video.",
+      "date": "2026-10-01T09:03:50-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "faa1bd9cb2946bff",
+      "title": "Quantum computing’s “dark horse” just proved it can go universal",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260924020403.htm",
+      "excerpt": "Researchers have shown that exotic quantum particles called non-Abelian anyons can perform the full range of operations needed for universal quantum computing. Using 54 qubits on Quantinuum’s H2 processor, they combined braiding and fusion to unlock capabilities that braiding alone could not provide.",
+      "date": "2026-09-25T08:45:04-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Technology"
+      ]
+    },
+    {
+      "id": "f8b88f7f8f5e15cd",
+      "title": "MIT’s tiny flying robot gets 450% faster with AI",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260921081114.htm",
+      "excerpt": "A new AI control system lets MIT’s tiny flying robot move with insect-like agility, boosting its speed by about 450 percent and allowing it to pull off 10 somersaults in 11 seconds. The technology could eventually enable miniature robots to search earthquake rubble and navigate dangerous spaces that conventional drones cannot reach.",
+      "date": "2026-09-22T08:52:43-04:00",
+      "topic": "Ideas & engineering",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "7cf5378f3d0494ae",
+      "title": "The shape behind the Einstein problem just revealed strange new physics",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260914102432.htm",
+      "excerpt": "A mathematical shape famous for covering a surface without ever repeating has revealed an unexpected ability to twist light into unusual chiral patterns. The discovery could lead to new ways of controlling light, polarization, and advanced optical devices.",
+      "date": "2026-09-15T09:14:55-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "c06f94159f7422c6",
+      "title": "AI uncovers hidden Ozempic side effects across 400,000 Reddit posts",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260912222856.htm",
+      "excerpt": "AI analysis of 400,000 Reddit posts found that users of drugs such as Ozempic, Wegovy, Mounjaro, and Zepbound reported unexpected symptoms including menstrual changes, chills, hot flashes, and fatigue. Researchers cannot say the medications caused these problems, but the patterns may reveal overlooked signals worth studying.",
+      "date": "2026-09-13T06:46:19-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "c73cfc1a4988572f",
+      "title": "Tiny nanolaser could cut computer energy use in half",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260911003858.htm",
+      "excerpt": "Scientists have created an ultra-small nanolaser that could eventually allow microchips to transmit information with light instead of electricity, potentially making computers faster while cutting energy use roughly in half. Thousands of the lasers could fit on a single chip, opening possibilities for more efficient data centers, smartphones, and…",
+      "date": "2026-09-11T08:03:26-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "f3008c581c95c7b2",
+      "title": "Scientists just made quantum computer operations 1,000 times faster",
+      "url": "https://www.sciencedaily.com/releases/2026/09/260911003845.htm",
+      "excerpt": "Researchers have found a way to perform certain quantum operations more than 1,000 times faster, cutting thousands of repeated control cycles down to just one. The advance could reduce errors and bring reliable, fault-tolerant quantum computers closer to reality.",
+      "date": "2026-09-11T07:52:30-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "32e9a1ea52742954",
+      "title": "A “quantum bath” puts quantum entanglement on autopilot",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260830000002.htm",
+      "excerpt": "Physicists have demonstrated a new way to entangle distant quantum bits without the constant measurements and active control normally required. The team created a “quantum bath,” a shared environment filled with correlated microwave photons that automatically pushes separated qubits into an entangled state and helps keep them there. The experiment…",
+      "date": "2026-08-31T09:08:37-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "17659001f0a97317",
+      "title": "IBM quantum computer solves classically intractable problem in 15 minutes",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260829035219.htm",
+      "excerpt": "IBM and University of Chicago researchers have completed a quantum computation that leading classical methods could not practically reproduce. The system used 70 error-corrected logical qubits and finished the task in roughly 15 minutes while also providing statistical evidence that the result was reliable.",
+      "date": "2026-08-30T10:08:13-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "a211721f14d9b975",
+      "title": "NASA just used satellites and debris to navigate without GPS",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260826055450.htm",
+      "excerpt": "NASA has successfully tested a system that allows satellites to navigate without GPS by using other spacecraft and debris as landmarks in orbit. In just three days, FALCON also improved the known orbits of more than 200 space objects completely autonomously.",
+      "date": "2026-08-26T19:27:35-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Space"
+      ]
+    },
+    {
+      "id": "c9c0e217074dbed8",
+      "title": "Scientists turn DNA into a memory device that uses 100x less power",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260816044853.htm",
+      "excerpt": "Researchers combined synthetic DNA with a semiconductor to create an ultra-low-power memory device capable of storing and processing information in the same place. The bio-hybrid technology could eventually help make AI systems and next-generation computers far more energy efficient.",
+      "date": "2026-08-17T04:06:45-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "0a8c4651bb437a4e",
+      "title": "Tiny robots powered by light can hunt down and collect bacteria",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260816044850.htm",
+      "excerpt": "Researchers have built microscopic, light-driven robots that can rapidly navigate through liquid, collect bacteria, and deposit them in chosen locations. These tiny “cleaners” could open new possibilities for manipulating cells and microbes with remarkable precision.",
+      "date": "2026-08-18T18:21:50-04:00",
+      "topic": "Ideas & engineering",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "74b78e94ea7e379c",
+      "title": "Scientists tracked kids for 8 years — the screen time result was unexpected",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260815064803.htm",
+      "excerpt": "An eight-year Finnish study found that children who spent more time on screens tended to show better cognitive processing as teenagers, challenging common assumptions about screen use. Researchers say the key may be balancing physical activity with screen activities that encourage learning, creativity, and active thinking.",
+      "date": "2026-08-15T06:48:03-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "952b1ee1e28fb307",
+      "title": "World’s first superconducting quantum heat engine could help unlock massive quantum computers",
+      "url": "https://www.sciencedaily.com/releases/2026/08/260814011041.htm",
+      "excerpt": "A tiny superconducting engine has successfully converted heat near absolute zero into useful work, demonstrating the first cyclic quantum heat engine of its kind. Future versions could operate autonomously inside quantum computers, potentially eliminating huge numbers of costly, noise-producing microwave cables.",
+      "date": "2026-08-14T08:56:01-04:00",
+      "topic": "Ideas & engineering",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "58d06db515651eab",
+      "title": "MIT’s new lidar chip could give self-driving cars a wider view",
+      "url": "https://www.sciencedaily.com/releases/2026/07/260722032127.htm",
+      "excerpt": "MIT engineers have found a way to give chip-based lidar a wider, clearer view without relying on moving parts. Their design uses differently shaped antennas that can sit close together without scrambling one another’s signals. In tests, the system sharply reduced interference while steering a single precise beam across a broad field of view.",
+      "date": "2026-07-22T06:00:54-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Technology"
+      ]
+    },
+    {
+      "id": "5dd9f9f02bd7899f",
+      "title": "New programmable photonic chip can control how fast light moves",
+      "url": "https://www.sciencedaily.com/releases/2026/07/260718010149.htm",
+      "excerpt": "Scientists have created a programmable optical chip that can slow light on demand, giving engineers far greater control over how optical signals propagate through a circuit. The technology could provide the delays, synchronization, and buffering functions needed to make light-based computing more practical. A single chip could eventually perform…",
+      "date": "2026-07-21T22:43:34-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Technology"
+      ]
+    },
+    {
+      "id": "0462452e36fbd508",
+      "title": "Alan Turing's biggest AI assumption may have been wrong",
+      "url": "https://www.sciencedaily.com/releases/2026/07/260713084850.htm",
+      "excerpt": "A new book claims AI has been built on a flawed assumption dating back to Alan Turing's famous 1950 paper. Peter J. Denning argues that the most important parts of human intelligence, including common sense, intuition, culture, and practical know-how, cannot be encoded into computers. He believes this makes true human-level AI impossible,…",
+      "date": "2026-07-13T23:12:35-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "d68fc0cc3f81f459",
+      "title": "Scientists discovered the brain doesn't make decisions the way we thought",
+      "url": "https://www.sciencedaily.com/releases/2026/07/260712011757.htm",
+      "excerpt": "A new study suggests the brain begins making decisions much earlier than scientists previously thought. Researchers found that even primary sensory regions are influenced by higher brain areas through rapid feedback loops, rather than simply passing information forward. This more dynamic view of brain function could help engineers design future AI…",
+      "date": "2026-07-13T08:12:27-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "4152d47851c8ce55",
+      "title": "Quantum mechanics once baffled scientists. Now it's changing the world",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260624025516.htm",
+      "excerpt": "Quantum mechanics has journeyed from a strange and controversial idea to the foundation of some of humanity’s most advanced technologies. Now researchers are pushing its boundaries even further, with potential breakthroughs in energy, medicine, computing, and our understanding of the universe.",
+      "date": "2026-07-05T14:13:44-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "5f01f00a8ff6f417",
+      "title": "Millions of exploding stars could soon reveal dark energy's secrets",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260621060315.htm",
+      "excerpt": "A new AI-powered framework could transform how astronomers measure the expansion of the Universe. By analyzing images of Type Ia supernovae and modeling their environments in unprecedented detail, researchers can estimate cosmic distances with near-spectroscopic accuracy. The technique is designed for the flood of data expected from the upcoming…",
+      "date": "2026-06-29T17:57:17-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "145ee9c305a7511c",
+      "title": "SpaceX wants to build AI data centers in space. Will it work?",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260618041501.htm",
+      "excerpt": "The race to build data centers in space is gaining momentum as AI drives unprecedented demand for computing power. Orbital facilities could tap into abundant solar energy and avoid many of the environmental challenges faced on Earth. Yet space remains a harsh and expensive place to operate, with major hurdles including cooling, maintenance,…",
+      "date": "2026-06-18T23:43:09-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "193ec3459e9adb20",
+      "title": "Brain-inspired chip runs near absolute zero and could transform quantum computing",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260612032024.htm",
+      "excerpt": "Scientists at the University of Hong Kong have created a remarkable new type of brain-inspired chip that can function just above absolute zero, one of the coldest environments imaginable. By using a standard silicon carbide transistor in a completely new way, the team made a single device behave like an energy-efficient neuron, firing electrical…",
+      "date": "2026-06-12T06:38:54-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Technology"
+      ]
+    },
+    {
+      "id": "e7c0bfba5f004936",
+      "title": "A classic brain test exposed AI's biggest weakness",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260610003049.htm",
+      "excerpt": "Researchers gave top AI models a classic attention test used in psychology and found a major flaw. While the models could correctly name colors in short lists, their performance deteriorated sharply as the task became longer and more complex. Some leading systems fell from over 90% accuracy to nearly complete failure.",
+      "date": "2026-06-10T06:52:17-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "918adf7c7d7068be",
+      "title": "Scientists are seriously asking if bees and ChatGPT are conscious",
+      "url": "https://www.sciencedaily.com/releases/2026/06/260604044258.htm",
+      "excerpt": "New studies suggest consciousness can't be judged solely by behavior, whether it's a chatbot discussing philosophy or a bee searching for nectar. Researchers are increasingly focusing on the internal mechanisms of brains and computers, concluding that today's AI is likely not conscious while leaving open the possibility for both conscious insects…",
+      "date": "2026-06-05T01:27:32-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "e13fad55718d0682",
+      "title": "Forget electrons, this breakthrough uses light-matter particles to power AI",
+      "url": "https://www.sciencedaily.com/releases/2026/05/260518041341.htm",
+      "excerpt": "Researchers at Penn have created a hybrid light-matter particle that could dramatically speed up AI computing while using far less energy. The breakthrough may help replace some electronic computing processes with ultra-efficient light-based technology.",
+      "date": "2026-05-18T20:23:26-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "edd7ebc1ad407044",
+      "title": "NASA’s new AI space chip could let spacecraft think for themselves",
+      "url": "https://www.sciencedaily.com/releases/2026/05/260515002134.htm",
+      "excerpt": "NASA is testing a next-generation space computer chip that could give spacecraft the ability to operate far more independently in deep space. The radiation-hardened processor is showing performance levels hundreds of times beyond current spaceflight computers while surviving punishing tests designed to mimic the harsh conditions of space. The…",
+      "date": "2026-05-15T04:13:15-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science",
+        "Space",
+        "Technology"
+      ]
+    },
+    {
+      "id": "d4917fb7b8ec471f",
+      "title": "New quantum algorithm solves “impossible” materials problem in seconds",
+      "url": "https://www.sciencedaily.com/releases/2026/05/260512202355.htm",
+      "excerpt": "A new quantum-inspired algorithm has cracked a problem so massive that conventional supercomputers struggle to even approach it. Researchers used the method to simulate extraordinarily complex quantum materials known as quasicrystals, opening the door to powerful new quantum devices and ultra-efficient electronics. The work could help scientists…",
+      "date": "2026-05-13T03:33:27-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "602b6c0900fa5fe1",
+      "title": "Your “um” and pauses could reveal early dementia risk",
+      "url": "https://www.sciencedaily.com/releases/2026/05/260512202333.htm",
+      "excerpt": "The little pauses, “ums,” and moments when you struggle to find the right word may reveal far more about your brain than anyone realized. Researchers discovered that everyday speech patterns are closely tied to executive function — the mental system that powers memory, planning, focus, and flexible thinking. By using AI to analyze natural…",
+      "date": "2026-05-13T00:18:33-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "aa3ae8fbd83b19aa",
+      "title": "AI lets chemists design molecules by simply describing them",
+      "url": "https://www.sciencedaily.com/releases/2026/05/260504023844.htm",
+      "excerpt": "Creating complex molecules usually requires years of experience and countless decisions, but a new AI system is changing that. Synthegy lets chemists guide synthesis and reaction planning using simple language, while powerful algorithms generate and evaluate possible solutions. The AI doesn’t just compute—it reasons, scoring pathways and…",
+      "date": "2026-05-05T20:20:57-04:00",
+      "topic": "The universe",
+      "source": "ScienceDaily · AI",
+      "sourceId": "sciencedaily",
+      "topics": [
+        "AI",
+        "Science"
+      ]
+    },
+    {
+      "id": "27b3615e081446ef",
+      "title": "Banquet 88, London E1: ‘Sweet, rich, fiery and moreish’ – restaurant review | Grace Dent on restaurants",
+      "url": "https://www.theguardian.com/food/2026/nov/08/banquet-88-london-e1-grace-dent-restaurant-review",
+      "excerpt": "I turn up solo and brace myself to be dumped by the cleaning supplies cupboard, but instead the staff treat me like an off-duty empress Perched in between a Zizzi , a Côte and a Slug & Lettuce at the far end of St Katharine Docks in Ye Olde Tower of London tourist-land, Banquet 88 feels like something of an enigmatic Asian cousin: it has a sedate…",
+      "date": "2026-11-08T06:00:32+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "aa8ae45d762fd04c",
+      "title": "How to make banana bread – recipe | Felicity Cloake's Masterclass",
+      "url": "https://www.theguardian.com/food/2026/nov/08/how-to-make-banana-bread-recipe",
+      "excerpt": "Banana bread is delicious, keeps for ages, goes with all sorts – and it’s thrifty, too! Here’s how to make it in a few easy steps Banana bread is, strictly speaking, more of a loaf-shaped cake, but, whatever you call it, the taste doesn’t lie. It’s utterly delicious, and the natural sweetness of the ripe fruit lends itself perfectly to baking.…",
+      "date": "2026-11-08T13:00:40+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "19becbcda2fbbb71",
+      "title": "‘A wonderfully fluffy but crunchy-edged bite’: the best (and worst) supermarket crumpets, tasted and rated",
+      "url": "https://www.theguardian.com/thefilter/2026/nov/07/best-worst-supermarket-crumpets-tasted-rated",
+      "excerpt": "Holey toasters! Some supermarket crumpets are really good – but which ones are best? • The best supermarket sliced bread As a crumpet lover, this test was a joy, not least because analysing the inner workings of a crumpet raises some of life’s (almost) most important questions: how holey should it be? Does the number of holes actually matter? What…",
+      "date": "2026-11-07T13:03:11+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "e676d890c61edbca",
+      "title": "Jackson Boxer’s vegetarian recipe for roast beetroot with pickled raisins and blue cheese",
+      "url": "https://www.theguardian.com/food/2026/nov/07/vegetarian-roast-beetroot-recipe-pickled-raisins-blue-cheese-jackson-boxer",
+      "excerpt": "Surprise yourself with the flavours in this roast beetroot spiked with pickled raisins and salty blue cheese It’s not uncommon for people to form negative relationships with certain vegetables as a consequence of only ever having had them boiled to disintegration, a blunt approach that’s unlikely to bring out the best in any of us. Beetroot,…",
+      "date": "2026-11-07T06:00:04+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "b14b7a44f87f3fc2",
+      "title": "Cocktail of the week: The Peacock Inn’s fallen leaf – recipe | The good mixer",
+      "url": "https://www.theguardian.com/food/2026/nov/06/fallen-leaf-cocktail-recipe-of-the-week-the-peacock-inn",
+      "excerpt": "An autumnal highball of dark rum, apple juice, warming lemon and honey, with a leg-up from cinnamon and ginger A warming, seasonal highball built on dark rum and cloudy apple juice. The rum brings a deep, molasses richness that pairs naturally with the apple, while lemon and honey keep things from tipping into sweetness. A pinch of cinnamon runs…",
+      "date": "2026-11-06T13:00:42+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "bc1d55375c91c0fe",
+      "title": "Benjamina Ebuehi’s recipe for steamed chocolate puddings with malted chocolate sauce | The sweet spot",
+      "url": "https://www.theguardian.com/food/2026/nov/06/steamed-chocolate-puddings-malted-chocolate-sauce-recipe-benjamina-ebuehi",
+      "excerpt": "It’s steamed pudding season again, and there are few better ways to serve it than with hot chocolate sauce and a scoop of ice-cream This is the best time of the year for proper stodge, and an even better time to make steamed puddings. I adore them – you get the best texture and a pudding that feels like a big hug – so find it a shame they’re not…",
+      "date": "2026-11-06T06:00:45+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "3333c6832d033000",
+      "title": "No great shakes: the quest for palatable high-protein drinks",
+      "url": "https://www.theguardian.com/food/2026/nov/06/no-great-shakes-the-quest-for-palatable-high-protein-drinks",
+      "excerpt": "High-protein, alcohol-free beer? The end times are here. But surely some of these ubiquitous protein drinks are drinkable … aren’t they? As someone who is not unlikely to be tasting wine at 10am on a Tuesday, I am clearly not best placed to offer health advice. But, for the purposes of this column, I can tell you that every day most adults need…",
+      "date": "2026-11-05T13:00:24+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "b3009be7a34dbbfb",
+      "title": "Moods, Leeds LS2: ‘Puzzling, if not quite a car crash’ – restaurant review",
+      "url": "https://www.theguardian.com/food/2026/nov/01/moods-leeds-ls2-grace-dent-restaurant-review",
+      "excerpt": "The crumpet has the texture of a damp Always Ultra I’ve done some fairly rash things in my time, but I’ve never popped into anywhere for king scallops with ’nduja and come out with a swallow tattoo on my neck, though what is this life without adventure? Which is where Moods comes in: the space is an all-day restaurant, bar, tattoo parlour and hair…",
+      "date": "2026-11-01T06:00:05+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "5676921a57193aea",
+      "title": "Outlier, Glasgow G1: ‘This kind of carefully orchestrated can’t-be-arsedness is really quite magical’ – restaurant review | Grace Dent on restaurants",
+      "url": "https://www.theguardian.com/food/2026/oct/25/outlier-glasgow-g1-grace-dent-restaurant-review",
+      "excerpt": "You cannot fake fabulous by simply buying in cool crockery and a freezer full of someone else’s pastry In my misspent youth, I’d head to Glasgow to watch the likes of Fields of the Nephilim and Hawkwind at the Barrowland Ballroom , drink snakebite and buy posters from the touts on Gallowgate to Blu-Tack to my bedroom wall and tear holes in my…",
+      "date": "2026-10-25T06:00:55+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "c7e179097b2917a6",
+      "title": "Buvette, London WC2: ‘It’s actually rather lovely’ – restaurant review | Grace Dent on restaurants",
+      "url": "https://www.theguardian.com/food/2026/oct/18/buvette-london-wc2-grace-dent-restaurant-review",
+      "excerpt": "This offshoot of a New York favourite isn’t reinventing the wheel, but it does bring a touch of Gallic glam to the neighbourhood A faux-French, cult-hit New York brasserie has opened in Neal’s Yard, deep in the hairy armpit of Covent Garden among alleyways where holistic therapy rooms, walk-in back rub spaces, Neal’s Yard Remedies and 26 Grains…",
+      "date": "2026-10-18T05:00:50+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "bc647e91ca1a81cf",
+      "title": "Indian Cafe Racer, Birmingham B5: ‘A good news tale for the local food scene’ – restaurant review",
+      "url": "https://www.theguardian.com/food/2026/oct/11/indian-cafe-racer-birmingham-grace-dent-restaurant-review",
+      "excerpt": "The cooking is sometimes bang on, sometimes a little slapdash, but then piques your interest all over again Indian Cafe Racer on Bristol Street, Birmingham, spent its fledgling years tucked behind a curtain at the back of the Wellington pub just a few doors up from its fancy new home. There was a Royal Enfield motorcycle, chequerboard floors and a…",
+      "date": "2026-10-11T05:02:16+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "cc0f587d27cfa147",
+      "title": "Why autumn means sausages | Kitchen aide",
+      "url": "https://www.theguardian.com/food/2026/nov/04/wanted-sausage-dinners-for-autumn",
+      "excerpt": "Slowly cooked, sticky sausages sauteed with onion, soy and perhaps a bit of Marmite … our panel even has bangers with bangs for bonfire night What are the best, comforting sausage dinners for autumn? Rachel, by email Sausages defy the seasons, being just as at home inside buns in the summer as they are simmering in stews come autumn. “Sausages are…",
+      "date": "2026-11-03T13:00:07+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "9669efdcb247fc08",
+      "title": "José Pizarro’s recipe for mussels with cider, chorizo and apple",
+      "url": "https://www.theguardian.com/food/2026/nov/03/mussels-cider-chorizo-apple-recipe-jose-pizarro",
+      "excerpt": "Northern Spain on a plate: mussels with cider, apple and chorizo Whenever I cook mussels, my mind goes straight to Galicia. Some of the best I’ve ever eaten have come from the waters around O Grove, a place I return to whenever I can, and one of my favourite restaurants there is D’Berto , where the seafood is treated with such respect that they…",
+      "date": "2026-11-03T06:00:41+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "55e1f9bf4d65dbb1",
+      "title": "Georgina Hayden’s quick and easy recipe for sun-dried assassin’s spaghetti | Quick and easy",
+      "url": "https://www.theguardian.com/food/2026/nov/02/quick-easy-sun-dried-assassins-spaghetti-recipe-georgina-hayden",
+      "excerpt": "A spicy, tomatoey pasta that’s cooked like a risotto, but much, much quicker Popular in Puglia, assassin’s spaghetti is a rich and punchy dish that I just can’t get enough of. Unlike more familiar pasta recipes, the dried spaghetti is cooked in the sauce itself, and slowly “fed” hot broth, a bit like a risotto. Here, I’ve added sun-dried tomatoes…",
+      "date": "2026-11-02T13:00:42+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "1fa1927b2df98cc1",
+      "title": "Disco cauliflower and bhajis: Maray’s cauliflower recipes",
+      "url": "https://www.theguardian.com/food/2026/nov/02/cauliflower-recipes-disco-cauliflower-bhajis-maray-james-bates",
+      "excerpt": "Cauliflower is a flavour sponge, but miraculously stays satisfyingly al dente. Smother it in chermoula, tahini and harissa, or transform it into spicy bhajis served with a lively chutney Cauliflower is a culinary gem. Often overlooked, it possesses a remarkable ability to absorb complex seasonings and textures while maintaining a satisfying bite.…",
+      "date": "2026-11-02T06:00:35+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "3ac885befb426eb6",
+      "title": "Meera Sodha’s vegan recipe for soy, sake and sesame oil-braised aubergines | The new vegan",
+      "url": "https://www.theguardian.com/food/2025/may/24/vegan-recipe-aubergine-braised-soy-sauce-sake-sesame-oil-meera-sodha",
+      "excerpt": "Savoury, nutty, salty-sweet – and delicious with rice Here are two things about aubergines that you may not know: first, they are giant berries (!) and, second, they’re roughly 92% water. The latter is important, because to get this mighty berry to reach its delicious potential, we need to dehydrate it (that is, remove as much water as possible…",
+      "date": "2025-05-24T05:00:52+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "bca33cd902f56fc6",
+      "title": "Meera Sodha’s vegan recipe for crispy black bean burgers | The new vegan",
+      "url": "https://www.theguardian.com/food/2025/may/17/meera-sodha-vegan-recipe-crispy-black-bean-burgers",
+      "excerpt": "These vegan burgers are child’s play and fun to make, too This is exactly my kind of recipe. It’s easy, flavourful and, as a bonus, it’s crispy, too. In fact, it’s so simple, you could make the mixture with your eyes closed or, better still, give it to a six-year-old to do (they could also make it with their eyes closed). The key is the black…",
+      "date": "2025-05-17T05:01:00+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "909060ac13743db0",
+      "title": "How to make potato salad – recipe | Felicity Cloake's Masterclass",
+      "url": "https://www.theguardian.com/food/2025/may/11/how-to-make-potato-salad-recipe-felicity-cloake",
+      "excerpt": "A classic side that effortlessly accompanies almost any summer meal – customise to your taste with homemade mayo and/or fistfuls of fresh herbs This summer classic is the happy proof that not all things labelled as salad have to feel like penance for helping yourself to all the fried chicken or barbecued halloumi. Far fresher and zingier than…",
+      "date": "2025-05-11T12:00:22+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "6ca92b24031108cf",
+      "title": "Meera Sodha’s vegan recipe for squash and fennel agrodolce | The new vegan",
+      "url": "https://www.theguardian.com/food/2025/may/31/squash-fennel-agrodolce-meera-sodha-vegan-recipe",
+      "excerpt": "The sweetness of roast vegetables and raisins contrasts with balsamic, pine nuts and capers in a vibrant dish that you’ll want to eat on repeat Being in the business of recipe writing means I am always seeking the new, always moving on and rarely resting on a single dish. Until summer starts knocking, that is. The sun makes me want to slow down,…",
+      "date": "2025-05-31T05:00:37+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "3ceeb3e4b33a7529",
+      "title": "Georgina Hayden’s quick and easy recipe for crab and spring onion fried rice | Quick and easy",
+      "url": "https://www.theguardian.com/food/2026/oct/26/quick-easy-crab-spring-onion-fried-rice-recipe-georgina-hayden",
+      "excerpt": "Batch-cook a load of rice, cool it, then whip up this comforting shellfish fried rice This gently seasoned rice has become such a comfort blanket that I now make it at least once a week at home. That’s quite surprising, really, given that I’m guilty of drowning most of my food in chilli crisp oil, but this rice is so delicate yet flavourful that…",
+      "date": "2026-10-26T13:00:42+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "31ae31843222cde7",
+      "title": "Gurdeep Loyal’s quick and easy recipe for masala chickpea-parsnip fritters with coconut sambol | Quick and easy",
+      "url": "https://www.theguardian.com/food/2026/oct/19/masala-chickpea-parsnip-fritters-recipe-coconut-sambol-gurdeep-loyal",
+      "excerpt": "Tasty, spicy fritters to dip into coconut sambol as a snack or treat, or serve with avocado or egg for a more substantial supper These warmly spiced fritters are inspired by the tikki-chaat carts found all over India, which sizzle fresh chickpea, potato or lentil patties on hot-plates until crisp, then slather them with chutneys. The coconut…",
+      "date": "2026-10-19T12:00:03+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "3f35297fa60e9f91",
+      "title": "Gurdeep Loyal’s quick and easy recipe for Turkish lamb and hot pepper paccheri | Quick and easy",
+      "url": "https://www.theguardian.com/food/2026/oct/12/gurdeep-loyal-quick-easy-recipe-turkish-lamb-hot-pepper-paccheri",
+      "excerpt": "A spicy Turkish dish with big flavours and big pasta, all topped with garlicky yoghurt sauce Biber salçası is a Turkish paste made from concentrated cooked red peppers and salt. It comes in two varieties: acı (spicy) and tatlı (sweet). The hotter version adds a deep, umami heat to cumin-spiced lamb in this pasta recipe, which in Turkey is known as…",
+      "date": "2026-10-12T12:00:54+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "6d6db7004f27c165",
+      "title": "Sanjana Modha’s quick and easy recipe for baked beans butter masala | Quick and easy",
+      "url": "https://www.theguardian.com/food/2026/sep/28/quick-easy-baked-beans-butter-masala-recipe-sanjana-modha",
+      "excerpt": "Transform two tins of baked beans into this creamy curry Masala baked beans, tadka baked beans, curried baked beans, spicy baked beans; all avatars of spice-laced baked beans are a mainstay of British Asian kitchens. We were raised on this stuff – use as a toastie filler, to smother jacket potatoes, or scoop them up with roti. Enter baked beans…",
+      "date": "2026-09-28T12:03:33+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "e1813aa296160749",
+      "title": "Fritters and chocolate cake: Thomasina Miers’ recipes for cooking with pumpkin",
+      "url": "https://www.theguardian.com/food/2026/oct/27/pumpkin-recipes-carrot-fritters-green-relish-chocolate-cake-thomasina-miers",
+      "excerpt": "Quick, simple finger food that children will love for Halloween: pumpkin and carrot fritters with a chilli-coriander relish, and pumpkin baked into a dark chocolate slice It would be lazy to write, with a rueful shake of the head, that Halloween gets bigger every year. Halloween is huge . I have seen it grow, vicariously, through my children year…",
+      "date": "2026-10-27T06:00:03+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "9a4d732fe719f8ce",
+      "title": "‘Outrageously good’: the best (and worst) supermarket ready-made custard, tasted and rated",
+      "url": "https://www.theguardian.com/thefilter/2026/oct/24/best-worst-supermarket-ready-made-custard-tasted-rated",
+      "excerpt": "Which supermarket pots are ambrosial heaven and which are a gummy disaster? • The best supermarket double cream It was only when I sat down to taste 10 custards that I realised this was a dangerous test to judge on my own. I tried a range of ready-made offerings, from cans to cartons to tubs of fresh custard from the supermarket chiller section,…",
+      "date": "2026-10-24T12:00:33+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "29147f2edd568ed6",
+      "title": "Benjamina Ebuehi’s recipe for chocolate and pumpkin spice choux buns | The sweet spot",
+      "url": "https://www.theguardian.com/food/2026/oct/23/chocolate-pumpkin-spice-choux-buns-recipe-benjamina-ebuehi",
+      "excerpt": "Whip winter squash puree into a creamy filling and pipe direct into the heart of a cracking seasonal pudding At this time of year, I aim to get as much pumpkin as I can into my meals, including desserts. If I’ve been organised, I’ll roast and puree some from scratch, but I seem always to have at least one tin of pumpkin puree to hand, which I can…",
+      "date": "2026-10-23T05:00:02+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "62526b65ffa6ba7f",
+      "title": "How to make the perfect poires belle Hélène – recipe | Felicity Cloake's How to make the perfect …",
+      "url": "https://www.theguardian.com/food/2026/oct/18/how-to-make-the-perfect-poires-belle-helene-recipe-felicity-cloake",
+      "excerpt": "Cool, juicy pears, cold ice-cream, hot chocolate sauce and a crunchy garnish – the perfect pudding It’s always slightly embarrassing to realise that you’ve missed a pop culture reference, even if it’s 162 years old, so I won’t dwell on the fact that until last week I was unaware of the existence of Offenbach’s 1864 operetta about Helen of Troy, La…",
+      "date": "2026-10-18T12:00:03+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "24d2b9658057813a",
+      "title": "Gherkins galore! 17 delicious ways to enjoy pickles – from frickles to pickletinis",
+      "url": "https://www.theguardian.com/food/2026/oct/30/gherkins-galore-17-delicious-ways-to-enjoy-pickles-from-frickles-to-pickletinis",
+      "excerpt": "One of the UK budget’s big surprises? A discount on gherkins. And while they’ll always be good on a burger, there are many more unusual ways to indulge, from fried cheese treats to savoury ice-cream In John Healey’s first budget as chancellor this week, he announced that he will remove import tariffs on more than 100 products – including,…",
+      "date": "2026-10-30T05:00:46+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "9b3e6c4e8316f459",
+      "title": "The high drama of volcanic wines",
+      "url": "https://www.theguardian.com/food/2026/oct/29/volcanic-wines-review-mina-holland",
+      "excerpt": "Vines on volcanic soil are hard to grow and their grapes are hard-won, but it all combines to produce wines with a very particular sense of place Good stories need jeopardy. Take The Princess Bride , one of my favourite films, which I recently introduced to my mildly terrified children. It’s a cult love story of high peril: Westley, believed dead,…",
+      "date": "2026-10-29T13:00:44+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "cc4ac4b190c1bf1d",
+      "title": "Cocktail of the week: Kokum’s spiced tamarind and apple sour – recipe | The good mixer",
+      "url": "https://www.theguardian.com/food/2026/oct/23/spiced-tamarind-apple-sour-recipe-cocktail-of-the-week-kokum",
+      "excerpt": "A lively tequila sour shaken up with an injection of tamarind and star anise Rich tamarind chutney gives this vibrant tequila sour a sweet-sour depth that pairs brilliantly with crisp apple juice. Dhononjoy Roy Dip, mixologist, Kokum, London SE22 Continue reading...",
+      "date": "2026-10-23T12:00:25+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
+    },
+    {
+      "id": "676d846be4428b2b",
+      "title": "Low-alcohol, high-calibre: the best super-session ales",
+      "url": "https://www.theguardian.com/food/2026/oct/22/low-alcohol-high-calibre-the-best-super-session-ales",
+      "excerpt": "Increasingly full-bodied and flavourful, low-strength British pale ales are growing in popularity, especially on the dinner table There is nothing like discovering something for yourself to engender a fierce sense of loyalty, and that’s exactly what happened a decade ago when I fell upon the Kernel Brewery’s Table Beer, a pale ale of roughly 3%…",
+      "date": "2026-10-22T12:00:45+00:00",
+      "topic": "The universe",
+      "source": "The Guardian · Food",
+      "sourceId": "guardian-food",
+      "topics": [
+        "Cooking"
+      ]
     }
   ]
 }

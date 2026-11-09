@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Import verification feed</title><link href="https://example.org/"/>
+<entry><title>AI research verification story</title><link href="https://example.org/test-article"/><updated>2026-11-08T12:00:00Z</updated><summary>&lt;p&gt;This is a test feed excerpt, not a news article.&lt;/p&gt;&lt;script&gt;alert('unsafe')&lt;/script&gt;</summary><category term="AI"/></entry>
+<entry><title>Unsafe link must be skipped</title><link href="javascript:alert(1)"/></entry>
+</feed>

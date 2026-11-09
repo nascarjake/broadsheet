@@ -1,1 +1,9 @@
-{"name":"spatial-broadsheet","private":true,"scripts":{"dev":"python3 server.py --host 0.0.0.0","test":"python3 -m unittest discover -s tests"}}
+{
+  "name": "spatial-broadsheet",
+  "private": true,
+  "scripts": {
+    "dev": "python3 server.py --host 0.0.0.0",
+    "test": "python3 -m unittest discover -s tests && node tests/test_layout.cjs && node tests/test_spaces.cjs && node tests/test_canvas.cjs && node tests/test_infinite.cjs",
+    "build": "python3 build_standalone.py"
+  }
+}

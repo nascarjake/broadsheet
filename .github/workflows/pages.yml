@@ -22,8 +22,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: python3 build_standalone.py
-      - run: python3 -m unittest discover -s tests
-      - run: node tests/test_layout.cjs && node --check dist/app.js
+      - run: npm test
+      - run: node --check dist/app.js && node --check dist/model.js && node --check dist/canvas.js && node --check dist/spatial.js && node --check dist/spaces.js && node --check dist/browse.js && node --check dist/hub.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
