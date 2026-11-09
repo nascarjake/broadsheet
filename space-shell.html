@@ -67,6 +67,16 @@
                 maxlength="100"
               /><button aria-label="Search this city">→</button>
             </form>
+            <span class="place-distance"
+              >Search distance
+              <select id="place-radius" aria-label="Places search distance">
+                <option value="auto">Auto · expand up to 75 km</option>
+                <option value="10">10 km</option>
+                <option value="25">25 km</option>
+                <option value="50">50 km</option>
+                <option value="100">100 km</option>
+              </select></span
+            >
             <button id="use-location" class="link-button">
               ◎ Use my location
             </button></label
@@ -147,7 +157,9 @@
         <button id="reset-space" class="primary-button">
           Browse everything
         </button>
-        <button id="continue-results" class="primary-button" hidden>Continue searching</button>
+        <button id="continue-results" class="primary-button" hidden>
+          Continue searching
+        </button>
       </div>
       <div class="space-canvas-tools">
         <button id="space-home" aria-label="Return to start">⌂</button

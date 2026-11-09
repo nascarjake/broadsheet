@@ -264,3 +264,59 @@
     font-size: 9px;
   }
 }
+
+.venue-static.venue-logo {
+  background: #f8f7f2;
+}
+.venue-static.venue-logo .business-photo {
+  object-fit: contain !important;
+  padding: 36px;
+  box-sizing: border-box;
+  transform: none !important;
+}
+.venue-static.venue-icon .business-photo {
+  padding: 0;
+  width: 72px;
+  height: 72px;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) !important;
+  image-rendering: auto;
+}
+.business-photo-credit {
+  max-height: 32px;
+  overflow: hidden;
+  text-align: right;
+}
+.place-distance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font:
+    11px Arial,
+    sans-serif;
+  margin: 10px 0;
+}
+.place-distance select {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 6px;
+  background: var(--surface);
+  color: inherit;
+}
+#space-viewport[aria-busy="true"]::after {
+  content: "Finding places · expanding your search…";
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 18px;
+  background: #fffdf1ed;
+  border-radius: 22px;
+  box-shadow: 0 3px 20px #24352a15;
+  pointer-events: none;
+  font:
+    12px Arial,
+    sans-serif;
+  z-index: 8;
+}

@@ -78,6 +78,7 @@ const assert = require("node:assert/strict");
     nowPlaying: true,
     movieDiscovery: true,
     movieDetails: true,
+    venueCovers: true,
   });
   res = await worker.fetch(
     req("movies"),

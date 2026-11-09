@@ -15,7 +15,9 @@
     const old = cache.get(url);
     if (old && Date.now() - old.time < 600000) return old.data;
     const response = await fetch(url, {
-      signal: signal || AbortSignal.timeout(20000),
+      signal: signal
+        ? AbortSignal.any([signal, AbortSignal.timeout(20000)])
+        : AbortSignal.timeout(20000),
       credentials: "omit",
     });
     if (!response.ok)
@@ -557,12 +559,63 @@
         " · not cinema listings",
     };
   }
+  const placeTags = {
+    Restaurants: [
+      "amenity:restaurant",
+      "amenity:fast_food",
+      "amenity:food_court",
+    ],
+    Cafés: ["amenity:cafe", "shop:bakery"],
+    Cinema: ["amenity:cinema"],
+    Museums: ["tourism:museum"],
+    "Art & culture": [
+      "tourism:gallery",
+      "amenity:theatre",
+      "amenity:arts_centre",
+    ],
+    "Things to do": [
+      "tourism:attraction",
+      "tourism:zoo",
+      "tourism:aquarium",
+      "tourism:theme_park",
+      "tourism:viewpoint",
+      "leisure:park",
+      "leisure:garden",
+      "leisure:bowling_alley",
+    ],
+  };
+  const distance = (a, b) => {
+    const r = Math.PI / 180,
+      dlat = (b.lat - a.lat) * r,
+      dlon = (b.lon - a.lon) * r;
+    return (
+      12742 *
+      Math.asin(
+        Math.min(
+          1,
+          Math.sqrt(
+            Math.sin(dlat / 2) ** 2 +
+              Math.cos(a.lat * r) *
+                Math.cos(b.lat * r) *
+                Math.sin(dlon / 2) ** 2,
+          ),
+        ),
+      )
+    );
+  };
   function placeItem(p, city) {
     const t = p.tags || {},
-      center = p.center || p;
-    const lat = Number(center.lat),
-      lon = Number(center.lon);
+      c = p.center || p,
+      lat = Number(c.lat),
+      lon = Number(c.lon);
+    const category = Object.keys(placeTags).find((k) =>
+      placeTags[k].some((tag) => {
+        const [key, value] = tag.split(":");
+        return t[key] === value;
+      }),
+    );
     if (
+      !category ||
       !t.name ||
       !["node", "way", "relation"].includes(p.type) ||
       !Number.isSafeInteger(p.id) ||
@@ -572,15 +625,6 @@
       Math.abs(lon) > 180
     )
       return null;
-    const category =
-      {
-        restaurant: "Restaurants",
-        cafe: "Cafés",
-        cinema: "Cinema",
-        museum: "Museums",
-        gallery: "Art & culture",
-        attraction: "Things to do",
-      }[t.amenity || t.tourism] || "Things to do";
     const image = safeURL(t.image),
       cuisine = (t.cuisine || "").replace(/;/g, ", ").replace(/_/g, " ");
     return {
@@ -608,58 +652,114 @@
       imageCredit: image ? "Image linked by OpenStreetMap contributor" : "",
       photoReference: t.wikimedia_commons || "",
       wikidata: /^Q\d+$/.test(t.wikidata || "") ? t.wikidata : "",
+      brandWikidata: /^Q\d+$/.test(t["brand:wikidata"] || "")
+        ? t["brand:wikidata"]
+        : "",
+      brand: t.brand || "",
     };
   }
-  async function venuePhotos(items) {
-    // One small metadata batch per collection, shared by every repeated card.
+  async function venuePhotos(items, { onUpdate = () => {} } = {}) {
     let stored = {};
     try {
       stored = JSON.parse(
-        root.localStorage.getItem("broadsheet.venue-photos.v2") || "{}",
+        root.localStorage.getItem("broadsheet.venue-photos.v4") || "{}",
       );
     } catch {}
     const result = {},
       pending = items
         .filter((item) => {
           const old = stored[item.id];
-          if (old && Date.now() - old.time < (old.photo ? 86400000 : 600000)) {
+          if (old && Date.now() - old.time < (old.photo ? 86400000 : 120000)) {
             if (old.photo) result[item.id] = old.photo;
             return false;
           }
           return /^osm-(node|way|relation)-\d+$/.test(item.id);
         })
-        .slice(0, 50);
+        .slice(0, 150);
+    const rank = { venue: 5, logo: 4, website: 2, icon: 1 };
+    const add = (id, photo) => {
+      if (!safeURL(photo?.url)) return;
+      const candidates = [
+        ...(result[id]?.alternatives || []),
+        ...(result[id] ? [{ ...result[id], alternatives: undefined }] : []),
+        photo,
+      ];
+      const sorted = [
+        ...new Map(candidates.map((p) => [p.url, p])).values(),
+      ].sort((a, b) => (rank[b.kind] || 3) - (rank[a.kind] || 3));
+      result[id] = { ...sorted[0], alternatives: sorted.slice(1) };
+    };
     const tags = new Map(
-      pending.map((item) => [
-        item.id,
-        { wikimedia_commons: item.photoReference, wikidata: item.wikidata },
+      pending.map((i) => [
+        i.id,
+        {
+          image: i.image,
+          website: i.website,
+          wikimedia_commons: i.photoReference,
+          wikidata: i.wikidata,
+          "brand:wikidata": i.brandWikidata,
+        },
       ]),
     );
-    for (const type of ["node", "way", "relation"]) {
-      const ids = pending
-        .filter((item) => item.id.startsWith("osm-" + type + "-"))
-        .map((item) => item.id.split("-")[2]);
-      if (!ids.length) continue;
-      try {
-        const data = await json(
-          "https://api.openstreetmap.org/api/0.6/" +
-            type +
-            "s.json?" +
-            new URLSearchParams({ [type + "s"]: ids.join(",") }),
+    onUpdate(result);
+    await Promise.all(
+      ["node", "way", "relation"].map(async (type) => {
+        const ids = pending
+          .filter((i) => i.id.startsWith("osm-" + type + "-"))
+          .map((i) => i.id.split("-")[2]);
+        if (!ids.length) return;
+        try {
+          const data = await json(
+            "https://api.openstreetmap.org/api/0.6/" +
+              type +
+              "s.json?" +
+              new URLSearchParams({ [type + "s"]: ids.join(",") }),
+          );
+          for (const row of data.elements || [])
+            tags.set("osm-" + row.type + "-" + row.id, {
+              ...tags.get("osm-" + row.type + "-" + row.id),
+              ...row.tags,
+            });
+        } catch {}
+      }),
+    );
+    for (const item of pending) {
+      const t = tags.get(item.id) || {},
+        site = safeURL(t.website || t["contact:website"]).replace(
+          /^http:/,
+          "https:",
         );
-        for (const row of data.elements || [])
-          tags.set("osm-" + row.type + "-" + row.id, row.tags || {});
-      } catch {}
+      if (site) {
+        item.website = site;
+        add(item.id, {
+          url: new URL("/favicon.ico", site).href,
+          kind: "icon",
+          label: "Business website icon",
+          sourceUrl: site,
+          credit: item.title + " · business website",
+          license: "Website publisher rights; see source",
+        });
+      }
+      if (safeURL(t.image))
+        add(item.id, {
+          url: safeURL(t.image),
+          kind: "venue",
+          label: "Mapped business photo",
+          credit: "Image linked by OpenStreetMap contributor",
+          license: "See linked source for image rights",
+          sourceUrl: safeURL(t.image),
+        });
     }
-    const entities = [
-      ...new Set(
-        [...tags.values()]
-          .map((t) => t.wikidata)
-          .filter((id) => /^Q\d+$/.test(id || "")),
-      ),
-    ];
-    const pictures = new Map();
-    if (entities.length) {
+    onUpdate(result);
+    const qids = [
+        ...new Set(
+          [...tags.values()]
+            .flatMap((t) => [t.wikidata, t["brand:wikidata"]])
+            .filter((q) => /^Q\d+$/.test(q || "")),
+        ),
+      ],
+      entities = {};
+    for (let i = 0; i < qids.length; i += 50)
       try {
         const data = await json(
           "https://www.wikidata.org/w/api.php?" +
@@ -667,40 +767,39 @@
               action: "wbgetentities",
               format: "json",
               origin: "*",
-              ids: entities.join("|"),
+              ids: qids.slice(i, i + 50).join("|"),
               props: "claims",
             }),
         );
-        for (const [id, e] of Object.entries(data.entities || {})) {
-          const image = e.claims?.P18?.find(
-            (c) =>
-              c.rank !== "deprecated" &&
-              typeof c.mainsnak?.datavalue?.value === "string",
-          );
-          if (image) pictures.set(id, image.mainsnak.datavalue.value);
-        }
+        Object.assign(entities, data.entities);
       } catch {}
+    const claim = (q, p) =>
+      entities[q]?.claims?.[p]?.find(
+        (c) => c.rank !== "deprecated" && c.mainsnak?.datavalue,
+      )?.mainsnak.datavalue.value;
+    const files = [];
+    for (const item of pending) {
+      const t = tags.get(item.id) || {},
+        explicit = t.wikimedia_commons?.startsWith("File:")
+          ? t.wikimedia_commons.slice(5)
+          : "",
+        geo = claim(t.wikidata, "P625"),
+        venue =
+          geo && distance(item, { lat: geo.latitude, lon: geo.longitude }) < 0.3
+            ? claim(t.wikidata, "P18")
+            : "";
+      for (const [file, kind] of [
+        [explicit || venue, "venue"],
+        [
+          claim(t["brand:wikidata"], "P154") || claim(t.wikidata, "P154"),
+          "logo",
+        ],
+      ])
+        if (typeof file === "string" && file.length < 500)
+          files.push({ id: item.id, file: "File:" + file, kind });
     }
-    const files = new Map();
-    for (const [id, t] of tags) {
-      let file = t.wikimedia_commons?.startsWith("File:")
-        ? t.wikimedia_commons.slice(5)
-        : pictures.get(t.wikidata);
-      if (
-        !file &&
-        /^https:\/\/upload.wikimedia.org\/wikipedia\/commons\//.test(
-          t.image || "",
-        )
-      ) {
-        try {
-          file = decodeURIComponent(
-            new URL(t.image).pathname.split("/").at(-1),
-          );
-        } catch {}
-      }
-      if (file && file.length < 500) files.set(id, "File:" + file);
-    }
-    if (files.size) {
+    const names = [...new Set(files.map((f) => f.file))];
+    for (let offset = 0; offset < names.length; offset += 40)
       try {
         const data = await json(
           "https://commons.wikimedia.org/w/api.php?" +
@@ -709,40 +808,43 @@
               format: "json",
               origin: "*",
               redirects: 1,
-              titles: [...new Set(files.values())].join("|"),
+              titles: names.slice(offset, offset + 40).join("|"),
               prop: "imageinfo",
               iiprop: "url|extmetadata|user",
               iiurlwidth: 600,
             }),
         );
         const pages = new Map(
-          Object.values(data.query?.pages || {}).map((p) => [
-            p.title.replace(/_/g, " "),
-            p.imageinfo?.[0],
-          ]),
-        );
-        const aliases = new Map(
-          [
-            ...(data.query?.normalized || []),
-            ...(data.query?.redirects || []),
-          ].map((p) => [p.from.replace(/_/g, " "), p.to.replace(/_/g, " ")]),
-        );
+            Object.values(data.query?.pages || {}).map((p) => [
+              p.title.replace(/_/g, " "),
+              p.imageinfo?.[0],
+            ]),
+          ),
+          aliases = new Map(
+            [
+              ...(data.query?.normalized || []),
+              ...(data.query?.redirects || []),
+            ].map((p) => [p.from.replace(/_/g, " "), p.to.replace(/_/g, " ")]),
+          );
         const clean = (s) =>
           String(s || "")
             .replace(/<[^>]*>/g, "")
             .replace(/&[^;]+;/g, " ")
             .trim()
             .slice(0, 200);
-        for (const [id, file] of files) {
-          let title = file.replace(/_/g, " ");
+        for (const f of files) {
+          let title = f.file.replace(/_/g, " ");
           for (let i = 0; i < 5 && aliases.has(title); i++)
             title = aliases.get(title);
           const info = pages.get(title),
-            src = info?.thumburl || info?.url;
-          if (!/^https:\/\/(?:upload|thumb)\.wikimedia.org\//.test(src || ""))
+            url = info?.thumburl || info?.url;
+          if (!/^https:\/\/(?:upload|thumb)\.wikimedia.org\//.test(url || ""))
             continue;
-          result[id] = {
-            url: src,
+          add(f.id, {
+            url,
+            kind: f.kind,
+            label:
+              f.kind === "logo" ? "Business brand logo" : "Business photograph",
             credit: clean(info.extmetadata?.Artist?.value || info.user),
             license: clean(
               info.extmetadata?.LicenseShortName?.value ||
@@ -750,21 +852,49 @@
             ),
             sourceUrl: safeURL(info.descriptionurl),
             source: "Wikimedia Commons",
-          };
+          });
         }
+        onUpdate(result);
       } catch {}
+    const api = safeURL(root.BROADSHEET_CONFIG?.apiBase);
+    if (api) {
+      const batches = [];
+      const uncovered = pending.filter(
+        (item) => result[item.id]?.kind !== "venue",
+      );
+      for (let i = 0; i < uncovered.length; i += 5)
+        batches.push(uncovered.slice(i, i + 5));
+      // Two bounded requests at a time; early covers render before the rest finish.
+      const work = async () => {
+        while (batches.length) {
+          const group = batches.shift();
+          try {
+            const u = new URL(
+              "api/venue-covers",
+              api.endsWith("/") ? api : api + "/",
+            );
+            u.searchParams.set("ids", group.map((i) => i.id).join(","));
+            const data = await json(u.href);
+            for (const [id, p] of Object.entries(data.covers || {}))
+              if (group.some((i) => i.id === id)) add(id, p);
+            onUpdate(result);
+          } catch {}
+        }
+      };
+      await Promise.all([work(), work()]);
     }
     for (const item of pending)
       stored[item.id] = { time: Date.now(), photo: result[item.id] || null };
-    stored = Object.fromEntries(
-      Object.entries(stored)
-        .sort((a, b) => b[1].time - a[1].time)
-        .slice(0, 200),
-    );
     try {
       root.localStorage.setItem(
-        "broadsheet.venue-photos.v2",
-        JSON.stringify(stored),
+        "broadsheet.venue-photos.v4",
+        JSON.stringify(
+          Object.fromEntries(
+            Object.entries(stored)
+              .sort((a, b) => b[1].time - a[1].time)
+              .slice(0, 400),
+          ),
+        ),
       );
     } catch {}
     return result;
@@ -775,6 +905,7 @@
     lon,
     signal,
     category = "All",
+    radius = "auto",
   } = {}) {
     city = city.trim().slice(0, 100);
     let center;
@@ -799,16 +930,16 @@
           "Enter a city or town, optionally followed by its country.",
         );
       const result = await json(
-        "https://geocoding-api.open-meteo.com/v1/search?" +
-          new URLSearchParams({
-            name: city,
-            count: 1,
-            language: "en",
-            format: "json",
-          }),
-        signal,
-      );
-      const first = result.results?.[0];
+          "https://geocoding-api.open-meteo.com/v1/search?" +
+            new URLSearchParams({
+              name: city,
+              count: 1,
+              language: "en",
+              format: "json",
+            }),
+          signal,
+        ),
+        first = result.results?.[0];
       if (!first)
         throw Error("City not found. Try adding a country or region.");
       center = {
@@ -827,43 +958,40 @@
       )
         throw Error("The city provider returned invalid coordinates.");
     }
-    const categories = {
-      Restaurants: "amenity:restaurant",
-      Cafés: "amenity:cafe",
-      Cinema: "amenity:cinema",
-      Museums: "tourism:museum",
-      "Art & culture": "tourism:gallery",
-      "Things to do": "tourism:attraction",
-    };
-    if (category !== "All" && !categories[category])
+    if (category !== "All" && !placeTags[category])
       throw Error("Choose a valid place category.");
-    const params = new URLSearchParams({
-      lat: center.lat,
-      lon: center.lon,
-      radius: 3,
-      limit: 50,
-      lang: "en",
-    });
-    for (const tag of category === "All"
-      ? Object.values(categories)
-      : [categories[category]])
-      params.append("osm_tag", tag);
-    let data,
-      dataService = "Photon / komoot";
-    try {
-      const result = await json(
-        "https://photon.komoot.io/reverse?" + params,
-        signal,
-      );
-      data = {
-        elements: (result.features || []).map((feature) => {
-          const p = feature.properties || {},
-            coordinates = feature.geometry?.coordinates || [];
+    if (radius !== "auto" && ![10, 25, 50, 100].includes(Number(radius)))
+      throw Error("Choose a valid search distance.");
+    let dataService = "Photon / komoot",
+      searchRadiusKm = 0,
+      success = false,
+      lastError;
+    const found = new Map();
+    const search = async (kind, km) => {
+      const tags =
+        kind === "All" ? Object.values(placeTags).flat() : placeTags[kind];
+      const params = new URLSearchParams({
+        lat: center.lat,
+        lon: center.lon,
+        radius: km,
+        limit: 100,
+        lang: "en",
+      });
+      for (const tag of tags) params.append("osm_tag", tag);
+      let rows;
+      try {
+        const data = await json(
+          "https://photon.komoot.io/reverse?" + params,
+          signal,
+        );
+        rows = (data.features || []).map((f) => {
+          const p = f.properties || {},
+            c = f.geometry?.coordinates || [];
           return {
             type: { N: "node", W: "way", R: "relation" }[p.osm_type],
             id: p.osm_id,
-            lon: coordinates[0],
-            lat: coordinates[1],
+            lon: c[0],
+            lat: c[1],
             tags: {
               ...p.extra,
               name: p.name,
@@ -872,40 +1000,140 @@
               "addr:housenumber": p.housenumber,
             },
           };
-        }),
-      };
-    } catch (error) {
-      if (signal?.aborted) throw error;
-      dataService = "Overpass";
-      const clauses = (
-        category === "All" ? Object.values(categories) : [categories[category]]
-      )
-        .map((tag) => {
-          const [key, value] = tag.split(":");
-          return `node(around:1500,${center.lat},${center.lon})[${key}="${value}"][name];`;
-        })
-        .join("");
-      const query = `[out:json][timeout:10];(${clauses});out 50;`;
-      data = await json(
-        "https://overpass-api.de/api/interpreter?" +
-          new URLSearchParams({ data: query }),
-        signal,
-      );
+        });
+      } catch (error) {
+        if (signal?.aborted) throw error;
+        const clauses = tags
+          .map((tag) => {
+            const [key, value] = tag.split(":");
+            return `nwr(around:${km * 1000},${center.lat},${center.lon})[${key}="${value}"][name];`;
+          })
+          .join("");
+        const data = await json(
+          "https://overpass-api.de/api/interpreter?" +
+            new URLSearchParams({
+              data: `[out:json][timeout:12];(${clauses});out center 100;`,
+            }),
+          signal,
+        );
+        if (data.remark && !data.elements?.length)
+          throw Error("The map provider is busy. Try this area again shortly.");
+        rows = data.elements || [];
+        dataService = "OpenStreetMap / Overpass";
+      }
+      success = true;
+      searchRadiusKm = Math.max(searchRadiusKm, km);
+      for (const row of rows) {
+        const item = placeItem(row, city || "Near you");
+        if (!item || (kind !== "All" && item.category !== kind)) continue;
+        item.distanceKm = distance(center, item);
+        if (item.distanceKm <= km + 0.1) found.set(item.id, item);
+      }
+    };
+    const radii = radius === "auto" ? [5, 15, 35, 75] : [Number(radius)];
+    for (const km of radii) {
+      try {
+        await search(category, km);
+      } catch (error) {
+        if (signal?.aborted) throw error;
+        lastError = error;
+      }
+      const target =
+        category === "All"
+          ? 24
+          : ["Restaurants", "Cafés"].includes(category)
+            ? 18
+            : 8;
+      if (found.size >= target) break;
     }
-    if (data.remark && !data.elements?.length)
-      throw Error("The map provider is busy. Try this area again shortly.");
+    // Nearby food must not crowd museums, cinema and cultural venues out of All.
+    if (category === "All")
+      for (const kind of [
+        "Museums",
+        "Art & culture",
+        "Cinema",
+        "Things to do",
+      ]) {
+        if ([...found.values()].filter((i) => i.category === kind).length >= 5)
+          continue;
+        for (const km of radius === "auto" ? [15, 35, 75] : [Number(radius)]) {
+          try {
+            await search(kind, km);
+          } catch (error) {
+            if (signal?.aborted) throw error;
+            lastError = error;
+          }
+          if (
+            [...found.values()].filter((i) => i.category === kind).length >= 5
+          )
+            break;
+        }
+      }
+    if (!success || (!found.size && lastError && searchRadiusKm < radii.at(-1)))
+      throw lastError || Error("Map listings are temporarily unavailable.");
+    const normalized = (value) =>
+      String(value || "")
+        .toLowerCase()
+        .normalize("NFKC")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
+        .trim();
+    const sorted = [];
+    for (const item of [...found.values()].sort(
+      (a, b) => a.distanceKm - b.distanceKm,
+    )) {
+      const duplicate = sorted.find(
+        (other) =>
+          other.category === item.category &&
+          normalized(other.title) === normalized(item.title) &&
+          distance(other, item) < 0.1 &&
+          (!other.address ||
+            !item.address ||
+            normalized(other.address) === normalized(item.address)),
+      );
+      if (!duplicate) {
+        sorted.push(item);
+        continue;
+      }
+      // OSM may map the same venue as both a building and a point. Keep one
+      // card, preserving useful references from either representation.
+      for (const field of [
+        "image",
+        "website",
+        "wikidata",
+        "brandWikidata",
+        "photoReference",
+        "address",
+        "cuisine",
+        "hours",
+      ])
+        if (!duplicate[field] && item[field]) duplicate[field] = item[field];
+      if (!duplicate.images?.length && item.images?.length)
+        duplicate.images = item.images;
+    }
+    const counts = {};
+    const items =
+      category === "All"
+        ? sorted
+            .filter((i) => {
+              counts[i.category] = (counts[i.category] || 0) + 1;
+              return counts[i.category] <= 25;
+            })
+            .slice(0, 150)
+        : sorted.slice(0, 100);
     return {
-      items: (data.elements || [])
-        .map((p) => placeItem(p, city || "Near you"))
-        .filter(Boolean),
+      items,
       provider: "OpenStreetMap",
       dataService,
       filter: category,
       city: city || "Near you",
       center,
+      searchRadiusKm,
+      radius,
+      partial: !!lastError,
+      live: true,
       collectedAt: new Date().toISOString(),
       geocoder: city ? "Open-Meteo / GeoNames" : "",
-      note: "Nearby OpenStreetMap listings · bounded area, not every business",
+      note: `Community map listings within ${searchRadiusKm} km · nearest first · availability varies by area`,
     };
   }
   function streetViewURL(key, item) {

@@ -1,3 +1,4 @@
+import { coverIDs, venueCovers } from "./venues.mjs";
 import {
   movieRequest,
   movieResponse,
@@ -103,10 +104,41 @@ export default {
           nowPlaying: !!env.TMDB_READ_TOKEN,
           movieDiscovery: true,
           movieDetails: true,
+          venueCovers: true,
         },
         200,
         origin,
       );
+    if (url.pathname === "/api/venue-covers") {
+      let ids;
+      try {
+        ids = coverIDs(url);
+      } catch (error) {
+        return reply({ error: error.message }, 400, origin);
+      }
+      if (
+        env.SEARCH_LIMIT &&
+        !(
+          await env.SEARCH_LIMIT.limit({
+            key: request.headers.get("CF-Connecting-IP") || "unknown",
+          })
+        ).success
+      )
+        return reply(
+          { error: "Please wait before requesting more covers." },
+          429,
+          origin,
+        );
+      try {
+        return reply(await venueCovers(ids, { ctx }), 200, origin);
+      } catch {
+        return reply(
+          { error: "Business image lookup is temporarily unavailable." },
+          503,
+          origin,
+        );
+      }
+    }
     if (
       ![
         "/api/movies",

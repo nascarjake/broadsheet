@@ -243,6 +243,13 @@ const assert = require("node:assert/strict");
           entities: {
             Q1: {
               claims: {
+                P625: [
+                  {
+                    mainsnak: {
+                      datavalue: { value: { latitude: 41, longitude: -87 } },
+                    },
+                  },
+                ],
                 P18: [{ mainsnak: { datavalue: { value: "Venue.jpg" } } }],
               },
             },
@@ -270,7 +277,7 @@ const assert = require("node:assert/strict");
       };
     },
   });
-  const venue = { id: "osm-node-123" };
+  const venue = { id: "osm-node-123", lat: 41, lon: -87 };
   const photos = await live.venuePhotos([venue]);
   assert.equal(photos[venue.id].credit, "Photographer");
   assert.equal(photos[venue.id].license, "CC BY-SA 4.0");

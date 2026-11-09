@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="explore.css?v=6010c2279dea" />
     <link rel="stylesheet" href="vendor/leaflet.css?v=a78371028241" />
     <link rel="stylesheet" href="immersive.css?v=b6861b43f782" />
-    <link rel="stylesheet" href="discovery.css?v=7beb8897e9cd" />
+    <link rel="stylesheet" href="discovery.css?v=56ef6a47a784" />
   </head>
   <body class="space-page" data-space="movies">
     <header class="global-header">
@@ -67,6 +67,16 @@
                 maxlength="100"
               /><button aria-label="Search this city">→</button>
             </form>
+            <span class="place-distance"
+              >Search distance
+              <select id="place-radius" aria-label="Places search distance">
+                <option value="auto">Auto · expand up to 75 km</option>
+                <option value="10">10 km</option>
+                <option value="25">25 km</option>
+                <option value="50">50 km</option>
+                <option value="100">100 km</option>
+              </select></span
+            >
             <button id="use-location" class="link-button">
               ◎ Use my location
             </button></label
@@ -147,7 +157,9 @@
         <button id="reset-space" class="primary-button">
           Browse everything
         </button>
-        <button id="continue-results" class="primary-button" hidden>Continue searching</button>
+        <button id="continue-results" class="primary-button" hidden>
+          Continue searching
+        </button>
       </div>
       <div class="space-canvas-tools">
         <button id="space-home" aria-label="Return to start">⌂</button
@@ -200,12 +212,12 @@
     <div id="space-toast" role="status" hidden></div>
     <script src="spaces.js?v=80c91d2b328b"></script>
     <script src="config.js"></script>
-    <script src="live.js?v=7a0287adfab0"></script>
+    <script src="live.js?v=e7c1d36fd418"></script>
     <script src="facets.js?v=71b61f2c55b2"></script>
     <script src="spatial.js?v=46cc5ba43420"></script>
     <script src="canvas.js?v=799255197c7b"></script>
     <script src="vendor/leaflet.js?v=db49d009c841"></script>
-    <script type="module" src="browse.js?v=fcbc5eb77ca6"></script>
+    <script type="module" src="browse.js?v=53d49c5c35f5"></script>
     <script type="module" src="immersive.js?v=0ce82a57e553"></script>
   </body>
 </html>

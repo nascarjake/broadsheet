@@ -9,6 +9,7 @@ const initial = {
   sort: "collection",
   mode: "spatial",
   size: "comfortable",
+  placeRadius: "auto",
   savedOnly: false,
   saved: [],
   layouts: {},
@@ -196,19 +197,22 @@ function mergeItems() {
   return source;
 }
 function changeFilter(filter) {
-  state.filter = filter;
-  state.savedOnly = false;
-  update(true);
-  if (id !== "places" && state.liveCatalog) queueCatalogSearch(0);
-  else if (id === "places" && state.locationChosen && state.data?.center)
-    searchPlaces({
+  if (id === "places" && state.locationChosen && state.data?.center) {
+    void searchPlaces({
       lat: state.data.center.lat,
       lon: state.data.center.lon,
       city: state.data.city === "Near you" ? "" : state.data.city,
       category: filter,
       locationMode: state.locationMode,
     });
+    return;
+  }
+  state.filter = filter;
+  state.savedOnly = false;
+  update(true);
+  if (id !== "places" && state.liveCatalog) queueCatalogSearch(0);
 }
+
 function filterOptions() {
   if (id === "recipes")
     return [
@@ -348,7 +352,11 @@ function update(reset = false) {
     : id === "places"
       ? !state.locationChosen
         ? "Chicago preview · choose your location to explore nearby"
-        : (data.city || "Chosen area") + " · OpenStreetMap"
+        : (data.city || "Chosen area") +
+          " · OpenStreetMap" +
+          (data.partial
+            ? " · Some map searches were unavailable; retry for more listings"
+            : "")
       : data.note || "";
   if (id === "places")
     $("#space-tip").textContent = state.locationChosen
@@ -387,7 +395,7 @@ function update(reset = false) {
 function renderResultStatus() {
   const data = state.data;
   $("#result-status").textContent =
-    `${visible.length} ${space.noun}${data?.live && !state.savedOnly ? " loaded" : ""}${data?.total && !state.savedOnly ? " of " + data.total.toLocaleString() + " matching" : ""}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}`;
+    `${visible.length} ${space.noun}${data?.live && !state.savedOnly ? " loaded" : ""}${data?.total && !state.savedOnly ? " of " + data.total.toLocaleString() + " matching" : ""}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}${id === "places" && data?.searchRadiusKm && !state.savedOnly ? " · within " + data.searchRadiusKm + " km" : ""}`;
 }
 function home() {
   const factor =
@@ -437,8 +445,7 @@ function gallery(item) {
 }
 function businessPhoto(item, cls = "") {
   const cover = el("div", "venue-static " + cls),
-    picture = item.venuePhoto;
-  const fallback = el("span", "venue-monogram");
+    fallback = el("span", "venue-monogram");
   fallback.append(
     el(
       "b",
@@ -450,47 +457,93 @@ function businessPhoto(item, cls = "") {
         .map((w) => w[0])
         .join(""),
     ),
-    el("small", "", item.category + " · photo not supplied"),
+    el("small", "", item.category + " · finding a business image"),
   );
   cover.append(fallback);
-  if (picture?.url) {
-    const img = photo(
-        picture.url,
-        item.title + " — business photograph",
-        "business-photo",
-      ),
-      credit = el(
-        "span",
-        "business-photo-credit",
-        [picture.credit, picture.license].filter(Boolean).join(" · "),
-      );
-    img.onload = () => {
-      fallback.hidden = true;
-    };
-    img.onerror = () => {
-      img.hidden = true;
-      credit.hidden = true;
+  const candidates = [
+    item.venuePhoto,
+    ...(item.venuePhoto?.alternatives || []),
+    ...(item.image && item.id.startsWith("osm-")
+      ? [
+          {
+            url: item.image,
+            kind: "venue",
+            label: "Mapped business photo",
+            credit: item.imageCredit,
+            sourceUrl: item.url,
+          },
+        ]
+      : []),
+  ].filter((p) => http(p?.url));
+  const img = el("img", "business-photo"),
+    credit = el("span", "business-photo-credit");
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.referrerPolicy = "no-referrer";
+  const next = () => {
+    const p = candidates.shift();
+    if (!p) {
+      img.remove();
+      credit.remove();
       fallback.hidden = false;
-    };
-    cover.append(img, credit);
-  }
+      fallback.querySelector("small").textContent =
+        item.category + " · no business image available";
+      return;
+    }
+    const websiteLogo =
+      p.kind === "website" &&
+      /(?:logo|wordmark|brandmark)/i.test(new URL(p.url).pathname);
+    const label = websiteLogo ? "Business website logo" : p.label;
+    cover.classList.toggle(
+      "venue-logo",
+      p.kind === "logo" || p.kind === "icon" || websiteLogo,
+    );
+    cover.classList.toggle("venue-icon", p.kind === "icon");
+    img.alt = item.title + " — " + (label || "business image");
+    credit.textContent = [label || "Business photograph", p.credit, p.license]
+      .filter(Boolean)
+      .join(" · ");
+    credit.title = credit.textContent;
+    credit.hidden = true;
+    img.src = p.url;
+  };
+  img.onload = () => {
+    fallback.hidden = true;
+    credit.hidden = false;
+  };
+  img.onerror = () => {
+    credit.hidden = true;
+    next();
+  };
+  cover.append(img, credit);
+  next();
   return cover;
 }
 async function enrichVenuePhotos(collection) {
   if (window.BROADSHEET_OFFLINE) return;
-  try {
-    const photos = await Live.venuePhotos(collection.items || []);
+  const applied = new Map();
+  const apply = (photos) => {
     for (const item of collection.items || [])
       if (photos[item.id]) {
+        const value = JSON.stringify(photos[item.id]);
+        if (applied.get(item.id) === value) continue;
+        applied.set(item.id, value);
         item.venuePhoto = photos[item.id];
-        for (const saved of [...state.saved, ...items])
-          if (saved.id === item.id) saved.venuePhoto = item.venuePhoto;
+        for (const record of [...state.saved, ...items])
+          if (record.id === item.id) {
+            record.venuePhoto = item.venuePhoto;
+            if (item.website) record.website = item.website;
+          }
         if (visible.some((record) => record.id === item.id))
           canvas.invalidateItem(item.id);
       }
+  };
+  try {
+    apply(await Live.venuePhotos(collection.items || [], { onUpdate: apply }));
     persist();
-  } catch {} // Missing community photos do not block browsing.
+  } catch {}
 }
+
 function makeCard(item, instance) {
   if (instance?.expanded) return expandedCard(item, instance);
 
@@ -580,7 +633,15 @@ function makeCard(item, instance) {
           ]
             .filter(Boolean)
             .join(" · ")
-        : item.cuisine || item.address || item.city;
+        : [
+            item.cuisine || item.address || item.city,
+            Number.isFinite(item.distanceKm)
+              ? (item.distanceKm < 1 ? "<1" : Math.round(item.distanceKm)) +
+                " km away"
+              : "",
+          ]
+            .filter(Boolean)
+            .join(" · ");
   heading.append(el("p", "card-subtitle", sub));
   if (id === "recipes")
     heading.append(el("p", "recipe-detail-preview", item.description));
@@ -701,7 +762,10 @@ function fillDetails(item, root) {
     );
     if (item.venuePhoto?.sourceUrl)
       actions.append(
-        link("Business photo source & license ↗", item.venuePhoto.sourceUrl),
+        link(
+          (item.venuePhoto.label || "Business image") + " · source & rights ↗",
+          item.venuePhoto.sourceUrl,
+        ),
       );
     actions.append(
       link(
@@ -1431,16 +1495,28 @@ async function hydrateRecipe(item) {
   detailRequests.set(item.id, task);
   return task;
 }
+let placeSearchRequest,
+  placeSearchRevision = 0;
 async function searchPlaces(query) {
-  await busy($("#city-form button"), async () => {
-    $("#result-status").textContent = "Searching map listings…";
-    const data = await Live.places(query);
-    if (!data.items?.length) {
-      toast(
-        "No mapped places were returned for that area. Try a nearby city or neighborhood.",
-      );
-      return;
-    }
+  placeSearchRequest?.abort();
+  const revision = ++placeSearchRevision,
+    controller = new AbortController();
+  placeSearchRequest = controller;
+  const viewport = $("#space-viewport"),
+    button = $("#city-form button");
+  viewport.setAttribute("aria-busy", "true");
+  button.disabled = true;
+  $("#result-status").textContent =
+    "Searching " +
+    (query.category || "All places") +
+    " · widening sparse areas…";
+  try {
+    const data = await Live.places({
+      ...query,
+      radius: state.placeRadius,
+      signal: controller.signal,
+    });
+    if (revision !== placeSearchRevision) return;
     state.data = data;
     state.query = "";
     state.filter = query.category || "All";
@@ -1454,9 +1530,36 @@ async function searchPlaces(query) {
     $("#space-search").value = "";
     update(true);
     void enrichVenuePhotos(data);
-    toast("Exploring " + data.city + " · " + data.items.length + " places.");
-  });
+    if (!data.items.length)
+      $("#no-results-text").textContent =
+        "No mapped " +
+        (state.filter === "All" ? "places" : state.filter.toLowerCase()) +
+        " found within " +
+        data.searchRadiusKm +
+        " km. Try a larger search distance or another city.";
+    toast(
+      "Exploring " +
+        data.city +
+        " · " +
+        data.items.length +
+        " places within " +
+        data.searchRadiusKm +
+        " km.",
+    );
+  } catch (error) {
+    if (revision === placeSearchRevision && !controller.signal.aborted) {
+      renderResultStatus();
+      toast(error.message);
+    }
+  } finally {
+    if (revision === placeSearchRevision) {
+      viewport.removeAttribute("aria-busy");
+      button.disabled = false;
+      placeSearchRequest = null;
+    }
+  }
 }
+
 async function useLocation() {
   if (!navigator.geolocation) {
     toast(
@@ -1710,6 +1813,12 @@ $("#browse-all").onclick =
   $("#clear-space").onclick =
     () => {
       facets.reset();
+      if (id === "places" && state.locationChosen && state.data?.center) {
+        state.query = "";
+        $("#space-search").value = "";
+        changeFilter("All");
+        return;
+      }
       state.query = "";
       state.filter = "All";
       state.savedOnly = false;
@@ -1719,6 +1828,12 @@ $("#browse-all").onclick =
       queueCatalogSearch(0);
     };
 $("#browse-saved").onclick = () => {
+  if (id === "places") {
+    placeSearchRevision++;
+    placeSearchRequest?.abort();
+    $("#space-viewport").removeAttribute("aria-busy");
+    $("#city-form button").disabled = false;
+  }
   clearTimeout(searchTimer);
   searchRevision++;
   catalogController?.abort();
@@ -1732,10 +1847,34 @@ $("#search-provider").onclick = searchRecipes;
 $("#city-form").onsubmit = (e) => {
   e.preventDefault();
   const city = $("#city-input").value.trim();
-  if (city) searchPlaces({ city });
+  if (city)
+    searchPlaces({
+      city,
+      category: state.filter,
+      ...(city === state.data?.city && state.data.center
+        ? {
+            lat: state.data.center.lat,
+            lon: state.data.center.lon,
+            locationMode: state.locationMode,
+          }
+        : {}),
+    });
   else toast("Enter a city or town, or choose Use my location.");
 };
 $("#use-location").onclick = useLocation;
+$("#place-radius").value = state.placeRadius;
+$("#place-radius").onchange = (e) => {
+  state.placeRadius = e.target.value;
+  persist();
+  if (state.data?.center)
+    void searchPlaces({
+      lat: state.data.center.lat,
+      lon: state.data.center.lon,
+      city: state.data.city === "Near you" ? "" : state.data.city,
+      category: state.filter,
+      locationMode: state.locationMode,
+    });
+};
 $("#now-playing").onclick = loadNowPlaying;
 $("#live-catalog").onclick = () => {
   state.movie.mode = "popular";
@@ -1838,7 +1977,24 @@ async function init() {
     }
     update(true);
     const focus = params.get("focus");
-    if (id === "places") void enrichVenuePhotos({ items });
+    const refreshPlaces =
+      id === "places" &&
+      !window.BROADSHEET_OFFLINE &&
+      state.locationChosen &&
+      state.data?.center &&
+      !state.savedOnly &&
+      !focus &&
+      (!state.data.searchRadiusKm ||
+        Date.now() - Date.parse(state.data.collectedAt || 0) > 900000);
+    if (id === "places" && !refreshPlaces) void enrichVenuePhotos({ items });
+    if (refreshPlaces)
+      void searchPlaces({
+        lat: state.data.center.lat,
+        lon: state.data.center.lon,
+        city: state.data.city === "Near you" ? "" : state.data.city,
+        category: state.filter,
+        locationMode: state.locationMode,
+      });
     if (focus) {
       const item =
         items.find((i) => i.id === focus) ||

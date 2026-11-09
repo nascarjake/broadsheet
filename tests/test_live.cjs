@@ -152,7 +152,12 @@ const meal = (n) => ({
   assert.equal(nearby.city, "Tokyo, Japan");
   calls.length = 0;
   live.clearCache();
-  const around = await live.places({ lat: 48.856678, lon: 2.352221 });
+  const around = await live.places({
+    lat: 48.856678,
+    lon: 2.352221,
+    radius: 10,
+    category: "Cafés",
+  });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].url.searchParams.get("lat"), "48.857");
   assert.equal(calls[0].url.searchParams.get("lon"), "2.352");
@@ -172,7 +177,7 @@ const meal = (n) => ({
     lon: 139.69,
     category: "Cafés",
   });
-  assert.equal(fallback.dataService, "Overpass");
+  assert.equal(fallback.dataService, "OpenStreetMap / Overpass");
   assert.equal(fallback.items[0].category, "Cafés");
   assert.match(calls[1].url.searchParams.get("data"), /amenity="cafe"/);
   const embed = new URL(
