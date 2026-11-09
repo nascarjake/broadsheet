@@ -1,141 +1,168 @@
-/* A repeating newspaper made from real story-sized, collision-free spreads.
- * Spreads are analytical in every quadrant; only edited spreads are repacked.
- */
+/* Continuous newspaper columns: no chunk boundaries, reserved spans or empty
+ * trailing column slots. A wider reader widens its column; neighbors follow. */
 (function (root) {
-  const mod = (n, m) => ((n % m) + m) % m,
-    clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-  const parse = (key) => {
-    const m = /^(-?\d+):(-?\d+):(\d+)$/.exec(key || "");
-    return m ? { c: Number(m[1]), r: Number(m[2]), i: Number(m[3]) } : null;
-  };
-  class NewspaperLayout {
+  const Spatial =
+    root.BroadsheetSpatial ||
+    (typeof require !== "undefined" ? require("./spatial.js") : null);
+  const N = root.BroadsheetNews,
+    mod = Spatial.mod,
+    parse = Spatial.parse;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  class NewspaperLayout extends Spatial.InfiniteLayout {
     constructor(
       items,
-      { unit = 240, columns = 6, gap = 18, overrides = {}, geography } = {},
+      {
+        unit = 240,
+        columns = 6,
+        gap = 18,
+        overrides = {},
+        pins = {},
+        geography,
+        onRepair,
+      } = {},
     ) {
-      Object.assign(this, { items, unit, columns, gap, overrides, geography });
+      const unique = [
+        ...new Map(items.map((s) => [N.articleKey(s), s])).values(),
+      ];
+      super(unique, {
+        width: unit * 2 + gap,
+        height: 420,
+        gap,
+        overrides,
+        pins,
+      });
+      Object.assign(this, { unit, columns, geography, onRepair });
+      this.aliases = new Map();
+      for (const item of unique)
+        for (const report of item.coverage || [])
+          this.aliases.set(report.id, item.id);
       this.measured = new Map();
-      this.width = unit * 2 + gap;
-      this.height = 420;
       this.spreadWidth = columns * (unit + gap) - gap;
-      this.pitch = this.spreadWidth + gap * 2;
-      this.chunks = [];
-      for (let i = 0; i < items.length; i += 12)
-        this.chunks.push(items.slice(i, i + 12));
-      this.stride = 5;
-      while (this.gcd(this.stride, Math.max(1, this.chunks.length)) !== 1)
-        this.stride += 2;
-      for (const [key, o] of Object.entries(overrides)) {
-        const cell = parse(key),
-          item = cell && this.chunk(cell.c, cell.r)?.[cell.i];
-        if (
-          !item ||
-          !o ||
-          o.itemId !== item.id ||
-          ["w", "h", "column", "order"].some(
-            (k) => o[k] !== undefined && !Number.isFinite(o[k]),
-          )
-        )
-          delete overrides[key];
-      }
-      this.blueprints = this.chunks.map((items) => this.pack(items));
-      this.cycle =
-        this.blueprints.reduce((n, p) => n + p.height + gap * 2, 0) || 1;
+      this.pattern =
+        columns <= 2
+          ? [2]
+          : [
+              unique.filter((s) => N.media(s).some((m) => m.type === "image"))
+                .length >
+              unique.length * 0.4
+                ? 3
+                : 2,
+              2,
+              2,
+            ];
+      this.coverPolicy = N.coverPolicy(unique, geography);
+      this.ready = true;
       this.invalidate();
     }
-    gcd(a, b) {
-      while (b) [a, b] = [b, a % b];
-      return a;
+    baseWidth(c) {
+      const span = this.pattern[mod(c, this.pattern.length)];
+      return span * this.unit + (span - 1) * this.gap;
     }
-    chunk(c, r) {
-      return this.chunks[mod(r + c * this.stride, this.chunks.length)];
+    columnWidth(c) {
+      return this.widthEdits.get(c) || this.baseWidth(c);
     }
-    blueprint(c, r) {
-      return this.blueprints[mod(r + c * this.stride, this.chunks.length)];
+    baseX(c) {
+      const n = this.pattern.length,
+        cycle = this.pattern.reduce(
+          (s, _, i) => s + this.baseWidth(i) + this.gap,
+          0,
+        );
+      let x = Math.floor(c / n) * cycle;
+      for (let i = 0; i < mod(c, n); i++) x += this.baseWidth(i) + this.gap;
+      return x;
     }
-    pack(items, c, r) {
-      const sky = Array(this.columns).fill(0),
-        entries = [];
-      const order = items
-        .map((item, i) => ({
-          item,
-          i,
-          o: c === undefined ? {} : this.overrides[`${c}:${r}:${i}`] || {},
-        }))
-        .sort((a, b) => (a.o.order ?? a.i) - (b.o.order ?? b.i) || a.i - b.i);
-      for (const { item, i, o } of order) {
-        const p = root.BroadsheetNews.profile(item, {
-          unit: this.unit,
-          columns: this.columns,
-          geography: this.geography,
-        });
-        const w = clamp(o.w || p.width, 180, this.spreadWidth),
-          h = clamp(
-            o.h || this.measured.get(item.id + "|" + w) || p.height,
-            220,
-            50000,
-          ),
-          span = Math.min(
-            this.columns,
-            Math.ceil((w + this.gap) / (this.unit + this.gap)),
-          );
-        let best = 0,
-          y = Infinity;
-        for (let at = 0; at <= this.columns - span; at++) {
-          const level = Math.max(...sky.slice(at, at + span));
-          const preference =
-            o.column === undefined ? 0 : Math.abs(at - o.column) * 0.001;
-          if (level + preference < y) {
-            y = level + preference;
-            best = at;
-          }
-        }
-        if (o.column !== undefined)
-          best = clamp(o.column, 0, this.columns - span);
-        y = Math.max(...sky.slice(best, best + span));
-        const rect = { x: best * (this.unit + this.gap), y, w, h };
-        entries[i] = { item, rect, profile: p };
-        for (let at = best; at < best + span; at++) sky[at] = y + h + this.gap;
+    x(c) {
+      let x = this.baseX(c);
+      for (const [at, w] of this.widthEdits)
+        if (c >= 0 && at >= 0 && at < c) x += w - this.baseWidth(at);
+        else if (c < 0 && at >= c && at < 0) x -= w - this.baseWidth(at);
+      return x;
+    }
+    columnAt(x) {
+      let lo = Math.floor(x / (this.width + this.gap)) - 2,
+        hi = lo + 4,
+        step = 4;
+      while (this.x(lo) > x) {
+        lo -= step;
+        step *= 2;
       }
-      return { entries, height: Math.max(0, ...sky) - this.gap };
+      step = 4;
+      while (this.x(hi + 1) <= x) {
+        hi += step;
+        step *= 2;
+      }
+      while (lo < hi) {
+        const m = Math.ceil((lo + hi) / 2);
+        if (this.x(m) <= x) lo = m;
+        else hi = m - 1;
+      }
+      return lo;
     }
-    invalidate() {
-      this.edits = new Map();
-      this.deltas = new Map();
-      for (const key of Object.keys(this.overrides)) {
-        const p = parse(key);
-        if (!p) continue;
-        const macro = `${p.c}:${p.r}`;
-        if (!this.edits.has(macro))
-          this.edits.set(macro, this.pack(this.chunk(p.c, p.r), p.c, p.r));
-      }
-      for (const [macro, packed] of this.edits) {
-        const [c, r] = macro.split(":").map(Number);
-        if (!this.deltas.has(c)) this.deltas.set(c, new Map());
-        this.deltas.get(c).set(r, packed.height - this.blueprint(c, r).height);
-      }
+    storyAt(c, r) {
+      return this.itemById.get(this.pins[c + ":" + r]) || this.itemAt(c, r);
+    }
+    profileFor(item, c) {
+      return N.profile(item, {
+        unit: this.unit,
+        columns: this.columns,
+        geography: this.geography,
+        width: this.columnWidth(c),
+        ...this.coverPolicy.get(item.id),
+      });
+    }
+    naturalHeight(item, c) {
+      const width = this.columnWidth(c);
+      return (
+        this.measured.get(item.id + "|" + width) ||
+        this.profileFor(item, c).height
+      );
+    }
+    baseHeight(c, r) {
+      return this.naturalHeight(this.itemAt(c, r), c);
+    }
+    size(c, r) {
+      const o = this.overrides[c + ":" + r] || {},
+        item = this.storyAt(c, r);
+      return {
+        w: this.columnWidth(c),
+        h: Math.max(
+          80,
+          o.expanded || o.autoHeight === false
+            ? o.h || this.naturalHeight(item, c)
+            : this.naturalHeight(item, c),
+        ),
+      };
+    }
+    cycleFor(c) {
+      if (this.cycles.has(c)) return this.cycles.get(c);
+      const prefix = [0];
+      for (let r = 0; r < this.items.length; r++)
+        prefix.push(prefix.at(-1) + this.baseHeight(c, r) + this.gap);
+      const cycle = { prefix, total: prefix.at(-1) || 1 };
+      this.cycles.set(c, cycle);
+      return cycle;
     }
     baseY(c, r) {
-      const n = this.chunks.length;
-      if (!n) return 0;
-      let y = Math.floor(r / n) * this.cycle;
-      for (let i = 0; i < mod(r, n); i++)
-        y += this.blueprint(c, i).height + this.gap * 2;
-      return y;
+      if (!this.items.length) return 0;
+      const cycle = this.cycleFor(c);
+      return (
+        Math.floor(r / this.items.length) * cycle.total +
+        cycle.prefix[mod(r, this.items.length)]
+      );
     }
     y(c, r) {
       let y = this.baseY(c, r);
-      for (const [at, delta] of this.deltas.get(c) || [])
+      for (const [at, delta] of this.heightEdits.get(c) || [])
         if (r >= 0 && at >= 0 && at < r) y += delta;
         else if (r < 0 && at >= r && at < 0) y -= delta;
       return y;
     }
-    x(c) {
-      return c * this.pitch;
+    rowHeight(c, r) {
+      return this.size(c, r).h;
     }
     rowAt(c, y) {
-      const average = this.cycle / Math.max(1, this.chunks.length);
-      let lo = Math.floor(y / average) - 2,
+      const avg = this.cycleFor(c).total / Math.max(1, this.items.length);
+      let lo = Math.floor(y / avg) - 2,
         hi = lo + 4,
         step = 4;
       while (this.y(c, lo) > y) {
@@ -148,167 +175,205 @@
         step *= 2;
       }
       while (lo < hi) {
-        const mid = Math.ceil((lo + hi) / 2);
-        if (this.y(c, mid) <= y) lo = mid;
-        else hi = mid - 1;
+        const m = Math.ceil((lo + hi) / 2);
+        if (this.y(c, m) <= y) lo = m;
+        else hi = m - 1;
       }
       return lo;
     }
+    invalidate() {
+      if (!this.ready) return;
+      this.cycles = new Map();
+      this.widthEdits = new Map();
+      this.heightEdits = new Map();
+      for (const [key, o] of Object.entries(this.overrides)) {
+        const p = parse(key);
+        if (p && (o.expanded || o.resized))
+          this.widthEdits.set(
+            p.c,
+            Math.max(
+              this.widthEdits.get(p.c) || 0,
+              clamp(o.w || this.baseWidth(p.c), 180, this.spreadWidth),
+            ),
+          );
+      }
+      for (const key of new Set([
+        ...Object.keys(this.pins),
+        ...Object.keys(this.overrides),
+      ])) {
+        const p = parse(key);
+        if (!p) continue;
+        const delta = this.size(p.c, p.r).h - this.baseHeight(p.c, p.r);
+        if (Math.abs(delta) < 0.1) continue;
+        if (!this.heightEdits.has(p.c)) this.heightEdits.set(p.c, new Map());
+        this.heightEdits.get(p.c).set(p.r, delta);
+      }
+    }
     entry(key) {
       const p = parse(key);
-      if (!p || !this.chunks.length) return null;
-      const packed =
-          this.edits.get(`${p.c}:${p.r}`) || this.blueprint(p.c, p.r),
-        cell = packed.entries[p.i];
-      if (!cell) return null;
-      const o = this.overrides[key] || {};
+      if (!p || !this.items.length) return null;
+      const item = this.storyAt(p.c, p.r),
+        o = this.overrides[key] || {},
+        size = this.size(p.c, p.r);
       return {
         key,
         ...p,
-        item: cell.item,
-        profile: cell.profile,
+        item,
+        profile: this.profileFor(item, p.c),
         expanded: !!o.expanded,
         autoHeight: o.autoHeight !== false,
-        rect: {
-          ...cell.rect,
-          x: this.x(p.c) + cell.rect.x,
-          y: this.y(p.c, p.r) + cell.rect.y,
-        },
+        rect: { x: this.x(p.c), y: this.y(p.c, p.r), w: size.w, h: size.h },
       };
     }
-    visible({ left, top, right, bottom }) {
-      if (!this.chunks.length) return [];
-      const found = [];
-      for (
-        let c = Math.floor(left / this.pitch) - 1;
-        c <= Math.floor(right / this.pitch) + 1;
-        c++
-      )
-        for (let r = this.rowAt(c, top); this.y(c, r) <= bottom; r++) {
-          const items = this.chunk(c, r);
-          for (let i = 0; i < items.length; i++) {
-            const e = this.entry(`${c}:${r}:${i}`);
-            if (
-              this.intersects(e.rect, {
-                x: left,
-                y: top,
-                w: right - left,
-                h: bottom - top,
-              })
-            )
-              found.push(e);
+    collect(bounds) {
+      const result = [];
+      for (let c = this.columnAt(bounds.left); this.x(c) < bounds.right; c++)
+        for (
+          let r = this.rowAt(c, bounds.top);
+          this.y(c, r) < bounds.bottom;
+          r++
+        ) {
+          const e = this.entry(c + ":" + r);
+          if (
+            this.intersects(e.rect, {
+              x: bounds.left,
+              y: bounds.top,
+              w: bounds.right - bounds.left,
+              h: bounds.bottom - bounds.top,
+            })
+          )
+            result.push(e);
+        }
+      return result;
+    }
+    visible(bounds) {
+      if (!this.items.length) return [];
+      const focus = bounds.focus || bounds;
+      const inFocus = (e) =>
+        this.intersects(e.rect, {
+          x: focus.left,
+          y: focus.top,
+          w: focus.right - focus.left,
+          h: focus.bottom - focus.top,
+        });
+      const distance = (e) =>
+        (e.rect.x + e.rect.w / 2 - (focus.left + focus.right) / 2) ** 2 +
+        (e.rect.y + e.rect.h / 2 - (focus.top + focus.bottom) / 2) ** 2;
+      const priority = (a, b) =>
+        Number(!!this.overrides[b.key]) - Number(!!this.overrides[a.key]) ||
+        Number(inFocus(b)) - Number(inFocus(a)) ||
+        distance(a) - distance(b);
+      let padding = 1.5,
+        area,
+        entries;
+      do {
+        area = {
+          left: bounds.left - (bounds.right - bounds.left) * padding,
+          right: bounds.right + (bounds.right - bounds.left) * padding,
+          top: bounds.top - (bounds.bottom - bounds.top) * padding,
+          bottom: bounds.bottom + (bounds.bottom - bounds.top) * padding,
+        };
+        entries = this.collect(area);
+        padding /= 2;
+      } while (entries.length > this.items.length && padding > 0.09);
+      let repaired = false;
+      for (let pass = 0; pass < 5; pass++) {
+        const used = new Set(),
+          duplicates = [];
+        // An opened/edited card retains its identity; the nearest normal copy
+        // receives another real article from the current filtered edition.
+        entries.sort(priority);
+        for (const e of entries)
+          if (used.has(e.item.id) && !e.expanded) duplicates.push(e);
+          else used.add(e.item.id);
+        if (!duplicates.length) break;
+        for (const e of duplicates) {
+          let candidate;
+          const start = this.indexAt(e.c, e.r);
+          for (let k = 0; k < this.items.length; k++) {
+            const s = this.items[mod(start + k, this.items.length)];
+            if (!used.has(s.id)) {
+              candidate = s;
+              break;
+            }
+          }
+          if (candidate) {
+            delete this.overrides[e.key];
+            this.pins[e.key] = candidate.id;
+            used.add(candidate.id);
+            repaired = true;
           }
         }
-      return found;
-    }
-    intersects(a, b) {
-      return (
-        a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
-      );
-    }
-    toggle(key, width = 800) {
-      const e = this.entry(key);
-      if (!e) return;
-      const o = this.overrides[key] || {};
-      this.overrides[key] = o.expanded
-        ? {
-            ...o,
-            expanded: false,
-            w: o.closedW || e.profile.width,
-            h: o.closedH || e.profile.height,
-            autoHeight: false,
-          }
-        : {
-            ...o,
-            itemId: e.item.id,
-            expanded: true,
-            closedW: e.rect.w,
-            closedH: e.rect.h,
-            w: Math.min(this.spreadWidth, Math.max(width, e.rect.w)),
-            h: Math.max(850, e.rect.h),
-            autoHeight: true,
-          };
-      this.invalidate();
+        if (!repaired) break;
+        this.invalidate();
+        entries = this.collect(area);
+      }
+      if (repaired) this.onRepair?.();
+      const seen = new Set();
+      return this.collect(bounds)
+        .sort(priority)
+        .filter((e) => {
+          if (seen.has(e.item.id) && !e.expanded) return false;
+          seen.add(e.item.id);
+          return true;
+        });
     }
     measure(key, height) {
-      const e = this.entry(key),
-        o = this.overrides[key];
+      const e = this.entry(key);
       if (
         !e ||
-        o?.autoHeight === false ||
+        !e.autoHeight ||
         !Number.isFinite(height) ||
         Math.abs(e.rect.h - height) < 2
       )
         return false;
-      if (o) {
-        o.h = clamp(Math.ceil(height), 220, 50000);
-      } else {
-        this.measured.set(
-          e.item.id + "|" + e.rect.w,
-          clamp(Math.ceil(height), 220, 50000),
-        );
-        this.blueprints = this.chunks.map((items) => this.pack(items));
-        this.cycle =
-          this.blueprints.reduce((n, p) => n + p.height + this.gap * 2, 0) || 1;
-      }
+      const h = clamp(Math.ceil(height), 80, 50000);
+      if (e.expanded) this.overrides[key].h = h;
+      else this.measured.set(e.item.id + "|" + e.rect.w, h);
       this.invalidate();
       return true;
     }
     commit(key, p, type) {
       const e = this.entry(key);
       if (!e) return;
+      if (type === "move") {
+        const c = this.columnAt(p.x + p.w / 2),
+          r = this.rowAt(c, p.y + p.h / 2);
+        return this.swap(key, c + ":" + r);
+      }
       const o = this.overrides[key] || {};
       this.overrides[key] = {
         ...o,
         itemId: e.item.id,
+        resized: true,
         w: clamp(p.w, 180, this.spreadWidth),
-        h: p.h,
-        ...(type === "move"
-          ? {
-              column: clamp(
-                Math.round((p.x - this.x(e.c)) / (this.unit + this.gap)),
-                0,
-                this.columns - 1,
-              ),
-              order: (o.order ?? e.i) + (p.y - e.rect.y) / 240,
-            }
-          : {}),
-        ...(type === "resize" && Math.abs(p.h - e.rect.h) > 1
-          ? { autoHeight: false }
-          : {}),
+        h: clamp(p.h, 220, 50000),
+        ...(Math.abs(p.h - e.rect.h) > 1 ? { autoHeight: false } : {}),
       };
       this.invalidate();
     }
-    find(itemId, point = { x: 0, y: 0 }) {
-      let chunk = -1,
-        index = -1;
-      this.chunks.some((items, i) => {
-        index = items.findIndex((s) => s.id === itemId);
-        if (index >= 0) {
-          chunk = i;
-          return true;
-        }
-        return false;
-      });
-      if (chunk < 0) return null;
-      let best = null,
-        distance = Infinity,
-        center = Math.floor(point.x / this.pitch);
-      for (let c = center - 2; c <= center + 2; c++) {
-        const near = this.rowAt(c, point.y),
-          residue = mod(chunk - c * this.stride, this.chunks.length),
-          r =
-            residue +
-            Math.round((near - residue) / this.chunks.length) *
-              this.chunks.length,
-          e = this.entry(`${c}:${r}:${index}`),
-          d = (e.rect.x - point.x) ** 2 + (e.rect.y - point.y) ** 2;
-        if (d < distance) {
-          best = e;
-          distance = d;
-        }
-      }
-      return best;
+    swap(a, b) {
+      if (a === b) return a;
+      const first = this.entry(a),
+        second = this.entry(b);
+      if (!first || !second || first.item.id === second.item.id) return a;
+      const oa = this.overrides[a],
+        ob = this.overrides[b];
+      this.pins[a] = second.item.id;
+      this.pins[b] = first.item.id;
+      delete this.overrides[a];
+      delete this.overrides[b];
+      if (oa) this.overrides[b] = oa;
+      if (ob) this.overrides[a] = ob;
+      this.invalidate();
+      return b;
+    }
+    move(key, dc, dr) {
+      const e = this.entry(key);
+      return e ? this.swap(key, e.c + dc + ":" + (e.r + dr)) : key;
+    }
+    find(id, point) {
+      return super.find(this.aliases?.get(id) || id, point);
     }
   }
   root.BroadsheetNewspaper = { NewspaperLayout };

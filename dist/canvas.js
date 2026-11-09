@@ -117,7 +117,7 @@
     }
     invalidateItem(id) {
       for (const [key, node] of this.nodes)
-        if (node.dataset.id === id) {
+        if (node.dataset.id === id || node.dataset.reportId === id) {
           this.cardResize.unobserve(node);
           node.remove();
           this.nodes.delete(key);
@@ -184,12 +184,19 @@
           top: top - 120,
           right: right + 120,
           bottom: bottom + 120,
+          focus: { left, top, right, bottom },
         });
         for (const entry of entries) {
           const { key, item, rect } = entry;
           keep.add(key);
           this.instancePositions[key] = { ...rect };
           let node = this.nodes.get(key);
+          if (node && node.dataset.id !== item.id) {
+            this.cardResize.unobserve(node);
+            node.remove();
+            this.nodes.delete(key);
+            node = null;
+          }
           if (!node) {
             node = this.options.createCard(item, entry);
             node.dataset.instance = key;
@@ -201,12 +208,14 @@
           }
           if (entry.expanded || node.dataset.autoHeight !== undefined) {
             node.dataset.autoHeight = String(entry.autoHeight);
-            node.style.minHeight = entry.expanded && entry.autoHeight
-              ? (this.atlas.overrides[key]?.closedH || this.atlas.height) +
-                80 +
-                "px"
-              : "0px";
+            node.style.minHeight =
+              entry.expanded && entry.autoHeight
+                ? (this.atlas.overrides[key]?.closedH || this.atlas.height) +
+                  80 +
+                  "px"
+                : "0px";
           }
+          this.options.updateCard?.(node, entry);
           this.place(node, rect);
         }
         for (const [key, node] of this.nodes)

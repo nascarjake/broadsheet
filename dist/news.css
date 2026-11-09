@@ -311,3 +311,30 @@
     scroll-behavior: auto;
   }
 }
+
+.coverage-reports {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 14px 0;
+  font:
+    10px/1.5 Arial,
+    sans-serif;
+  color: var(--muted);
+}
+.coverage-reports > span {
+  width: 100%;
+  letter-spacing: 0.5px;
+}
+.coverage-reports button {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--accent);
+  background: #f6f5ed;
+}
+.coverage-reports button[aria-pressed="true"] {
+  background: #e9ede1;
+  border-color: #9ba78f;
+}

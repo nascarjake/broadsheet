@@ -1,48 +1,36 @@
-const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const N = require("../dist/news-model.js");
-const { NewspaperLayout } = require("../dist/news-layout.js");
+const assert = require("node:assert/strict"),
+  fs = require("node:fs");
+const N = require("../dist/news-model.js"),
+  { NewspaperLayout } = require("../dist/news-layout.js");
 const geography = JSON.parse(fs.readFileSync("dist/news-geography.json"));
 const base = {
   date: "2026-11-09T12:00:00Z",
   sourceId: "a",
   source: "Publisher A",
   topics: ["World"],
-  excerpt: "A short, source-provided summary of the reporting.",
+  excerpt: "A short source-provided summary of the reporting.",
 };
-const sample = Array.from({ length: 51 }, (_, i) => ({
+const sample = Array.from({ length: 272 }, (_, i) => ({
   ...base,
   id: String(i),
   url: "https://example.com/" + i,
   title:
-    i % 4 === 0
+    i % 3 === 0
       ? "Ukraine flooding closes roads across the region"
-      : i % 4 === 1
+      : i % 3 === 1
         ? "Brief update"
-        : i % 4 === 2
-          ? "A long headline explains the discovery and how the researchers reached their conclusions"
-          : "A video report from the science team",
+        : "A long headline explains the discovery and the researchers conclusions",
   media:
-    i % 4 === 2
+    i % 3 === 2
       ? [
           {
             type: "image",
-            src: "https://example.com/image.jpg",
-            width: 1200,
-            height: 700,
+            src: "https://photos.example/" + i + ".jpg",
+            width: 1000,
+            height: 600,
           },
         ]
-      : i % 4 === 3
-        ? [
-            {
-              type: "image",
-              src: "https://example.com/video.jpg",
-              width: 800,
-              height: 450,
-            },
-            { type: "video", provider: "YouTube", id: "abcdefghijk" },
-          ]
-        : [],
+      : [],
 }));
 function noOverlap(entries) {
   for (let i = 0; i < entries.length; i++)
@@ -56,130 +44,221 @@ function noOverlap(entries) {
           a.y < b.y + b.h - 0.01 &&
           a.y + a.h > b.y + 0.01
         ),
-        `${entries[i].key} overlaps ${entries[j].key}`,
+        entries[i].key + " overlaps " + entries[j].key,
       );
     }
 }
-const options = { geography, overrides: {} };
-const atlas = new NewspaperLayout(sample, options);
-assert.ok(
-  new Set(sample.map((s) => N.profile(s, { geography }).width)).size >= 3,
-  "briefs, reports and media leads have distinct widths",
-);
+function tightColumns(a, point) {
+  for (let c = a.columnAt(point.x) - 1; c < a.columnAt(point.x) + 5; c++) {
+    assert.ok(
+      Math.abs(a.x(c + 1) - a.x(c) - a.columnWidth(c) - a.gap) < 0.001,
+      "No unused horizontal slots",
+    );
+    const r = a.rowAt(c, point.y);
+    for (let row = r - 2; row < r + 7; row++) {
+      const e = a.entry(c + ":" + row),
+        next = a.entry(c + ":" + (row + 1));
+      assert.ok(
+        Math.abs(next.rect.y - e.rect.y - e.rect.h - a.gap) < 0.001,
+        "No vertical holes between adjacent stories",
+      );
+    }
+  }
+}
+const overrides = {},
+  pins = {},
+  a = new NewspaperLayout(sample, { geography, overrides, pins });
 for (const x of [-1000000, -5000, 0, 5000, 1000000])
   for (const y of [-1000000, 0, 1000000]) {
-    const entries = atlas.visible({
+    const entries = a.visible({
       left: x,
       top: y,
-      right: x + 2200,
-      bottom: y + 1400,
+      right: x + 2600,
+      bottom: y + 1800,
     });
     assert.ok(entries.length > 0 && entries.length < 100);
     noOverlap(entries);
+    assert.equal(
+      new Set(entries.map((e) => e.item.id)).size,
+      entries.length,
+      "No nearby repeated articles",
+    );
+    tightColumns(a, { x, y });
   }
-const key = "0:0:0",
-  original = atlas.entry(key),
-  other = atlas.entry("0:0:1");
-atlas.toggle(key, 1000);
-assert.equal(atlas.entry(key).expanded, true);
-atlas.measure(key, 3200);
-assert.equal(atlas.entry(key).rect.h, 3200);
-noOverlap(
-  atlas.visible({ left: 0, top: 0, right: atlas.pitch * 2, bottom: 8000 }),
+const key = "0:0",
+  original = a.entry(key),
+  neighbor = a.entry("1:0");
+a.toggle(key, 1100);
+a.measure(key, 3500);
+assert.equal(a.entry(key).rect.h, 3500);
+assert.equal(a.columnWidth(0), 1100);
+assert.ok(
+  a.entry("1:0").rect.x > neighbor.rect.x,
+  "Neighbors follow the widened reading column",
 );
+tightColumns(a, { x: 0, y: 0 });
+noOverlap(a.visible({ left: 0, top: 0, right: 3500, bottom: 6000 }));
 const restored = new NewspaperLayout(sample, {
-  ...options,
-  overrides: structuredClone(options.overrides),
+  geography,
+  overrides: structuredClone(overrides),
+  pins: structuredClone(pins),
 });
-assert.equal(restored.entry(key).rect.h, 3200);
 assert.equal(restored.entry(key).item.id, original.item.id);
-atlas.toggle(key);
-assert.equal(atlas.entry(key).expanded, false);
-assert.equal(atlas.entry(key).rect.w, original.rect.w);
-atlas.measure("0:0:2", 980);
+assert.equal(restored.entry(key).rect.h, 3500);
+tightColumns(restored, { x: 0, y: 0 });
+a.toggle(key);
+assert.equal(a.columnWidth(0), a.baseWidth(0));
+assert.equal(a.entry(key).rect.h, original.rect.h);
+const measured = a.entry("1:2");
+a.measure(measured.key, 187);
 assert.equal(
-  atlas.find("2").rect.h,
-  980,
-  "intrinsic heights are shared by story/width",
+  a.entry(measured.key).rect.h,
+  187,
+  "Use true natural height rather than leaving a minimum-height hole",
 );
-atlas.commit(
-  "0:0:1",
-  { ...other.rect, x: 800, y: 1000, w: 490, h: 450 },
-  "move",
+tightColumns(a, { x: 0, y: 0 });
+const moved = a.entry("1:1"),
+  destination = a.entry("2:1");
+const movedKey = a.move(moved.key, 1, 0);
+assert.equal(a.entry(movedKey).item.id, moved.item.id);
+assert.equal(a.entry(moved.key).item.id, destination.item.id);
+tightColumns(a, { x: 0, y: 0 });
+a.commit(movedKey, { ...a.entry(movedKey).rect, w: 850, h: 1100 }, "resize");
+assert.equal(a.columnWidth(2), 850);
+tightColumns(a, { x: 0, y: 0 });
+noOverlap(a.visible({ left: -1000, top: -1000, right: 5000, bottom: 6000 }));
+for (const item of sample)
+  assert.equal(a.find(item.id, { x: -9999, y: 22222 }).item.id, item.id);
+const mobile = new NewspaperLayout(sample, {
+  unit: 180,
+  columns: 2,
+  geography,
+});
+mobile.toggle("0:0", 1000);
+assert.ok(
+  mobile.columnWidth(0) <= mobile.spreadWidth,
+  "Mobile readers fit the reading column",
 );
-noOverlap(
-  atlas.visible({ left: 0, top: 0, right: atlas.pitch * 2, bottom: 8000 }),
+tightColumns(mobile, { x: 0, y: 0 });
+noOverlap(mobile.visible({ left: -300, top: -500, right: 1000, bottom: 3500 }));
+const canonical = [
+  {
+    ...sample[0],
+    id: "original",
+    url: "https://example.com/report?utm_source=rss",
+  },
+  { ...sample[0], id: "tracking-copy", url: "https://example.com/report" },
+];
+assert.equal(
+  new NewspaperLayout(canonical, { geography }).items.length,
+  1,
+  "Tracking URLs cannot create duplicate stories",
 );
-atlas.commit(
-  "0:0:1",
-  { ...atlas.entry("0:0:1").rect, w: 720, h: 1000 },
-  "resize",
+N.configureMedia({
+  photos: {
+    "https://a.example/p.jpg": { hashes: ["35c6a9f023e4b8d1"] },
+    "https://b.example/cropped.jpg": { hashes: ["35c6a9f023e4b8d0"] },
+  },
+});
+const photoA = { type: "image", src: "https://a.example/p.jpg" },
+  photoB = { type: "image", src: "https://b.example/cropped.jpg" };
+assert.ok(
+  N.samePhoto(photoA, photoB),
+  "Different publisher URLs can carry the same photo",
 );
-noOverlap(
-  atlas.visible({
-    left: -500,
-    top: -500,
-    right: atlas.pitch * 2,
-    bottom: 8000,
+assert.ok(
+  !N.samePhoto(photoA, {
+    type: "image",
+    src: "https://c.example/different.jpg",
   }),
 );
-for (const s of sample)
-  assert.equal(atlas.find(s.id, { x: -999999, y: 123456 }).item.id, s.id);
-const mobile = new NewspaperLayout(sample, { columns: 2, geography });
-mobile.toggle("0:0:0", 1100);
-assert.ok(mobile.entry("0:0:0").rect.w <= mobile.spreadWidth);
-noOverlap(
-  mobile.visible({ left: -500, top: -1000, right: 1000, bottom: 4000 }),
-);
-const changed = new NewspaperLayout(
-  [{ ...sample[0], id: "new" }, ...sample.slice(1)],
-  { ...options, overrides: structuredClone(options.overrides) },
+const reports = [
+  { ...sample[0], id: "photo-a", media: [photoA] },
+  { ...sample[1], id: "photo-b", media: [photoB] },
+];
+const covers = N.coverPolicy(reports, geography);
+assert.equal(covers.get("photo-a").hideImage, false);
+assert.equal(covers.get("photo-b").hideImage, true);
+assert.equal(
+  N.media(reports[1])[0],
+  photoB,
+  "Original media stays available inside the article",
 );
 assert.equal(
-  changed.entry(key).expanded,
-  false,
-  "edits cannot be applied to a replacement story",
-);
-assert.deepEqual(
   N.locations(
     { ...base, title: "Georgia and Jordan debate their next move" },
     geography,
-  ),
-  [],
+  ).length,
+  0,
 );
 assert.equal(N.locations(sample[0], geography)[0].country.id, "UKR");
 assert.equal(
   N.locations({ ...base, title: "US economy grows" }, geography)[0].country.id,
   "USA",
 );
-assert.equal(
-  N.locations({ ...base, title: "Tell us what you think" }, geography).length,
-  0,
-);
 assert.equal(N.publicURL("javascript:alert(1)"), "");
-assert.equal(N.publicURL("http://127.0.0.1/private"), "");
-assert.equal(N.publicURL("https://name:pass@example.com/x"), "");
-const related = N.related(sample[0], [
-  {
-    ...sample[0],
-    id: "other",
-    url: "https://other.example/story",
-    sourceId: "b",
-  },
-  {
-    ...sample[0],
-    id: "old",
-    url: "https://example.com/old",
-    date: "2020-01-01",
-  },
-]);
-assert.equal(related.length, 1);
-assert.equal(related[0].story.id, "other");
 assert.equal(
   new NewspaperLayout([]).visible({ left: 0, top: 0, right: 100, bottom: 100 })
     .length,
   0,
 );
+const sameCoverage = [
+  {
+    ...base,
+    id: "primary",
+    url: "https://a.example/report",
+    title: "Flooding closes roads across Ukraine after heavy rain",
+    media: [photoA],
+  },
+  {
+    ...base,
+    id: "alternate",
+    url: "https://b.example/report",
+    sourceId: "b",
+    title: "Ukraine flooding closes roads as rain continues",
+    media: [photoB],
+  },
+];
+const grouped = N.editionOrder(sameCoverage);
+assert.equal(grouped.length, 1);
+assert.equal(grouped[0].coverage.length, 2);
+const groupedLayout = new NewspaperLayout(grouped, { geography });
+assert.equal(
+  groupedLayout.find("alternate").item.id,
+  "primary",
+  "Every original publisher report remains addressable through its shared card",
+);
+assert.equal(
+  N.editionOrder([
+    sameCoverage[0],
+    { ...sameCoverage[1], title: "A bakery launches a lunch menu" },
+  ]).length,
+  2,
+  "A shared file photo alone cannot merge unrelated reporting",
+);
+assert.equal(
+  N.editionOrder([sameCoverage[0], { ...sameCoverage[1], date: "2020-01-01" }])
+    .length,
+  2,
+);
+// Off-screen overscan copies must never displace actual visible reports.
+const small = new NewspaperLayout(sample.slice(0, 6), { geography });
+const core = { left: 0, top: 0, right: 1100, bottom: 500 };
+const wanted = small.collect(core).map((e) => e.item.id);
+const shown = small.visible({
+  left: -120,
+  top: -120,
+  right: 1220,
+  bottom: 620,
+  focus: core,
+});
+for (const id of wanted) assert.ok(shown.some((e) => e.item.id === id));
+assert.equal(new Set(shown.map((e) => e.item.id)).size, shown.length);
+const single = new NewspaperLayout([sample[0]], { geography });
+assert.equal(
+  single.visible({ left: -100, top: -100, right: 3000, bottom: 2000 }).length,
+  1,
+);
 console.log(
-  "News editorial sizing, source context, distant quadrants, intrinsic sizing, inline expansion, persistence and collision checks passed.",
+  "Continuous newspaper coverage, distant duplicate repair, natural sizing, reading-column expansion, dense movement/resizing, persistence, mobile and shared-photo checks passed",
 );

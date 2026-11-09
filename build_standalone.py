@@ -2,7 +2,7 @@
 Recipe/film photos and map tiles remain provider-hosted and need a connection.
 """
 from pathlib import Path
-import json, base64, mimetypes, re, os
+import json, base64, mimetypes, re, os, hashlib
 import build_spaces
 root=Path(__file__).parent;dist=root/'dist'
 browser_key=os.environ.get('GOOGLE_MAPS_BROWSER_KEY','')
@@ -18,23 +18,30 @@ corpus=json.loads((dist/'corpus.json').read_text())
 for story in corpus['stories']:
  for block in story.get('blocks',[]):
   if block.get('type')=='image' and block.get('src'):
+   block['mediaKey']=block['src']
    path=(dist/block['src']).resolve()
    if path.is_relative_to(dist.resolve()) and path.exists():
     block['src']='data:'+(mimetypes.guess_type(path.name)[0] or 'image/jpeg')+';base64,'+base64.b64encode(path.read_bytes()).decode()
-news={'geography':json.loads((dist/'news-geography.json').read_text()),'corpus':corpus,'feed':json.loads((dist/'feed.json').read_text()),'sources':json.loads((dist/'sources.json').read_text())}
+news={'mediaIndex':json.loads((dist/'news-media-index.json').read_text()),'geography':json.loads((dist/'news-geography.json').read_text()),'corpus':corpus,'feed':json.loads((dist/'feed.json').read_text()),'sources':json.loads((dist/'sources.json').read_text())}
 discovery=json.loads((dist/'discovery.json').read_text())
 routes={'index.html':'Broadsheet-preview.html',**{f'{key}.html':f'Broadsheet-{key}-preview.html' for key in ['news','recipes','places','movies']}}
 for page,dest in routes.items():
  html=(dist/page).read_text()
+ def version_asset(m):
+  base=m.group(2);path=dist/base
+  if base=='config.js' or not path.is_file():return m.group(0)
+  return m.group(1)+base+'?v='+hashlib.sha256(path.read_bytes()).hexdigest()[:12]+m.group(3)
+ html=re.sub(r'((?:src|href)=")([^"?#]+\.(?:js|css))(?:\?[^" ]*)?(")',version_asset,html)
+ (dist/page).write_text(html)
  data='window.BROADSHEET_OFFLINE=true;window.'+('BROADSHEET_DATA='+json.dumps(news) if page=='news.html' else 'BROADSHEET_DISCOVERY='+json.dumps(discovery))+';'
  html=html.replace('</head>','<script>'+data.replace('</','<\\/')+'</script></head>')
  def style(m):
   path=(dist/m.group(1)).resolve()
   assert path.is_relative_to(dist.resolve())
   return '<style>'+path.read_text()+'</style>'
- html=re.sub(r'<link\b[^>]*href="([^\"]+\.css)"[^>]*>',style,html)
+ html=re.sub(r'<link\b[^>]*href="([^\"?]+\.css)(?:\?[^\"]*)?"[^>]*>',style,html)
  def script(m):
-  attrs=m.group(1);src=m.group(2);path=(dist/src).resolve()
+  attrs=m.group(1);src=m.group(2).split('?',1)[0];path=(dist/src).resolve()
   assert path.is_relative_to(dist.resolve())
   js=path.read_text()
   if src=='config.js':js='window.BROADSHEET_CONFIG = {};'

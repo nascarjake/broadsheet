@@ -33,6 +33,7 @@ const defaults = {
   layouts: {},
   atlasLayouts: {},
   pressLayouts: {},
+  pressPins: {},
   media: "all",
   channels: [
     {
@@ -67,6 +68,7 @@ let state = structuredClone(defaults),
   nodes = new Map(),
   positions = {},
   atlas,
+  atlasKey,
   view = { x: 26, y: 18, z: 0.85 },
   toastTimer,
   editingChannel = null,
@@ -202,7 +204,7 @@ function selection() {
 }
 function layoutKey() {
   return [
-    "press-v1",
+    "press-v2",
     innerWidth <= 600 ? 2 : 6,
     state.size,
     state.sort,
@@ -235,7 +237,19 @@ function setView({
   update(true);
 }
 function rebuildAtlas() {
-  state.pressLayouts[layoutKey()] ??= {};
+  const currentKey = layoutKey(),
+    legacy = state.pressLayouts[currentKey.replace("press-v2|", "press-v1|")];
+  const fresh = !state.pressLayouts[currentKey];
+  state.pressLayouts[currentKey] ??= {};
+  state.pressPins[currentKey] ??= {};
+  if (atlas && atlasKey === currentKey)
+    for (const key of new Set([
+      ...Object.keys(canvas.instancePositions),
+      ...Object.keys(atlas.overrides),
+    ])) {
+      const entry = atlas.entry(key);
+      if (entry) state.pressPins[currentKey][key] = entry.item.id;
+    }
   atlas = new window.BroadsheetNewspaper.NewspaperLayout(
     N.editionOrder(filtered),
     {
@@ -253,9 +267,30 @@ function rebuildAtlas() {
               : 240,
       columns: innerWidth <= 600 ? 2 : 6,
       geography,
-      overrides: state.pressLayouts[layoutKey()],
+      overrides: state.pressLayouts[currentKey],
+      pins: state.pressPins[currentKey],
+      onRepair: () => {
+        clearTimeout(layoutSaveTimer);
+        layoutSaveTimer = setTimeout(persist, 350);
+      },
     },
   );
+  atlasKey = currentKey;
+  if (fresh && legacy)
+    for (const o of Object.values(legacy)) {
+      if (!o?.itemId) continue;
+      const entry = atlas.find(o.itemId);
+      if (entry) {
+        atlas.pins[entry.key] = entry.item.id;
+        atlas.overrides[entry.key] = {
+          ...o,
+          itemId: entry.item.id,
+          reportId:
+            o.reportId || (o.itemId !== entry.item.id ? o.itemId : undefined),
+        };
+      }
+    }
+  if (fresh && legacy) atlas.invalidate();
 }
 function update(reset = false) {
   filtered = M.filter(stories, selection()).filter((s) => {
@@ -308,7 +343,7 @@ function heading() {
       : "Different sources. More perspectives. A space to make your own.";
   const count = new Set(filtered.map((s) => s.sourceId)).size;
   $("#edition-status").textContent =
-    `${filtered.length} ${filtered.length === 1 ? "story" : "stories"} · ${count} ${count === 1 ? "feed" : "feeds"}${state.query ? " · matching “" + state.query + "”" : ""}`;
+    `${filtered.length} ${filtered.length === 1 ? "story" : "stories"}${atlas.items.length < filtered.length ? " · " + atlas.items.length + " cards" : ""} · ${count} ${count === 1 ? "feed" : "feeds"}${state.query ? " · matching “" + state.query + "”" : ""}`;
   $("#clear-filters").hidden = !(
     state.topics.length ||
     state.filterSources.length ||
@@ -408,6 +443,10 @@ function place(n, p) {
   n.style.height = p.h + "px";
 }
 function makeCard(s, instance) {
+  const reports = s.coverage || [s];
+  const selected = instance && atlas.overrides[instance.key]?.reportId;
+  if (instance?.expanded && selected)
+    s = reports.find((r) => r.id === selected) || s;
   const pub = source(s.sourceId),
     card = el("article", "story press-story");
   const profile = instance?.profile || N.profile(s, { geography });
@@ -416,11 +455,12 @@ function makeCard(s, instance) {
   card.style.setProperty("--headline-size", profile.headlineSize + "px");
   card.style.setProperty("--cover-height", profile.coverHeight + "px");
   card.dataset.id = s.id;
+  card.dataset.reportId = s.id;
   card.setAttribute("aria-label", s.title);
   const top = el("div", "card-top");
   const move = el("button", "move-handle", "⠿");
   move.setAttribute("aria-label", "Move article: " + s.title);
-  move.title = "Drag to reflow this spread · Arrow keys when focused";
+  move.title = "Drag to swap positions · Arrow keys when focused";
   move.onpointerdown = (e) => startGesture(e, "move", s.id);
   move.onkeydown = (e) => handleKeys(e, "move", s.id);
   top.append(avatar(pub), el("span", "card-source", pub.name));
@@ -451,10 +491,27 @@ function makeCard(s, instance) {
   const headline = el("button", "headline", s.title);
   headline.onclick = () => openReader(s, instance?.key);
   content.append(headline);
+  if (reports.length > 1) {
+    const coverage = el("section", "coverage-reports");
+    coverage.append(
+      el("span", "", `Shared photo · ${reports.length} source reports`),
+    );
+    for (const report of reports) {
+      const b = el("button", "", source(report.sourceId).name);
+      b.setAttribute(
+        "aria-label",
+        "Read " + source(report.sourceId).name + " report: " + report.title,
+      );
+      b.setAttribute("aria-pressed", String(s.id === report.id));
+      b.onclick = () => selectCoverage(report, instance?.key);
+      coverage.append(b);
+    }
+    content.append(coverage);
+  }
   if (unfolded) {
     const body = el("div", "inline-body");
     body.append(V.videos(s));
-    if (!s.blocks?.length && !profile.clip)
+    if (!s.blocks?.length && !N.media(s).some((m) => m.type === "video"))
       for (const image of N.media(s).filter((m) => m.type === "image"))
         body.append(figure(image));
     for (const b of s.blocks || []) {
@@ -508,6 +565,7 @@ function makeCard(s, instance) {
     const context = el("div", "reading-context");
     for (const label of [
       profile.clip ? "▶ Video report" : "",
+      profile.sharedPhoto ? "Photo in full story" : "",
       profile.places.length ? "◉ Regional context" : "",
       s.wordCount ? Math.ceil(s.wordCount / 220) + " min read" : "",
       N.related(s, stories, 1).length ? "Related headlines" : "",
@@ -543,7 +601,7 @@ function makeCard(s, instance) {
   save.onclick = () => toggleSaved(s);
   const resize = el("button", "resize-handle");
   resize.setAttribute("aria-label", "Resize article: " + s.title);
-  resize.title = "Drag to resize · Arrow keys when focused";
+  resize.title = "Drag to resize · neighboring columns adapt to stay full";
   resize.onpointerdown = (e) => startGesture(e, "resize", s.id);
   resize.onkeydown = (e) => handleKeys(e, "resize", s.id);
   bottom.append(read, save, resize);
@@ -566,6 +624,13 @@ const canvas = new window.BroadsheetCanvas({
   getAtlas: () => atlas,
   isActive: () => state.mode === "canvas",
   createCard: makeCard,
+  updateCard: (node, entry) => {
+    node.style.setProperty(
+      "--headline-size",
+      entry.profile.headlineSize + "px",
+    );
+    node.style.setProperty("--cover-height", entry.profile.coverHeight + "px");
+  },
   onCommit: () => persist(),
   onLayout: () => {
     clearTimeout(layoutSaveTimer);
@@ -587,8 +652,12 @@ function home() {
   const available = $("#viewport").clientWidth || $(".workspace").clientWidth;
   const height = $("#viewport").clientHeight || $(".workspace").clientHeight;
   canvas.home({
-    width: atlas.spreadWidth,
-    height: innerWidth <= 600 ? 760 : 1050,
+    width:
+      filtered.length < 10 && innerWidth > 600
+        ? atlas.width * 2 + atlas.gap
+        : atlas.spreadWidth,
+    height: filtered.length < 10 ? 420 : innerWidth <= 600 ? 760 : 1050,
+    maxZoom: filtered.length < 10 ? 1.15 : 0.85,
     availableWidth: available,
     availableHeight: height,
   });
@@ -609,15 +678,20 @@ function handleKeys(e, type, id) {
     const key = canvas.cellKey(e, id),
       entry = atlas.entry(key);
     if (!entry) return;
-    const amount = e.shiftKey ? 2 : 1,
-      rect = { ...entry.rect };
-    rect.x +=
-      (e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0) *
-      (atlas.unit + atlas.gap) *
-      amount;
-    rect.y +=
-      (e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0) * 264 * amount;
-    canvas.commit(key, rect, "move");
+    const amount = e.shiftKey ? 2 : 1;
+    const moved = atlas.move(
+      key,
+      (e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0) * amount,
+      (e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0) * amount,
+    );
+    canvas.reflow(moved);
+    persist();
+    requestAnimationFrame(() =>
+      nodes
+        .get(moved)
+        ?.querySelector(".move-handle")
+        ?.focus({ preventScroll: true }),
+    );
     return;
   }
   canvas.handleKeys(e, type, id);
@@ -644,6 +718,17 @@ function toggleSaved(s) {
     was ? "Removed from saved stories." : "Saved for later on this device.",
   );
 }
+function selectCoverage(report, key) {
+  const entry = key && atlas.entry(key);
+  if (!entry?.expanded) {
+    openReader(report, key);
+    return;
+  }
+  atlas.overrides[key].reportId = report.id;
+  canvas.invalidateItem(entry.item.id);
+  canvas.reflow(key);
+  persist();
+}
 function openReader(s, cellKey) {
   if (!filtered.some((item) => item.id === s.id)) {
     state.savedOnly = false;
@@ -669,6 +754,10 @@ function openReader(s, cellKey) {
   if (!entry) return;
   if (state.mode !== "canvas") setMode("canvas", false);
   if (explicit || !entry.expanded) {
+    if (!entry.expanded)
+      for (const [key, o] of Object.entries(atlas.overrides))
+        if (key !== entry.key && o.expanded && o.itemId === entry.item.id)
+          atlas.toggle(key);
     const width =
       viewport.clientWidth < 600
         ? Math.max(
@@ -678,8 +767,13 @@ function openReader(s, cellKey) {
         : atlas.width * 2 + atlas.gap;
     atlas.toggle(entry.key, Math.min(atlas.spreadWidth, width));
     canvas.reflow(entry.key);
-    canvas.invalidateItem(s.id);
+    canvas.invalidateItem(entry.item.id);
   }
+  const opened = atlas.overrides[entry.key];
+  if (opened?.expanded) {
+    opened.reportId = s.id;
+    canvas.invalidateItem(entry.item.id);
+  } else if (opened) delete opened.reportId;
   if (!explicit) canvas.focus(entry.key);
   if (atlas.entry(entry.key)?.expanded)
     window.BroadsheetSpaces?.record({
@@ -721,7 +815,7 @@ function setMode(mode, save = true) {
 function renderList() {
   if (state.mode !== "list") return;
   $("#list-results").replaceChildren(
-    ...filtered.map((s) => {
+    ...N.editionOrder(filtered).map((s) => {
       const row = el("article", "list-story"),
         pub = source(s.sourceId),
         meta = el("div", "list-meta");
@@ -734,7 +828,7 @@ function renderList() {
         title = el("button", "headline", s.title);
       title.onclick = () => openReader(s);
       const photo = N.media(s).find((m) => m.type === "image");
-      if (photo) {
+      if (photo && !atlas.coverPolicy.get(s.id)?.hideImage) {
         const img = el("img", "news-list-photo");
         img.src = imageURL(photo.src);
         img.alt = photo.alt || "";
@@ -743,6 +837,15 @@ function renderList() {
         content.append(img);
       }
       content.append(title, el("p", "excerpt", s.excerpt));
+      if (s.coverage?.length > 1) {
+        const group = el("div", "coverage-reports");
+        for (const report of s.coverage) {
+          const b = el("button", "", source(report.sourceId).name);
+          b.onclick = () => openReader(report);
+          group.append(b);
+        }
+        content.append(group);
+      }
       const b = el(
         "button",
         "button",
@@ -971,14 +1074,14 @@ function coverage() {
 function normalize(corpus, feed) {
   const merged = new Map();
   for (const s of feed.stories || [])
-    merged.set(s.url, {
+    merged.set(N.articleKey(s), {
       ...s,
       sourceId: s.sourceId || "nasa",
       topics: M.tags(s),
     });
   for (const s of corpus.stories || []) {
-    const previous = merged.get(s.url);
-    merged.set(s.url, {
+    const previous = merged.get(N.articleKey(s));
+    merged.set(N.articleKey(s), {
       ...previous,
       ...s,
       sourceId: "nasa",
@@ -991,10 +1094,13 @@ function normalize(corpus, feed) {
       archive: true,
     });
   }
-  for (const s of state.customStories) merged.set(s.url, s);
+  for (const s of state.customStories) merged.set(N.articleKey(s), s);
   for (const saved of state.savedStories) {
-    const latest = merged.get(saved.url);
-    merged.set(saved.url, latest ? { ...latest, id: saved.id } : saved);
+    const latest = merged.get(N.articleKey(saved));
+    merged.set(
+      N.articleKey(saved),
+      latest ? { ...latest, id: saved.id } : saved,
+    );
   }
   stories = [...merged.values()];
 }
@@ -1316,8 +1422,10 @@ $("#card-size").onchange = (e) => {
 };
 $("#arrange").onclick = () => {
   state.pressLayouts[layoutKey()] = {};
+  state.pressPins[layoutKey()] = {};
+  atlasKey = null;
   update(true);
-  toast("Stories arranged into newspaper spreads for this view.");
+  toast("Your stories are back in a compact layout.");
 };
 $("#news-media-filter").value = state.media;
 $("#news-media-filter").onchange = (e) => {
@@ -1358,21 +1466,27 @@ async function init() {
     const data =
       window.BROADSHEET_DATA ||
       (await Promise.all(
-        ["corpus.json", "feed.json", "sources.json", "news-geography.json"].map(
-          async (path) => {
-            const r = await fetch(path);
-            if (!r.ok) throw Error("Could not load " + path);
-            return r.json();
-          },
-        ),
-      ).then(([corpus, feed, sources, geography]) => ({
+        [
+          "corpus.json",
+          "feed.json",
+          "sources.json",
+          "news-geography.json",
+          "news-media-index.json",
+        ].map(async (path) => {
+          const r = await fetch(path, { cache: "no-cache" });
+          if (!r.ok) throw Error("Could not load " + path);
+          return r.json();
+        }),
+      ).then(([corpus, feed, sources, geography, mediaIndex]) => ({
         corpus,
         feed,
         sources,
         geography,
+        mediaIndex,
       })));
     geography = data.geography || { countries: [] };
     V.configure(geography);
+    N.configureMedia(data.mediaIndex);
     window._corpus = data.corpus || data;
     edition = data.feed || { stories: [] };
     catalog = [...(data.sources || []), ...state.customSources];

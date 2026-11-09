@@ -125,7 +125,7 @@
   };
   function locations(story, geography) {
     const cached = locationCache.get(story);
-    if (cached?.geography === geography) return cached.result;
+    if (cached && cached.geography === geography) return cached.result;
     if (
       story.location &&
       Number.isFinite(story.location.lat) &&
@@ -189,17 +189,28 @@
     locationCache.set(story, { geography, result });
     return result;
   }
-  function profile(story, { unit = 240, columns = 6, geography } = {}) {
+  function profile(
+    story,
+    {
+      unit = 240,
+      columns = 6,
+      geography,
+      width: fixedWidth,
+      hideImage = false,
+      hideLocator = false,
+    } = {},
+  ) {
     const cache = profileCache.get(story),
-      key = unit + ":" + columns;
-    if (cache?.geography === geography && cache.values.has(key))
+      key = [unit, columns, fixedWidth, hideImage, hideLocator].join(":");
+    if (cache && cache.geography === geography && cache.values.has(key))
       return cache.values.get(key);
     const m = media(story),
-      image = m.find((m) => m.type === "image"),
+      image = hideImage ? undefined : m.find((m) => m.type === "image"),
       clip = m.find((m) => m.type === "video"),
       places = locations(story, geography);
     const length = story.wordCount || (story.excerpt || "").split(/\s+/).length;
     const mapLead =
+      !hideLocator &&
       places.length > 0 &&
       (!image ||
         (image.width &&
@@ -217,8 +228,14 @@
           ? 1
           : 2;
     span = Math.min(columns, mapLead ? Math.max(2, span) : span);
-    const width = span * unit + (span - 1) * 18;
-    const headlineSize = span >= 3 ? 40 : span === 2 ? 29 : 22;
+    const width = fixedWidth || span * unit + (span - 1) * 18;
+    const headlineSize = fixedWidth
+      ? Math.max(24, Math.min(40, Math.round(width * 0.058)))
+      : span >= 3
+        ? 40
+        : span === 2
+          ? 29
+          : 22;
     const coverHeight = mapLead
       ? Math.min(220, width * 0.5)
       : image
@@ -246,10 +263,12 @@
         coverHeight +
         (coverHeight ? 38 : 0) +
         excerptLines * 22 +
+        (story.coverage?.length > 1 ? 80 : 0) +
         (places.length && !mapLead ? 26 : 0),
     );
     const result = {
       span,
+      sharedPhoto: hideImage,
       width,
       height: Math.max(260, height),
       headlineSize,
@@ -268,28 +287,125 @@
       places,
     };
     const record =
-      cache?.geography === geography ? cache : { geography, values: new Map() };
+      cache && cache.geography === geography
+        ? cache
+        : { geography, values: new Map() };
     record.values.set(key, result);
     profileCache.set(story, record);
     return result;
   }
-  function editionOrder(items) {
-    const remaining = new Set(items.map((s) => s.id)),
-      result = [];
-    for (const story of items) {
-      if (!remaining.has(story.id)) continue;
-      result.push(story);
-      remaining.delete(story.id);
-      for (const match of related(story, items, 3)) {
-        if (remaining.has(match.story.id)) {
-          result.push(match.story);
-          remaining.delete(match.story.id);
-        }
+  let mediaIndex = { photos: {} };
+  function configureMedia(index) {
+    mediaIndex = index || { photos: {} };
+  }
+  function articleKey(story) {
+    try {
+      const u = new URL(story.url);
+      u.hash = "";
+      for (const k of [...u.searchParams.keys()])
+        if (/^(utm_|at_|fbclid|gclid|cmp|CMP|ref$)/i.test(k))
+          u.searchParams.delete(k);
+      return u.origin + u.pathname.replace(/\/$/, "") + u.search;
+    } catch {
+      return story.id;
+    }
+  }
+  function photoKey(image) {
+    if (!image) return "";
+    try {
+      const u = new URL(
+        image.sourceUrl?.includes("/image/")
+          ? image.sourceUrl
+          : image.mediaKey || image.src,
+        "https://broadsheet.invalid/",
+      );
+      return u.origin + u.pathname;
+    } catch {
+      return image.src;
+    }
+  }
+  function photoFingerprint(image) {
+    return (
+      image?.fingerprints ||
+      mediaIndex.photos?.[image?.mediaKey || image?.src]?.hashes ||
+      []
+    );
+  }
+  function distance(a, b) {
+    let n = 0;
+    for (let i = 0; i < a.length; i++) {
+      let bits = parseInt(a[i], 16) ^ parseInt(b[i], 16);
+      while (bits) {
+        bits &= bits - 1;
+        n++;
       }
+    }
+    return n;
+  }
+  function samePhoto(a, b) {
+    if (!a || !b) return false;
+    if (photoKey(a) === photoKey(b)) return true;
+    const x = photoFingerprint(a),
+      y = photoFingerprint(b);
+    return x.some((h) =>
+      y.some((k) => h.length === 16 && k.length === 16 && distance(h, k) <= 6),
+    );
+  }
+  function coverPolicy(items, geography) {
+    const seen = [],
+      locators = new Set(),
+      policy = new Map();
+    for (const s of items) {
+      const image = media(s).find((m) => m.type === "image"),
+        hideImage = !!image && seen.some((p) => samePhoto(image, p));
+      if (image && !hideImage) seen.push(image);
+      const p = profile(s, { geography, hideImage });
+      let hideLocator = false;
+      if (p.shape === "locator") {
+        const key = p.places
+          .map((p) => p.country?.id || [p.lat, p.lon].join(","))
+          .sort()
+          .join("|");
+        hideLocator = locators.has(key);
+        if (!hideLocator) locators.add(key);
+      }
+      policy.set(s.id, { hideImage, hideLocator });
+    }
+    return policy;
+  }
+  function editionOrder(items) {
+    const result = [];
+    for (const story of new Map(
+      items.map((s) => [articleKey(s), s]),
+    ).values()) {
+      const image = media(story).find((m) => m.type === "image"),
+        tokens = new Set(words(story.title));
+      const match =
+        image &&
+        result.find((other) => {
+          const age = Math.abs(Date.parse(story.date) - Date.parse(other.date));
+          return (
+            Number.isFinite(age) &&
+            age <= 7 * 86400000 &&
+            words(other.title).filter((w) => tokens.has(w)).length >= 3 &&
+            samePhoto(
+              image,
+              media(other).find((m) => m.type === "image"),
+            )
+          );
+        });
+      if (match) {
+        if (!match.coverage) match.coverage = [{ ...match }];
+        match.coverage.push(story);
+      } else result.push({ ...story });
     }
     return result;
   }
   const api = {
+    configureMedia,
+    articleKey,
+    samePhoto,
+    coverPolicy,
     publicURL,
     media,
     words,

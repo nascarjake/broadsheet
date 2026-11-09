@@ -1,10 +1,16 @@
-import unittest,re,os,subprocess,sys
+import unittest,re,os,subprocess,sys,hashlib
 from pathlib import Path
 ROOT=Path(__file__).parents[1]
 class StructureTests(unittest.TestCase):
  def test_all_spaces_share_canvas(self):
   for name in ['news','recipes','places','movies']:
-   html=(ROOT/'dist'/f'{name}.html').read_text();self.assertIn('src="canvas.js"',html);self.assertIn('src="spatial.js"',html)
+   html=(ROOT/'dist'/f'{name}.html').read_text();self.assertRegex(html,r'src="canvas\.js(?:\?[^"]*)?"');self.assertRegex(html,r'src="spatial\.js(?:\?[^"]*)?"')
+ def test_runtime_assets_are_content_versioned(self):
+  for page in ['index','news','recipes','places','movies']:
+   for value in re.findall(r'(?:src|href)="([^" ]+\.(?:js|css)(?:\?[^" ]*)?)"',(ROOT/'dist'/f'{page}.html').read_text()):
+    if value.startswith('http') or value=='config.js':continue
+    path,query=value.split('?',1)
+    self.assertEqual(query,'v='+hashlib.sha256((ROOT/'dist'/path).read_bytes()).hexdigest()[:12])
  def test_cards_do_not_use_modal_dialogs(self):
   self.assertNotIn('id="item-dialog"',(ROOT/'space-shell.html').read_text());self.assertNotIn('id="reader-dialog"',(ROOT/'dist/news.html').read_text())
  def test_hub_local_resources_exist(self):

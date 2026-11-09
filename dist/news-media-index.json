@@ -1,0 +1,1195 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-09T08:30:16.513604+00:00",
+  "method": "64-bit perceptual DCT hashes of whole image and center crop; similarity is visual evidence only, not same-event certification. No image bytes retained.",
+  "photos": {
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/5447/live/ec9efd90-d9fa-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "64c698b4636d3993",
+        "69e996ac78503a95"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/e5f9/live/5b43f440-db76-11f1-b1f1-3be4e895d0fe.jpg": {
+      "hashes": [
+        "56a89dbec297f040",
+        "27879427a3b0356d"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3886/live/ab03aa70-db8a-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "659ce3ca09083d77",
+        "788ff3d7584c0162"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3d83/live/ef505e30-dbf8-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "60033c1e0ffee0e3",
+        "7cf40f074100f9fa"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d3d5/live/8cacf090-dbdf-11f1-b348-cb75a5659779.jpg": {
+      "hashes": [
+        "013737dc218f7e60",
+        "3b2c2bcc31945575"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d1cd/live/cc05a720-d9d5-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "4ecc54ae0554d4bd",
+        "4ecd156c2226ee9c"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/ea80/live/2b11cc30-dbbb-11f1-93e1-3b657b665bcf.png": {
+      "hashes": [
+        "6f6c36b4a4b24453",
+        "694b36a5aca56913"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d485/live/0685e840-dab9-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "054a66b99c26639f",
+        "7855261f9e287592"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/d304/live/bfc281c0-db53-11f1-98f5-8d1276fd5e57.jpg": {
+      "hashes": [
+        "33c23dc22ef08f38",
+        "30f10be746afc20e"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a65d/live/3fe15d20-da57-11f1-af22-a97b84c9ca63.jpg": {
+      "hashes": [
+        "14d93bf92592c90e",
+        "219d32bd6984db07"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/34a9/live/e340cb90-dabb-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "5b9929f30e0526f4",
+        "16997ab6091a626f"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0554/live/2786bc40-daa0-11f1-a523-f508a3e924cb.jpg": {
+      "hashes": [
+        "31c4f927d92ad4e0",
+        "38ced5219873897a"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/0b84/live/0f887590-dad0-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "658dc166cb58d332",
+        "69ccf62ad10dd429"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/97ed/live/4b09f660-da7c-11f1-a975-15a4138f9d40.jpg": {
+      "hashes": [
+        "3f928ba45a4992ad",
+        "2a93d66a9d5ab241"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/44f1/live/699ff730-daab-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "61d6b2290d5c73e1",
+        "5ce2b35d4a03327c"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/4095/live/09b20f70-da4c-11f1-ad69-611c5b2ed04a.jpg": {
+      "hashes": [
+        "75c22d58432cf1e3",
+        "3ee6191c5209fcf0"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/fdde/live/9036f7e0-da01-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "05f64ad3b06d2d85",
+        "2c2f45f4be490ac3"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/30fc/live/a92bdf90-dbbe-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "018b56cc8bd3e1ce",
+        "5b9244c595f5e9c0"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/7e6f/live/0d4d1a90-db8b-11f1-a701-fddedf244c16.jpg": {
+      "hashes": [
+        "419f3b624b13d869",
+        "549c396456b15b5a"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/b00d/live/84d82e90-dafc-11f1-a701-fddedf244c16.jpg": {
+      "hashes": [
+        "4c9a47c41637a3d9",
+        "469fecc0032ff8d0"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/354f/live/49a10e60-daba-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "63dec2e2cc881397",
+        "7684e2ecc5d6b0b0"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3fbf/live/c3a237d0-d9f1-11f1-bb10-cdca6001fbcf.jpg": {
+      "hashes": [
+        "48bf80ec950b732d",
+        "4cbe9fcd80d27029"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2521/live/6ba67640-dc03-11f1-b441-2b33b063138f.jpg": {
+      "hashes": [
+        "2bd228b3c42c33dd",
+        "51e50cbbc34e3598"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/fa4b/live/74e0bf70-dae8-11f1-93e1-3b657b665bcf.jpg": {
+      "hashes": [
+        "52121fea65e04b6d",
+        "3f3500555bed544a"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/5d01/live/81eb37e0-d877-11f1-a701-fddedf244c16.jpg": {
+      "hashes": [
+        "05f0cad9d1aab58c",
+        "057ac295fb84ae89"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/92dd/live/b21e0c00-d9ce-11f1-a701-fddedf244c16.jpg": {
+      "hashes": [
+        "49b0d18f07476e39",
+        "5ebdd8c0c0c3451f"
+      ]
+    },
+    "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/492d/live/41326240-da17-11f1-bba7-b50f1faa7672.jpg": {
+      "hashes": [
+        "11b6555668a5726d",
+        "31a66726496da749"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7527078bbb41cf17b1a35718b70ebdceeada7492/206_271_4462_3569/master/4462.jpg?width=700&quality=85&auto=format&fit=max&s=9a7f650e6ba494d56a7a03998e168b5f": {
+      "hashes": [
+        "63bdbec4d9534018",
+        "43b8a4e499d2591f"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/bcb07f839060d7b54330feb02b27ea2cae25f696/62_0_2371_1897/master/2371.jpg?width=700&quality=85&auto=format&fit=max&s=8654595ccf5516ad30142841d973f554": {
+      "hashes": [
+        "23b7e46df828062d",
+        "33b36e68581e272a"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/017bd9f3ebe11c01312f4eefff5b6fce391376f3/332_0_3320_2656/master/3320.jpg?width=700&quality=85&auto=format&fit=max&s=8a0748f8e79a98a7be3eb273d2d19b8d": {
+      "hashes": [
+        "16804911bf8b2ff3",
+        "36b059b1ba010bf7"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/ca80f1733421e850930a8c2267b7214219fef832/697_286_4649_3719/master/4649.jpg?width=700&quality=85&auto=format&fit=max&s=4b52fcd00653a4881aa4fe2b6b753875": {
+      "hashes": [
+        "63810ffc3aed3043",
+        "60910bce1fe934d3"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/22d88a4e5887695fa17d85593fd7c9e807599182/872_0_4800_3840/master/4800.jpg?width=700&quality=85&auto=format&fit=max&s=d033440f358b578a25babd142ed385e9": {
+      "hashes": [
+        "01fa6a8567916b5a",
+        "40fb4da963906a5e"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/cebae71e5fdd86b5579126f7d39addd8b86cf7f9/123_0_2842_2274/master/2842.jpg?width=700&quality=85&auto=format&fit=max&s=10ec074df5e4211e9bc79bc521c9f23c": {
+      "hashes": [
+        "61210ff3381c3e1f",
+        "603104fa3f1e370f"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/69382c7253bd848478bf7c1f031a9d97c2de58fb/333_0_3333_2667/master/3333.jpg?width=700&quality=85&auto=format&fit=max&s=99323030904fc85b3a2e09201b96bfa7": {
+      "hashes": [
+        "16588bc179bd492b",
+        "141c82e8f8abf95a"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/9998f654354c4d901763da7a8e3a1176665da648/11_5_1775_1421/master/1775.jpg?width=700&quality=85&auto=format&fit=max&s=6deb07ce42dd93b0be1263324b040140": {
+      "hashes": [
+        "7db4990d09d1cd89",
+        "39ae9b4b1a81ca4b"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/3279bdc7ce3e00c2cbd356e73e342e1cba40051e/294_0_4320_3456/master/4320.jpg?width=700&quality=85&auto=format&fit=max&s=aa5aded0512a86a940d492d73c645385": {
+      "hashes": [
+        "02436e0e5cb17767",
+        "50436f0f1eb06367"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/f6a6cae8f175168cacea46f4a86c8976eba48874/0_1_3771_3014/master/3771.jpg?width=700&quality=85&auto=format&fit=max&s=c4a6206c41d8724b516ad39cb57d0e1d": {
+      "hashes": [
+        "0c9c733333626736",
+        "0c8c733133766337"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/3fc6a5d68684a58fece0294bce9094ed76072ecd/2488_14_5430_4347/master/5430.jpg?width=700&quality=85&auto=format&fit=max&s=479082a01b7c472e474af2b77df4e1a8": {
+      "hashes": [
+        "5ffb9229b08ac0b2",
+        "5efa9508bc82eab0"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/35edbd25132584ead100a994fe3243e80a1ce3f1/0_0_4132_3306/master/4132.jpg?width=700&quality=85&auto=format&fit=max&s=3d91431bb720495dd7b81a0379fcde52": {
+      "hashes": [
+        "419cd3632c3b4a1f",
+        "6a9dd1630c3a4f0b"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7fcb32a817f834d2911af2cc72d2a3a7d313ee0e/688_0_6880_5504/master/6880.jpg?width=700&quality=85&auto=format&fit=max&s=8f3b8896357b72317e0f0e7fb8b34aac": {
+      "hashes": [
+        "1bd61d69a44da466",
+        "11d41d4ba64dac76"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/ca0da5faecb3c527577fc78ebfc856aa865bc8d6/1_0_4998_4000/master/4998.jpg?width=700&quality=85&auto=format&fit=max&s=3cc57e2df7b15ce3c153f61cbe77d785": {
+      "hashes": [
+        "309b373f9c151f80",
+        "3d9b35138e241f91"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/133fcf307a659f484d60938a125776efe501ba4e/407_0_3025_2422/master/3025.jpg?width=700&quality=85&auto=format&fit=max&s=c9b009d116ee1fdcc35377fd421c7636": {
+      "hashes": [
+        "4db9314e9bc90f30",
+        "4cbb3a4490c90f3f"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/0a251c36d8f4f67e296c116d611465daf42788cd/212_0_5048_4038/master/5048.jpg?width=700&quality=85&auto=format&fit=max&s=900fd81b41c7e274ea7f64f0bb7543ed": {
+      "hashes": [
+        "0cdb1964226f7734",
+        "0cd239f562073736"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/eb1414dc0eeede52985082395d9f3ea36f782c63/1248_827_3346_2677/master/3346.jpg?width=700&quality=85&auto=format&fit=max&s=86d85a3dfcaeabeb9b4f35fbeb3e50a0": {
+      "hashes": [
+        "2894b4de07df04e9",
+        "2abcbcd5028b25ea"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/4954ad8d5503c8161345548e255e4fdf2719dd1d/585_40_1083_867/master/1083.jpg?width=700&quality=85&auto=format&fit=max&s=c2a92e245a3be71fdb86b2473d379161": {
+      "hashes": [
+        "103be0833bd5333d",
+        "1c1af4d232d3332b"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/39f09dedf1330fa12ee7faa964b23d239dcb80af/375_0_6309_5051/master/6309.jpg?width=700&quality=85&auto=format&fit=max&s=f3792a7b0a1188934d3d64a91164e99d": {
+      "hashes": [
+        "35df982557a013b1",
+        "259f9e2912fc13a1"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/b6bb10a5926a77556033638b05990ec0f53a7b8a/524_54_1008_806/master/1008.jpg?width=700&quality=85&auto=format&fit=max&s=b7f5d0a06c028f149e1b3a609f8765ce": {
+      "hashes": [
+        "32cd9e4c4d975988",
+        "36cb864d4193d9cc"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7f8112bf9742147977087d1aca2e17658270fb08/156_0_4520_3616/master/4520.jpg?width=700&quality=85&auto=format&fit=max&s=bb4bb8b2d14faadf45d787a1a94498ad": {
+      "hashes": [
+        "15949c2bbe15837a",
+        "10979f629f25c117"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/5157f3976eae5a90891ee70050849ee9c60e26cb/540_86_2393_1914/master/2393.jpg?width=700&quality=85&auto=format&fit=max&s=c6e464e980c011e6b9a84b7512d29574": {
+      "hashes": [
+        "2c2ae65951f5526a",
+        "2e0ee45933f15564"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/df3641cd7932ef0f9d4ed70becb2641c5d68b0eb/334_0_1666_1333/master/1666.jpg?width=700&quality=85&auto=format&fit=max&s=cff7d732b2814050419ac8eabe48ac1e": {
+      "hashes": [
+        "51161673316f4f94",
+        "511596713b664b96"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/db4240edf03977a12a595754e65bb19448f4299e/368_0_3895_3116/master/3895.jpg?width=700&quality=85&auto=format&fit=max&s=c27e472a05c57e9fe5823deb9b9581bd": {
+      "hashes": [
+        "76b1d98e22552dc2",
+        "67b0d88635946ad3"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/4bbf681557c78034b1991a39bd6e7638b55750c2/500_0_5000_4000/master/5000.jpg?width=700&quality=85&auto=format&fit=max&s=5eb9dcd1b8a1350964ca76cd93bab192": {
+      "hashes": [
+        "14db93449e8da4b3",
+        "15d392649ec1e4b3"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/c89093b1bdff428195f0ad9be24f6d4eac75b842/555_286_3230_2586/master/3230.jpg?width=700&quality=85&auto=format&fit=max&s=5ddd93bfa4edf2e9347e0b35f467de4d": {
+      "hashes": [
+        "2ad58b2f5e02309f",
+        "2ed6c12e54533f81"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7eec88b1e0176fdcaf9916606ea9a1c049ff2da6/552_347_2266_1813/master/2266.jpg?width=700&quality=85&auto=format&fit=max&s=32bf07c5d2f45f0c7848a86ae00b2af7": {
+      "hashes": [
+        "59e62659661f9324",
+        "5be4257b640fb2a0"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/ba6b66a9237796408a3d132a0a8ce3e5749ed595/542_7_3957_3166/master/3957.jpg?width=700&quality=85&auto=format&fit=max&s=46e333b55f2ff4220d5bb0bed5d1d01b": {
+      "hashes": [
+        "589c7ce3a335d844",
+        "1c8d7d62823ddd44"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/e3e106cee8c7a119858472afd76f5d130e4d43b6/1722_527_3180_2545/master/3180.jpg?width=700&quality=85&auto=format&fit=max&s=b8e22b5c3cf4c074bcfda67a7e16255b": {
+      "hashes": [
+        "12edde35e1123d82",
+        "15ead52ae9162ac5"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/26ca01f978ce01c4b69b4f2cf325f6776851a3c5/750_0_3750_3000/master/3750.jpg?width=700&quality=85&auto=format&fit=max&s=0860f305045364af4c39a8fba0fb923b": {
+      "hashes": [
+        "3ba44ee10cfa216e",
+        "3aa54ff00c7e214e"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/318a7571aaf58a51d5597de23c3e8e795c29e3fa/401_226_2845_2276/master/2845.jpg?width=700&quality=85&auto=format&fit=max&s=e162effeff36edb67536b019cd518db2": {
+      "hashes": [
+        "619c94f913336996",
+        "628c84fab3336b94"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/e6ccea1df8a2ec9e0eb698cbb792c0180213d8da/0_618_1390_1111/master/1390.jpg?width=700&quality=85&auto=format&fit=max&s=0db8e7857af9b11a549011a8b6d585b1": {
+      "hashes": [
+        "1c4c6e3bb4d0683e",
+        "0cc44733b5f46e26"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/076de5bb7166059a75c6e25a62ae64a4e33e5120/0_0_6148_4919/master/6148.jpg?width=700&quality=85&auto=format&fit=max&s=d7216e84d6937cd133de0af18f0e35f8": {
+      "hashes": [
+        "1696693b15ce9962",
+        "34946b1385c59b76"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/85ebfc268b05d8953c7e260e77d281e7aeb8c85e/0_0_3588_2871/master/3588.jpg?width=700&quality=85&auto=format&fit=max&s=cb873526fa6ebe4a7f097b78ef49e8b6": {
+      "hashes": [
+        "0b989d9cf4d0d788",
+        "0398899cf4d4b3cd"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/1feda1d03fd340d455bf7e59753f9cbfd2d7b3e0/427_0_4914_3933/master/4914.jpg?width=700&quality=85&auto=format&fit=max&s=ec3aaee6bd4d95d9cb4984a549bcb064": {
+      "hashes": [
+        "3f81d47e0d1b82e8",
+        "0cb1ed670c10e3fc"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/8e775de151bb91396f2a85ea4cab2bc69dacdbd7/1001_0_5336_4269/master/5336.jpg?width=700&quality=85&auto=format&fit=max&s=89051e43390b3866a02b1ab0af2c666b": {
+      "hashes": [
+        "45cbded8674990c2",
+        "41d39f59615890d7"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/d888efd72e09e940b6f42910402b901e7730cf18/651_0_6355_5084/master/6355.jpg?width=700&quality=85&auto=format&fit=max&s=95493a38e1eea1c3428e411e5e1669f7": {
+      "hashes": [
+        "09c5b5b145325bd9",
+        "4ae5bbb2c1335298"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/64a101145ca5d68474ad33ebdc809459efe0ced4/225_0_3295_2636/master/3295.jpg?width=700&quality=85&auto=format&fit=max&s=690b6932703f80869a32961080917f12": {
+      "hashes": [
+        "4a26869f49d42bda",
+        "4f24869b68fd62d0"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/066efd5ebd16c1941181a5d4525fb02da2a33a6f/446_0_3804_3044/master/3804.jpg?width=700&quality=85&auto=format&fit=max&s=54d010735a7aed5a59e07cb40d4569d6": {
+      "hashes": [
+        "3f30524deb166323",
+        "3a3a144fdb076233"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/29cf0e38613d5172328a5e922b8a72c9980a3b77/517_0_4251_3400/master/4251.jpg?width=700&quality=85&auto=format&fit=max&s=5b1db3dcaf0fa633b2daf4352c89929f": {
+      "hashes": [
+        "06c5b35570336eb4",
+        "04cdb36278324fb5"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/06/709/0/4252/2126/644/322/60/0/0c064c3_upload-1-50n231b2z55q-unnamed.jpg": {
+      "hashes": [
+        "4a16f0028b61e7fe",
+        "5aae2aadf4527083"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/06/144/0/4619/2309/644/322/60/0/4a04eae_upload-1-vvq1g79wlrxy-068-aa-02112026-3022578-1.jpg": {
+      "hashes": [
+        "0fdea0974a34db81",
+        "54c07b94542bd0fe"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/244/0/2960/1480/644/322/60/0/7015db7_ftp-1-tnji8lqktdtu-2026-11-08t224707z-53766224-rc2yjoa9hlsg-rtrmadp-3-pope-latam-argentina.JPG": {
+      "hashes": [
+        "60033c1e1ffec0e3",
+        "7cfc0f050068f8fa"
+      ]
+    },
+    "https://img.lemde.fr/2026/10/28/1428/0/6160/3080/644/322/60/0/75e9ef9_upload-1-ihqmxs6nrfje-ll-elections-israel-eisenkot-19.jpg": {
+      "hashes": [
+        "5adf848b2f270626",
+        "14d9cada4368e565"
+      ]
+    },
+    "https://img.lemde.fr/2026/10/22/37/0/3000/1500/644/322/60/0/5397882_ftp-1-w4gcxxrbzsb2-698e9de2a1d948e89428818ca25c9f81-1-d740cce805544483b05a0183d299fc74.jpg": {
+      "hashes": [
+        "60c31fbce0303e2f",
+        "79fc1e03e1230637"
+      ]
+    },
+    "https://img.lemde.fr/2026/10/30/573/0/1252/626/644/322/60/0/0e9cfe5_upload-1-5lsx3cabbyuv-illustration-sans-titre-1.jpg": {
+      "hashes": [
+        "2fa47cd17492911b",
+        "056d29bb2eaa9e14"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/720/0/8640/4320/644/322/60/0/2be8c15_ftp-1-5yivstjiwmad-6e6efdba815f4c32bd85dc5548ddd980-0-7da0736285d2442d8bdd7734e4153e61.jpg": {
+      "hashes": [
+        "12d9c99393b69236",
+        "14999996b3a6a52d"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/663/0/7958/3979/644/322/60/0/cdfcb00_ftp-1-5zsrnpjq1bo8-df2bdc4081774d849db66acc42e31497-0-0785b20998a94af5a8cc55a2551911f9.jpg": {
+      "hashes": [
+        "03860d9f5ae37c23",
+        "3fa55e8511fc0172"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/06/688/0/8256/4128/644/322/60/0/07e19d3_upload-1-1wesgwnw39y8-000-33qf9rm.jpg": {
+      "hashes": [
+        "3bf6a01fb60c0173",
+        "30e1b75f2b4d1238"
+      ]
+    },
+    "https://img.lemde.fr/2023/11/03/433/0/5200/2600/644/322/60/0/d32ee56_1699004694966-kub2023-08c101023-dsc-4198.jpg": {
+      "hashes": [
+        "0db158938f8ca9cb",
+        "4a3e95b9d2ca48d2"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/202/0/2201/1100/644/322/60/0/507caa9_ftp-1-aj8p8en7rh5p-2026-11-08t192916z-2046916370-up1emb81hfca8-rtrmadp-3-motor-f1-brazil.JPG": {
+      "hashes": [
+        "019094576f67aba6",
+        "73b08f786070dbe0"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/348/0/4208/2104/644/322/60/0/6861549_ftp-1-gicatsng7zyh-2026-11-08t070518z-727863256-rc2ijoak2exr-rtrmadp-3-poland-shooting.JPG": {
+      "hashes": [
+        "51c9e0346d917cae",
+        "1accf72b4cb701e0"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/08/480/0/5760/2880/644/322/60/0/a62c2b5_ftp-1-hzwlallllhub-5535757-01-06.jpg": {
+      "hashes": [
+        "659cf3f2d9c18841",
+        "7f86b3a788d88458"
+      ]
+    },
+    "https://img.lemde.fr/2026/11/03/256/0/3071/1535/644/322/60/0/5d50b4d_upload-1-s0lrluhll5wa-042-millerand-5h9a6522.jpg": {
+      "hashes": [
+        "5784b2b09cfcc8e4",
+        "7ce9230e881beb4c"
+      ]
+    },
+    "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/ozone-hole-reaches-its-2026-maximum/ozone_geos5_20260918_hires.jpg?w=1440&h=1480&fit=clip&crop=faces%2Cfocalpoint": {
+      "hashes": [
+        "3a1ab469c331cfc2"
+      ]
+    },
+    "https://www.nasa.gov/wp-content/uploads/2026/11/stmd-exteriorlunarbase-hdlandscapeversion-2026-0521.png?w=2048": {
+      "hashes": [
+        "04347bc99bec1743",
+        "052f56d9b14ca879"
+      ]
+    },
+    "https://www.nasa.gov/wp-content/uploads/2026/11/moon-base-artists-concept.jpg?w=1936": {
+      "hashes": [
+        "1b251ba5b9c6720d",
+        "146a17a897c77f40"
+      ]
+    },
+    "https://www.nasa.gov/wp-content/uploads/2026/11/jsc2025e076292large.jpg?w=1920": {
+      "hashes": [
+        "11846e6fb182dadc",
+        "0ac66569a0f4d78e"
+      ]
+    },
+    "https://www.nasa.gov/wp-content/uploads/2026/11/hubble-m30-potm2610a.jpg?w=2048": {
+      "hashes": [
+        "0c7d36a248776ea4",
+        "0d3f27a64c214ee5"
+      ]
+    },
+    "https://images-assets.nasa.gov/video/KSC-20260908-MH-RCR01-0001-September_8_Swearing_In_Ceremony-M27114/KSC-20260908-MH-RCR01-0001-September_8_Swearing_In_Ceremony-M27114~large.jpg": {
+      "hashes": [
+        "500f6db49b640cdb",
+        "372449aa936d4fd0"
+      ]
+    },
+    "https://images-assets.nasa.gov/video/KSC-20260810-MH-JBS01-0001-Artemis_III_Booster_Stacking_LAC_Mated_VAB_M21897/KSC-20260810-MH-JBS01-0001-Artemis_III_Booster_Stacking_LAC_Mated_VAB_M21897~large.jpg": {
+      "hashes": [
+        "049c71738f1b7594",
+        "048e7b7981117eae"
+      ]
+    },
+    "https://images-assets.nasa.gov/video/jsc2026m000132-NASAs_SpaceX_Crew-13_Training_Resource_Reel/jsc2026m000132-NASAs_SpaceX_Crew-13_Training_Resource_Reel~large.jpg": {
+      "hashes": [
+        "1ccb952ddbc20732",
+        "0bd1b60fd0c73037"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/gettyimages-2285784039.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "189967356d653269",
+        "1c9a61296a6b3579"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/a3168552135_10.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "06f1e5da8e549962"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2025/05/STK108_EPIC_GAMES_C.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "162e0af4d98f25ac",
+        "054586e75e8728af"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/STKP210_JENSEN_HUANG_A.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "0a8674876ee3a6d1",
+        "43e62de061f1239e"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/Siri-AI-Being-invoked-3.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "3cd2834f603ab31b",
+        "2eb4d1c26c37f01a"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268408_Apple_MacBook_Air_15_M5_laptop_ADiBenedetto_0005.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "705a8ea51d587aac",
+        "7e5783a98954348e"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/IMG_0250-1.jpeg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "3c8eb239ce269926",
+        "3fc2b439c6249b26"
+      ]
+    },
+    "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/268829_The90_Gem_SVasani_0002.jpg?quality=90&strip=all&crop=0,0,100,100": {
+      "hashes": [
+        "4ee6a094035b6af9",
+        "45e43ea63112765b"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-90737843-884x648.jpg": {
+      "hashes": [
+        "0dc683d1752a9e4e",
+        "0cc5c0f17b5e8555"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/great-zimbabwe-1152x648.jpg": {
+      "hashes": [
+        "0af4dd3b5225c49a",
+        "07ead9147463cb98"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2290156853-1024x648.jpg": {
+      "hashes": [
+        "00c06e677bbd484f",
+        "35da45601d9b4dc3"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/bmjcr-2026-November-19-11-F2.large_-1152x648-1794006532.jpg": {
+      "hashes": [
+        "71a54f5a50f92187",
+        "32e853152fba54e1"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Iranian-oil-tanker-and-flag-1152x648.jpg": {
+      "hashes": [
+        "52bd09c4b96ed291",
+        "778d0ac290669d9d"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2022/08/getty-blockchain-1152x648.jpg": {
+      "hashes": [
+        "72cb23f0089c9d9d",
+        "3fd07e3d59839280"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-1498933988-1152x648.jpg": {
+      "hashes": [
+        "3ea0b4c3dac73898",
+        "03b6a4d2dbc5349a"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2303158972-1152x648.jpg": {
+      "hashes": [
+        "7ea278336881339e",
+        "20e01fbf4eda3185"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Screenshot-2026-11-06-134100-1152x648.jpg": {
+      "hashes": [
+        "0db610e8f607583f",
+        "42a50fdba4b04f39"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/sean-duffy-faa-tech-1152x648-1793989923.jpg": {
+      "hashes": [
+        "1bbbc4f49fce2008",
+        "15b4caaab5c63ec0"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Screenshot-2026-11-06-at-12.24.52-PM-1152x648.png": {
+      "hashes": [
+        "43e46cd37450c759",
+        "516c67b12f1ec01e"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Abel__Jason-1152x648.jpg": {
+      "hashes": [
+        "0487ed3c3696da4c",
+        "2eac4b232997964d"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-1363244761-1152x648.jpg": {
+      "hashes": [
+        "5bc87e84607234e7",
+        "18c805c97a362f77"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2025/03/GettyImages-2202122534-1152x648.jpg": {
+      "hashes": [
+        "01f39729d70a78a5",
+        "38b9913ab7055da8"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/gta6-1152x648.jpg": {
+      "hashes": [
+        "6d151239d656a94b",
+        "5a212d3ec5295d55"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/MacBook-Pro-closed-lid-1152x648.jpg": {
+      "hashes": [
+        "156a6d9635669568",
+        "13647b843b679859"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-2285710586-1024x648.jpg": {
+      "hashes": [
+        "139b34646d6d6466",
+        "13932c6e626a6d66"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2303012424-1152x648.jpg": {
+      "hashes": [
+        "6b95d26c0d637059",
+        "50b5ea4986643f55"
+      ]
+    },
+    "https://cdn.arstechnica.net/wp-content/uploads/2026/11/NHQ202604010115orig-1152x648-1793950034.jpg": {
+      "hashes": [
+        "4e3965ac336e9192",
+        "461e69cd3067ba86"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/3c4698d19db6f0b344d6d6cc9c68efad003ad2f5/1_1324_3319_2653/master/3319.jpg?width=700&quality=85&auto=format&fit=max&s=2b4719b2a5283a82f2ade08c77fefb79": {
+      "hashes": [
+        "21ceed68070e9cf8",
+        "6a474b6a05079edc"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/6136120a8d0892f42ff6996d89e9bfc51a9ad930/1279_0_6394_5118/master/6394.jpg?width=700&quality=85&auto=format&fit=max&s=ecc03931fda76345f705ec40c79f5c2f": {
+      "hashes": [
+        "008b7dc23fd122f9",
+        "0f8239c623d954bb"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/78be0995c439b4ef24f94b62a655a16571aeed33/659_1972_4110_3288/master/4110.jpg?width=700&quality=85&auto=format&fit=max&s=c8f46a1165aa5ffcfb0c60afd83bba9b": {
+      "hashes": [
+        "6dc38692a6c3cb86",
+        "69d18596a6c3da86"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/a201c31033583c7b8815a3f374e65bb30d87cb8b/666_0_6677_5342/master/6677.jpg?width=700&quality=85&auto=format&fit=max&s=7fe5672e445410820f4eb65cff46fddf": {
+      "hashes": [
+        "56f9132a528e9c96",
+        "45db124a508f1fb6"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/259a9b03174038c104b7033b110682316457e8bf/171_443_5163_4127/master/5163.jpg?width=700&quality=85&auto=format&fit=max&s=957ec988dd04cf64e57e7ac56159b0f9": {
+      "hashes": [
+        "549e8476e669cd18",
+        "0595ae65e76bc910"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/57ffe214ce07aef46712c8ce98e458517d64c8ec/439_446_2360_1888/master/2360.jpg?width=700&quality=85&auto=format&fit=max&s=d2278d37bacc868f41d986e9e8a9e23d": {
+      "hashes": [
+        "3c37c7c3c8d0c368",
+        "3e35c0c0d8d3c16f"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/b60f10817c0a01de638068122edaacc9e4a1eaab/163_237_4007_3205/master/4007.jpg?width=700&quality=85&auto=format&fit=max&s=aa6a07bf74e44312037b075827f25b9f": {
+      "hashes": [
+        "7e86a4d08338b1cf",
+        "5d84a6d9d03cba43"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/8824bf6a6fad011154aca3cf421e0a058a5a73f7/0_132_6438_5150/master/6438.jpg?width=700&quality=85&auto=format&fit=max&s=79d92cf04729559c4ae8cb2fc8a194e6": {
+      "hashes": [
+        "7afa307ad4068c17",
+        "7e3f7816cd058d02"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/2749104c9c31ec699d82bd4ab4a43a46173c2355/0_0_5840_4672/master/5840.jpg?width=700&quality=85&auto=format&fit=max&s=45a66865432097eef24d9075f18bd5cc": {
+      "hashes": [
+        "6f2ad05fb3d11c80",
+        "4c09d35eb3d20ef0"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/fd9763bae4f4c8ac9353ba677096e269b2472336/927_0_6679_5346/master/6679.jpg?width=700&quality=85&auto=format&fit=max&s=d12b4ef8e8ba8c24d47f850115e6dd14": {
+      "hashes": [
+        "7f9c31b09e4e8192",
+        "14bf78b88447ca96"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/d1de26602ab47c12032a6d542d9189010d7ebf00/0_0_6827_5464/master/6827.jpg?width=700&quality=85&auto=format&fit=max&s=fecf1cce9a2f10662d3790dca20e6bad": {
+      "hashes": [
+        "4df3cf01f0ccd070",
+        "49d1c109f4ccf13e"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/fe6c8f5c2dd919aaaa1851336b62af26a1a52c56/202_64_3138_2511/master/3138.jpg?width=700&quality=85&auto=format&fit=max&s=1b5dbdbbb17606bebd8d52638c4d3ee8": {
+      "hashes": [
+        "539c06b36da69f20",
+        "719c06b368a68f6c"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/bc9287e241838dafc3b79a0150ff2f54c217c3f9/56_345_2681_2143/master/2681.jpg?width=700&quality=85&auto=format&fit=max&s=3622e4d4f28f7eda41b47ec51ff97bfb": {
+      "hashes": [
+        "4fa2fab964382c61",
+        "48649eb86f1c2f68"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/3497e437da0ec500a9e6a3e6d532f87656037dfe/232_1429_3212_2570/master/3212.jpg?width=700&quality=85&auto=format&fit=max&s=96aa31306b8b304402b3a478a1ead750": {
+      "hashes": [
+        "2aaaf533a85ce0a9",
+        "6f52b132a81af1aa"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/40c3be521082e98dd5ddf567e7ee7f5c9852cdad/88_2088_3432_2746/master/3432.jpg?width=700&quality=85&auto=format&fit=max&s=922c4d663c002fc76ffd79c824af8cb8": {
+      "hashes": [
+        "69909367c4563c9e",
+        "68bc9067ce052f96"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/d4110a9e0490fbaad786a332091244af525c6389/0_6_3711_2968/master/3711.jpg?width=700&quality=85&auto=format&fit=max&s=194fc15fd75f40769f9db11eb98c6920": {
+      "hashes": [
+        "6bc1a7dc900e1bd8",
+        "7bc1a28f9c0413fa"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/1173b5ce5a1185e8df591b43b17e44129ae59a7c/0_1237_3669_2201/master/3669.jpg?width=700&quality=85&auto=format&fit=max&s=987bebe9fc59913f3368069c004a7763": {
+      "hashes": [
+        "58d6c7ac366270a3",
+        "15a5e38c2a731df0"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/ebf72336084666a35ddff72e2a2cae64d5fe0bec/0_1756_5352_3210/master/5352.jpg?width=700&quality=85&auto=format&fit=max&s=4234ec9577bfc7cefbc81421e656aa7b": {
+      "hashes": [
+        "63ce9b639ec49902",
+        "79c6907386c99ba2"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/f1208067ad45222a5150eb1e4748150d18b1f217/0_1336_3137_2509/master/3137.jpg?width=700&quality=85&auto=format&fit=max&s=27549be12684dc3be7b0588fd652b16d": {
+      "hashes": [
+        "2525aa10ed53e5cb",
+        "2f2ad0358a50efd2"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/394668d3ec1a4ecc83431d2fcbf5b4e4358eee5d/242_1546_4827_3860/master/4827.jpg?width=700&quality=85&auto=format&fit=max&s=af3f873ada3952a7b368768f27ad22f1": {
+      "hashes": [
+        "0fe438e035a571cd",
+        "017e3af129e171c9"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7af153e28f71553748ef1f55139c553962154264/51_613_3311_2647/master/3311.jpg?width=700&quality=85&auto=format&fit=max&s=0fb0526d8c2ba05f6a6f5f686c3f2502": {
+      "hashes": [
+        "3ef80cf1608ec7d0",
+        "15bc0ff07a84c1f8"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/9bb904ccf482eec3a9a6876df20c91f08a770402/229_316_4502_3601/master/4502.jpg?width=700&quality=85&auto=format&fit=max&s=41a879999863e63d81d94e3db402ef1f": {
+      "hashes": [
+        "4bfc24d36f560c0c",
+        "41fd2ef163348f08"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/97d34ef853c44f588086e0cf0288b19eefa63c79/0_1772_4480_3584/master/4480.jpg?width=700&quality=85&auto=format&fit=max&s=5d58a13f575fd3a70261ec503d3a5553": {
+      "hashes": [
+        "2b431f2a9596d60e",
+        "5a511a50b0b7f54d"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/01470964ed2269fd110506efd3840312f976b9fe/102_0_3721_2977/master/3721.jpg?width=700&quality=85&auto=format&fit=max&s=4532f62c25ae76631fb86e7522eb8088": {
+      "hashes": [
+        "66b39a49ad4c0cb3",
+        "65b29b49e94c0cb3"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/ae94ff40ffcd95d2bb4f9f0a776879a641b9cee6/0_1258_4253_3401/master/4253.jpg?width=700&quality=85&auto=format&fit=max&s=08e58db598db585f4d2a9bc462a5b0fe": {
+      "hashes": [
+        "01b34e1fe3c4e658",
+        "48b3460ef3ec6658"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/db0ea865cc8d275572b85cef76a51657ae7384e2/899_0_6677_5342/master/6677.jpg?width=700&quality=85&auto=format&fit=max&s=2f464edb648a8455f995e6a7b578a5d2": {
+      "hashes": [
+        "4eb5d2e14eca5c06",
+        "47b0f7e940d85c86"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/f5bdd3605609beccedd7aaf0061ae41ac181a4d3/0_1237_4468_3574/master/4468.jpg?width=700&quality=85&auto=format&fit=max&s=4f82aa5ebaf10f4fefa854c5a57bc402": {
+      "hashes": [
+        "3e255ad6bc912872",
+        "342d5246ae933c73"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/b619ff35a6d64dd1d3b1bdc014d77bcbd04b9608/1362_0_6830_5464/master/6830.jpg?width=700&quality=85&auto=format&fit=max&s=7236e5ad83499903783059c38f070239": {
+      "hashes": [
+        "60c853ef3d0a7705",
+        "72cc50e32d1b6725"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/7a8ae22b84d540451e9535030f30b1e31f278a57/315_0_3540_2832/master/3540.jpg?width=700&quality=85&auto=format&fit=max&s=62e67161e4b113adcd64b46c76cd484b": {
+      "hashes": [
+        "7d86f204b1253d69",
+        "7d84f405b921396b"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/8668c4117c4fc7e087f5bec05776bea711dfc54e/0_1242_3335_2667/master/3335.jpg?width=700&quality=85&auto=format&fit=max&s=ffb7b776b34e1605f9f8f12fb569e391": {
+      "hashes": [
+        "38989830c7e6c7c7",
+        "3c9c9038c3e7c3c3"
+      ]
+    },
+    "https://i.guim.co.uk/img/media/a9506e3e84936db1916877aefdfd1dff04797a5a/222_46_3693_2954/master/3693.jpg?width=700&quality=85&auto=format&fit=max&s=3be1f87208987cb32f1df9f5f267153c": {
+      "hashes": [
+        "0f02905d2f83d3be",
+        "0706b6592b93d19e"
+      ]
+    },
+    "images/corpus/eb067b01d021061c.jpg": {
+      "hashes": [
+        "4479618c79a59acd",
+        "4459798d58e99dc8"
+      ]
+    },
+    "images/corpus/30a5db10e0d01262.jpg": {
+      "hashes": [
+        "26d149b6f6418dd8",
+        "26d95924e65988dd"
+      ]
+    },
+    "images/corpus/b59fefdf3e2a3332.jpg": {
+      "hashes": [
+        "5494c4a1cef2cef0",
+        "078cc370c4baccbe"
+      ]
+    },
+    "images/corpus/565949c235b78a29.jpg": {
+      "hashes": [
+        "61f75c0ecb304d89",
+        "61f7340fc82ec646"
+      ]
+    },
+    "images/corpus/caaff4fedfa4d5df.jpg": {
+      "hashes": [
+        "41fec10a76e092ed",
+        "49f6e91076e990e8"
+      ]
+    },
+    "images/corpus/cf0a413bc6ffbd13.jpg": {
+      "hashes": [
+        "56e071528ce7719c",
+        "16ac71108c739eaf"
+      ]
+    },
+    "images/corpus/cddee6abf13ea9f3.jpg": {
+      "hashes": [
+        "544a060f3f3b61b3",
+        "6c4665463b3169b9"
+      ]
+    },
+    "images/corpus/45df513e1dda9c09.jpg": {
+      "hashes": [
+        "114a3e355adaed30",
+        "01cf2f6b1493c33c"
+      ]
+    },
+    "images/corpus/3ebb6dd95cb9e72b.jpg": {
+      "hashes": [
+        "474b3c1fcae1c1c2",
+        "61581e04c37bf8ec"
+      ]
+    },
+    "images/corpus/30dcc5caa3ff2fc5.jpg": {
+      "hashes": [
+        "4634b46bc9c843b7",
+        "612cbe5149de72b0"
+      ]
+    },
+    "images/corpus/aa7ed65c41f332b9.jpg": {
+      "hashes": [
+        "49934cd96b4b26c5",
+        "4ab24d9b555526ca"
+      ]
+    },
+    "images/corpus/5cb8d0d86cae64e9.jpg": {
+      "hashes": [
+        "0c23339c2e9c3d97",
+        "0e733c8c45cb0afc"
+      ]
+    },
+    "images/corpus/de96e0bb76072c0b.jpg": {
+      "hashes": [
+        "140a3e355adeed30",
+        "01cf2f6b1493c33c"
+      ]
+    },
+    "images/corpus/edc6d05448f8e292.jpg": {
+      "hashes": [
+        "0ee998d8f1ec6548",
+        "0ee10c99bebb6a90"
+      ]
+    },
+    "images/corpus/7e00fa4537c5ba7a.jpg": {
+      "hashes": [
+        "0c330b7cd39c2df0"
+      ]
+    },
+    "images/corpus/f0b13ef97dc7f5e6.jpg": {
+      "hashes": [
+        "63f34a74dd4d0710",
+        "61b15476dfce0314"
+      ]
+    },
+    "images/corpus/23ecdcf534d5e600.jpg": {
+      "hashes": [
+        "3a80a0555e1e57f5",
+        "159aa97a850ee13b"
+      ]
+    },
+    "images/corpus/bb5d604feffaa337.jpg": {
+      "hashes": [
+        "699aa60e823b97a9",
+        "7999e64e903187c9"
+      ]
+    },
+    "images/corpus/e32999b568958a85.jpg": {
+      "hashes": [
+        "61d078ade4616ada",
+        "21d07baed725a170"
+      ]
+    },
+    "images/corpus/fbdb941a2e7f2a68.jpg": {
+      "hashes": [
+        "0e5ab67226971653",
+        "4d54b73524958d53"
+      ]
+    },
+    "images/corpus/ed0980d2925eae31.jpg": {
+      "hashes": [
+        "413227c9c1e73772",
+        "483624dbe8e93237"
+      ]
+    },
+    "images/corpus/f51a27872022579e.jpg": {
+      "hashes": [
+        "28ab81b1d790f6b4",
+        "1093bda7ab89c24e"
+      ]
+    },
+    "images/corpus/ed30495ec9d31759.jpg": {
+      "hashes": [
+        "3fe0489c234f5a33",
+        "0aeade9f20435e31"
+      ]
+    },
+    "images/corpus/707c6357899f7883.jpg": {
+      "hashes": [
+        "0cb3b2124c5749ef",
+        "0db2b6954d725a62"
+      ]
+    },
+    "images/corpus/d0f2e63e1a9ee36d.jpg": {
+      "hashes": [
+        "199e2403cf4fa91d",
+        "188623e1d4c3f89f"
+      ]
+    },
+    "images/corpus/72bd9c473988c4f2.jpg": {
+      "hashes": [
+        "144b6b9a7b954994",
+        "2b5a549515ad5aaa"
+      ]
+    },
+    "images/corpus/4a2a22977b7ddc3a.jpg": {
+      "hashes": [
+        "35aa2a695a52f645",
+        "2aa86a4fd5b5a14a"
+      ]
+    },
+    "images/corpus/a9f7336533ca3d42.jpg": {
+      "hashes": [
+        "175a9e53c391b462",
+        "221c8675e49cbc7c"
+      ]
+    },
+    "images/corpus/2d209b119b3561d5.jpg": {
+      "hashes": [
+        "5509ee326ef1c892",
+        "0d19f2276332cd87"
+      ]
+    },
+    "images/corpus/8aa1bff74f4ca24f.jpg": {
+      "hashes": [
+        "73e86b02712e7235",
+        "73ca56717a07310b"
+      ]
+    },
+    "images/corpus/5298554e73caf185.jpg": {
+      "hashes": [
+        "6a72256fc6a13255",
+        "45752b42e2fb3560"
+      ]
+    },
+    "images/corpus/e0622b4af03a1260.jpg": {
+      "hashes": [
+        "42c125d3bfe50c5c",
+        "55ea28d0bde00e1f"
+      ]
+    },
+    "images/corpus/8e19bae22958926b.jpg": {
+      "hashes": [
+        "5669e15a36740dc9",
+        "154b685737340f4b"
+      ]
+    },
+    "images/corpus/77ae1831d3c6be99.jpg": {
+      "hashes": [
+        "49e95973f414b454",
+        "5af25a30ad15a54d"
+      ]
+    },
+    "images/corpus/dfa4b854902465eb.jpg": {
+      "hashes": [
+        "75cf417090a9d47a",
+        "2dc0c23f9ca8cf52"
+      ]
+    },
+    "images/corpus/2ebf24cdfbefeff6.jpg": {
+      "hashes": [
+        "7a37d558404b0adb",
+        "3ab6f734f048c123"
+      ]
+    },
+    "images/corpus/c51dc80571ca725c.jpg": {
+      "hashes": [
+        "4790c56538c691ef",
+        "44bdd2623fc4ba60"
+      ]
+    },
+    "images/corpus/af0d58e3d1841388.jpg": {
+      "hashes": [
+        "1236688b69b0de67",
+        "14377ec26bb4c560"
+      ]
+    },
+    "images/corpus/c018f4122275a426.jpg": {
+      "hashes": [
+        "538939858ff52686",
+        "51db38818fa526a7"
+      ]
+    },
+    "images/corpus/aa3a4471525e944a.jpg": {
+      "hashes": [
+        "70c74ef933b806c2",
+        "3cc347d9339c26d0"
+      ]
+    },
+    "images/corpus/f04691989a6dbaef.jpg": {
+      "hashes": [
+        "4a55749b8eb2b324",
+        "53cd249286b7b32c"
+      ]
+    },
+    "images/corpus/01fc9965aa0b7f5e.jpg": {
+      "hashes": [
+        "5cac527ad4720ba9",
+        "4c8ad3748f77006b"
+      ]
+    },
+    "images/corpus/1f13443479a73692.jpg": {
+      "hashes": [
+        "166ca6ad32e558ca",
+        "056e62c936e81ecd"
+      ]
+    },
+    "images/corpus/7b113b92fd606b79.jpg": {
+      "hashes": [
+        "4b1433e3b52e48bc",
+        "4c8e31f3a148d68f"
+      ]
+    },
+    "images/corpus/eb5d417632e1b473.jpg": {
+      "hashes": [
+        "5ed5103a2e907778",
+        "5ed5143a2790347e"
+      ]
+    },
+    "images/corpus/2e92fbd1282fb78a.jpg": {
+      "hashes": [
+        "4cc4c0e1acc0f57f",
+        "47c1e1e88dcccc53"
+      ]
+    },
+    "images/corpus/37392cfdb2e94432.jpg": {
+      "hashes": [
+        "14276c496b4b5b5c",
+        "1f206f585356565c"
+      ]
+    },
+    "images/corpus/66d8968b26d3b95f.jpg": {
+      "hashes": [
+        "59d7b69c2d232988",
+        "59e1b48f29326a9c"
+      ]
+    },
+    "images/corpus/27daad9139844911.jpg": {
+      "hashes": [
+        "3a1ab469c331cfc2"
+      ]
+    },
+    "images/corpus/c5cd3a3f51430353.jpg": {
+      "hashes": [
+        "2a5aaa1ce395b615"
+      ]
+    },
+    "images/corpus/9e5b35c208e31925.jpg": {
+      "hashes": [
+        "1809e4e6331bcdec",
+        "1c596ee33511c86e"
+      ]
+    },
+    "images/corpus/dc8c5a27954ef3dd.jpg": {
+      "hashes": [
+        "63cc616d4c714e69"
+      ]
+    }
+  }
+}
