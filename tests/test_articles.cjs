@@ -128,7 +128,7 @@ const assert = require("node:assert/strict");
       const target = new URL(input);
       assert.equal(target.origin, "https://content.guardianapis.com");
       assert.equal(target.searchParams.get("api-key"), key);
-      assert.equal(options.redirect, "error");
+      assert.equal(options.redirect, "manual");
       return Response.json({
         response: {
           status: "ok",
@@ -146,6 +146,68 @@ const assert = require("node:assert/strict");
     "Licensed links, notices, watermark and advertising markup remain intact",
   );
   assert.ok(!JSON.stringify(licensed).includes(key));
+  let redirects = 0;
+  const redirected = await guardianArticle(
+    guardianURL,
+    guardianPublisher,
+    key,
+    {
+      get: async (input) => {
+        const target = new URL(input);
+        assert.equal(target.searchParams.get("api-key"), key);
+        if (redirects++ === 0)
+          return new Response(null, {
+            status: 302,
+            headers: { Location: "/world/2026/nov/09/canonical-article" },
+          });
+        assert.equal(target.pathname, "/world/2026/nov/09/canonical-article");
+        assert.equal(
+          target.searchParams.get("show-fields"),
+          "body,headline,byline,wordcount",
+        );
+        return Response.json({
+          response: {
+            status: "ok",
+            content: { fields: { body: html, wordcount: "90" } },
+          },
+        });
+      },
+    },
+  );
+  assert.equal(redirected.status, "ready");
+  assert.equal(redirects, 2);
+  let rejectedCalls = 0;
+  await assert.rejects(
+    guardianArticle(guardianURL, guardianPublisher, key, {
+      get: async () => {
+        rejectedCalls++;
+        return new Response(null, {
+          status: 302,
+          headers: { Location: "https://untrusted.example/article" },
+        });
+      },
+    }),
+    /redirect failed/,
+  );
+  assert.equal(
+    rejectedCalls,
+    1,
+    "Never forward the Guardian key to another host",
+  );
+  let loops = 0;
+  await assert.rejects(
+    guardianArticle(guardianURL, guardianPublisher, key, {
+      get: async () => {
+        loops++;
+        return new Response(null, {
+          status: 302,
+          headers: { Location: "/loop" },
+        });
+      },
+    }),
+    /redirect failed/,
+  );
+  assert.equal(loops, 4);
   const client = require("../dist/article-reader.js");
   assert.throws(() =>
     client.validate({

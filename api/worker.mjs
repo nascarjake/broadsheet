@@ -139,11 +139,25 @@ export default {
           200,
           origin,
         );
-      } catch {
+      } catch (error) {
         return reply(
           {
             error:
               "The article could not be loaded. Retry or open the publisher.",
+            reason:
+              error.message === "Article response contained a credential."
+                ? "protected-media"
+                : error.message === "Guardian request failed"
+                  ? "guardian-network"
+                  : error.message === "Guardian redirect failed"
+                    ? "guardian-redirect"
+                    : error.message === "Guardian cache failed"
+                      ? "guardian-cache"
+                      : error.message === "Article too large"
+                        ? "size"
+                        : error instanceof SyntaxError
+                          ? "format"
+                          : "upstream",
           },
           503,
           origin,

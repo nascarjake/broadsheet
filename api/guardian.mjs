@@ -22,16 +22,40 @@ export async function guardianArticle(
   const cacheKey = new Request(
     "https://broadsheet-cache.invalid/guardian-article/v1" + url.pathname,
   );
-  const old = await cache?.match(cacheKey);
+  let old;
+  try {
+    old = await cache?.match(cacheKey);
+  } catch {
+    throw Error("Guardian cache failed");
+  }
   if (old) return old.json();
   const api = new URL("https://content.guardianapis.com" + url.pathname);
   api.searchParams.set("api-key", key);
   api.searchParams.set("show-fields", "body,headline,byline,wordcount");
-  const response = await get(api.href, {
-    redirect: "error",
-    headers: { Accept: "application/json" },
-    signal: AbortSignal.timeout(15000),
-  });
+  let response,
+    target = api;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      response = await get(target.href, {
+        redirect: "manual",
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(15000),
+      });
+    } catch {
+      throw Error("Guardian request failed");
+    }
+    if (response.status < 300 || response.status >= 400) break;
+    const location = response.headers.get("Location");
+    await response.body?.cancel();
+    if (!location) throw Error("Guardian redirect failed");
+    const next = new URL(location, target);
+    if (next.origin !== api.origin || next.username || next.password)
+      throw Error("Guardian redirect failed");
+    next.searchParams.set("api-key", key);
+    next.searchParams.set("show-fields", "body,headline,byline,wordcount");
+    target = next;
+    if (attempt === 3) throw Error("Guardian redirect failed");
+  }
   if (!response.ok) {
     await response.body?.cancel();
     return unavailable(
