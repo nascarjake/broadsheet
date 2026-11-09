@@ -73,7 +73,12 @@ const assert = require("node:assert/strict");
   assert.equal(res.status, 400);
   assert.equal(calls, 1);
   res = await worker.fetch(req("capabilities"), env, ctx);
-  assert.deepEqual(await res.json(), { movies: true, nowPlaying: true });
+  assert.deepEqual(await res.json(), {
+    movies: true,
+    nowPlaying: true,
+    movieDiscovery: true,
+    movieDetails: true,
+  });
   res = await worker.fetch(
     req("movies"),
     { ...env, SEARCH_LIMIT: { limit: async () => ({ success: false }) } },
@@ -93,7 +98,7 @@ const assert = require("node:assert/strict");
   await Promise.all(pending);
   res = await worker.fetch(req("movies?mode=now-playing&q=other"), env, ctx);
   assert.deepEqual((await res.json()).items, []);
-  assert.equal(calls, 3);
+  assert.equal(calls, 2); // both title filters safely share unfiltered public upstream data
   assert.equal(
     movieResponse(
       { results: [{ id: 3, title: "adult", adult: true }], total_pages: 700 },
@@ -101,6 +106,40 @@ const assert = require("node:assert/strict");
     ).next,
     null,
   );
+  // A cold, full title page plus cast checks must fit Workers Free's shared
+  // fetch/Cache API budget, even when none of its 20 details are cached.
+  let operations = 0;
+  global.caches.default = {
+    match: async () => {
+      operations++;
+    },
+    put: async () => {
+      operations++;
+    },
+  };
+  global.fetch = async (url) => {
+    operations++;
+    return new Response(
+      JSON.stringify(
+        url.includes("/search/movie")
+          ? {
+              total_pages: 2,
+              total_results: 40,
+              results: Array.from({ length: 20 }, (_, i) => ({
+                id: i + 1,
+                title: "Film " + i,
+                genre_ids: [18],
+              })),
+            }
+          : { credits: { cast: [{ id: 99 }] } },
+      ),
+    );
+  };
+  res = await worker.fetch(req("movies?mode=search&q=cold&cast=99"), env, ctx);
+  assert.equal(res.status, 200);
+  assert.equal((await res.json()).items.length, 20);
+  await Promise.all(pending);
+  assert.ok(operations <= 50, `Used ${operations} subrequests`);
   console.log(
     "Movie gateway origin restrictions, validation, pagination, private token isolation, rate limits, and cache separation passed",
   );

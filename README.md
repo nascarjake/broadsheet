@@ -1,4 +1,4 @@
-# Broadsheet / 06
+# Broadsheet / 07
 
 A modular, zoomable browser. News is one space in a larger hub for recipes, places, and movies. Each space has its own content model, filters, visual cards, layout, and saved items, with one shared endless spatial interaction engine.
 
@@ -7,9 +7,9 @@ A modular, zoomable browser. News is one space in a larger hub for recipes, plac
 Double-click **Play Broadsheet.command**, or run `python3 server.py` and open the printed URL. The hub links to four spaces:
 
 - **News:** the existing multi-source reading room, channels, RSS imports, source mix, saved articles, and in-card NASA reading. See [NEWS.md](NEWS.md).
-- **Recipes:** a photo-led mosaic, dish/ingredient search, category filters, complete sourced ingredient lists and methods, and live dish/ingredient/category searches with further result batches through TheMealDB.
-- **Places:** community map listings on a visual canvas or an actual geographic map. Use browser location or search for any city/address. Business covers use Google Street View when configured and available. Restaurant cards preview food photographs on hover or keyboard focus; illustrative food is labeled. The saved Chicago collection is only a preview; the application is not bound to Chicago.
-- **Movies:** live paginated film discovery, a retained Ghibli starter collection, and paginated TMDB title search/popular/genre/now-playing adapters when a server token is configured.
+- **Recipes:** TheMealDB’s photo collection plus the much larger Wikibooks community cookbook. Browse live recipe types, cultures, ingredients, and meal/course categories; unfold ingredients, directions, notes, and attribution in place.
+- **Places:** community map listings on a visual canvas or an actual geographic map. Use browser location or search for any city/address. Business covers use credited Wikimedia Commons photos linked to the exact venue when available; missing photos use a name tile. Street View opens only through an explicit link. Restaurant cards preview food photographs on hover or keyboard focus; illustrative food is labeled. The saved Chicago collection is only a preview; the application is not bound to Chicago.
+- **Movies:** regional theater releases by default, all-movie and streaming catalogs, genre/year/service/cast/studio/interest filters, and in-card trailers and JustWatch watch offers. A Ghibli starter collection remains selectable.
 
 **Your collection** on the hub combines saved items from every space. **Recently explored** keeps a local trail of opened items and can be cleared from the hub. Opening a saved item returns to its original space and detail view. Existing news bookmarks and channel preferences remain in the original storage namespace.
 
@@ -41,13 +41,21 @@ The optional local server retains its existing Nominatim/Overpass adapter, inclu
 
 Map listings may be incomplete or outdated; live search returns a bounded sample, not every venue. Provider failure keeps the previous collection. Venue ratings, “open now” claims, distances from an unknown location, and unverified logos are not invented. Restaurant photo previews distinguish sourced venue media from illustrative TheMealDB photos. See [SOURCES.md](SOURCES.md).
 
-### Google Street View business covers
+### Lightweight business photos
 
-The hosted site uses **Maps Embed API in Street View mode**, which Google documents as free with unlimited requests. Enable only Maps Embed API on the dedicated Google project and restrict its browser key to that API and the website's origin. GitHub Pages cross-origin requests send the origin, so the website restriction is `https://nascarjake.github.io/*`. Store this intentionally public, restricted browser key in the repository variable `GOOGLE_MAPS_BROWSER_KEY`; the Pages build writes `dist/config.js`. Server tokens must never be placed in that variable or config. [Embed usage and billing](https://developers.google.com/maps/documentation/embed/usage-and-billing), [embedding guide](https://developers.google.com/maps/documentation/embed/embedding-map).
+Cards no longer load Google panorama iframes. A bounded batch of exact OpenStreetMap IDs retrieves community photo references, or the venue's Wikidata P18 image. Wikimedia Commons supplies thumbnails and author/license/source metadata. Photo metadata is cached on this device for one day (missing photos for ten minutes), capped at 200 venue records; repeated canvas instances share the same reference and normal browser image cache. Photo coverage varies. Images are never inferred from a similar business or a chain logo. Unsupported or absent media falls back to an explicitly labeled name tile. Illustrative food remains labeled separately.
 
-Cards load lazy Google iframes with a minimum layout size of 200×200. Google controls and attribution are not cropped. Pointer events stay on the Broadsheet card so hovering previews food and clicking unfolds the card; **Open Street View** opens an interactive panorama. The nearest outdoor panorama may face away from the business entrance. Google handles coverage errors within its frame. Imagery is never cached, repackaged, or saved in exported snapshots; snapshots also strip the browser key.
+**Open Street View** opens Google explicitly. Google's Places Photo API is a separately metered product and forbids caching photo names; it has not been enabled. The existing Embed-only browser key remains restricted, but the current cards do not use it. The legacy local `/api/streetview` adapter remains optional and separately priced; no paid image API is required.
 
-The older optional local adapter remains available through `GOOGLE_MAPS_API_KEY` and `/api/streetview`. It uses the **separately priced Street View Static API**; it is not needed for the free hosted path and must not use the Embed-only browser key. It checks metadata, aims toward the business, and streams an uncached image. No paid Static API connection is required by the current application setup.
+### Movie and recipe discovery
+
+A fresh browser session lands Movies on TMDB's regional **In theaters** listing, using the selected country (US initially). This is not a local showtime or ticket feed. **All movies** and **Streaming** expose the wider catalog. Filters query TMDB across result pages: genre, year, service, subscription/free/ads/rent/buy availability, cast, production company, and interest keywords. Actor/studio/interest fields resolve actual provider IDs through explicit suggestions. Structured theater filters use a recent regional theatrical-release window; they cannot certify that a particular cinema still screens a film. Title search checks unsupported advanced constraints against each source result page instead of ignoring them. A page can have no matches while later pages remain; **Continue searching** advances it.
+
+Counts show unique items loaded versus provider-reported matches, rather than implying a 100/200-film catalog. TMDB limits a query to 500 pages (10,000 results), even if its total is larger; narrowing the filters exposes other windows of the catalog. Opening a TMDB film loads its runtime, director, cast, studios, available YouTube trailer, and watch offers for the chosen country. Trailers do not autoplay. Availability is attributed to JustWatch via TMDB and links to the supplied TMDB watch page; these are not guaranteed prices or direct service deep links.
+
+Recipes can switch between **Photo kitchen / TheMealDB** and **Community cookbook / Wikibooks**. Both paginate and support source-backed discovery. TheMealDB's lunch/dinner/snack suggestions group actual recipe categories editorially, with a visible label; no author meal assignment is invented. Wikibooks uses its native recipe, culture, and course categories (including regional subcategories), and displays provider totals. Its community recipes retain source links, contributor/CC BY-SA attribution, instructions, and notes; image rights remain linked separately. Missing recipe photos use a labeled text cover. Both catalogs are finite and source-dependent.
+
+For local access to the hosted movie features, launch with `BROADSHEET_API_BASE=https://broadsheet-catalog.nascarjake.workers.dev/ python3 server.py`. This public endpoint URL is not a credential. The local Python adapter remains available for basic movie catalogs; advanced discovery and details use the gateway.
 
 ## Live providers
 
@@ -72,13 +80,14 @@ Provider terms and image rights apply. TheMealDB development access, Ghibli meta
 - `dist/canvas.js`: shared canvas virtualization, in-place height measurement, zoom/pan/pinch, focus, and pointer/keyboard move/resize. Used by **all four spaces**, including News.
 - `dist/spaces.js`: domain registry, filtering, mosaic placement, independent storage keys, shared collection, and recent-item records.
 - `dist/browse.js`: common visual-space controller with recipe/place/film card and detail renderers.
-- `dist/live.js`: browser-side live catalogs, pagination, recipe hydration, and free Street View embed URLs.
+- `dist/live.js`: browser-side recipe catalogs, cookbook hydration, pagination, nearby places, and attributed venue-photo metadata.
+- `dist/facets.js`, `dist/discovery.css`: source-aware discovery controls, trailers, watch offers, and photo fallbacks.
 - `dist/config.js`: generated public configuration; no server tokens.
 - `space-shell.html` → `build_spaces.py`: one HTML shell generates `recipes.html`, `places.html`, and `movies.html`.
 - `dist/index.html`, `dist/hub.js`: hub and cross-space saved collection.
 - `dist/news.html`, `dist/app.js`, `dist/model.js`: retained News domain and its reader-specific behavior.
 - `providers.py`: server adapters and development-time starter collection capture.
-- `api/worker.mjs`, `api/wrangler.jsonc`: read-only TMDB gateway, with server-side token, fixed upstream, per-IP rate limit, CORS allowlist, and public-metadata cache. The hosted site connects through `BROADSHEET_API_BASE`. Deploy only with the verified personal profile. The current deployment uses Workers Free and its built-in CPU limit; a custom `limits.cpu_ms` setting requires a paid plan and is deliberately omitted. No subscription change is performed by this repository. Free request allowances are shared with the account's other Workers; requests stop when that allowance is exhausted.
+- `api/worker.mjs`, `api/movies.mjs`, `api/wrangler.jsonc`: read-only TMDB gateway, with server-side token, fixed upstream, per-IP rate limit, CORS allowlist, and public-metadata cache. The hosted site connects through `BROADSHEET_API_BASE`. Deploy only with the verified personal profile. The current deployment uses Workers Free and its built-in CPU limit; a custom `limits.cpu_ms` setting requires a paid plan and is deliberately omitted. No subscription change is performed by this repository. Free request allowances are shared with the account's other Workers; requests stop when that allowance is exhausted.
 - `streetview.py`: metadata-first, uncached Google Street View image delivery.
 - `dist/discovery.json`: attributed starter data; recipe/film images remain provider-hosted.
 
@@ -98,7 +107,7 @@ node --check dist/hub.js
 
 `npm test` runs 43 Python tests plus JavaScript checks for news filtering, domain filtering and ingredient search, storage isolation, non-overlapping mosaics, canvas virtualization, zoom anchors, keyboard movement/resizing, focus, and cleanup. Endless-grid tests cover distant quadrants, negative coordinates, multiple open panels, collision-free span packing, persistence, and source-identity changes. Provider tests cover global coordinate search, city changes, invalid coordinates, API boundaries, caching, attribution, and explicit missing movie credentials. `tests/ui.cjs` remains an optional Playwright News smoke test; Playwright is not a runtime dependency.
 
-Desktop/mobile browser QA covers hub navigation, recipe details and live search, movie genre filtering, cross-space saved items, map markers/tiles, and canvas controls. The current correction was browser-checked for inline expansion in all four modules, far panning past every former edge, continued reading inside the world, and reopening after virtual unmount. Live map lookup has been intermittent in this environment; the previous collection is retained on failure. Actual permission-granted geolocation and physical touch pinch require checking on the user's browser/device. Live now-playing and Google Street View imagery cannot be verified without their configured provider credentials.
+Desktop/mobile browser QA covers hub navigation, recipe details and live search, movie genre filtering, cross-space saved items, map markers/tiles, and canvas controls. The current correction was browser-checked for inline expansion in all four modules, far panning past every former edge, continued reading inside the world, and reopening after virtual unmount. Live map lookup has been intermittent in this environment; the previous collection is retained on failure. Actual permission-granted geolocation and physical touch pinch require checking on the user's browser/device. Live theater results, combined streaming/year/genre filters, cast lookup, trailers/watch offers, Wikibooks pagination and in-place recipe parsing, and exact-venue photo retrieval were verified against live sources. Geographic permission and physical touch still require device validation.
 
 ## Captured editions and hosting
 
@@ -108,4 +117,4 @@ Desktop/mobile browser QA covers hub navigation, recipe details and live search,
 - `Broadsheet-news-preview.html` — retained fully embedded NASA/news reader.
 - `Broadsheet-recipes-preview.html`, `Broadsheet-places-preview.html`, `Broadsheet-movies-preview.html` — self-contained application/data shells; remote photos and map tiles still need a connection.
 
-The existing GitHub Pages deployment can serve the static `dist/` hub and spaces, but cannot execute the local Python APIs. Live recipes, Wikipedia film discovery, city/nearby place lookup, and free Google Street View embeds work directly from the hosted site. TMDB requires its private server token through the optional gateway. The starter collections and saved browsing remain available.
+The existing GitHub Pages deployment can serve the static `dist/` hub and spaces, but cannot execute the local Python APIs. Live recipe sources, fallback Wikipedia film discovery, city/nearby place lookup, and open-source business photo discovery work directly from the hosted site. TMDB requires its private server token through the optional gateway. The starter collections and saved browsing remain available.

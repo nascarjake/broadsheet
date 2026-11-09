@@ -1,7 +1,7 @@
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
-import json, os, time, threading
+import json, os, time, threading, re
 from feed import refresh
 import providers
 import streetview
@@ -17,7 +17,10 @@ def load_local_settings(path=None):
 load_local_settings()
 def public_configuration():
  key=os.environ.get('GOOGLE_MAPS_BROWSER_KEY')
- return {'googleMapsBrowserKey':key} if key else {}
+ result={'googleMapsBrowserKey':key} if key else {}
+ api=os.environ.get('BROADSHEET_API_BASE','')
+ if re.fullmatch(r'https://[A-Za-z0-9.-]+\.workers\.dev/?',api):result['apiBase']=api.rstrip('/')+'/'
+ return result
 ROOT=Path(__file__).parent/'dist'; lock=threading.Lock(); last=0
 class Handler(SimpleHTTPRequestHandler):
  def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)

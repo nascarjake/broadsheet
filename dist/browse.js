@@ -27,7 +27,65 @@ const stored = S.load(id),
     atlasLayouts: stored.atlasLayouts || {},
     atlasPins: stored.atlasPins || {},
     cameras: stored.cameras || {},
+    movie: {
+      region: "US",
+      mode: "now-playing",
+      year: "",
+      provider: "",
+      availability: "all",
+      cast: "",
+      company: "",
+      keyword: "",
+      order: "popularity.desc",
+      ...stored.movie,
+    },
+    recipe: { source: "photo", cuisine: "All", meal: "All", ...stored.recipe },
   };
+if (id === "movies" && !stored.movie) {
+  state.query = "";
+  state.filter = "All";
+  state.data = null;
+  state.liveCatalog = true;
+}
+if (
+  id === "movies" &&
+  !new URLSearchParams(location.search).has("focus") &&
+  !new URLSearchParams(location.search).has("saved")
+) {
+  try {
+    if (!sessionStorage.getItem("broadsheet.movies.visited")) {
+      state.movie = {
+        ...state.movie,
+        mode: "now-playing",
+        year: "",
+        provider: "",
+        availability: "all",
+        cast: "",
+        company: "",
+        keyword: "",
+      };
+      state.query = "";
+      state.filter = "All";
+      state.data = null;
+      state.liveCatalog = true;
+      state.savedOnly = false;
+      sessionStorage.setItem("broadsheet.movies.visited", "1");
+    }
+  } catch {}
+}
+if (window.BROADSHEET_OFFLINE) {
+  state.liveCatalog = false;
+  state.data = null;
+  state.query = "";
+  state.filter = "All";
+  state.recipe = {
+    source: "photo",
+    category: "All",
+    cuisine: "All",
+    meal: "All",
+  };
+}
+let facets;
 let bundle = {},
   base = {},
   items = [],
@@ -57,6 +115,9 @@ const key = () =>
     state.query.trim(),
     state.data?.provider || "",
     ...(id === "places" ? [state.data?.city || "preview"] : []),
+    ...(id !== "places"
+      ? [JSON.stringify(id === "movies" ? state.movie : state.recipe)]
+      : []),
   ].join("|");
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -81,6 +142,7 @@ function imageURL(s) {
         "themealdb.com",
         "image.tmdb.org",
         "upload.wikimedia.org",
+        "thumb.wikimedia.org",
         "images.unsplash.com",
       ].includes(u.hostname)
       ? u.href
@@ -122,7 +184,11 @@ function saved(item) {
   return state.saved.some((s) => s.id === item.id);
 }
 function mergeItems() {
-  const source = state.data?.items ? state.data : base;
+  const source = state.data?.items
+    ? state.data
+    : id === "movies" && state.liveCatalog && !state.savedOnly
+      ? { items: [], note: "Connecting to current movie listings…" }
+      : base;
   const merged = new Map(source.items.map((s) => [s.id, s]));
   if (state.savedOnly)
     for (const s of state.saved) if (!merged.has(s.id)) merged.set(s.id, s);
@@ -144,10 +210,24 @@ function changeFilter(filter) {
     });
 }
 function filterOptions() {
+  if (id === "recipes")
+    return [
+      ...new Set([
+        "All",
+        ...(facets?.genres?.length
+          ? facets.genres
+          : state.recipe.source === "cookbook"
+            ? []
+            : space.filters),
+      ]),
+    ];
+  if (id === "movies" && capabilities.movies)
+    return [...new Set(["All", ...space.filters, ...(facets?.genres || [])])];
   return [
     ...new Set(
       [
         ...space.filters,
+        ...(facets?.genres || []),
         ...items.flatMap((i) => [
           i.category,
           ...(id === "movies" ? i.tags : []),
@@ -157,6 +237,7 @@ function filterOptions() {
   ];
 }
 function controls() {
+  facets?.sync?.();
   const options = filterOptions();
   for (const selector of ["#filter-pills", "#side-filters"])
     $(selector).replaceChildren(
@@ -178,16 +259,58 @@ function controls() {
   $("#saved-count").textContent = state.saved.length;
   $("#item-count").textContent = items.length;
   $("#clear-space").hidden =
-    state.filter === "All" && !state.query && !state.savedOnly;
+    state.filter === "All" &&
+    !state.query &&
+    !state.savedOnly &&
+    (id !== "recipes" ||
+      (state.recipe.cuisine === "All" && state.recipe.meal === "All")) &&
+    (id !== "movies" ||
+      (!["year", "provider", "cast", "company", "keyword"].some(
+        (k) => state.movie[k],
+      ) &&
+        state.movie.availability === "all"));
   $("#collection-mode").classList.toggle("active", !state.liveCatalog);
   $("#live-catalog").classList.toggle(
     "active",
-    state.liveCatalog && state.data?.catalog !== "now-playing",
+    state.liveCatalog &&
+      (state.query || ["popular", "search"].includes(state.movie.mode)),
   );
   $("#now-playing").classList.toggle(
     "active",
-    state.data?.catalog === "now-playing",
+    state.liveCatalog && !state.query && state.movie.mode === "now-playing",
   );
+  $("#streaming-mode").classList.toggle(
+    "active",
+    state.liveCatalog && state.movie.mode === "streaming",
+  );
+  if (id === "movies")
+    $("#space-eyebrow").textContent =
+      (state.query
+        ? "TITLE SEARCH"
+        : !state.liveCatalog
+          ? "STARTER COLLECTION"
+          : {
+              "now-playing": "IN THEATERS",
+              streaming: "STREAMING",
+              popular: "ALL MOVIES",
+              search: "TITLE SEARCH",
+            }[state.movie.mode]) +
+      " · " +
+      (state.liveCatalog && !state.query && state.movie.mode === "popular"
+        ? "GLOBAL"
+        : state.movie.region);
+  if (id === "recipes")
+    $("#space-eyebrow").textContent =
+      (state.recipe.cuisine === "All" ? "ALL CULTURES" : state.recipe.cuisine) +
+      " · " +
+      (state.recipe.meal === "All"
+        ? "ANY MEAL"
+        : state.recipe.meal + " INSPIRATION");
+  if (id === "recipes")
+    $("#space-eyebrow").textContent =
+      (state.recipe.source === "cookbook"
+        ? "COMMUNITY COOKBOOK · "
+        : "PHOTO KITCHEN · ") + $("#space-eyebrow").textContent;
   $("#load-more").hidden = state.savedOnly || !state.data?.next;
   $("#refresh-catalog").hidden =
     id === "places" || !state.liveCatalog || state.savedOnly;
@@ -197,7 +320,8 @@ function update(reset = false) {
   const remoteMatched =
     state.data?.live &&
     state.data.query === state.query.trim() &&
-    state.data.filter === state.filter;
+    state.data.filter === state.filter &&
+    (id === "places" || state.data.facetKey === facets?.key());
   visible = S.filter(
     items,
     remoteMatched ? { ...state, query: "", filter: "All" } : state,
@@ -235,12 +359,17 @@ function update(reset = false) {
   $("#collection-note").title = data.collectedAt
     ? "Collected " + new Date(data.collectedAt).toLocaleString()
     : "";
-  $("#no-results").hidden = visible.length > 0;
-  $("#no-results-text").textContent = state.savedOnly
-    ? "Save a few favorites with the heart to find them here."
-    : id === "recipes"
-      ? "Try another ingredient, dish name, or category. Live search checks the recipe catalog."
-      : "Try another search or category.";
+  $("#no-results").hidden =
+    visible.length > 0 || (id === "movies" && state.liveCatalog && !state.data);
+  $("#continue-results").hidden = visible.length > 0 || !state.data?.next;
+  $("#no-results-text").textContent =
+    !visible.length && state.data?.next
+      ? "No matches on this page. More source results remain; continue searching the next page."
+      : state.savedOnly
+        ? "Save a few favorites with the heart to find them here."
+        : id === "recipes"
+          ? "Try another ingredient, dish name, or category. Live search checks the recipe catalog."
+          : "Try another search or category.";
   if (reset) {
     const camera = state.cameras[key()];
     if (
@@ -258,7 +387,7 @@ function update(reset = false) {
 function renderResultStatus() {
   const data = state.data;
   $("#result-status").textContent =
-    `${visible.length} ${space.noun}${data?.live && !state.savedOnly ? " loaded" : ""}${data?.total && !state.savedOnly ? " of " + data.total : ""}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}`;
+    `${visible.length} ${space.noun}${data?.live && !state.savedOnly ? " loaded" : ""}${data?.total && !state.savedOnly ? " of " + data.total.toLocaleString() + " matching" : ""}${state.filter !== "All" ? " · " + state.filter : ""}${state.savedOnly ? " · saved" : ""}`;
 }
 function home() {
   const factor =
@@ -269,8 +398,7 @@ function home() {
     maxZoom: 0.92,
     availableWidth: $(".space-workspace").clientWidth,
     availableHeight:
-      $("#space-viewport").clientHeight ||
-      $(".space-workspace").clientHeight,
+      $("#space-viewport").clientHeight || $(".space-workspace").clientHeight,
   });
 }
 function saveItem(item) {
@@ -308,46 +436,60 @@ function gallery(item) {
   };
 }
 function businessPhoto(item, cls = "") {
-  const browserKey = window.BROADSHEET_CONFIG?.googleMapsBrowserKey;
-  const connected = capabilities.streetView || !!browserKey;
   const cover = el("div", "venue-static " + cls),
-    placeholder = el(
-      "span",
-      "streetview-placeholder",
-      connected ? "Street View unavailable" : "Street View not connected",
-    );
-  cover.append(placeholder);
-  if (
-    connected &&
-    Number.isFinite(item.lat) &&
-    Number.isFinite(item.lon) &&
-    !window.BROADSHEET_OFFLINE
-  ) {
-    if (browserKey) {
-      const frame = el("iframe", "streetview-embed");
-      frame.title = "Google Street View near " + item.title;
-      frame.loading = "lazy";
-      frame.tabIndex = -1;
-      frame.referrerPolicy = "strict-origin-when-cross-origin";
-      frame.src = Live.streetViewURL(browserKey, item);
-      frame.onload = () => (placeholder.hidden = true);
-      cover.append(frame);
-      return cover;
-    }
-    const img = el("img", "streetview-photo");
-    img.alt = "Google Street View near " + item.title;
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.src =
-      "api/streetview?" + new URLSearchParams({ lat: item.lat, lon: item.lon });
-    img.onload = () => (placeholder.hidden = true);
+    picture = item.venuePhoto;
+  const fallback = el("span", "venue-monogram");
+  fallback.append(
+    el(
+      "b",
+      "",
+      item.title
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((w) => w[0])
+        .join(""),
+    ),
+    el("small", "", item.category + " · photo not supplied"),
+  );
+  cover.append(fallback);
+  if (picture?.url) {
+    const img = photo(
+        picture.url,
+        item.title + " — business photograph",
+        "business-photo",
+      ),
+      credit = el(
+        "span",
+        "business-photo-credit",
+        [picture.credit, picture.license].filter(Boolean).join(" · "),
+      );
+    img.onload = () => {
+      fallback.hidden = true;
+    };
     img.onerror = () => {
       img.hidden = true;
-      placeholder.textContent = "Street View unavailable here";
+      credit.hidden = true;
+      fallback.hidden = false;
     };
-    cover.append(img);
+    cover.append(img, credit);
   }
   return cover;
+}
+async function enrichVenuePhotos(collection) {
+  if (window.BROADSHEET_OFFLINE) return;
+  try {
+    const photos = await Live.venuePhotos(collection.items || []);
+    for (const item of collection.items || [])
+      if (photos[item.id]) {
+        item.venuePhoto = photos[item.id];
+        for (const saved of [...state.saved, ...items])
+          if (saved.id === item.id) saved.venuePhoto = item.venuePhoto;
+        if (visible.some((record) => record.id === item.id))
+          canvas.invalidateItem(item.id);
+      }
+    persist();
+  } catch {} // Missing community photos do not block browsing.
 }
 function makeCard(item, instance) {
   if (instance?.expanded) return expandedCard(item, instance);
@@ -397,6 +539,15 @@ function makeCard(item, instance) {
       );
   } else {
     imageButton.append(photo(item.image, item.title));
+    if (id === "recipes" && !item.image) {
+      const fallback = el("span", "recipe-text-cover");
+      fallback.append(
+        el("b", "", "✳"),
+        el("span", "", item.title),
+        el("small", "", "Community recipe · no photo supplied"),
+      );
+      imageButton.append(fallback);
+    }
     if (id === "recipes")
       imageButton.append(
         el("span", "photo-badge", item.cuisine || item.category),
@@ -548,6 +699,10 @@ function fillDetails(item, root) {
           encodeURIComponent(item.lat + "," + item.lon),
       ),
     );
+    if (item.venuePhoto?.sourceUrl)
+      actions.append(
+        link("Business photo source & license ↗", item.venuePhoto.sourceUrl),
+      );
     actions.append(
       link(
         "Open Street View ↗",
@@ -559,6 +714,8 @@ function fillDetails(item, root) {
   }
   content.append(actions);
   if (id === "recipes") {
+    if (item.source === "Wikibooks Cookbook" && item.description)
+      content.append(el("p", "description", item.description));
     if (item.needsDetails) {
       const retry = el(
         "button",
@@ -594,22 +751,138 @@ function fillDetails(item, root) {
     cols.append(ingredients, method);
     cols.hidden = !!item.needsDetails;
     content.append(cols);
+    if (item.recipeNotes?.length)
+      content.append(
+        el("h3", "", "Notes from the recipe"),
+        ...item.recipeNotes.map((note) => el("p", "", note)),
+      );
     if (item.video)
       content.append(link("Watch the recipe video ↗", item.video));
-  } else if (id === "movies")
+  } else if (id === "movies") {
+    content.append(el("p", "description", item.description));
+    if (item.source === "TMDB") {
+      if (
+        item.needsMovieDetails !== false ||
+        item.watch?.region !== state.movie.region
+      ) {
+        const retry = el(
+          "button",
+          "link-button",
+          detailRequests.has(item.id + "|" + state.movie.region)
+            ? "Loading trailer and watch options…"
+            : "Load trailer and watch options ↻",
+        );
+        retry.onclick = () => hydrateMovie(item);
+        content.append(retry);
+      } else if (item.trailer) {
+        const frame = el("iframe", "movie-trailer");
+        frame.title = item.title + " — " + item.trailer.name;
+        frame.src =
+          "https://www.youtube-nocookie.com/embed/" + item.trailer.key;
+        frame.loading = "lazy";
+        frame.allow = "encrypted-media; picture-in-picture; fullscreen";
+        frame.allowFullscreen = true;
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        content.append(
+          frame,
+          link(
+            "Watch trailer on YouTube ↗",
+            "https://www.youtube.com/watch?v=" + item.trailer.key,
+          ),
+        );
+      } else
+        content.append(
+          link(
+            "Find trailers on YouTube ↗",
+            "https://www.youtube.com/results?search_query=" +
+              encodeURIComponent(
+                item.title + " " + item.year + " official trailer",
+              ),
+          ),
+        );
+      if (item.watch?.region === state.movie.region) {
+        const watch = el("section", "watch-section");
+        watch.append(el("h3", "", "Where to watch · " + item.watch.region));
+        let offers = 0;
+        for (const [type, label] of [
+          ["flatrate", "Included with subscription"],
+          ["free", "Free"],
+          ["ads", "Free with ads"],
+          ["rent", "Rent"],
+          ["buy", "Buy"],
+        ]) {
+          const providers = item.watch.groups[type] || [];
+          if (!providers.length) continue;
+          offers += providers.length;
+          const group = el("div", "watch-group");
+          group.append(el("strong", "", label));
+          for (const provider of providers) {
+            const badge = el("span", "watch-service");
+            if (provider.logo) badge.append(photo(provider.logo, ""));
+            badge.append(document.createTextNode(provider.name));
+            group.append(badge);
+          }
+          watch.append(group);
+        }
+        if (!offers)
+          watch.append(
+            el(
+              "p",
+              "",
+              "No streaming offers are listed for this country. This does not confirm that the film is unavailable everywhere.",
+            ),
+          );
+        watch.append(
+          link("Check watch options ↗", item.watch.url),
+          el(
+            "p",
+            "source-note",
+            "Availability data: JustWatch via TMDB · " +
+              item.watch.region +
+              " · checked " +
+              new Date(item.watch.checkedAt).toLocaleDateString() +
+              ". Offers can change.",
+          ),
+        );
+        content.append(watch);
+      }
+      const people = el("section", "movie-people");
+      for (const [field, title, rows] of [
+        ["cast", "Cast", item.cast],
+        ["company", "Studios", item.studios],
+      ]) {
+        if (!rows?.length) continue;
+        people.append(el("h3", "", title));
+        for (const person of rows) {
+          const button = el("button", "", person.name);
+          if (person.character)
+            button.append(el("small", "", person.character));
+          button.onclick = () => {
+            state.movie[field] = String(person.id);
+            state.movie[field + "Name"] = person.name;
+            state.movie.mode = "popular";
+            state.query = "";
+            $("#space-search").value = "";
+            state.liveCatalog = true;
+            state.savedOnly = false;
+            update(true);
+            queueCatalogSearch(0);
+          };
+          people.append(button);
+        }
+      }
+      content.append(people);
+    }
     content.append(
-      el("p", "description", item.description),
       el(
         "p",
         "small",
-        item.catalog === "Now playing"
-          ? "Cinema availability is regional and can change. This is a provider listing, not a showtime or ticket offer."
-          : item.source === "Wikipedia"
-            ? "Live film discovery from Wikipedia; this is not a cinema availability listing."
-            : "This is a curated film collection, not a list of films currently in theaters.",
+        item.source === "TMDB"
+          ? "Theater releases and watch availability are regional. These are not local showtimes or guaranteed subscription offers."
+          : "This source does not supply cinema or streaming availability.",
       ),
     );
-  else {
+  } else {
     const facts = el("dl", "place-facts");
     for (const [label, value] of [
       ["Address", item.address || "Not supplied by the map contributor"],
@@ -655,10 +928,7 @@ function fillDetails(item, root) {
   if (item.textLicense) {
     const credit = el("p", "source-note", item.textLicense + " · ");
     credit.append(
-      link(
-        "Text license ↗",
-        "https://creativecommons.org/licenses/by-sa/4.0/",
-      ),
+      link("Text license ↗", "https://creativecommons.org/licenses/by-sa/4.0/"),
     );
     content.append(credit);
   }
@@ -669,6 +939,14 @@ function fillDetails(item, root) {
   root.append(content);
 }
 function expandedCard(item, instance) {
+  if (
+    id === "movies" &&
+    capabilities.movieDetails &&
+    /^tmdb-\d+$/.test(item.id) &&
+    (item.needsMovieDetails !== false ||
+      item.watch?.region !== state.movie.region)
+  )
+    void hydrateMovie(item);
   const card = el(
     "article",
     "visual-card expanded-card " +
@@ -729,6 +1007,13 @@ function openDetails(item, cellKey) {
   if (atlas.entry(entry.key)?.expanded) {
     S.record(item);
     if (item.needsDetails) hydrateRecipe(item);
+    if (
+      id === "movies" &&
+      /^tmdb-\d+$/.test(item.id) &&
+      (item.needsMovieDetails !== false ||
+        item.watch?.region !== state.movie.region)
+    )
+      hydrateMovie(item);
   }
   persist();
 }
@@ -922,7 +1207,8 @@ function exploreAsYouWander(view) {
     catalogBusy ||
     window.BROADSHEET_OFFLINE ||
     state.data.query !== state.query.trim() ||
-    state.data.filter !== state.filter
+    state.data.filter !== state.filter ||
+    state.data.facetKey !== facets?.key()
   )
     return;
   const distance = Math.hypot(
@@ -939,7 +1225,7 @@ function exploreAsYouWander(view) {
 }
 async function loadCatalog({
   append = false,
-  catalog = "all",
+  catalog = id === "movies" ? state.movie.mode : "all",
   refresh = false,
 } = {}) {
   if (window.BROADSHEET_OFFLINE) {
@@ -950,7 +1236,8 @@ async function loadCatalog({
   if (
     append &&
     (state.data.query !== state.query.trim() ||
-      state.data.filter !== state.filter)
+      state.data.filter !== state.filter ||
+      state.data.facetKey !== facets?.key())
   )
     append = false;
   clearTimeout(searchTimer);
@@ -960,6 +1247,7 @@ async function loadCatalog({
   catalogBusy = true;
   const controller = (catalogController = new AbortController());
   const timeout = setTimeout(() => controller.abort(), 30000);
+  const facetKey = facets?.key();
   const query = state.query.trim(),
     filter = state.filter;
   const previous = state.data;
@@ -977,23 +1265,19 @@ async function loadCatalog({
       data = await Live.recipes({
         query,
         category: filter,
+        ...state.recipe,
         cursor,
         signal: controller.signal,
       });
     else if (capabilities.movies) {
-      const mode =
-        catalog === "now-playing"
-          ? "now-playing"
-          : query
-            ? "search"
-            : "popular";
+      const mode = query ? "search" : catalog;
       data = await request(
         "api/movies?" +
           new URLSearchParams({
             q: query,
             genre: filter,
+            ...facets.params(),
             mode,
-            region: "US",
             page: cursor?.page || 1,
           }),
         { signal: controller.signal },
@@ -1011,12 +1295,14 @@ async function loadCatalog({
       });
     }
     if (revision !== searchRevision) return;
+    data.facetKey = facetKey;
     const refreshSameView =
       refresh &&
       previous?.live &&
       previous.query === query &&
       previous.filter === filter &&
-      previous.provider === data.provider;
+      previous.provider === data.provider &&
+      previous.facetKey === facetKey;
     if (append || refreshSameView) {
       pinLoadedCards();
       data.items = [
@@ -1027,11 +1313,16 @@ async function loadCatalog({
       if (refreshSameView && previous.next) data.next = previous.next;
     }
     state.data = data;
+    if (id === "movies" && capabilities.movies)
+      state.movie.mode =
+        data.catalog === "search" ? state.movie.mode : data.catalog;
     state.liveCatalog = true;
     update(!(append || refreshSameView));
     if (!data.items.length)
       toast(
-        "No matches from this catalog. Try another title, ingredient, or category.",
+        data.next
+          ? "No matches on this page. More source results remain; choose Continue searching."
+          : "No matches from this catalog. Try another title, ingredient, or category.",
       );
   } catch (error) {
     if (revision !== searchRevision) return;
@@ -1049,6 +1340,32 @@ async function loadCatalog({
       renderResultStatus();
     }
   }
+}
+async function hydrateMovie(item) {
+  const region = state.movie.region,
+    requestKey = item.id + "|" + region;
+  if (detailRequests.has(requestKey)) return detailRequests.get(requestKey);
+  const task = (async () => {
+    try {
+      const full = await request(
+        "api/movie-details?" +
+          new URLSearchParams({ id: item.id.slice(5), region }),
+      );
+      full.catalog = item.catalog;
+      Object.assign(item, full);
+      for (const collection of [state.data?.items, base.items, state.saved])
+        for (const record of collection || [])
+          if (record.id === full.id) Object.assign(record, full);
+      canvas.invalidateItem(item.id);
+      persist();
+    } catch (error) {
+      toast(error.message);
+    } finally {
+      detailRequests.delete(requestKey);
+    }
+  })();
+  detailRequests.set(requestKey, task);
+  return task;
 }
 async function hydrateRecipe(item) {
   if (detailRequests.has(item.id)) return detailRequests.get(item.id);
@@ -1095,6 +1412,7 @@ async function searchPlaces(query) {
     $("#city-input").value = data.city === "Near you" ? "" : data.city;
     $("#space-search").value = "";
     update(true);
+    void enrichVenuePhotos(data);
     toast("Exploring " + data.city + " · " + data.items.length + " places.");
   });
 }
@@ -1136,6 +1454,8 @@ async function useLocation() {
   );
 }
 async function loadNowPlaying() {
+  state.movie.mode = "now-playing";
+  facets.reset();
   state.liveCatalog = true;
   state.query = "";
   state.filter = "All";
@@ -1162,9 +1482,13 @@ function showSources() {
       el(
         "p",
         "",
-        "Live recipe search, categories, ingredients, methods, and photographs come from TheMealDB. More results load on demand; the provider catalog is finite. Personal/development access uses its public test key. Public production use should have a supporter key. No preparation times, nutrition, or allergy guarantees have been inferred.",
+        "Photo kitchen uses TheMealDB. Community cookbook uses Wikibooks recipes and native categories, with contributor/CC BY-SA attribution; formatting is adapted. Photographs retain their own source rights. MealDB lunch/dinner/snack groupings are editorial suggestions. Both sources paginate their finite catalogs. No preparation times, nutrition, or allergy guarantees have been inferred.",
       ),
       link("TheMealDB ↗", "https://www.themealdb.com/api.php"),
+      link(
+        "Wikibooks Cookbook ↗",
+        "https://en.wikibooks.org/wiki/Cookbook:Recipes",
+      ),
     );
   else if (id === "movies")
     root.append(
@@ -1176,10 +1500,11 @@ function showSources() {
       el(
         "p",
         "",
-        "Live film discovery searches Wikipedia and loads further result pages on demand. Text is credited to Wikipedia contributors under CC BY-SA 4.0. Images retain their original rights; each film links its artwork source. TMDB provides broader film search and now-playing listings when connected to a server. Regional cinema listings do not include local showtimes.",
+        "TMDB supplies regional theater releases, full-catalog discovery, structured filters, trailers, cast, and studios. Watch availability is supplied by JustWatch via TMDB and can change. Country, subscription, free, ads, rental, and purchase offers are distinguished. These are not local cinema showtimes. Wikipedia remains the fallback when TMDB is unavailable.",
       ),
       link("Studio Ghibli API ↗", "https://ghibliapi.vercel.app/"),
       link("TMDB ↗", "https://www.themoviedb.org/"),
+      link("Watch availability: JustWatch ↗", "https://www.justwatch.com/"),
       link("Wikipedia ↗", "https://en.wikipedia.org/wiki/Portal:Film"),
     );
   else
@@ -1197,7 +1522,7 @@ function showSources() {
       el(
         "p",
         "",
-        "Business covers use Google's free Maps Embed API in Street View mode when connected and available. The full Google frame and attribution stay visible. The panorama shows the street near a business and may face away from its entrance. Hover food previews are illustrative TheMealDB photographs, not venue photos. Open Street View to explore the panorama interactively.",
+        "Business covers use attributed Wikimedia Commons photographs linked from the exact OpenStreetMap venue or its Wikidata record, when available. Photo references and credits are cached on this device for one day; missing photos use a name tile. No Google panorama is loaded in the grid. Open Street View explicitly to explore Google's view. Hover food previews are illustrative TheMealDB photographs, not venue photos.",
       ),
       link(
         "OpenStreetMap attribution ↗",
@@ -1247,6 +1572,16 @@ function configure() {
   $("#city-label").hidden = id !== "places";
   $("#movie-catalog").hidden = id !== "movies";
   $("#map-mode").hidden = id !== "places";
+  if (window.BROADSHEET_OFFLINE)
+    for (const selector of [
+      "#live-catalog",
+      "#now-playing",
+      "#streaming-mode",
+      "#search-provider",
+    ]) {
+      $(selector).disabled = true;
+      $(selector).title = "Open the hosted site to browse live catalogs";
+    }
   if (id === "movies") {
     const o = el("option", "", "Newest year");
     o.value = "year";
@@ -1255,6 +1590,18 @@ function configure() {
   }
 }
 configure();
+facets = window.BroadsheetDiscoveryControls.mount({
+  id,
+  state,
+  request,
+  notify: toast,
+  changed: () => {
+    state.savedOnly = false;
+    state.liveCatalog = true;
+    update(true);
+    queueCatalogSearch(0);
+  },
+});
 canvas = new window.BroadsheetCanvas({
   viewport: $("#space-viewport"),
   world: $("#space-world"),
@@ -1293,6 +1640,7 @@ $("#space-search").oninput = (e) => {
 };
 $("#space-search").onkeydown = (e) => {
   if (e.key === "Enter" && id !== "places") {
+    if (window.BROADSHEET_OFFLINE) return;
     state.liveCatalog = true;
     loadCatalog();
   }
@@ -1317,6 +1665,7 @@ $("#browse-all").onclick =
   $("#reset-space").onclick =
   $("#clear-space").onclick =
     () => {
+      facets.reset();
       state.query = "";
       state.filter = "All";
       state.savedOnly = false;
@@ -1345,12 +1694,25 @@ $("#city-form").onsubmit = (e) => {
 $("#use-location").onclick = useLocation;
 $("#now-playing").onclick = loadNowPlaying;
 $("#live-catalog").onclick = () => {
+  state.movie.mode = "popular";
+  state.movie.provider = "";
+  state.movie.availability = "all";
+  state.query = "";
+  $("#space-search").value = "";
+  state.liveCatalog = true;
+  loadCatalog();
+};
+$("#streaming-mode").onclick = () => {
+  state.movie.mode = "streaming";
+  state.movie.availability = "flatrate";
+  state.query = "";
+  $("#space-search").value = "";
   state.liveCatalog = true;
   loadCatalog();
 };
 $("#load-more").onclick = () => loadCatalog({ append: true });
-$("#refresh-catalog").onclick = () =>
-  loadCatalog({ refresh: true, catalog: state.data?.catalog || "all" });
+$("#continue-results").onclick = () => loadCatalog({ append: true });
+$("#refresh-catalog").onclick = () => loadCatalog({ refresh: true });
 $("#collection-mode").onclick = () => {
   clearTimeout(searchTimer);
   searchRevision++;
@@ -1432,6 +1794,7 @@ async function init() {
     }
     update(true);
     const focus = params.get("focus");
+    if (id === "places") void enrichVenuePhotos({ items });
     if (focus) {
       const item =
         items.find((i) => i.id === focus) ||
@@ -1452,6 +1815,15 @@ async function init() {
         if (state.mode === "list") renderList();
       }
     } catch {}
+    if (
+      !window.BROADSHEET_OFFLINE &&
+      (id === "recipes" || (id === "movies" && capabilities.movieDiscovery))
+    )
+      void facets
+        .load()
+        .then(() => controls())
+        .catch((error) => toast(error.message));
+    else if (id === "movies") $("#discovery-facets").hidden = true;
     if (id !== "places" && state.liveCatalog && !state.savedOnly && !focus)
       queueCatalogSearch(0);
     if (id === "places") {

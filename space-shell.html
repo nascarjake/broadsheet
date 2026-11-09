@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="explore.css" />
     <link rel="stylesheet" href="vendor/leaflet.css" />
     <link rel="stylesheet" href="immersive.css" />
+    <link rel="stylesheet" href="discovery.css" />
   </head>
   <body class="space-page" data-space="@SPACE@">
     <header class="global-header">
@@ -73,8 +74,9 @@
           <div id="movie-catalog" hidden>
             <button id="collection-mode" class="pill active">
               Starter collection</button
-            ><button id="live-catalog" class="pill">Live film discovery</button
-            ><button id="now-playing" class="pill">Now playing ↗</button>
+            ><button id="live-catalog" class="pill">All movies</button
+            ><button id="now-playing" class="pill">In theaters</button
+            ><button id="streaming-mode" class="pill">Streaming</button>
           </div>
           <button id="search-provider" class="primary-button" hidden>
             Explore live recipes ↗
@@ -82,6 +84,7 @@
         </div>
       </section>
       <section class="discovery-toolbar" aria-label="Browse controls">
+        <div id="discovery-facets" class="discovery-facets" hidden></div>
         <div class="filter-pills" id="filter-pills"></div>
         <div class="browse-actions">
           <label class="space-search"
@@ -144,6 +147,7 @@
         <button id="reset-space" class="primary-button">
           Browse everything
         </button>
+        <button id="continue-results" class="primary-button" hidden>Continue searching</button>
       </div>
       <div class="space-canvas-tools">
         <button id="space-home" aria-label="Return to start">⌂</button
@@ -197,6 +201,7 @@
     <script src="spaces.js"></script>
     <script src="config.js"></script>
     <script src="live.js"></script>
+    <script src="facets.js"></script>
     <script src="spatial.js"></script>
     <script src="canvas.js"></script>
     <script src="vendor/leaflet.js"></script>
