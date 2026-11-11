@@ -61,7 +61,7 @@ def parse(data, source=None):
              'date':raw_date, 'topic':topic(title), 'source':source['name'] if source else 'NASA',
              'sourceId':source['id'] if source else 'nasa', 'topics':tags_for(title, source['topics'] if source else ['Space','Science'])}
         from news_media import extract,location
-        s['media']=extract(item,link,s['source'])
+        s['media']=[] if source and source.get('textOnly') else extract(item,link,s['source'])
         s['location']=location(item)
         s['author']=plain(item.findtext('{http://purl.org/dc/elements/1.1/}creator','') or field(item,'author') or (item.findtext('a:author/a:name','',ns) if atom else ''))[:200]
         s['sections']=[plain(n.text)[:80] for n in item.findall('category') if plain(n.text)][:8]

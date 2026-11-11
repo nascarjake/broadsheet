@@ -1,7 +1,29 @@
 /* An on-demand, in-place article reader. Full text lives only in bounded memory. */
 (function (root) {
   const records = new Map(),
-    MAX_RECORDS = 30;
+    MAX_RECORDS = 30,
+    MAX_ACTIVE = 3,
+    MAX_QUEUED = 12,
+    waiting = [];
+  let active = 0;
+  async function acquire() {
+    if (active < MAX_ACTIVE) { active++; return; }
+    if (waiting.length >= MAX_QUEUED) throw Error("Several articles are opening. Wait a moment, then try again.");
+    await new Promise((resolve) => waiting.push(resolve));
+  }
+  function release() {
+    const next = waiting.shift();
+    if (next) next();
+    else active--;
+  }
+  function licensedSource(url) {
+    try {
+      const host = new URL(url).hostname;
+      if (host === "globalvoices.org") return { name: "CC BY 3.0", url: "https://creativecommons.org/licenses/by/3.0/" };
+      if (["www.eff.org", "eff.org"].includes(host)) return { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" };
+    } catch {}
+    return null;
+  }
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -58,7 +80,7 @@
         url: data.url,
         publisher: "The Guardian",
         title: String(data.title || ""),
-        author: String(data.author || "").slice(0, 300),
+        author: String(data.author || "").slice(0, 500),
         wordCount: Number(data.wordCount) || 1,
       };
     }
@@ -84,14 +106,21 @@
       return { type: b.type, text: b.text };
     });
     if (size > 160000) throw Error("This article is too large for the reader.");
+    const license = licensedSource(safe(data.url));
     return {
       status: "ready",
+      url: safe(data.url),
+      ...(license && data.license?.url === license.url ? {
+        license,
+        presentation: "Text-only presentation. Embedded media omitted; links listed below.",
+        links: (Array.isArray(data.links) ? data.links : []).slice(0, 120).map((link) => ({ url: safe(link.url), text: String(link.text || "").slice(0, 300) })).filter((link) => link.url && link.text),
+      } : {}),
       blocks,
       media,
       kind: ["video", "liveblog"].includes(data.kind) ? data.kind : "article",
       retrievedAt: Number.isFinite(Date.parse(data.retrievedAt)) ? data.retrievedAt : "",
       publisher: String(data.publisher || "Publisher").slice(0, 100),
-      author: String(data.author || "").slice(0, 300),
+      author: String(data.author || "").slice(0, 500),
       copyright: String(data.copyright || "").slice(0, 500),
       wordCount: blocks.reduce((n, b) => n + b.text.split(/\s+/).length, 0),
     };
@@ -201,6 +230,16 @@ addEventListener('wheel',e=>{
         node.append(attribution, guardianFrame(record));
         return;
       }
+      if (record.license) {
+        const attribution = el("p", "article-reader-byline");
+        const original = el("a", "", "Originally published at " + record.publisher),
+          license = el("a", "", record.license.name);
+        for (const [link, href] of [[original, record.url], [license, record.license.url]]) {
+          link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
+        }
+        attribution.append(original, " · ", license);
+        node.append(attribution, el("p", "small", record.presentation));
+      }
       if (record.kind === "liveblog") {
         node.append(el("p", "article-reader-byline", "Latest published updates · loaded " + new Date(record.retrievedAt || record.time || Date.now()).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })));
         const refresh = el("button", "article-reader-retry", "↻ Refresh updates");
@@ -231,6 +270,16 @@ addEventListener('wheel',e=>{
         prose,
         el("p", "article-reader-end", "◆ " + record.publisher),
       );
+      if (record.links?.length) {
+        const references = el("details", "article-references"), list = el("ul");
+        references.append(el("summary", "small", "Links from the original article"));
+        for (const reference of record.links) {
+          const item = el("li"), link = el("a", "", reference.text);
+          link.href = reference.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+          item.append(link); list.append(item);
+        }
+        references.append(list); node.append(references);
+      }
       if (record.copyright) node.append(el("p", "small", record.copyright));
       return;
     }
@@ -259,9 +308,8 @@ addEventListener('wheel',e=>{
     const old = records.get(url);
     if (
       old &&
-      !force &&
       (old.status === "loading" ||
-        Date.now() - old.time < (old.status === "ready" ? old.kind === "liveblog" ? 60000 : 900000 : 30000))
+        !force && Date.now() - old.time < (old.status === "ready" ? old.kind === "liveblog" ? 60000 : 900000 : 30000))
     )
       return old;
     const record = { status: "loading", time: Date.now() };
@@ -272,12 +320,15 @@ addEventListener('wheel',e=>{
       if (records.size <= MAX_RECORDS) break;
       if (value.status !== "loading") records.delete(key);
     }
+    let acquired = false;
     try {
       const api = root.BROADSHEET_CONFIG?.apiBase;
       if (root.BROADSHEET_OFFLINE || !safe(api))
         throw Error("Connect to Broadsheet online to load this article.");
       const target = new URL("api/article", api);
       target.searchParams.set("url", url);
+      await acquire();
+      acquired = true;
       const response = await fetch(target.href, {
         credentials: "omit",
         signal: AbortSignal.timeout(22000),
@@ -297,6 +348,7 @@ addEventListener('wheel',e=>{
         message: error.message,
       });
     }
+    if (acquired) release();
     if (records.get(url) === record) notify(url);
     for (const [key, value] of records) {
       if (records.size <= MAX_RECORDS) break;

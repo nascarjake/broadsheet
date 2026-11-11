@@ -15,6 +15,15 @@ class FeedTests(unittest.TestCase):
    with self.assertRaises(ValueError): parse(data)
  def test_rejects_bad_link(self):
   with self.assertRaises(ValueError): parse(b'<rss><channel><item><title>x</title><link>javascript:alert(1)</link></item></channel></rss>')
+ def test_licensed_sources_omit_unverified_media(self):
+  data=RSS.replace(b'</item>',b'<enclosure url="https://example.org/image.jpg" type="image/jpeg"/></item>')
+  story=parse(data,{'id':'eff','name':'EFF','topics':['Technology'],'textOnly':True})[0]
+  self.assertEqual(story['media'],[])
+ def test_catalog_removes_bbc_and_adds_licensed_sources(self):
+  catalog=json.loads((Path(feed.__file__).parent/'dist/sources.json').read_text())
+  self.assertNotIn('bbc',[s['id'] for s in catalog])
+  for source in [s for s in catalog if s['id'] in ['globalvoices','eff']]:
+   self.assertTrue(source['textOnly']);self.assertIn('CC BY',source['reading']);self.assertTrue(source['rightsUrl'].startswith('https://'))
  def test_empty(self):
   with self.assertRaises(ValueError): parse(b'<rss/>')
  def test_size_limit(self):

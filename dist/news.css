@@ -435,3 +435,6 @@
     serif;
   margin: 0 0 22px;
 }
+
+.article-references { margin: 20px 0; font: 13px/1.6 Arial, sans-serif; overflow-wrap: anywhere; }
+.article-references summary { cursor: pointer; }

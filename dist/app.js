@@ -6,8 +6,10 @@ const viewport = $("#viewport"),
   world = $("#world"),
   STORE = "broadsheet.workspace.v3";
 const defaults = {
+  sourceCatalogVersion: 2,
   sources: [
-    "bbc",
+    "globalvoices",
+    "eff",
     "guardian",
     "aljazeera",
     "lemonde",
@@ -86,6 +88,11 @@ try {
             : typeof stored[key] === typeof defaults[key]
       )
         state[key] = stored[key];
+    if ((stored.sourceCatalogVersion || 0) < 2) {
+      state.sources = [...new Set([...state.sources, "globalvoices", "eff"])];
+      state.filterSources = state.filterSources.filter((id) => id !== "bbc");
+      state.sourceCatalogVersion = 2;
+    }
     state.activeChannel =
       typeof stored.activeChannel === "string" ? stored.activeChannel : null;
     state.layouts = Object.fromEntries(
@@ -877,6 +884,13 @@ function renderLibrary() {
         a.target = "_blank";
         a.rel = "noopener noreferrer";
         body.append(a);
+        if (s.reading) {
+          const rights = el("a", "source-health", s.reading + " ↗");
+          rights.href = safeURL(s.rightsUrl);
+          rights.target = "_blank";
+          rights.rel = "noopener noreferrer";
+          body.append(rights);
+        }
         const h = health(s.id),
           label = el(
             "span",

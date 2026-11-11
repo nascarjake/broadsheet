@@ -37,12 +37,11 @@ The UI repeats this finite corpus across an unbounded virtual canvas, visibly di
 
 Publisher references checked while extending the reader:
 
-- BBC feed documentation: https://support.bbc.co.uk/platform/feeds/NewsFeeds.htm
 - Guardian feed instructions: https://www.theguardian.com/help/feeds (section pages expose `/rss`, including World and Food).
 - NASA feed directory: https://www.nasa.gov/rss-feeds/
 - Le Monde feed directory: https://www.lemonde.fr/en/rss/article/2022/06/23/the-rss-feeds-of-monde-fr_5987755_165.html
 - ScienceDaily feed directory: https://www.sciencedaily.com/newsfeeds.htm (requests attribution/source links and excludes full-text republication).
-- Other feed endpoints and publisher URLs are retained directly in the catalog. All nine endpoints returned parseable items during local verification on November 8, 2026. Future availability and third-party terms can change.
+- Other feed endpoints and publisher URLs are retained directly in the catalog. All ten current endpoints returned parseable items during local verification on November 11, 2026. Future availability and third-party terms can change.
 
 Names identify the sources of the reporting; they do not imply endorsement or independent verification. Source avatars are typographic initials rendered in CSS, not downloaded publisher logos. Source types and publisher bases are manually curated descriptions and are not political bias/reliability ratings. No Ground News or other proprietary ratings are copied or invented. The initial source list is illustrative, not comprehensive. User-imported feed metadata is explicitly unverified and stays on that user's device.
 
@@ -107,10 +106,44 @@ Photo similarity uses retained 64-bit perceptual fingerprints of the main feed/a
 
 Configured publishers' public article pages can be read inside unfolded cards. A bounded, anonymous request to the original HTTPS page extracts visible article paragraphs, headings and lists using Cloudflare HTMLRewriter, retaining supplied bylines and the source link. Original HTML/scripts never enter the application DOM. Known subscription flags and publisher preview restrictions suppress extraction; denial/challenge pages are not bypassed. Every redirect stays inside the publisher's explicit host group. This does not acquire publisher rights, extract subscription-only content, or publish a permanent full-text archive. Text is returned only on request with no-store response headers; the application shares a small, temporary memory cache between repeated card instances. News photos and videos keep their existing credits and original hosting.
 
-Al Jazeera video reports use the official Brightcove player URL supplied in the page's public `VideoObject` metadata, restricted to its published player account. Short video descriptions are presented as video descriptions rather than failed full-text articles. Live coverage follows the same-origin AMP alternate explicitly linked by a successfully fetched public page, retaining visible update headings and text. The reader labels these as the latest published updates, offers refresh, and limits their memory cache to one minute; this is not a complete historical live-blog archive. Access denials and subscription restrictions never trigger alternate-page requests. BBC currently denies requests from the deployed reader server; cards explain that limitation and link directly to BBC rather than offering a futile automatic retry.
+Al Jazeera video reports use the official Brightcove player URL supplied in the page's public `VideoObject` metadata, restricted to its published player account. Short video descriptions are presented as video descriptions rather than failed full-text articles. Live coverage follows the same-origin AMP alternate explicitly linked by a successfully fetched public page, retaining visible update headings and text. The reader labels these as the latest published updates, offers refresh, and limits their memory cache to one minute; this is not a complete historical live-blog archive. Access denials and subscription restrictions never trigger alternate-page requests. BBC was removed from the active catalog, snapshot and gateway on November 11, 2026 because the deployed reader was denied. It is no longer requested by Broadsheet.
 
 ### Guardian Open Platform
 
 Guardian article text uses the registered Open Platform key held only in the gateway's encrypted `GUARDIAN_API_KEY` secret. Its supplied body HTML is retained intact—including external links, notices, watermarks and advertising markup—and isolated in a sandboxed article frame with matching reader typography. The frame expands within the card through a source-checked height message. The supplied headline/byline remain visible, the original source link remains available, and the official **Powered by The Guardian** image links back to the Guardian adjacent to its content. Licensed API responses share a 15-minute edge cache to reduce quota use; no key reaches browser configuration or markup.
 
 The attribution PNG is the unmodified black logo from https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2010/03/01/poweredbyguardianBLACK.png, supplied by Guardian News & Media Limited for Open Platform attribution under https://www.theguardian.com/open-platform/logos and https://www.theguardian.com/open-platform/terms-and-conditions. Retrieved 2026-11-09; SHA-256 `f4265f7812db4fcf1440e79d90317d4088cc930dded735efd1ac818942291c05`; file `dist/vendor/guardian-powered-by.png`. It is not licensed for unrelated branding.
+
+
+## Licensed source expansion, verified November 11, 2026
+
+### Global Voices
+
+- Feed: https://globalvoices.org/feed/ (15 current items, full `content:encoded`).
+- Policy: https://globalvoices.org/about/global-voices-attribution-policy/ . The linked license is **CC BY 3.0**, https://creativecommons.org/licenses/by/3.0/ . It permits redistribution/adaptation with credit and a license link. Original author, translator and original story link appear at the top of the reading. The text-only presentation change is disclosed.
+- Its unauthenticated WordPress endpoint `https://globalvoices.org/wp-json/wp/v2/posts?per_page=1` also supplies full body HTML. The author endpoint requires authentication and feed creator can identify only the translator. Therefore the adapter reads the permitted public article page, including original-author/translator credits, rather than inventing attribution or requesting new credentials.
+- Full reading is restricted to `https://globalvoices.org/YYYY/MM/DD/slug/`. Third-party media and captions are omitted, and original article hyperlinks are retained in the source-links section. Global Voices invites contact for regular republishing; no automated-republication ban was found in its CC BY policy.
+
+### Electronic Frontier Foundation
+
+- Official directory: https://www.eff.org/rss . Feed: https://www.eff.org/rss/updates.xml . It supplies 50 full descriptions; Broadsheet uses its existing 40-item feed bound.
+- Rights: https://www.eff.org/copyright . Original EFF material is **CC BY 4.0**, https://creativecommons.org/licenses/by/4.0/ , unless otherwise marked. Separately owned third-party media is excluded.
+- The reader accepts only `/deeplinks/YYYY/MM/slug` article paths and the full article body, excluding related-story teasers. It retains the author, original EFF link, license, modification notice and text references. EFF's source type is digital-rights advocacy, not a neutral-news rating.
+
+No API key, account creation, subscription or payment was needed for either addition. No numeric request allowance was published on the reviewed feed/rights pages; this is not a promise of unlimited access. Cache and conservative request bounds reduce publisher traffic. These licenses do not imply endorsement and are not a blanket license for third-party material. Articles carrying explicit separate text-rights notices, partner-republication notices, or missing author credits are sent to the publisher instead. The default Global Voices license is not assumed to cover externally created partner text.
+
+### Candidates not enabled
+
+- **ProPublica:** https://www.propublica.org/steal-our-stories prohibits automatic or wholesale republication. Not suitable for this automatic full-text source catalog without separate permission.
+- **Wikinews:** technically offers published-page discovery and licensed archived text, but https://en.wikinews.org/wiki/Wikimedia_Foundation_closes_Wikinews_after_21_years reports read-only closure on May 4, 2026. Latest published discovery was May 3; not added as a live-news source.
+- **NOAA:** https://www.noaa.gov/rss.xml works and NOAA-origin text is generally public domain under https://www.noaa.gov/office-education/outreach-communication/faq , but the feed mixes full news releases with teasers, external stories and staff pages. Needs a separate filtered adapter and third-party-rights check before treating every entry as full text.
+- **NIST:** https://www.nist.gov/news-events/news/rss.xml is excerpt-only in the sampled items. https://www.nist.gov/copyrights-disclaimers permits reuse except separately marked material, but this would need another verified full-page adapter.
+
+### Performance and verification limits
+
+The collector stays at six simultaneous feeds, 40 entries/feed, 5 MB/feed and 18-second network timeouts with failed-source retention. No whole-feed refresh is triggered by article opening. Full text is loaded only for opened cards. Client article concurrency is three with twelve queued, repeated requests coalesce, and thirty settled records are retained in memory. Successful Global Voices/EFF articles use an existing Cloudflare edge cache for fifteen minutes; failures are not cached, and a cache outage falls back to the original. Cache entries are data-center-local, not a global quota counter. Existing Guardian caching and all other adapters are preserved.
+
+Regression checks cover URL/redirect boundaries, BBC rejection, author/translator credit, license/link validation, third-party media omission, separate rights notices, final paragraphs, edge cache hits/failure handling, and a 40-open burst with peak concurrency three. The normal lightweight test suite and native Worker HTMLRewriter fixtures pass. These are bounded functional/performance safeguards, not a production-scale traffic certification or a guarantee against provider quota limits. The static public edition must still be rebuilt/refreshed to update discovery.
+
+
+Guardian's current [developer access](https://open-platform.theguardian.com/access/) is noncommercial, **one request per second and 500 requests per day**, and [terms](https://www.theguardian.com/open-platform/terms-and-conditions) require cached text to be refreshed or deleted within 24 hours. The existing 15-minute edge and memory TTLs remain below that freshness window, with no persistent article archive or stale-forever fallback. The per-client gateway throttle is not a global Guardian quota limiter. A higher-traffic release would need a suitable Guardian license/allowance and a shared quota scheduler before claiming that scale; no new plan, resource or cost was enabled here.

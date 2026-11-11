@@ -16,6 +16,10 @@ const assert = require("node:assert/strict");
     "https://www.bbc.com:8443/news/a",
     "https://www.bbc.com/login",
     "file:///etc/passwd",
+    "https://www.bbc.com/news/a",
+    "https://globalvoices.org/wp-json/wp/v2/users/1",
+    "https://www.eff.org/document/not-a-news-article",
+    "https://globalvoices.org/2026/11/11/a/private/",
   ])
     assert.throws(() => articleRequest(url));
   const request = articleRequest(
@@ -234,7 +238,29 @@ const assert = require("node:assert/strict");
     /redirect failed/,
   );
   assert.equal(loops, 4);
+  const licensedQuery = new URL("https://reader.test/api/article?url=" + encodeURIComponent("https://www.eff.org/deeplinks/2026/11/example"));
+  let licensedFetches = 0, saved, background;
+  const licensedOptions = {
+    cache: { match: async () => saved?.clone(), put: async (_key, response) => { saved = response; } },
+    ctx: { waitUntil: (promise) => { background = promise; } },
+    get: async () => { licensedFetches++; return new Response("Public source", { headers: { "Content-Type": "text/html" } }); },
+    extract: async () => ({ status: "ready", publisher: "EFF", blocks: [{ type: "paragraph", text: "Licensed sample" }] }),
+  };
+  await readArticle(licensedQuery, licensedOptions);
+  await background;
+  assert.equal(saved.headers.get("Cache-Control"), "public, max-age=900");
+  await readArticle(licensedQuery, licensedOptions);
+  assert.equal(licensedFetches, 1, "Licensed articles reuse the edge cache");
+  await readArticle(licensedQuery, { ...licensedOptions, cache: { match: async () => { throw Error("cache offline"); } }, ctx: null });
+  assert.equal(licensedFetches, 2, "Cache failures fall back to the publisher");
+  saved = null;
+  await readArticle(licensedQuery, { ...licensedOptions, extract: async () => ({ status: "unavailable" }) });
+  assert.equal(saved, null, "Unavailable stories are never cached as full articles");
   const client = require("../dist/article-reader.js");
+  const attributed = client.validate({ status: "ready", url: "https://globalvoices.org/2026/11/11/example/", publisher: "Global Voices", author: "Author and translator", license: { url: "https://creativecommons.org/licenses/by/3.0/" }, blocks: [{ type: "paragraph", text: "Original fixture prose" }], links: [{ url: "javascript:alert(1)", text: "bad" }, { url: "https://example.org/reference", text: "A source" }] });
+  assert.equal(attributed.license.name, "CC BY 3.0");
+  assert.equal(attributed.links.length, 1);
+  assert.equal(client.validate({ ...attributed, url: "https://evil.test/" }).license, undefined);
   assert.throws(() =>
     client.validate({
       status: "ready",
@@ -295,13 +321,24 @@ const assert = require("node:assert/strict");
     };
   };
   const one = client.load("https://www.theguardian.com/world/example");
-  await client.load("https://www.theguardian.com/world/example");
-  assert.equal(loads, 1, "Repeated cards share the in-flight request");
+  await client.load("https://www.theguardian.com/world/example", true);
+  assert.equal(loads, 1, "Repeated/forced opens share the in-flight request");
   finish();
   const loaded = await one;
   assert.equal(loaded.status, "ready");
   await client.load("https://www.theguardian.com/world/example");
   assert.equal(loads, 1, "Fold/unfold reuses the loaded article");
+  let inProgress = 0, peak = 0;
+  global.fetch = async () => {
+    inProgress++; peak = Math.max(peak, inProgress);
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    inProgress--;
+    return { ok: true, json: async () => ({ status: "ready", blocks: [{ type: "paragraph", text: "Concurrent fixture article" }] }) };
+  };
+  const batch = await Promise.all(Array.from({ length: 40 }, (_, n) => client.load("https://www.eff.org/deeplinks/2026/11/concurrency-" + n)));
+  assert.equal(peak, 3, "Article loads have a strict three-request concurrency ceiling");
+  assert.equal(batch.filter((r) => r.status === "ready").length, 15, "The waiting queue is bounded to twelve additional articles");
+  assert.ok(batch.filter((r) => r.status !== "ready").every((r) => /Several articles/.test(r.message)));
   delete global.document;
   delete global.BROADSHEET_CONFIG;
   console.log(

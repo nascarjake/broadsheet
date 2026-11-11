@@ -70,6 +70,30 @@ const { Miniflare, Response, convertV4MiniflareOptions } = require(
     assert.equal(data.kind, "liveblog");
     assert.equal(data.blocks[0].text, "Latest update headline");
     assert.equal(data.blocks.length, 9, "Alternate selectors never duplicate update text");
+    html = `<meta name="author" content="EFF Reporter"><article class="node--full"><div class="field--name-body">${paragraphs}<p>Final EFF paragraph with a <a href="/document/reference">source reference</a>.</p><figure><p>Unlicensed photo caption</p></figure></div></article><article class="node--teaser"><div class="field--name-body"><p>Unrelated teaser must not appear.</p></div></article>`;
+    data = await (await request("https://www.eff.org/deeplinks/2026/11/runtime-eff")).json();
+    assert.equal(data.status, "ready");
+    assert.equal(data.author, "EFF Reporter");
+    assert.equal(data.license.name, "CC BY 4.0");
+    assert.equal(data.blocks.length, 9);
+    assert.equal(data.links[0].url, "https://www.eff.org/document/reference");
+    assert.ok(data.blocks.at(-1).text.includes("Final EFF paragraph"));
+    html = `<div class="post-header"><div class="contributor-name"><span>Written by</span><a>Original Writer</a></div><div class="contributor-name"><span>Translated by</span><a>Translator</a></div></div><div class="full-article"><div class="entry">${paragraphs}<p>Global Voices final paragraph.</p><div class="wp-caption"><p>Third-party media caption.</p></div></div></div>`;
+    data = await (await request("https://globalvoices.org/2026/11/11/runtime-gv/")).json();
+    assert.equal(data.status, "ready");
+    assert.equal(data.license.name, "CC BY 3.0");
+    assert.equal(data.author, "Written by Original Writer · Translated by Translator");
+    assert.equal(data.blocks.at(-1).text, "Global Voices final paragraph.");
+    html = html.replace("Global Voices final paragraph.", "Reprinted with permission. All rights reserved.");
+    data = await (await request("https://globalvoices.org/2026/11/11/runtime-restricted/")).json();
+    assert.equal(data.reason, "rights");
+    assert.equal(data.retryable, false);
+    html = html.replace("Reprinted with permission. All rights reserved.", "This story was originally published by Example Partner and shared by Global Voices.");
+    data = await (await request("https://globalvoices.org/2026/11/11/runtime-partner/")).json();
+    assert.equal(data.reason, "rights", "Partner text requires separate permission even if it mentions Global Voices");
+    html = html.replace("This story was originally published by Example Partner and shared by Global Voices.", "Originally published on Global Voices in French.");
+    data = await (await request("https://globalvoices.org/2026/11/11/runtime-translation/")).json();
+    assert.equal(data.status, "ready", "Global Voices translations retain original/translator credit");
     console.log(
       "Native Worker article extraction: full prose through the final paragraph, nested lists, bylines, navigation/script exclusion, restricted articles and unavailable pages passed",
     );

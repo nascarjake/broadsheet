@@ -1,6 +1,7 @@
 import { guardianArticle } from "./guardian.mjs";
 // Read public article pages on demand. Text is returned to the requesting reader,
-// never added to the static edition, persisted, or fetched with user credentials.
+// never added to the static edition or fetched with user credentials. Only
+// explicitly licensed text uses short-lived edge caching.
 const publishers = [
   {
     id: "guardian",
@@ -9,10 +10,21 @@ const publishers = [
     roots: [".article-body-viewer-selector"],
   },
   {
-    id: "bbc",
-    name: "BBC News",
-    hosts: ["www.bbc.co.uk", "www.bbc.com", "bbc.co.uk", "bbc.com"],
-    roots: ["main article"],
+    id: "globalvoices",
+    name: "Global Voices",
+    hosts: ["globalvoices.org"],
+    paths: /^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/?$/,
+    roots: [".full-article .entry"],
+    contributors: ".post-header .contributor-name",
+    license: { name: "CC BY 3.0", url: "https://creativecommons.org/licenses/by/3.0/", policy: "https://globalvoices.org/about/global-voices-attribution-policy/" },
+  },
+  {
+    id: "eff",
+    name: "Electronic Frontier Foundation",
+    hosts: ["www.eff.org", "eff.org"],
+    paths: /^\/deeplinks\/\d{4}\/\d{2}\/[^/]+\/?$/,
+    roots: ["article.node--full .field--name-body"],
+    license: { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/", policy: "https://www.eff.org/copyright" },
   },
   {
     id: "nasa",
@@ -90,6 +102,7 @@ export function articleRequest(value, expected) {
     url.password ||
     url.port ||
     !publisher ||
+    (publisher.paths && !publisher.paths.test(url.pathname)) ||
     (expected && expected !== publisher.id) ||
     url.pathname === "/" ||
     /(?:^|\/)(?:api|login|signin|sign-in|subscribe|account|oauth|auth)(?:\/|$)/i.test(
@@ -184,7 +197,9 @@ export async function extractArticle(html, url, publisher) {
     })),
     documents = [],
     meta = {},
-    scripts = [];
+    scripts = [],
+    contributors = [],
+    links = [];
   let forbidden = 0,
     script = null,
     restricted = false,
@@ -249,6 +264,36 @@ export async function extractArticle(html, url, publisher) {
         },
       },
     );
+  if (publisher.contributors) {
+    let contributor;
+    rewriter.on(publisher.contributors, {
+      element(e) { contributor = { text: "" }; contributors.push(contributor); e.onEndTag(() => { contributor = null; }); },
+      text(t) { if (contributor && contributor.text.length < 1000) contributor.text += " " + t.text; },
+    });
+  }
+  if (publisher.license) {
+    // These publishers license their own text, not every embedded photograph,
+    // quotation, player or illustration. Keep text references; omit media.
+    rewriter.on(".wp-caption, figure, .pullquote, .related-cases", {
+      element(e) { forbidden++; e.onEndTag(() => forbidden--); },
+    });
+    for (const group of groups) {
+      let link;
+      rewriter.on(group.root + " a[href]", {
+        element(e) {
+          link = null;
+          try {
+            const target = new URL(e.getAttribute("href"), url);
+            if (!forbidden && ["https:", "http:"].includes(target.protocol) && !target.username && !target.password && links.length < 120) {
+              link = { url: target.href, text: "" }; links.push(link);
+            }
+          } catch {}
+          e.onEndTag(() => { link = null; });
+        },
+        text(t) { if (link && link.text.length < 300) link.text += t.text; },
+      });
+    }
+  }
   for (const group of groups)
     for (const tag of ["p", "h2", "h3", "li"]) {
       const own = [];
@@ -340,6 +385,10 @@ export async function extractArticle(html, url, publisher) {
   }
   if (kind === "video" && media.length && !blocks.length && videos[0].description)
     blocks = [{ type: "paragraph", text: videos[0].description }];
+  const separateRights = /all rights reserved|not (?:covered|available) under (?:a |the )?creative commons|reprinted with permission/i,
+    partnerText = /(?:originally|first) published (?:by|in|at|on) (?!Global Voices\b)|republished (?:from|with)/i;
+  if (publisher.license && blocks.some((b) => separateRights.test(b.text) || partnerText.test(b.text)))
+    return { ...unavailable("rights", "This story includes a separate reuse notice. Read the original at the publisher.", url, publisher), retryable: false };
   const characters = blocks.reduce((n, b) => n + b.text.length, 0);
   if (characters > MAX_TEXT)
     return unavailable(
@@ -357,6 +406,9 @@ export async function extractArticle(html, url, publisher) {
     ), alternate };
   if (!blocks.length && !media.length)
     return unavailable("unavailable", "The publisher did not supply readable text or a supported video.", url, publisher);
+  const author = contributors.length ? [...new Set(contributors.map((c) => clean(c.text)))].join(" · ").slice(0, 500) : metadata.author || meta.author || "";
+  if (publisher.license && !author)
+    return { ...unavailable("attribution", "The original author credit could not be verified. Read this story at the publisher.", url, publisher), retryable: false };
   return {
     status: "ready",
     url: url.href,
@@ -365,13 +417,18 @@ export async function extractArticle(html, url, publisher) {
     kind,
     media,
     alternate,
-    author: metadata.author || meta.author || "",
+    author,
+    ...(publisher.license ? {
+      license: publisher.license,
+      presentation: "Text-only presentation. Embedded media omitted; links listed below.",
+      links: [...new Map(links.filter((l) => clean(l.text)).map((l) => [l.url, { url: l.url, text: clean(l.text) }])).values()],
+    } : {}),
     blocks,
     wordCount: blocks.reduce((n, b) => n + b.text.split(/\s+/).length, 0),
     retrievedAt: new Date().toISOString(),
   };
 }
-export async function readArticle(
+async function fetchArticle(
   request,
   { get = fetch, extract = extractArticle, guardianKey, cache, ctx } = {},
 ) {
@@ -449,4 +506,23 @@ export async function readArticle(
     return { ...article, url: usedAlternate ? canonical : article.url };
   }
   throw Error("The publisher redirected too many times.");
+}
+
+// Only explicitly reusable text gets a shared cache. Other publishers retain
+// their existing on-demand no-store behavior. No cross-request promises or
+// request-scoped state are kept in Worker globals.
+export async function readArticle(request, options = {}) {
+  const { url, publisher } = articleRequest(request.searchParams.get("url"));
+  if (!publisher.license) return fetchArticle(request, options);
+  const { cache, ctx } = options;
+  const key = new Request("https://broadsheet-cache.invalid/licensed-article/v1/" + publisher.id + url.pathname);
+  try {
+    const old = await cache?.match(key);
+    if (old) return old.json();
+  } catch { /* Cache failure must not make a licensed article unreadable. */ }
+  const article = await fetchArticle(request, options);
+  if (article.status === "ready" && cache && ctx) ctx.waitUntil(
+    cache.put(key, new Response(JSON.stringify(article), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=900" } })).catch(() => {}),
+  );
+  return article;
 }
