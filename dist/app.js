@@ -260,18 +260,10 @@ function rebuildAtlas() {
   atlas = new window.BroadsheetNewspaper.NewspaperLayout(
     N.editionOrder(filtered),
     {
-      unit:
-        innerWidth <= 600
-          ? state.size === "compact"
-            ? 160
-            : state.size === "large"
-              ? 220
-              : 180
-          : state.size === "compact"
-            ? 200
-            : state.size === "large"
-              ? 290
-              : 240,
+      // Size columns for reading at 100%, rather than shrinking an oversized spread.
+      unit: innerWidth <= 600
+        ? Math.max(120, ((document.querySelector('#viewport').clientWidth || innerWidth) - 66) / 2)
+        : state.size === "compact" ? 150 : state.size === "large" ? 210 : 171,
       columns: innerWidth <= 600 ? 2 : 6,
       geography,
       overrides: state.pressLayouts[currentKey],
@@ -628,6 +620,7 @@ const canvas = new window.BroadsheetCanvas({
   },
   onView: (next) => {
     view = next;
+    world.style.setProperty("--detail-scale", Math.min(1.5, Math.max(1, 1 / next.z)));
     $("#zoom-label").value = Math.round(next.z * 100) + "%";
   },
 });
@@ -642,15 +635,16 @@ function home() {
   const available = $("#viewport").clientWidth || $(".workspace").clientWidth;
   const height = $("#viewport").clientHeight || $(".workspace").clientHeight;
   canvas.home({
-    width:
-      filtered.length < 10 && innerWidth > 600
-        ? atlas.width * 2 + atlas.gap
-        : atlas.spreadWidth,
-    height: filtered.length < 10 ? 420 : innerWidth <= 600 ? 760 : 1050,
-    maxZoom: filtered.length < 10 ? 1.15 : 0.85,
+    // Home is a reading view, not a fit-all overview. Let the canvas continue
+    // beyond the screen instead of making every label microscopic.
+    width: Math.min(atlas.columnWidth(0), Math.max(1, available - 48)),
+    height: Math.max(1, height - 40),
+    maxZoom: 1,
     availableWidth: available,
     availableHeight: height,
   });
+  canvas.view.y = 88; // Keep first-row source labels clear of floating navigation.
+  canvas.apply();
 }
 function zoom(f, x, y) {
   canvas.zoom(f, x, y);
@@ -1551,4 +1545,15 @@ window.broadsheetDebug = {
   },
   parseImport,
 };
+// Recompute reading columns when entering/leaving a narrow viewport. Desktop
+// resizing keeps the reader's location; it must not continually reset their pan.
+let readingViewportWidth = innerWidth, readingResizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(readingResizeTimer);
+  readingResizeTimer = setTimeout(() => {
+    const previous = readingViewportWidth;
+    readingViewportWidth = innerWidth;
+    if (atlas && previous !== innerWidth && (previous <= 600 || innerWidth <= 600)) update(true);
+  }, 180);
+});
 init();

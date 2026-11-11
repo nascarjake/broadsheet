@@ -245,3 +245,6 @@ assert.ok(
   "Expanded reading keeps its existing screen anchor",
 );
 naturalCanvas.destroy();
+
+canvas.home({ width: 447, height: 610, maxZoom: 1, availableWidth: 1161, availableHeight: 650 });
+assert.equal(canvas.view.z, 1, "Reading home must not shrink type to fit multiple rows");

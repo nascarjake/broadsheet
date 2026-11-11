@@ -56,7 +56,7 @@
     }
     baseWidth(c) {
       const span = this.pattern[mod(c, this.pattern.length)];
-      return span * this.unit + (span - 1) * this.gap;
+      return (span === 3 ? 2.4 : span) * this.unit + (span - 1) * this.gap;
     }
     columnWidth(c) {
       return this.widthEdits.get(c) || this.baseWidth(c);

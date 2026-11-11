@@ -281,3 +281,16 @@ assert.equal(
 console.log(
   "Continuous newspaper coverage, distant duplicate repair, natural sizing, reading-column expansion, dense movement/resizing, persistence, mobile and shared-photo checks passed",
 );
+
+// Reading-sized columns must not require shrinking all interface text at Home.
+const readingLayout = new NewspaperLayout(sample, { unit: 171, geography });
+assert.ok(readingLayout.baseWidth(0) <= 447);
+assert.equal(readingLayout.baseWidth(1), 360);
+const mobileLayout = new NewspaperLayout(sample, { unit: (390 - 66) / 2, columns: 2, geography });
+assert.equal(mobileLayout.baseWidth(0), 342);
+console.log("Desktop reading density and mobile column fit passed");
+
+for (const viewport of [320, 390, 600]) {
+  const layout = new NewspaperLayout(sample, { unit: Math.max(120, (viewport - 66) / 2), columns: 2, geography });
+  assert.ok(layout.baseWidth(0) <= viewport - 48);
+}

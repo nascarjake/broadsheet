@@ -438,3 +438,21 @@
 
 .article-references { margin: 20px 0; font: 13px/1.6 Arial, sans-serif; overflow-wrap: anywhere; }
 .article-references summary { cursor: pointer; }
+
+/* Reading-scale details stay legible when zooming out to survey neighbors.
+   Bounded compensation preserves a useful overview without enormous controls. */
+.press-story .card-source { font-size: calc(14px * var(--detail-scale, 1)); }
+.press-story .card-top time { font-size: calc(12px * var(--detail-scale, 1)); }
+.press-story .card-top { flex-wrap: wrap; row-gap: 5px; }
+.press-story .card-content .eyebrow { font-size: calc(12px * var(--detail-scale, 1)); letter-spacing: .6px; }
+.press-story .news-cover figcaption,
+.press-story .story-photo figcaption { font-size: calc(12px * var(--detail-scale, 1)); color: #596050; line-height: 1.5; overflow-wrap: anywhere; }
+.press-story .read-button,
+.press-story .save-button { font-size: calc(14px * var(--detail-scale, 1)); min-height: calc(44px * var(--detail-scale, 1)); padding: 6px 8px; }
+.press-story .card-bottom { flex-wrap: wrap; padding: 4px 8px; gap: 4px; }
+.press-story .reading-context button,
+.press-story .reading-context span { font-size: calc(12px * var(--detail-scale, 1)); }
+.press-story .excerpt { color: #505849; font-size: 16px; }
+.press-story[data-shape="brief"] .excerpt { font-size: 15px; }
+.press-story .card-content { padding: 16px; }
+.press-story .news-cover { margin: -16px -16px 14px; }
