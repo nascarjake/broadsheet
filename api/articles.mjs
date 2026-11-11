@@ -518,7 +518,7 @@ export async function readArticle(request, options = {}) {
   const key = new Request("https://broadsheet-cache.invalid/licensed-article/v1/" + publisher.id + url.pathname);
   try {
     const old = await cache?.match(key);
-    if (old) return old.json();
+    if (old) return await old.json();
   } catch { /* Cache failure must not make a licensed article unreadable. */ }
   const article = await fetchArticle(request, options);
   if (article.status === "ready" && cache && ctx) ctx.waitUntil(

@@ -253,6 +253,8 @@ const assert = require("node:assert/strict");
   assert.equal(licensedFetches, 1, "Licensed articles reuse the edge cache");
   await readArticle(licensedQuery, { ...licensedOptions, cache: { match: async () => { throw Error("cache offline"); } }, ctx: null });
   assert.equal(licensedFetches, 2, "Cache failures fall back to the publisher");
+  await readArticle(licensedQuery, { ...licensedOptions, cache: { match: async () => new Response("invalid cached json") }, ctx: null });
+  assert.equal(licensedFetches, 3, "Invalid cached data also falls back to the publisher");
   saved = null;
   await readArticle(licensedQuery, { ...licensedOptions, extract: async () => ({ status: "unavailable" }) });
   assert.equal(saved, null, "Unavailable stories are never cached as full articles");
