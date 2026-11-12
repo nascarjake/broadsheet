@@ -147,3 +147,14 @@ Regression checks cover URL/redirect boundaries, BBC rejection, author/translato
 
 
 Guardian's current [developer access](https://open-platform.theguardian.com/access/) is noncommercial, **one request per second and 500 requests per day**, and [terms](https://www.theguardian.com/open-platform/terms-and-conditions) require cached text to be refreshed or deleted within 24 hours. The existing 15-minute edge and memory TTLs remain below that freshness window, with no persistent article archive or stale-forever fallback. The per-client gateway throttle is not a global Guardian quota limiter. A higher-traffic release would need a suitable Guardian license/allowance and a shared quota scheduler before claiming that scale; no new plan, resource or cost was enabled here.
+
+
+## Public meme feeds
+
+The Memes space reads public posts with media attachments from six feeds: [memes / Lemmy World](https://lemmy.world/c/memes), [me_irl / Lemmy World](https://lemmy.world/c/me_irl), [programmer_humor / programming.dev](https://programming.dev/c/programmer_humor), [#funny / mastodon.social](https://mastodon.social/tags/funny), [#memes / mastodon.social](https://mastodon.social/tags/memes), and [#memes / mastodon.online](https://mastodon.online/tags/memes).
+
+Lemmy uses its [public post-list API](https://join-lemmy.org/docs/contributors/04-api.html); Mastodon uses its [hashtag timeline API](https://docs.joinmastodon.org/methods/timelines/#tag) and source-supplied [media attachments](https://docs.joinmastodon.org/entities/MediaAttachment/). Metadata is cached for ten minutes, up to 60 response entries. No credentials, HTML scraping, arbitrary URL proxy, media downloading, or rehosting is involved. Requests omit credentials. Media and poster URLs must be HTTPS; private/local hostnames and active URL schemes are rejected.
+
+Only public, non-sensitive Mastodon posts and non-deleted/non-removed/non-NSFW Lemmy posts are admitted. Labels are provider supplied and cannot guarantee suitability. Video, looping video, GIF images, and multiple image attachments retain their native type and alternative text where supplied. Public feed availability does not grant a media reuse license: every normalized item retains its original post, contributor attribution, and an explicit unknown-reuse-rights caveat. The checked-in snapshot contains metadata only; collect it with `node collect_memes.cjs`. A federation-aware media key collapses identical original attachment URLs, but visually identical reuploads at different URLs can still appear.
+
+Instagram, TikTok, YouTube, and Reddit are not connected catalog sources. No claim is made to scrape or bypass their access controls.

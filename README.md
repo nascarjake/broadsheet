@@ -1,15 +1,16 @@
 # Broadsheet / 07
 
-A modular, zoomable browser. News is one space in a larger hub for recipes, places, and movies. Each space has its own content model, filters, visual cards, layout, and saved items, with one shared endless spatial interaction engine.
+A modular, zoomable browser. News is one space in a larger hub for recipes, places, movies, and memes. Each space has its own content model, filters, visual cards, layout, and saved items, with one shared endless spatial interaction engine.
 
 ## Open locally
 
-Double-click **Play Broadsheet.command**, or run `python3 server.py` and open the printed URL. The hub links to four spaces:
+Double-click **Play Broadsheet.command**, or run `python3 server.py` and open the printed URL. The hub links to five spaces:
 
 - **News:** an endless newspaper with publisher photos, source video, regional locators, source context, related headlines, variable story sizes, channels, RSS imports, saved articles and on-demand in-card article reading. See [NEWS.md](NEWS.md).
 - **Recipes:** TheMealDB’s photo collection plus the much larger Wikibooks community cookbook. Browse live recipe types, cultures, ingredients, and meal/course categories; unfold ingredients, directions, notes, and attribution in place.
 - **Places:** community map listings on a visual canvas or an actual geographic map. Use browser location or search for any city/address. Sparse categories automatically expand their search up to 75 km; the location panel also offers fixed distances up to 100 km. Business covers use mapped venue photos, credited community photographs, business website imagery, or clearly labeled brand logos; absent media uses a name tile. Street View opens only through an explicit link. Restaurant cards preview food photographs on hover or keyboard focus; illustrative food is labeled. The saved Chicago collection is only a preview; the application is not bound to Chicago.
 - **Movies:** regional theater releases by default, all-movie and streaming catalogs, genre/year/service/cast/studio/interest filters, and in-card trailers and JustWatch watch offers. A Ghibli starter collection remains selectable.
+- **Memes:** a mixed canvas of pictures, video clips/reels, and GIFs from six public Lemmy and Mastodon feeds. Filter by format or source, search captions/creators/tags across fetched pages, open full images and playable clips in place, and save favorites with everything else.
 
 **Your collection** on the hub combines saved items from every space. **Recently explored** keeps a local trail of opened items and can be cleared from the hub. Opening a saved item returns to its original space and detail view. Existing news bookmarks and channel preferences remain in the original storage namespace.
 
@@ -17,7 +18,7 @@ Double-click **Play Broadsheet.command**, or run `python3 server.py` and open th
 
 Every browsing space fills the window. A shared floating control layer replaces the fixed masthead, sidebar, and toolbar: the space switcher is at the top left, **Browse** at the left edge, **Find & filter** at the top right, and **Zoom & arrange** below. Controls brighten near the pointer and recede while exploring. Panels overlay the canvas without changing its dimensions; clicking the canvas or pressing Escape dismisses them. Press `/` to open search. Touch controls remain visible, closed panels leave the keyboard tab order, and reduced-motion preferences disable transitions. Active searches and topics remain named on the Find control.
 
-All four spatial modules continue left, right, up, and down. There is no outermost row or column. The loaded source collection is finite and repeats deterministically across that endless layout; the unique-item count is separate from the number of visible card instances. Catalog-sized two-dimensional spacing keeps repeats out of large nearby neighborhoods; the former fixed seven-column diagonal cycle has been removed. Retained card positions permute the source deck instead of adding extra copies, and redundant old automatic pins are repaired while opened/edited cards are preserved. Filters and list views still describe the actual unique collection.
+All five spatial modules continue left, right, up, and down. There is no outermost row or column. The loaded source collection is finite and repeats deterministically across that endless layout; the unique-item count is separate from the number of visible card instances. Catalog-sized two-dimensional spacing keeps repeats out of large nearby neighborhoods; the former fixed seven-column diagonal cycle has been removed. Retained card positions permute the source deck instead of adding extra copies, and redundant old automatic pins are repaired while opened/edited cards are preserved. Filters and list views still describe the actual unique collection.
 
 Click a photo, title, or read button to unfold that particular card **inside the canvas**. Its width grows to span neighboring columns and its height grows to fit its details. Nearby cards reflow around the opened panel. Several cards can remain open. Fold a card to restore its compact size and release its space. Source links still open the original publisher/provider externally.
 
@@ -30,6 +31,16 @@ Only nearby cells are mounted. Open state, size, movement, and source identity a
 Live catalogs are not limited to the bundled recipes or 22 Ghibli films. Search automatically queries the provider after typing; Enter searches immediately. Category changes query the live recipe catalog. Wandering more than a screenful automatically fetches another batch while one is available. **Load more** also appends a batch and pins visible/open cards so their content stays in place as the collection grows. The spatial view initially fetches enough available pages for roughly two screens of distinct items, up to 200 items, stopping on exhaustion, failure, or a page with no new items. Previously visited viewports are retained when later pages arrive. Reloading refreshes a matching live catalog while retaining its loaded pages and pagination cursor. Counts distinguish loaded items from known category totals. Recipe stubs load their ingredients and methods by ID when opened. **Refresh** rechecks the provider; visible catalogs older than 15 minutes refresh automatically. Provider failure preserves the current collection. Provider cursors determine whether more unique results exist; the endless canvas repeats currently loaded items.
 
 Recipe and Wikipedia requests use documented cross-origin APIs directly from the browser, including on GitHub Pages. GitHub Pages cannot run `server.py`; server-only integrations remain separate. Wikipedia provides articles and available artwork, not current cinema availability or verified genres. Its genre controls are keyword searches. TMDB supplies structured genres and current releases when connected.
+
+## Memes and short clips
+
+Memes mixes `memes` and `me_irl` on Lemmy World, `programmer_humor` on programming.dev, and Mastodon’s `#funny` / `#memes` feeds on mastodon.social and mastodon.online. The Mastodon feeds include media federated from other servers and networks. These are public, unauthenticated API reads directly from the browser, so the category works on GitHub Pages without a new backend, account, or secret. Feed availability and cross-origin policy remain controlled by each server.
+
+**Find & filter** offers Pictures, Videos, GIFs, individual sources, and newest/community ordering. Search matches captions, contributor names, sources, and tags on each fetched page; it is not a global provider search or OCR. **Load more** / **Continue searching** advances independent page or ID cursors. Duplicates with the same original media URL collapse across feeds. Partial failures keep healthy feeds working and leave failed cursors retryable; total failure preserves the previous collection. Removed, private, and sensitive/NSFW-flagged posts are skipped. Missing labels and moderation quality vary by community.
+
+Opening a card displays its image gallery or native video controls. Videos do not autoplay, use `preload="none"` to defer video loading, and pause another playing meme clip when started. Source-hosted media can expire or fail; the original-post link remains available. Author, original post, publication date, and rights caveat travel with saved items. No blanket media reuse license is inferred. Instagram, TikTok, and Reddit are not scraped or represented as connected providers. Their restricted catalogs would need separate supported integrations.
+
+`dist/memes.json` is an attributed metadata snapshot for the initial view and standalone preview. Run `npm run refresh:memes` to update it from public feeds, then `npm run build`. Media files stay hosted at their sources and need a connection. Normal site browsing refreshes live feeds and caches metadata for ten minutes.
 
 ## Location and maps
 
@@ -77,13 +88,14 @@ Provider terms and image rights apply. TheMealDB development access, Ghibli meta
 ## Source layout
 
 - `dist/spatial.js`: unbounded coordinates, stable source assignment, per-cell state, span-aware masonry, and local reflow. Unedited row ranges are calculated analytically rather than enumerated.
-- `dist/canvas.js`: shared canvas virtualization, in-place height measurement, zoom/pan/pinch, focus, and pointer/keyboard move/resize. Used by **all four spaces**, including News.
+- `dist/canvas.js`: shared canvas virtualization, in-place height measurement, zoom/pan/pinch, focus, and pointer/keyboard move/resize. Used by **all five spaces**, including News.
 - `dist/spaces.js`: domain registry, filtering, mosaic placement, independent storage keys, shared collection, and recent-item records.
-- `dist/browse.js`: common visual-space controller with recipe/place/film card and detail renderers.
+- `dist/browse.js`: common visual-space controller with recipe/place/film/meme card and detail renderers.
 - `dist/live.js`: browser-side recipe catalogs, cookbook hydration, pagination, nearby places, and attributed venue-photo metadata.
+- `dist/memes.js`: public meme adapters, independent pagination, balanced source mixing, media normalization and duplicate suppression. `collect_memes.cjs` refreshes the starter metadata.
 - `dist/facets.js`, `dist/discovery.css`: source-aware discovery controls, trailers, watch offers, and photo fallbacks.
 - `dist/config.js`: generated public configuration; no server tokens.
-- `space-shell.html` → `build_spaces.py`: one HTML shell generates `recipes.html`, `places.html`, and `movies.html`.
+- `space-shell.html` → `build_spaces.py`: one HTML shell generates `recipes.html`, `places.html`, `movies.html`, and `memes.html`.
 - `dist/index.html`, `dist/hub.js`: hub and cross-space saved collection.
 - `dist/news.html`, `dist/app.js`, `dist/model.js`: retained News domain and its reader-specific behavior.
 - `providers.py`: server adapters and development-time starter collection capture.
@@ -107,7 +119,9 @@ node --check dist/hub.js
 
 `npm test` runs Python tests plus JavaScript checks for news filtering, domain filtering and ingredient search, storage isolation, non-overlapping mosaics, canvas virtualization, zoom anchors, keyboard movement/resizing, focus, and cleanup. Endless-grid tests cover distant quadrants, negative coordinates, multiple open panels, collision-free span packing, persistence, and source-identity changes. Provider tests cover global coordinate search, city changes, invalid coordinates, API boundaries, caching, attribution, and explicit missing movie credentials. `tests/ui.cjs` remains an optional Playwright News smoke test; Playwright is not a runtime dependency.
 
-Desktop/mobile browser QA covers hub navigation, recipe details and live search, movie genre filtering, cross-space saved items, map markers/tiles, and canvas controls. The current correction was browser-checked for inline expansion in all four modules, far panning past every former edge, continued reading inside the world, and reopening after virtual unmount. Live map lookup has been intermittent in this environment; the previous collection is retained on failure. Actual permission-granted geolocation and physical touch pinch require checking on the user's browser/device. Live theater results, combined streaming/year/genre filters, cast lookup, trailers/watch offers, Wikibooks pagination and in-place recipe parsing, and exact-venue photo retrieval were verified against live sources. Geographic permission and physical touch still require device validation.
+Desktop/mobile browser QA covers hub navigation, recipe details and live search, movie genre filtering, cross-space saved items, map markers/tiles, and canvas controls. The earlier canvas correction was browser-checked for inline expansion in all four original modules, far panning past every former edge, continued reading inside the world, and reopening after virtual unmount. Live map lookup has been intermittent in this environment; the previous collection is retained on failure. Actual permission-granted geolocation and physical touch pinch require checking on the user's browser/device. Live theater results, combined streaming/year/genre filters, cast lookup, trailers/watch offers, Wikibooks pagination and in-place recipe parsing, and exact-venue photo retrieval were verified against live sources. Geographic permission and physical touch still require device validation.
+
+Memes was browser-checked against all six live sources, including format/source filtering, caption search, native video playback, saving and reopening through the hub, and a full image fitting a 390 px viewport. Automated meme checks cover pagination, duplicate media, cached reads, cancellation, partial failure, and exhaustion. Physical touch playback controls still need device validation.
 
 ## Captured editions and hosting
 
@@ -115,7 +129,7 @@ Desktop/mobile browser QA covers hub navigation, recipe details and live search,
 
 - `Broadsheet-preview.html` — hub, linking to sibling snapshots.
 - `Broadsheet-news-preview.html` — retained fully embedded NASA/news reader.
-- `Broadsheet-recipes-preview.html`, `Broadsheet-places-preview.html`, `Broadsheet-movies-preview.html` — self-contained application/data shells; remote photos and map tiles still need a connection.
+- `Broadsheet-recipes-preview.html`, `Broadsheet-places-preview.html`, `Broadsheet-movies-preview.html`, `Broadsheet-memes-preview.html` — self-contained application/data shells; remote photos and map tiles still need a connection.
 
 The existing GitHub Pages deployment can serve the static `dist/` hub and spaces, but cannot execute the local Python APIs. Live recipe sources, fallback Wikipedia film discovery, city/nearby place lookup, and open-source business photo discovery work directly from the hosted site. TMDB requires its private server token through the optional gateway. The starter collections and saved browsing remain available.
 

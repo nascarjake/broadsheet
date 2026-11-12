@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "python3 server.py --host 0.0.0.0",
-    "test": "python3 -m unittest discover -s tests && node tests/test_layout.cjs && node tests/test_spaces.cjs && node tests/test_canvas.cjs && node tests/test_infinite.cjs && node tests/test_live.cjs && node tests/test_places.cjs && node tests/test_venues.cjs && node tests/test_articles.cjs && node tests/test_reader_gestures.cjs && node tests/test_gateway.cjs && node tests/test_discovery.cjs && node tests/test_newspaper.cjs",
-    "build": "python3 build_standalone.py"
+    "test": "python3 -m unittest discover -s tests && node tests/test_layout.cjs && node tests/test_spaces.cjs && node tests/test_canvas.cjs && node tests/test_infinite.cjs && node tests/test_live.cjs && node tests/test_places.cjs && node tests/test_venues.cjs && node tests/test_articles.cjs && node tests/test_reader_gestures.cjs && node tests/test_gateway.cjs && node tests/test_discovery.cjs && node tests/test_newspaper.cjs && node tests/test_memes.cjs",
+    "build": "python3 build_standalone.py",
+    "refresh:memes": "node collect_memes.cjs"
   }
 }

@@ -6,6 +6,7 @@ const names = {
   recipes: "Recipes",
   places: "Places",
   movies: "Movies",
+  memes: "Memes",
 };
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -13,7 +14,8 @@ function el(tag, cls, text) {
   if (text !== undefined) n.textContent = text;
   return n;
 }
-function image(src) {
+function image(src, kind) {
+  if (kind === "memes") return window.BroadsheetMemes?.mediaURL(src) || "";
   try {
     const u = new URL(src, location.href);
     return (u.origin === location.origin && u.pathname.includes("/images/")) ||
@@ -39,7 +41,7 @@ function renderRecent() {
         (item.kind === "news" ? "news.html" : S.registry[item.kind].link) +
         "?focus=" +
         encodeURIComponent(item.id);
-      const src = image(item.image);
+      const src = image(item.image, item.kind);
       if (src) {
         const img = el("img");
         img.src = src;
@@ -93,7 +95,7 @@ function renderCollection() {
       el(
         "p",
         "",
-        "Tap the heart on a recipe, place, or film—or Save on a news story. It will be waiting here when you come back.",
+        "Tap the heart on a recipe, place, film, or meme—or Save on a news story. It will be waiting here when you come back.",
       ),
     );
     grid.append(empty);
@@ -105,7 +107,7 @@ function renderCollection() {
       (item.kind === "news" ? "news.html" : S.registry[item.kind].link) +
       "?saved=1&focus=" +
       encodeURIComponent(item.id);
-    const src = image(item.image);
+    const src = image(item.image, item.kind);
     if (src) {
       const img = el("img");
       img.src = src;

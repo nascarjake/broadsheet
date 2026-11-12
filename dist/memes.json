@@ -1,0 +1,2881 @@
+{
+  "items": [
+    {
+      "id": "meme-1cqxjgdpz8kfv",
+      "kind": "memes",
+      "title": "Facts",
+      "description": "Facts",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/c1bc6354-d425-4fb1-ae8b-0cb453374b66.jpeg",
+      "images": [
+        "https://lemmy.world/pictrs/image/3f4016c2-19bd-4def-832c-f5cb9da084b2.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/3f4016c2-19bd-4def-832c-f5cb9da084b2.jpeg",
+          "original": "https://lemmy.world/pictrs/image/3f4016c2-19bd-4def-832c-f5cb9da084b2.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/c1bc6354-d425-4fb1-ae8b-0cb453374b66.jpeg",
+          "alt": "Facts"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/3f4016c2-19bd-4def-832c-f5cb9da084b2.jpeg",
+      "url": "https://lemmy.world/post/54283853",
+      "author": "alam",
+      "authorUrl": "https://lemmy.world/u/alam",
+      "published": "2026-11-11T16:04:45.264946Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54283853",
+      "imageCredit": "Posted by alam. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1f552pmm84m96",
+      "kind": "memes",
+      "title": "That’s me and I don’t like it…",
+      "description": "That’s me and I don’t like it… # meme # funny # capitalism",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "meme",
+        "funny",
+        "capitalism"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/small/b065d5977bfebbfa.png",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/original/b065d5977bfebbfa.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/original/b065d5977bfebbfa.png",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/original/b065d5977bfebbfa.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/small/b065d5977bfebbfa.png",
+          "alt": "The image is a two-panel vertical meme. The top panel features the text \"don't have a job\" above a photo of an elderly man with grey hair sitting in a white, curved corner. He wears a green and white shirt and teal pants, with his knees pulled up, looking to the right. The bottom panel features the text \"have a job\" above the identical image of the man, but with added objects. He now wears a lanyard with an ID badge. Around him are a blue credit card, a white gaming controller, an upright black and white console, a white coffee cup with a green logo, a hamburger, a box of nuggets, and fries. The background is plain, the lighting is bright and even, and the perspective is frontal."
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/979/865/131/822/original/b065d5977bfebbfa.png",
+      "url": "https://mastodon.social/@goulien/117598984721304032",
+      "author": "goulien",
+      "authorUrl": "https://mastodon.social/@goulien",
+      "published": "2026-11-11T17:28:21.876Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@goulien/117598984721304032",
+      "imageCredit": "Posted by goulien. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-ga39w7su9e17",
+      "kind": "memes",
+      "title": "NPM driven development",
+      "description": "NPM driven development",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/6f214684-4359-418b-85dd-51658653384a.png",
+      "images": [
+        "https://lemmy.ml/pictrs/image/8eb48d83-c512-4375-adbb-87c67a16da6a.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.ml/pictrs/image/8eb48d83-c512-4375-adbb-87c67a16da6a.png",
+          "original": "https://lemmy.ml/pictrs/image/8eb48d83-c512-4375-adbb-87c67a16da6a.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/6f214684-4359-418b-85dd-51658653384a.png",
+          "alt": "NPM driven development"
+        }
+      ],
+      "mediaKey": "https://lemmy.ml/pictrs/image/8eb48d83-c512-4375-adbb-87c67a16da6a.png",
+      "url": "https://literature.cafe/post/37181519",
+      "author": "cm0002",
+      "authorUrl": "https://literature.cafe/u/cm0002",
+      "published": "2026-11-11T16:26:34.642065Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://literature.cafe/post/37181519",
+      "imageCredit": "Posted by cm0002. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-uc6gijwp4be9",
+      "kind": "memes",
+      "title": "urbanism urbanism urbanism urbanism urb Source: reddit.com/r/memes/comments/1x tmu88/urbanism_urbanism_urbanism_urbanism_urb/",
+      "description": "urbanism urbanism urbanism urbanism urb Source: https://www. reddit.com/r/memes/comments/1x tmu88/urbanism_urbanism_urbanism_urbanism_urb/ # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/small/a0cf459bc6096dac.jpg",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/original/a0cf459bc6096dac.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/original/a0cf459bc6096dac.jpg",
+          "original": "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/original/a0cf459bc6096dac.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/small/a0cf459bc6096dac.jpg",
+          "alt": "urbanism urbanism urbanism urbanism urb"
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/599/167/498/051/612/original/a0cf459bc6096dac.jpg",
+      "url": "https://mastodon.social/@imemeit_bot/117599167539660208",
+      "author": "imemeit_bot",
+      "authorUrl": "https://mastodon.social/@imemeit_bot",
+      "published": "2026-11-11T18:14:51.417Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.social/@imemeit_bot/117599167539660208",
+      "imageCredit": "Posted by imemeit_bot. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-yhedrk1ue88so",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/3da48739-da10-4794-98db-17bdc86c949a.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/yj/Bm/yjBmU85H1PJjEh6.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/yj/Bm/yjBmU85H1PJjEh6.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/yj/Bm/yjBmU85H1PJjEh6.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/3da48739-da10-4794-98db-17bdc86c949a.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/yj/Bm/yjBmU85H1PJjEh6.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1063529/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-11T05:45:11.505269Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1063529/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-e6enxi161u4ey",
+      "kind": "memes",
+      "title": "From UkrMemesmineproblemes@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/599/167/727/125/914/small/514b2e5bced88560.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/599/167/727/125/914/original/514b2e5bced88560.mp4",
+          "original": "https://cdn4.telesco.pe/file/ebe9388ffc.mp4?token=G6gGa2yk_35fzfO0qx1NMv2KpPcUSerFFFelYR7RdG1zZPyDiRhJ-mB6B99-JkA6eIWqj_nUyApeJLn2imPcYBF3qTtOINC5dCzwizt_JOWSfhZqTYD3U7nhm0WaQmru_ZJu8kwgV6l6cztRDbP8zaIytM__3YbY9EyLjcelQPzVcUpugDVdtDyyTDGalD0zAGVsfm-5Xdi1aOUwyIiZShLdQLSVkX69t3qQvmWmJLttUmpbg81DgZC3VKehcd0WINyUROCxQcACIrN76RG6_lqKeb_ChDxv2M8DXWFG7g_Q-PogBNOCig8ihuL-v5IU5bA7F2QJezchRsF3PniiZg",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/599/167/727/125/914/small/514b2e5bced88560.png",
+          "alt": "",
+          "duration": 14.7
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/ebe9388ffc.mp4?token=G6gGa2yk_35fzfO0qx1NMv2KpPcUSerFFFelYR7RdG1zZPyDiRhJ-mB6B99-JkA6eIWqj_nUyApeJLn2imPcYBF3qTtOINC5dCzwizt_JOWSfhZqTYD3U7nhm0WaQmru_ZJu8kwgV6l6cztRDbP8zaIytM__3YbY9EyLjcelQPzVcUpugDVdtDyyTDGalD0zAGVsfm-5Xdi1aOUwyIiZShLdQLSVkX69t3qQvmWmJLttUmpbg81DgZC3VKehcd0WINyUROCxQcACIrN76RG6_lqKeb_ChDxv2M8DXWFG7g_Q-PogBNOCig8ihuL-v5IU5bA7F2QJezchRsF3PniiZg",
+      "url": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46469",
+      "author": "UkrMemesmineproblemes@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/UkrMemesmineproblemes",
+      "published": "2026-11-11T18:07:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46469",
+      "imageCredit": "Posted by UkrMemesmineproblemes@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1tv7gzp1i8evt",
+      "kind": "memes",
+      "title": "Not a bad instinct",
+      "description": "Not a bad instinct",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/bf5be819-6c82-458f-80ff-8ab0e00221f2.jpeg",
+      "images": [
+        "https://lemmy.world/pictrs/image/cac1c5fa-153e-4ecb-b7cf-ff4230309a58.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/cac1c5fa-153e-4ecb-b7cf-ff4230309a58.jpeg",
+          "original": "https://lemmy.world/pictrs/image/cac1c5fa-153e-4ecb-b7cf-ff4230309a58.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/bf5be819-6c82-458f-80ff-8ab0e00221f2.jpeg",
+          "alt": "Not a bad instinct"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/cac1c5fa-153e-4ecb-b7cf-ff4230309a58.jpeg",
+      "url": "https://lemmy.world/post/54280238",
+      "author": "The_Picard_Maneuver",
+      "authorUrl": "https://lemmy.world/u/The_Picard_Maneuver",
+      "published": "2026-11-11T13:50:18.869882Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54280238",
+      "imageCredit": "Posted by The_Picard_Maneuver. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-10gjj4h7ma8n9",
+      "kind": "memes",
+      "title": "Foggy snorts.",
+      "description": "Foggy snorts. # grickledoodle # pug # sherlockholmes # baskervilles # horror # cartoon # art # drawing # funny # humor",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "grickledoodle",
+        "pug",
+        "sherlockholmes",
+        "baskervilles",
+        "horror",
+        "cartoon",
+        "art",
+        "drawing",
+        "funny",
+        "humor"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/613/166/549/small/168c27858e581580.jpeg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/905/613/166/549/original/168c27858e581580.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/613/166/549/original/168c27858e581580.jpeg",
+          "original": "https://media.mstdn.social/media_attachments/files/117/598/905/377/673/708/original/4660d26179aa8d74.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/613/166/549/small/168c27858e581580.jpeg",
+          "alt": "Cartoon parody of Sherlock Holmes and Dr. Watson fleeing a gigantic, menacing pug looming over them; Holmes brandishes a pink bone while Watson clutches a puppy bag, captioned \"The Pug of the Baskervilles.\""
+        }
+      ],
+      "mediaKey": "https://media.mstdn.social/media_attachments/files/117/598/905/377/673/708/original/4660d26179aa8d74.jpeg",
+      "url": "https://mstdn.social/@grickle/117598905471654185",
+      "author": "grickle@mstdn.social",
+      "authorUrl": "https://mstdn.social/@grickle",
+      "published": "2026-11-11T17:08:12.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mstdn.social/@grickle/117598905471654185",
+      "imageCredit": "Posted by grickle@mstdn.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-17ffdik1udins",
+      "kind": "memes",
+      "title": "🦀🦀🦀",
+      "description": "🦀🦀🦀",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/da4f4a6f-ffec-438f-a107-a3f16e9ea3f7.jpeg",
+      "images": [
+        "https://lemmy.world/pictrs/image/acfda459-3eb1-492b-95b0-6aa8de97e684.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/acfda459-3eb1-492b-95b0-6aa8de97e684.jpeg",
+          "original": "https://lemmy.world/pictrs/image/acfda459-3eb1-492b-95b0-6aa8de97e684.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/da4f4a6f-ffec-438f-a107-a3f16e9ea3f7.jpeg",
+          "alt": "🦀🦀🦀"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/acfda459-3eb1-492b-95b0-6aa8de97e684.jpeg",
+      "url": "https://literature.cafe/post/37178970",
+      "author": "cm0002",
+      "authorUrl": "https://literature.cafe/u/cm0002",
+      "published": "2026-11-11T14:43:53.339068Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://literature.cafe/post/37178970",
+      "imageCredit": "Posted by cm0002. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-2tpao71qnqjoh",
+      "kind": "memes",
+      "title": "- salsabits",
+      "description": "- salsabits #meme #memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "meme",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/599/110/116/401/778/small/151a8982cc0dd538.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/599/110/116/401/778/original/151a8982cc0dd538.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/599/110/116/401/778/original/151a8982cc0dd538.jpg",
+          "original": "https://pixelfed.social/storage/m/_v2/873188844018545376/4796c06ff-5eacf7/VKOQeCmF2qQ4/CDytLnjLzmqimCmzd10EXmz8YCfJYRiWnD9Urax8.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/599/110/116/401/778/small/151a8982cc0dd538.jpg",
+          "alt": "(] @ hot_diggity_dang_ 15h Fun fact: Cleopatra was born closer to the first moon landing than the building of the pyramids < Reply #1 {858 ‘ 0ddlyC4nt3v3n 15h Incorrect! The moon is over 238,000 miles away, while Cleopatra was born in Alexandria, Egypt-- which is only a little over 100 miles from where the pyramids were built S B13"
+        }
+      ],
+      "mediaKey": "https://pixelfed.social/storage/m/_v2/873188844018545376/4796c06ff-5eacf7/VKOQeCmF2qQ4/CDytLnjLzmqimCmzd10EXmz8YCfJYRiWnD9Urax8.jpg",
+      "url": "https://pixelfed.social/p/TheHeartoftheTARDIS/1026191871080771938",
+      "author": "TheHeartoftheTARDIS@pixelfed.social",
+      "authorUrl": "https://pixelfed.social/TheHeartoftheTARDIS",
+      "published": "2026-11-11T18:00:07.000Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://pixelfed.social/p/TheHeartoftheTARDIS/1026191871080771938",
+      "imageCredit": "Posted by TheHeartoftheTARDIS@pixelfed.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-19rbso3k5lwix",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/60944e01-722d-4824-816b-66c42aab5541.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/pD/4v/pD4viYohJZTnHzD.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/pD/4v/pD4viYohJZTnHzD.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/pD/4v/pD4viYohJZTnHzD.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/60944e01-722d-4824-816b-66c42aab5541.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/pD/4v/pD4viYohJZTnHzD.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1058805/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-10T05:15:14.493994Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1058805/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-79zdf21oa7i9e",
+      "kind": "memes",
+      "title": "I answer to no one",
+      "description": "I answer to no one",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/5641eb9f-3b42-49bb-995f-78b53661d625.png",
+      "images": [
+        "https://lemmy.ca/pictrs/image/15bf61af-d80f-4e79-995c-78703710abfa.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.ca/pictrs/image/15bf61af-d80f-4e79-995c-78703710abfa.png",
+          "original": "https://lemmy.ca/pictrs/image/15bf61af-d80f-4e79-995c-78703710abfa.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/5641eb9f-3b42-49bb-995f-78b53661d625.png",
+          "alt": "I answer to no one"
+        }
+      ],
+      "mediaKey": "https://lemmy.ca/pictrs/image/15bf61af-d80f-4e79-995c-78703710abfa.png",
+      "url": "https://lemmy.ca/post/73697125",
+      "author": "Quilotoa",
+      "authorUrl": "https://lemmy.ca/u/Quilotoa",
+      "published": "2026-11-11T12:25:20.769687Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.ca/post/73697125",
+      "imageCredit": "Posted by Quilotoa. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-gr4s2a1oyfg2g",
+      "kind": "memes",
+      "title": "Wingdings Translator is featured on Awesome Indie! 🚀 Free Wingdings Translator | Instantly Convert Text to Wingdings Upvote it → https:// aw",
+      "description": "Wingdings Translator is featured on Awesome Indie! 🚀 Free Wingdings Translator | Instantly Convert Text to Wingdings Upvote it → https:// awesomeindie.com/product/wingd ings-translator-2 # Fonts # Funny # Typography",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "fonts",
+        "funny",
+        "typography"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/small/640daad2396e3d40.jpg",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/original/640daad2396e3d40.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/original/640daad2396e3d40.jpg",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/original/640daad2396e3d40.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/small/640daad2396e3d40.jpg",
+          "alt": "Wingdings Translator - Free Wingdings Translator | Instantly Convert Text to Wingdings"
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/881/134/555/402/original/640daad2396e3d40.jpg",
+      "url": "https://mastodon.social/@awesomeindie/117598881176409196",
+      "author": "awesomeindie",
+      "authorUrl": "https://mastodon.social/@awesomeindie",
+      "published": "2026-11-11T17:02:01.859Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@awesomeindie/117598881176409196",
+      "imageCredit": "Posted by awesomeindie. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-nmv4yc15rcere",
+      "kind": "memes",
+      "title": "FYI",
+      "description": "FYI",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/9f3ab7f3-40d5-4151-86f3-e4e525db2411.jpeg",
+      "images": [
+        "https://media.piefed.social/posts/rW/BP/rWBPwsvtDw7YPQh.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://media.piefed.social/posts/rW/BP/rWBPwsvtDw7YPQh.jpg",
+          "original": "https://media.piefed.social/posts/rW/BP/rWBPwsvtDw7YPQh.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/9f3ab7f3-40d5-4151-86f3-e4e525db2411.jpeg",
+          "alt": "FYI"
+        }
+      ],
+      "mediaKey": "https://media.piefed.social/posts/rW/BP/rWBPwsvtDw7YPQh.jpg",
+      "url": "https://piefed.social/c/programmer_humor@programming.dev/p/2588784/fyi",
+      "author": "Ek-Hou-Van-Braai",
+      "authorUrl": "https://piefed.social/u/Ek-Hou-Van-Braai",
+      "published": "2026-11-11T08:09:52.371583Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://piefed.social/c/programmer_humor@programming.dev/p/2588784/fyi",
+      "imageCredit": "Posted by Ek-Hou-Van-Braai. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1coirhwkgrkc4",
+      "kind": "memes",
+      "title": "It’s only a matter of time Source: reddit.com/r/memes/comments/1x tkd5i/its_only_a_matter_of_time/",
+      "description": "It’s only a matter of time Source: https://www. reddit.com/r/memes/comments/1x tkd5i/its_only_a_matter_of_time/ # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/small/784f12cf1a7f4a57.jpg",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/original/784f12cf1a7f4a57.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/original/784f12cf1a7f4a57.jpg",
+          "original": "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/original/784f12cf1a7f4a57.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/small/784f12cf1a7f4a57.jpg",
+          "alt": "It’s only a matter of time"
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/599/049/351/781/930/original/784f12cf1a7f4a57.jpg",
+      "url": "https://mastodon.social/@imemeit_bot/117599049394997640",
+      "author": "imemeit_bot",
+      "authorUrl": "https://mastodon.social/@imemeit_bot",
+      "published": "2026-11-11T17:44:48.712Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.social/@imemeit_bot/117599049394997640",
+      "imageCredit": "Posted by imemeit_bot. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-19ngu9vechvm9",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/a6411993-2b2f-4c84-babf-d3e27e1e3fbc.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/TA/dv/TAdvCrMlTmHLERi.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/TA/dv/TAdvCrMlTmHLERi.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/TA/dv/TAdvCrMlTmHLERi.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/a6411993-2b2f-4c84-babf-d3e27e1e3fbc.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/TA/dv/TAdvCrMlTmHLERi.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1058803/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-09T05:10:14.837985Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1058803/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-fnjth31i58fwd",
+      "kind": "memes",
+      "title": "The shame",
+      "description": "The shame",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/69a3a4b5-3fd2-4a94-9173-e18eab7d90f7.png",
+      "images": [
+        "https://lemmy.ca/pictrs/image/b56a09fd-0e1e-4b19-b835-155ae102d9e3.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.ca/pictrs/image/b56a09fd-0e1e-4b19-b835-155ae102d9e3.png",
+          "original": "https://lemmy.ca/pictrs/image/b56a09fd-0e1e-4b19-b835-155ae102d9e3.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/69a3a4b5-3fd2-4a94-9173-e18eab7d90f7.png",
+          "alt": "The shame"
+        }
+      ],
+      "mediaKey": "https://lemmy.ca/pictrs/image/b56a09fd-0e1e-4b19-b835-155ae102d9e3.png",
+      "url": "https://lemmy.ca/post/73696885",
+      "author": "Quilotoa",
+      "authorUrl": "https://lemmy.ca/u/Quilotoa",
+      "published": "2026-11-11T12:20:29.406011Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.ca/post/73696885",
+      "imageCredit": "Posted by Quilotoa. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1j3gr9n7vp6q1",
+      "kind": "memes",
+      "title": "Spotted at a local McDonald's https:// sh.itjust.works/post/69772388",
+      "description": "Spotted at a local McDonald's https:// sh.itjust.works/post/69772388",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "funny"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/861/998/055/355/small/9763a09cced86896.png",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/861/998/055/355/original/9763a09cced86896.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/861/998/055/355/original/9763a09cced86896.png",
+          "original": "https://sh.itjust.works/pictrs/image/b948a3c7-79ed-43dd-a806-fcfcda957c8b.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/861/998/055/355/small/9763a09cced86896.png",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://sh.itjust.works/pictrs/image/b948a3c7-79ed-43dd-a806-fcfcda957c8b.png",
+      "url": "https://sh.itjust.works/post/69772388",
+      "author": "datavoid@sh.itjust.works",
+      "authorUrl": "https://sh.itjust.works/u/datavoid",
+      "published": "2026-11-11T16:56:44.867Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://sh.itjust.works/post/69772388",
+      "imageCredit": "Posted by datavoid@sh.itjust.works. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-bwajkm1lhpg1w",
+      "kind": "memes",
+      "title": "So Unfair",
+      "description": "So Unfair",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/efae302d-109c-48a4-adfe-6244b5092f57.jpeg",
+      "images": [
+        "https://media.piefed.world/posts/Pg/X7/PgX729SaCpIDqU3.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://media.piefed.world/posts/Pg/X7/PgX729SaCpIDqU3.jpeg",
+          "original": "https://media.piefed.world/posts/Pg/X7/PgX729SaCpIDqU3.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/efae302d-109c-48a4-adfe-6244b5092f57.jpeg",
+          "alt": "So Unfair"
+        }
+      ],
+      "mediaKey": "https://media.piefed.world/posts/Pg/X7/PgX729SaCpIDqU3.jpeg",
+      "url": "https://sh.itjust.works/post/69718034",
+      "author": "GolfFoxtrotLima",
+      "authorUrl": "https://sh.itjust.works/u/GolfFoxtrotLima",
+      "published": "2026-11-10T16:06:29.046897Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://sh.itjust.works/post/69718034",
+      "imageCredit": "Posted by GolfFoxtrotLima. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-scm67h16iprd3",
+      "kind": "memes",
+      "title": "SpongeBob Meme",
+      "description": "# spongebob # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "spongebob",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/599/033/940/338/343/small/3a35ae69119db21d.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/599/033/940/338/343/original/3a35ae69119db21d.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/599/033/940/338/343/original/3a35ae69119db21d.jpg",
+          "original": "https://files.techhub.social/media_attachments/files/117/599/033/818/546/608/original/efe58b541dc9e178.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/599/033/940/338/343/small/3a35ae69119db21d.jpg",
+          "alt": "SpongeBob Meme"
+        }
+      ],
+      "mediaKey": "https://files.techhub.social/media_attachments/files/117/599/033/818/546/608/original/efe58b541dc9e178.jpg",
+      "url": "https://techhub.social/@DailySBMemes/117599033884918586",
+      "author": "DailySBMemes@techhub.social",
+      "authorUrl": "https://techhub.social/@DailySBMemes",
+      "published": "2026-11-11T17:40:52.000Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://techhub.social/@DailySBMemes/117599033884918586",
+      "imageCredit": "Posted by DailySBMemes@techhub.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1apf9s71ekz80h",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/a0a0ffb5-5aa4-4663-b905-46826e560581.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/Gt/9k/Gt9kQ4H3il2pHDF.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/Gt/9k/Gt9kQ4H3il2pHDF.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/Gt/9k/Gt9kQ4H3il2pHDF.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/a0a0ffb5-5aa4-4663-b905-46826e560581.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/Gt/9k/Gt9kQ4H3il2pHDF.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055424/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-08T05:15:09.659741Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055424/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-9ivuvn2a68in",
+      "kind": "memes",
+      "title": "Стільки контенту за півтра місяці, молодці 🫡",
+      "description": "Стільки контенту за півтра місяці, молодці 🫡 #Memes #Меми #PopCulture",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "popculture"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/599/074/290/944/365/small/0e7b1c4625db9634.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/599/074/290/944/365/original/0e7b1c4625db9634.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/599/074/290/944/365/original/0e7b1c4625db9634.jpg",
+          "original": "https://cdn4.telesco.pe/file/rPj_NYpEt5Ya5OghY3ejbKEsPmP2fkJ3woTl2Z74l79B-j7ilYrGY5gjzrSM8ryb-pfSY4GkEnUzj4pa4X8u0_sgjGe3skw8u0KeGv-FiyGnmr7OJGULhNQLfZ9O2sS7kw_2t9_W0kZfcOFIq4oVD6J-kM7HvqI5_T4EsKaC5ODz9ATO4nbsUWuZCaiZLaOaFD8982Xa114bH9pS_MdbQD7nxoOpy8uzWyWA8_8epfGwll4b6H9_kBoBrTD8w-NKRfHcUHSjjn51ere_yw5NNjPMhaMv0iQfm1hcwerA8V7zHgO7CddmxWUzbQT-2N9xZcW-JnnGksliMnL8q5lK4Q.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/599/074/290/944/365/small/0e7b1c4625db9634.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/rPj_NYpEt5Ya5OghY3ejbKEsPmP2fkJ3woTl2Z74l79B-j7ilYrGY5gjzrSM8ryb-pfSY4GkEnUzj4pa4X8u0_sgjGe3skw8u0KeGv-FiyGnmr7OJGULhNQLfZ9O2sS7kw_2t9_W0kZfcOFIq4oVD6J-kM7HvqI5_T4EsKaC5ODz9ATO4nbsUWuZCaiZLaOaFD8982Xa114bH9pS_MdbQD7nxoOpy8uzWyWA8_8epfGwll4b6H9_kBoBrTD8w-NKRfHcUHSjjn51ere_yw5NNjPMhaMv0iQfm1hcwerA8V7zHgO7CddmxWUzbQT-2N9xZcW-JnnGksliMnL8q5lK4Q.jpg",
+      "url": "https://tg.anyfeed.cc/post/bromeeems-34078",
+      "author": "bromeeems@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/bromeeems",
+      "published": "2026-11-11T17:32:31.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/bromeeems-34078",
+      "imageCredit": "Posted by bromeeems@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1b3w5uf11esqsp",
+      "kind": "memes",
+      "title": "Oman...",
+      "description": "Oman...",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/b21fb0a6-7554-454f-9e6e-b99dbfe9a378.webp",
+      "images": [
+        "https://lem.lemmy.blahaj.zone/pictrs/image/77fc8a22-f7a1-4ab0-88e0-82e709655499.webp"
+      ],
+      "media": [
+        {
+          "url": "https://lem.lemmy.blahaj.zone/pictrs/image/77fc8a22-f7a1-4ab0-88e0-82e709655499.webp",
+          "original": "https://lem.lemmy.blahaj.zone/pictrs/image/77fc8a22-f7a1-4ab0-88e0-82e709655499.webp",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/b21fb0a6-7554-454f-9e6e-b99dbfe9a378.webp",
+          "alt": "Oman..."
+        }
+      ],
+      "mediaKey": "https://lem.lemmy.blahaj.zone/pictrs/image/77fc8a22-f7a1-4ab0-88e0-82e709655499.webp",
+      "url": "https://lemmy.blahaj.zone/post/50354582",
+      "author": "NotAHondaAccord",
+      "authorUrl": "https://lemmy.blahaj.zone/u/NotAHondaAccord",
+      "published": "2026-11-11T06:07:48.507911Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.blahaj.zone/post/50354582",
+      "imageCredit": "Posted by NotAHondaAccord. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-79f3631u12nc9",
+      "kind": "memes",
+      "title": "Having a roommate comes with a few downsides. For instance, sharing a bathroom...",
+      "description": "Having a roommate comes with a few downsides. For instance, sharing a bathroom... # furry # comic # funny # humor # anthro # anthropomorphic # comics # november",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "furry",
+        "comic",
+        "funny",
+        "humor",
+        "anthro",
+        "anthropomorphic",
+        "comics",
+        "november"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/small/2eda3b52d0325494.png",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/original/2eda3b52d0325494.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/original/2eda3b52d0325494.png",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/original/2eda3b52d0325494.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/small/2eda3b52d0325494.png",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/816/425/110/479/original/2eda3b52d0325494.png",
+      "url": "https://mastodon.social/@ariesartist/117598816713235959",
+      "author": "ariesartist",
+      "authorUrl": "https://mastodon.social/@ariesartist",
+      "published": "2026-11-11T16:45:38.229Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@ariesartist/117598816713235959",
+      "imageCredit": "Posted by ariesartist. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-5xtcqx13tzo6l",
+      "kind": "memes",
+      "title": "Nvidia",
+      "description": "Nvidia",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/baaaf24c-85d9-496b-8dbc-9ad5de58d022.jpeg",
+      "images": [
+        "https://media.piefed.social/posts/Qr/3Q/Qr3QVW0iVvWVDPH.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://media.piefed.social/posts/Qr/3Q/Qr3QVW0iVvWVDPH.jpg",
+          "original": "https://media.piefed.social/posts/Qr/3Q/Qr3QVW0iVvWVDPH.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/baaaf24c-85d9-496b-8dbc-9ad5de58d022.jpeg",
+          "alt": "Nvidia"
+        }
+      ],
+      "mediaKey": "https://media.piefed.social/posts/Qr/3Q/Qr3QVW0iVvWVDPH.jpg",
+      "url": "https://piefed.social/c/programmer_humor@programming.dev/p/2584736/nvidia",
+      "author": "Ek-Hou-Van-Braai",
+      "authorUrl": "https://piefed.social/u/Ek-Hou-Van-Braai",
+      "published": "2026-11-10T07:41:04.796119Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://piefed.social/c/programmer_humor@programming.dev/p/2584736/nvidia",
+      "imageCredit": "Posted by Ek-Hou-Van-Braai. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-n4nai31ojj7xh",
+      "kind": "memes",
+      "title": "A professional fumbler Source: reddit.com/r/memes/comments/1x tlwui/a_professional_fumbler/",
+      "description": "A professional fumbler Source: https://www. reddit.com/r/memes/comments/1x tlwui/a_professional_fumbler/ # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/small/1b3cc679d562e295.jpg",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/original/1b3cc679d562e295.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/original/1b3cc679d562e295.jpg",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/original/1b3cc679d562e295.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/small/1b3cc679d562e295.jpg",
+          "alt": "A professional fumbler"
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/931/252/999/156/original/1b3cc679d562e295.jpg",
+      "url": "https://mastodon.social/@imemeit_bot/117598931290953463",
+      "author": "imemeit_bot",
+      "authorUrl": "https://mastodon.social/@imemeit_bot",
+      "published": "2026-11-11T17:14:46.546Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.social/@imemeit_bot/117598931290953463",
+      "imageCredit": "Posted by imemeit_bot. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1hp55b01poefvc",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/4ded599e-eae1-46e9-ba27-0323b0337c29.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/vK/LA/vKLANyb7k1OCVPh.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/vK/LA/vKLANyb7k1OCVPh.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/vK/LA/vKLANyb7k1OCVPh.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/4ded599e-eae1-46e9-ba27-0323b0337c29.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/vK/LA/vKLANyb7k1OCVPh.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055422/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-07T05:15:10.492764Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055422/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1kcgx3b1tlp6vt",
+      "kind": "memes",
+      "title": "A hardcore Bill Hicks fan right there",
+      "description": "A hardcore Bill Hicks fan right there",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/e139b425-1634-4c56-aef7-91d8681cdf6d.png",
+      "images": [
+        "https://lemmy.world/pictrs/image/48a333f8-c2a2-4106-85d1-1909621b6484.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/48a333f8-c2a2-4106-85d1-1909621b6484.png",
+          "original": "https://lemmy.world/pictrs/image/48a333f8-c2a2-4106-85d1-1909621b6484.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/e139b425-1634-4c56-aef7-91d8681cdf6d.png",
+          "alt": "A hardcore Bill Hicks fan right there"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/48a333f8-c2a2-4106-85d1-1909621b6484.png",
+      "url": "https://lemmy.world/post/54280617",
+      "author": "AListOfTrumpVoters",
+      "authorUrl": "https://lemmy.world/u/AListOfTrumpVoters",
+      "published": "2026-11-11T14:03:55.334699Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54280617",
+      "imageCredit": "Posted by AListOfTrumpVoters. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-sejevcf28m7w",
+      "kind": "memes",
+      "title": "More Than Code https:// psvcomic.com/2026/11/11/",
+      "description": "More Than Code https:// psvcomic.com/2026/11/11/ # comic # comics # webcomic # webcomics # funny # programming",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "comic",
+        "comics",
+        "webcomic",
+        "webcomics",
+        "funny",
+        "programming"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/small/7993497318319657.png",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/original/7993497318319657.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/original/7993497318319657.png",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/original/7993497318319657.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/small/7993497318319657.png",
+          "alt": "A 4 panel grayscale comic featuring a man with long hair, a beard, and glasses (Programmer) and a woman with shoulder length wavy hair (Jane) at an office water cooler holding mugs. Panel 1. Programmer, contemplative: You know... I could make an app to solve this problem. Jane: That seems unnecessary. Panel 2. Programmer, cheerful: It would only take a few days. Jane: It's also not hard to work around. Programmer, cheerful: And every time you use that work around it will annoy you a little bit. Panel 3. Jane, sighing: Fine. Go for it. Programmer: Huzza! Programming powers deployed! Panel 4. Sub titled One Month Later. They are now at Programmer's desk. Jane is squinting at her phone. Jane: Uh... this is kind of a mess. Programmer: Yeah... Turns out programming powers don't translate to UX powers."
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/514/895/599/242/original/7993497318319657.png",
+      "url": "https://mastodon.social/@psvcomic/117598518671353947",
+      "author": "psvcomic",
+      "authorUrl": "https://mastodon.social/@psvcomic",
+      "published": "2026-11-11T15:29:50.471Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@psvcomic/117598518671353947",
+      "imageCredit": "Posted by psvcomic. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-q2lgjcmaoet8",
+      "kind": "memes",
+      "title": "it career in mage career terms",
+      "description": "it career in mage career terms",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/5e7f4fc1-b069-4521-ab3a-83d8104b08c4.webp",
+      "images": [
+        "https://lemmy.blahaj.zone/pictrs/image/b38a27b1-e5af-4795-8865-c11b101ee601.webp"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.blahaj.zone/pictrs/image/b38a27b1-e5af-4795-8865-c11b101ee601.webp",
+          "original": "https://lemmy.blahaj.zone/pictrs/image/b38a27b1-e5af-4795-8865-c11b101ee601.webp",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/5e7f4fc1-b069-4521-ab3a-83d8104b08c4.webp",
+          "alt": "it career in mage career terms"
+        }
+      ],
+      "mediaKey": "https://lemmy.blahaj.zone/pictrs/image/b38a27b1-e5af-4795-8865-c11b101ee601.webp",
+      "url": "https://lemmy.blahaj.zone/post/50313125",
+      "author": "not_IO",
+      "authorUrl": "https://lemmy.blahaj.zone/u/not_IO",
+      "published": "2026-11-10T06:08:49.492889Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://lemmy.blahaj.zone/post/50313125",
+      "imageCredit": "Posted by not_IO. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-19x3onrzz285n",
+      "kind": "memes",
+      "title": "The kind of domains and shitty stuff coming to us over email is really laughable. please do something about the spam being received in huge ",
+      "description": "The kind of domains and shitty stuff coming to us over email is really laughable. @ doncow please do something about the spam being received in huge numbers. I have raised this so many times already. Anyway, here is what we received, lols... # memes # rofl # mail # spammers",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "rofl",
+        "mail",
+        "spammers"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/962/620/826/small/1c2f42f37c6795ff.png",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/905/962/620/826/original/1c2f42f37c6795ff.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/962/620/826/original/1c2f42f37c6795ff.png",
+          "original": "https://mastodon.fbin.in/system/media_attachments/files/117/598/900/371/887/436/original/ac77922ff0001e48.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/905/962/620/826/small/1c2f42f37c6795ff.png",
+          "alt": "A very funny email id and even funnier domain publicdefender@national.shitposting.agency."
+        }
+      ],
+      "mediaKey": "https://mastodon.fbin.in/system/media_attachments/files/117/598/900/371/887/436/original/ac77922ff0001e48.png",
+      "url": "https://mastodon.fbin.in/@fbinin/117598905910179217",
+      "author": "fbinin@mastodon.fbin.in",
+      "authorUrl": "https://mastodon.fbin.in/@fbinin",
+      "published": "2026-11-11T17:08:19.000Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.fbin.in/@fbinin/117598905910179217",
+      "imageCredit": "Posted by fbinin@mastodon.fbin.in. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-108l25r194gz5r",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/7af45ca3-6b08-4a06-a81e-b527303009d4.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/I2/14/I2146J5vw19Ui3R.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/I2/14/I2146J5vw19Ui3R.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/I2/14/I2146J5vw19Ui3R.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/7af45ca3-6b08-4a06-a81e-b527303009d4.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/I2/14/I2146J5vw19Ui3R.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055421/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-06T05:15:13.850636Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1055421/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1i5zk241i01v8y",
+      "kind": "memes",
+      "title": "utterly beat down",
+      "description": "utterly beat down",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/389baae0-dea6-47e7-805a-a638e8fe9724.png",
+      "images": [
+        "https://lemmy.world/pictrs/image/a8137f88-845f-446d-a5b2-e14bae206319.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/a8137f88-845f-446d-a5b2-e14bae206319.png",
+          "original": "https://lemmy.world/pictrs/image/a8137f88-845f-446d-a5b2-e14bae206319.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/389baae0-dea6-47e7-805a-a638e8fe9724.png",
+          "alt": "utterly beat down"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/a8137f88-845f-446d-a5b2-e14bae206319.png",
+      "url": "https://lemmy.world/post/54253902",
+      "author": "AListOfTrumpVoters",
+      "authorUrl": "https://lemmy.world/u/AListOfTrumpVoters",
+      "published": "2026-11-10T21:06:45.625408Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54253902",
+      "imageCredit": "Posted by AListOfTrumpVoters. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-7ydo5w15xzob0",
+      "kind": "memes",
+      "title": "wacoca.com/videos/3497147/haji me/ はじめしゃちょー Hajime: ド パ ガ キ の み ん な へ",
+      "description": "https://www. wacoca.com/videos/3497147/haji me/ はじめしゃちょー Hajime: ド パ ガ キ の み ん な へ # 0214mex # crazy # funny # hajime # japanese # Vlog # Vlogger # YouTube # YouTuber # ガ # ぎ # ト # な # の # は # はじめ # はじめしゃちょー # へ # ミ # ん",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "0214mex",
+        "crazy",
+        "funny",
+        "hajime",
+        "japanese",
+        "vlog",
+        "vlogger",
+        "youtube",
+        "youtuber",
+        "ガ",
+        "ぎ",
+        "ト",
+        "な",
+        "の",
+        "は",
+        "はじめ",
+        "はじめしゃちょー",
+        "へ",
+        "ミ",
+        "ん"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/362/419/277/088/small/dadeefde1be8e5de.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/362/419/277/088/original/dadeefde1be8e5de.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/362/419/277/088/original/dadeefde1be8e5de.jpg",
+          "original": "https://media.wakoka.com/media_attachments/files/117/598/362/257/905/777/original/80bc05b8ada4bb64.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/362/419/277/088/small/dadeefde1be8e5de.jpg",
+          "alt": "ド パ ガ キ の み ん な へ"
+        }
+      ],
+      "mediaKey": "https://media.wakoka.com/media_attachments/files/117/598/362/257/905/777/original/80bc05b8ada4bb64.jpg",
+      "url": "https://wakoka.com/@videos/117598362332205692",
+      "author": "videos@wakoka.com",
+      "authorUrl": "https://wakoka.com/@videos",
+      "published": "2026-11-11T14:50:04.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://wakoka.com/@videos/117598362332205692",
+      "imageCredit": "Posted by videos@wakoka.com. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1brqbbabkztcm",
+      "kind": "memes",
+      "title": "major data breach",
+      "description": "major data breach",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/11ee00f7-2452-4b9c-8f5f-011ab7a2f3ab.jpeg",
+      "images": [
+        "https://media.piefed.social/posts/yk/6O/yk6Or5MH8E2apdc.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://media.piefed.social/posts/yk/6O/yk6Or5MH8E2apdc.jpeg",
+          "original": "https://media.piefed.social/posts/yk/6O/yk6Or5MH8E2apdc.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/11ee00f7-2452-4b9c-8f5f-011ab7a2f3ab.jpeg",
+          "alt": "major data breach"
+        }
+      ],
+      "mediaKey": "https://media.piefed.social/posts/yk/6O/yk6Or5MH8E2apdc.jpeg",
+      "url": "https://piefed.social/c/programmer_humor@programming.dev/p/2578409/major-data-breach",
+      "author": "bad1080",
+      "authorUrl": "https://piefed.social/u/bad1080",
+      "published": "2026-11-08T11:26:40.413734Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://piefed.social/c/programmer_humor@programming.dev/p/2578409/major-data-breach",
+      "imageCredit": "Posted by bad1080. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1u53ibynnz62s",
+      "kind": "memes",
+      "title": "LoL via reddit.com/r/meme/comments/1xr ylny/lol/",
+      "description": "# meme # memes # Humour # satire # comedy # humor LoL via https://www. reddit.com/r/meme/comments/1xr ylny/lol/",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "meme",
+        "memes",
+        "humour",
+        "satire",
+        "comedy",
+        "humor"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/small/9a1a063bff9c40e9.jpg",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/original/9a1a063bff9c40e9.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/original/9a1a063bff9c40e9.jpg",
+          "original": "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/original/9a1a063bff9c40e9.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/small/9a1a063bff9c40e9.jpg",
+          "alt": "Ein Mann sitzt an einem Schreibtisch in einem Büro, umgeben von einer extrem großen Formation aus mehr als zehn Computermonitoren. Im Bild steht der englische Text: „WHERE THE FUCK IS THE CURSOR?“."
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/593/841/380/549/802/original/9a1a063bff9c40e9.jpg",
+      "url": "https://mastodon.social/@DerletzteNerv/117598875117480886",
+      "author": "DerletzteNerv",
+      "authorUrl": "https://mastodon.social/@DerletzteNerv",
+      "published": "2026-11-11T17:00:29.456Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.social/@DerletzteNerv/117598875117480886",
+      "imageCredit": "Posted by DerletzteNerv. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-qz4kb81lvqkh0",
+      "kind": "memes",
+      "title": "Alcohol is a solution",
+      "description": "Alcohol is a solution",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/600a347d-95a3-4ac8-b25f-31d0fca5e529.png",
+      "images": [
+        "https://feddit.org/pictrs/image/e4d8f16d-07f6-4530-a830-4e1f9be34727.png"
+      ],
+      "media": [
+        {
+          "url": "https://feddit.org/pictrs/image/e4d8f16d-07f6-4530-a830-4e1f9be34727.png",
+          "original": "https://feddit.org/pictrs/image/e4d8f16d-07f6-4530-a830-4e1f9be34727.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/600a347d-95a3-4ac8-b25f-31d0fca5e529.png",
+          "alt": "Alcohol is a solution"
+        }
+      ],
+      "mediaKey": "https://feddit.org/pictrs/image/e4d8f16d-07f6-4530-a830-4e1f9be34727.png",
+      "url": "https://feddit.org/post/37644706",
+      "author": "xxxb",
+      "authorUrl": "https://feddit.org/u/xxxb",
+      "published": "2026-11-05T13:27:37.518555Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://feddit.org/post/37644706",
+      "imageCredit": "Posted by xxxb. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1mhau5717642dt",
+      "kind": "memes",
+      "title": ".",
+      "description": "# FinancialSituation . # Meme # Memes # Humour # Humor",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "financialsituation",
+        "meme",
+        "memes",
+        "humour",
+        "humor"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/599/000/104/019/384/small/f90f9d0a30b9fb59.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/599/000/104/019/384/original/f90f9d0a30b9fb59.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/599/000/104/019/384/original/f90f9d0a30b9fb59.jpg",
+          "original": "https://tribe.net/system/media_attachments/files/117/598/999/902/192/766/original/932ba2e8582d35d9.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/599/000/104/019/384/small/f90f9d0a30b9fb59.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://tribe.net/system/media_attachments/files/117/598/999/902/192/766/original/932ba2e8582d35d9.jpg",
+      "url": "https://tribe.net/@AbsoluteMemery/117599000007214614",
+      "author": "AbsoluteMemery@tribe.net",
+      "authorUrl": "https://tribe.net/@AbsoluteMemery",
+      "published": "2026-11-11T17:32:15.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tribe.net/@AbsoluteMemery/117599000007214614",
+      "imageCredit": "Posted by AbsoluteMemery@tribe.net. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-isy3dq1esn6da",
+      "kind": "memes",
+      "title": "Poor Yuna Song",
+      "description": "Poor Yuna Song",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/06a00c02-4ad5-47cb-b0cc-f7edceebc412.jpeg",
+      "images": [
+        "https://media.piefed.zip/posts/om/NF/omNFTjVHRNXzX9t.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://media.piefed.zip/posts/om/NF/omNFTjVHRNXzX9t.jpeg",
+          "original": "https://media.piefed.zip/posts/om/NF/omNFTjVHRNXzX9t.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/06a00c02-4ad5-47cb-b0cc-f7edceebc412.jpeg",
+          "alt": "Poor Yuna Song"
+        }
+      ],
+      "mediaKey": "https://media.piefed.zip/posts/om/NF/omNFTjVHRNXzX9t.jpeg",
+      "url": "https://piefed.zip/c/memes@lemmy.world/p/1985140/poor-yuna-song",
+      "author": "oinari",
+      "authorUrl": "https://piefed.zip/u/oinari",
+      "published": "2026-11-10T11:52:04.858553Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://piefed.zip/c/memes@lemmy.world/p/1985140/poor-yuna-song",
+      "imageCredit": "Posted by oinari. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1krp2sd5u5fcr",
+      "kind": "memes",
+      "title": "This week's 4-panel manga😸✨ Nazoinu seems to have had a mysterious dream. What on earth happened...!? Title: DREAM [Panel 1] Nazoinu: ...! [",
+      "description": "This week's 4-panel manga😸✨ Nazoinu seems to have had a mysterious dream. What on earth happened...!? Title: DREAM [Panel 1] Nazoinu: ...! [Panel 2] Nazoinu: I'm sorry about back then. I've always wanted to apologize. [Panel 3] ？？？: It's okay. You're fine. Nazoinu: What!? [Panel 4] Metaponeko:Zzz... Zzz... Nazoinu: !? #pixelfed #manga #art #comicstrip #cat #funny #dailygraph #webcomic",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "pixelfed",
+        "cat",
+        "art",
+        "manga",
+        "funny",
+        "webcomic",
+        "comicstrip",
+        "dailygraph"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/239/605/558/small/a2bc6dfa5ae5a54a.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/302/239/605/558/original/a2bc6dfa5ae5a54a.jpg",
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/302/290/832/016/original/fdf9f97e530fee07.jpg",
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/302/332/219/067/original/c3fb90e71843e428.jpg",
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/302/369/280/148/original/af29544e3d7179b8.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/239/605/558/original/a2bc6dfa5ae5a54a.jpg",
+          "original": "https://pxscdn.com/public/m/_v2/832947134242232747/4796c06ff-5eacf7/2G8j4JvCWT0W/01IMQJoyXR31Gi7z2NEP1vm9Ze10KHFP1voby9Ai.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/239/605/558/small/a2bc6dfa5ae5a54a.jpg",
+          "alt": ""
+        },
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/290/832/016/original/fdf9f97e530fee07.jpg",
+          "original": "https://pxscdn.com/public/m/_v2/832947134242232747/4796c06ff-5eacf7/YsEBNBvlSWtx/bj1BzeU3dFiJYEdl0AOkhB3uHw0JDj5NyY1iNw9P.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/290/832/016/small/fdf9f97e530fee07.jpg",
+          "alt": ""
+        },
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/332/219/067/original/c3fb90e71843e428.jpg",
+          "original": "https://pxscdn.com/public/m/_v2/832947134242232747/4796c06ff-5eacf7/1u0C3oFt8bYs/Mk3D1LNxzon9QVhKdkZyJhqtIGLJHSpvQDll9wFL.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/332/219/067/small/c3fb90e71843e428.jpg",
+          "alt": ""
+        },
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/369/280/148/original/af29544e3d7179b8.jpg",
+          "original": "https://pxscdn.com/public/m/_v2/832947134242232747/4796c06ff-5eacf7/nTTR5iFJ2wnC/LuYJGU1JTM1GyojL5ARiQsBj6zNl2Fnl98K8hrcO.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/302/369/280/148/small/af29544e3d7179b8.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://pxscdn.com/public/m/_v2/832947134242232747/4796c06ff-5eacf7/2G8j4JvCWT0W/01IMQJoyXR31Gi7z2NEP1vm9Ze10KHFP1voby9Ai.jpg",
+      "url": "https://pixelfed.social/p/metapo_cat1129/1026140182565732695",
+      "author": "metapo_cat1129@pixelfed.social",
+      "authorUrl": "https://pixelfed.social/metapo_cat1129",
+      "published": "2026-11-11T14:34:44.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://pixelfed.social/p/metapo_cat1129/1026140182565732695",
+      "imageCredit": "Posted by metapo_cat1129@pixelfed.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-56x802pb67vm",
+      "kind": "memes",
+      "title": "some wrote A bash script that writes to Sam Altman once a day to report the RAM he missed.",
+      "description": "some wrote A bash script that writes to Sam Altman once a day to report the RAM he missed.",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/2fdf49fa-1731-4431-a0c5-3df5760dd1f8.webp",
+      "images": [
+        "https://lemmy.blahaj.zone/pictrs/image/454952b6-353e-4a1b-8d55-55ce215e933d.webp"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.blahaj.zone/pictrs/image/454952b6-353e-4a1b-8d55-55ce215e933d.webp",
+          "original": "https://lemmy.blahaj.zone/pictrs/image/454952b6-353e-4a1b-8d55-55ce215e933d.webp",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/2fdf49fa-1731-4431-a0c5-3df5760dd1f8.webp",
+          "alt": "some wrote A bash script that writes to Sam Altman once a day to report the RAM he missed."
+        }
+      ],
+      "mediaKey": "https://lemmy.blahaj.zone/pictrs/image/454952b6-353e-4a1b-8d55-55ce215e933d.webp",
+      "url": "https://lemmy.blahaj.zone/post/50215708",
+      "author": "not_IO",
+      "authorUrl": "https://lemmy.blahaj.zone/u/not_IO",
+      "published": "2026-11-07T21:42:22.814244Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://lemmy.blahaj.zone/post/50215708",
+      "imageCredit": "Posted by not_IO. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-6v16l0jbh28a",
+      "kind": "memes",
+      "title": "While supplies last. Source: reddit.com/r/memes/comments/1x tibch/while_supplies_last/",
+      "description": "While supplies last. Source: https://www. reddit.com/r/memes/comments/1x tibch/while_supplies_last/ # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/small/269188335d2cc572.png",
+      "images": [
+        "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/original/269188335d2cc572.png"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/original/269188335d2cc572.png",
+          "original": "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/original/269188335d2cc572.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/small/269188335d2cc572.png",
+          "alt": "While supplies last."
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/598/812/953/618/491/original/269188335d2cc572.png",
+      "url": "https://mastodon.social/@imemeit_bot/117598813167754285",
+      "author": "imemeit_bot",
+      "authorUrl": "https://mastodon.social/@imemeit_bot",
+      "published": "2026-11-11T16:44:44.137Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://mastodon.social/@imemeit_bot/117598813167754285",
+      "imageCredit": "Posted by imemeit_bot. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-yiooti5qp13q",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/39da2030-9bd5-42ac-a079-8b46b700dd0d.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/pG/3Z/pG3ZWEk9CtSqaY9.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/pG/3Z/pG3ZWEk9CtSqaY9.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/pG/3Z/pG3ZWEk9CtSqaY9.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/39da2030-9bd5-42ac-a079-8b46b700dd0d.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/pG/3Z/pG3ZWEk9CtSqaY9.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1053202/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-05T05:30:14.877815Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1053202/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-d0ktp11rraoa7",
+      "kind": "memes",
+      "title": "happy circulatory system walking through the kitchen day y'all",
+      "description": "happy circulatory system walking through the kitchen day y'all",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/0edc88e4-5544-494a-8731-edd7946f05b6.webp",
+      "images": [
+        "https://lemmy.blahaj.zone/pictrs/image/563c022e-027f-4d6b-8409-21f9b5587885.webp"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.blahaj.zone/pictrs/image/563c022e-027f-4d6b-8409-21f9b5587885.webp",
+          "original": "https://lemmy.blahaj.zone/pictrs/image/563c022e-027f-4d6b-8409-21f9b5587885.webp",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/0edc88e4-5544-494a-8731-edd7946f05b6.webp",
+          "alt": "happy circulatory system walking through the kitchen day y'all"
+        }
+      ],
+      "mediaKey": "https://lemmy.blahaj.zone/pictrs/image/563c022e-027f-4d6b-8409-21f9b5587885.webp",
+      "url": "https://lemmy.blahaj.zone/post/50320950",
+      "author": "not_IO",
+      "authorUrl": "https://lemmy.blahaj.zone/u/not_IO",
+      "published": "2026-11-10T11:55:33.953404Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.blahaj.zone/post/50320950",
+      "imageCredit": "Posted by not_IO. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1odg7qjo6xiy3",
+      "kind": "memes",
+      "title": "wacoca.com/games/1502329/ メンヘラ幼少期【メンヘラカノジョ】#ゲーム ##GAMING",
+      "description": "https://www. wacoca.com/games/1502329/ メンヘラ幼少期【メンヘラカノジョ】#ゲーム # スマホゲーム # subscribe ##GAMING # funny # funnygame # Game # GameNews # games # GamingNews # mobailgame # shorts # グローバルギア # ゲーミング # ゲーム # ゲーム攻略 # ゲーム最新情報 # ショート動画 # ストーカーカノジョ # ストーカー彼女 # スマホゲーム # メンヘラ # メンヘラカノジョ # メンヘラ彼女 # 広告ゲーム # 携帯アプリ # 携帯ゲーム # 脱出ゲーム # 面白いゲーム",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "スマホゲーム",
+        "subscribe",
+        "funny",
+        "funnygame",
+        "game",
+        "gamenews",
+        "games",
+        "gamingnews",
+        "mobailgame",
+        "shorts",
+        "グローバルギア",
+        "ゲーミング",
+        "ゲーム",
+        "ゲーム攻略",
+        "ゲーム最新情報",
+        "ショート動画",
+        "ストーカーカノジョ",
+        "ストーカー彼女",
+        "メンヘラ",
+        "メンヘラカノジョ",
+        "メンヘラ彼女",
+        "広告ゲーム",
+        "携帯アプリ",
+        "携帯ゲーム",
+        "脱出ゲーム",
+        "面白いゲーム"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/110/630/219/756/small/358570a4ab87e51a.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/110/630/219/756/original/358570a4ab87e51a.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/110/630/219/756/original/358570a4ab87e51a.jpg",
+          "original": "https://media.wakoka.com/media_attachments/files/117/598/110/484/919/943/original/3b48f26ae6ffaf64.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/110/630/219/756/small/358570a4ab87e51a.jpg",
+          "alt": "メンヘラ幼少期【メンヘラカノジョ】#ゲーム #スマホゲーム #subscribe"
+        }
+      ],
+      "mediaKey": "https://media.wakoka.com/media_attachments/files/117/598/110/484/919/943/original/3b48f26ae6ffaf64.jpg",
+      "url": "https://wakoka.com/@games/117598110552630450",
+      "author": "games@wakoka.com",
+      "authorUrl": "https://wakoka.com/@games",
+      "published": "2026-11-11T13:46:03.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://wakoka.com/@games/117598110552630450",
+      "imageCredit": "Posted by games@wakoka.com. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1r02q39j98omp",
+      "kind": "memes",
+      "title": "Give me a name!",
+      "description": "Give me a name!",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/16264a33-7ec5-4bc0-a78c-8e15e50cd449.png",
+      "images": [
+        "https://sh.itjust.works/pictrs/image/d2a29150-97f1-4593-a652-8c4cfd19acf1.png"
+      ],
+      "media": [
+        {
+          "url": "https://sh.itjust.works/pictrs/image/d2a29150-97f1-4593-a652-8c4cfd19acf1.png",
+          "original": "https://sh.itjust.works/pictrs/image/d2a29150-97f1-4593-a652-8c4cfd19acf1.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/16264a33-7ec5-4bc0-a78c-8e15e50cd449.png",
+          "alt": "Give me a name!"
+        }
+      ],
+      "mediaKey": "https://sh.itjust.works/pictrs/image/d2a29150-97f1-4593-a652-8c4cfd19acf1.png",
+      "url": "https://sh.itjust.works/post/69548663",
+      "author": "GolfFoxtrotLima",
+      "authorUrl": "https://sh.itjust.works/u/GolfFoxtrotLima",
+      "published": "2026-11-07T07:20:30.098614Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://sh.itjust.works/post/69548663",
+      "imageCredit": "Posted by GolfFoxtrotLima. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-16j1jo31he68d5",
+      "kind": "memes",
+      "title": "Memenesia Memenesia (2021) is a PDF-publication about meme culture, edited by Mike Watson and Jerry Galle. https:// v2.nl/publications/memen",
+      "description": "Memenesia Memenesia (2021) is a PDF-publication about meme culture, edited by Mike Watson and Jerry Galle. https:// v2.nl/publications/memenesia/",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "2021",
+        "fellowship",
+        "fellowships",
+        "freepdf",
+        "internetculture",
+        "meme",
+        "memeculture",
+        "memes",
+        "pdf"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/879/305/850/small/921846d1f22ac5b4.webp",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/798/879/305/850/original/921846d1f22ac5b4.webp"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/879/305/850/original/921846d1f22ac5b4.webp",
+          "original": "https://v2.nl/wp-content/uploads/2021/06/Memenesia_PDF2048x2048-1024x1024.webp",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/879/305/850/small/921846d1f22ac5b4.webp",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://v2.nl/wp-content/uploads/2021/06/Memenesia_PDF2048x2048-1024x1024.webp",
+      "url": "https://v2.nl/publications/memenesia/",
+      "author": "v2.nl@v2.nl",
+      "authorUrl": "https://v2.nl/",
+      "published": "2021-06-24T07:23:17.000Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://v2.nl/publications/memenesia/",
+      "imageCredit": "Posted by v2.nl@v2.nl. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-6ulnayk690z6",
+      "kind": "memes",
+      "title": "living in interesting times is a curse",
+      "description": "living in interesting times is a curse",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/c5b53a4f-fa31-45a2-bab1-8005dbd161d2.jpeg",
+      "images": [
+        "https://lemmy.today/api/v3/image_proxy?url=https%3A%2F%2Flemmy.world%2Fpictrs%2Fimage%2Fb0cc052d-70e4-4eee-aeb3-5ee1b6c22f8a.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.today/api/v3/image_proxy?url=https%3A%2F%2Flemmy.world%2Fpictrs%2Fimage%2Fb0cc052d-70e4-4eee-aeb3-5ee1b6c22f8a.jpeg",
+          "original": "https://lemmy.today/api/v3/image_proxy?url=https%3A%2F%2Flemmy.world%2Fpictrs%2Fimage%2Fb0cc052d-70e4-4eee-aeb3-5ee1b6c22f8a.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/c5b53a4f-fa31-45a2-bab1-8005dbd161d2.jpeg",
+          "alt": "living in interesting times is a curse"
+        }
+      ],
+      "mediaKey": "https://lemmy.today/api/v3/image_proxy?url=https%3A%2F%2Flemmy.world%2Fpictrs%2Fimage%2Fb0cc052d-70e4-4eee-aeb3-5ee1b6c22f8a.jpeg",
+      "url": "https://lemmy.today/post/62756751",
+      "author": "somebody_to_love",
+      "authorUrl": "https://lemmy.today/u/somebody_to_love",
+      "published": "2026-11-04T07:31:45.158729Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://lemmy.today/post/62756751",
+      "imageCredit": "Posted by somebody_to_love. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1jaf4p91cuo6bb",
+      "kind": "memes",
+      "title": "From UkrMemesmineproblemes@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/913/702/310/957/small/dfa3d4cd589701ec.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/913/702/310/957/original/dfa3d4cd589701ec.mp4",
+          "original": "https://cdn4.telesco.pe/file/81cd731011.mp4?token=BQCzqDrZCp1AwloCNrHv9bK1bTAgXxZb8CVwLUwXGrr7vZZR0ri6ynz7Bs7ry2Fv4vMqlelonoxtA0xwrS3R9z-n4_0S0PFM7-FSvyPW3kar_7OvsbEz6hQdqf40wF4CaSa4U0sfgCROS1ReBxg-VMifYw-Ii8bCbXveQ19XQIwyquidsLMLaMGvWVzDYIgqz4FFnZG39mKl7-SW2TRzz0Jo_bWVaSFm8NeQSMvvxEoK3LV2zjehG9n35LtSSoSGQ9JxBN6-YCKfkANCKAN3TqVbub_7MlW5YAofoU0KYdxYhTK4f6kDlCtGbHDXFo9j_CfMfQ7gH5fL8AJkkbl-6Q",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/913/702/310/957/small/dfa3d4cd589701ec.png",
+          "alt": "",
+          "duration": 9.466667
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/81cd731011.mp4?token=BQCzqDrZCp1AwloCNrHv9bK1bTAgXxZb8CVwLUwXGrr7vZZR0ri6ynz7Bs7ry2Fv4vMqlelonoxtA0xwrS3R9z-n4_0S0PFM7-FSvyPW3kar_7OvsbEz6hQdqf40wF4CaSa4U0sfgCROS1ReBxg-VMifYw-Ii8bCbXveQ19XQIwyquidsLMLaMGvWVzDYIgqz4FFnZG39mKl7-SW2TRzz0Jo_bWVaSFm8NeQSMvvxEoK3LV2zjehG9n35LtSSoSGQ9JxBN6-YCKfkANCKAN3TqVbub_7MlW5YAofoU0KYdxYhTK4f6kDlCtGbHDXFo9j_CfMfQ7gH5fL8AJkkbl-6Q",
+      "url": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46468",
+      "author": "UkrMemesmineproblemes@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/UkrMemesmineproblemes",
+      "published": "2026-11-11T17:07:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46468",
+      "imageCredit": "Posted by UkrMemesmineproblemes@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1jpf3un1e9uh5j",
+      "kind": "memes",
+      "title": "The jacket stays on",
+      "description": "The jacket stays on",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/fa34dcad-ba60-4fa3-88f4-9c978b670d21.jpeg",
+      "images": [
+        "https://lemmy.world/pictrs/image/46d8bd66-bb9d-4140-8191-0960843b4c68.jpeg"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/46d8bd66-bb9d-4140-8191-0960843b4c68.jpeg",
+          "original": "https://lemmy.world/pictrs/image/46d8bd66-bb9d-4140-8191-0960843b4c68.jpeg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/fa34dcad-ba60-4fa3-88f4-9c978b670d21.jpeg",
+          "alt": "The jacket stays on"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/46d8bd66-bb9d-4140-8191-0960843b4c68.jpeg",
+      "url": "https://lemmy.world/post/54215471",
+      "author": "cannedtuna",
+      "authorUrl": "https://lemmy.world/u/cannedtuna",
+      "published": "2026-11-09T23:17:52.778636Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54215471",
+      "imageCredit": "Posted by cannedtuna. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-siuubq3tw06g",
+      "kind": "memes",
+      "title": "Well, they do say that consistency is the key 🤔 But I'm not sure to what 😂",
+      "description": "Well, they do say that consistency is the key 🤔 But I'm not sure to what 😂 @ movies @ starwars @ tvshow @ humor@fedigroups.social @ humor@lemmy.world @ aiop # GeekMemes # Geek # Meme # Humor # Humour # Funny # SciFi # TV # Movies # StarWars",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "geekmemes",
+        "geek",
+        "meme",
+        "humor",
+        "humour",
+        "funny",
+        "scifi",
+        "tv",
+        "movies",
+        "starwars"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/597/919/501/845/309/small/cea341f4e5d0c1e3.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/597/919/501/845/309/original/cea341f4e5d0c1e3.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/597/919/501/845/309/original/cea341f4e5d0c1e3.jpg",
+          "original": "https://cdn.masto.host/mastodonart/media_attachments/files/117/597/907/109/794/383/original/9d9f13afde01b478.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/597/919/501/845/309/small/cea341f4e5d0c1e3.jpg",
+          "alt": "Two Star Wars troopers talking to each other. Trooper 1: They say you miss 100% of the shots you don't take. Trooper 2: You miss 100% of the shots you do take."
+        }
+      ],
+      "mediaKey": "https://cdn.masto.host/mastodonart/media_attachments/files/117/597/907/109/794/383/original/9d9f13afde01b478.jpg",
+      "url": "https://mastodon.art/@NickEast_IndieWriter/117597919392693338",
+      "author": "NickEast_IndieWriter@mastodon.art",
+      "authorUrl": "https://mastodon.art/@NickEast_IndieWriter",
+      "published": "2026-11-11T12:57:26.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.art/@NickEast_IndieWriter/117597919392693338",
+      "imageCredit": "Posted by NickEast_IndieWriter@mastodon.art. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-18fmaih1b1j5d1",
+      "kind": "memes",
+      "title": "Did you check inside the box?",
+      "description": "Did you check inside the box?",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "Programmer Humor"
+      ],
+      "image": "https://programming.dev/pictrs/image/d14ad331-b02f-44d2-91c2-53011e89c27b.png",
+      "images": [
+        "https://lemmy.world/pictrs/image/1db390b8-a734-4f6d-b69f-1d825bff9b12.png"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/1db390b8-a734-4f6d-b69f-1d825bff9b12.png",
+          "original": "https://lemmy.world/pictrs/image/1db390b8-a734-4f6d-b69f-1d825bff9b12.png",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://programming.dev/pictrs/image/d14ad331-b02f-44d2-91c2-53011e89c27b.png",
+          "alt": "Did you check inside the box?"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/1db390b8-a734-4f6d-b69f-1d825bff9b12.png",
+      "url": "https://lemmy.world/post/54021782",
+      "author": "Agent641",
+      "authorUrl": "https://lemmy.world/u/Agent641",
+      "published": "2026-11-05T13:58:39.783257Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://lemmy.world/post/54021782",
+      "imageCredit": "Posted by Agent641. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-4fk65b1h5aty1",
+      "kind": "memes",
+      "title": "SpongeBob Meme",
+      "description": "# spongebob # memes",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "spongebob",
+        "memes"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/288/428/090/small/b94a6a7c262e1096.jpg",
+      "images": [
+        "https://files.mastodon.social/cache/media_attachments/files/117/598/798/288/428/090/original/b94a6a7c262e1096.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/288/428/090/original/b94a6a7c262e1096.jpg",
+          "original": "https://files.techhub.social/media_attachments/files/117/598/798/153/590/978/original/3656de997d13747b.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/598/798/288/428/090/small/b94a6a7c262e1096.jpg",
+          "alt": "SpongeBob Meme"
+        }
+      ],
+      "mediaKey": "https://files.techhub.social/media_attachments/files/117/598/798/153/590/978/original/3656de997d13747b.jpg",
+      "url": "https://techhub.social/@DailySBMemes/117598798232444905",
+      "author": "DailySBMemes@techhub.social",
+      "authorUrl": "https://techhub.social/@DailySBMemes",
+      "published": "2026-11-11T16:40:56.000Z",
+      "source": "#memes · Mastodon",
+      "sourceId": "mastodon-memes",
+      "sourceUrl": "https://techhub.social/@DailySBMemes/117598798232444905",
+      "imageCredit": "Posted by DailySBMemes@techhub.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1wyhllq12yq4zo",
+      "kind": "memes",
+      "title": "Me_irl",
+      "description": "Me_irl",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "me_irl"
+      ],
+      "image": "https://lemmy.world/pictrs/image/4e2aec75-bbe6-4ceb-a644-f8e0cd03d396.jpeg",
+      "images": [
+        "https://piefed.cdn.blahaj.zone/posts/8o/UP/8oUPL1XtMazCpdv.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://piefed.cdn.blahaj.zone/posts/8o/UP/8oUPL1XtMazCpdv.jpg",
+          "original": "https://piefed.cdn.blahaj.zone/posts/8o/UP/8oUPL1XtMazCpdv.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://lemmy.world/pictrs/image/4e2aec75-bbe6-4ceb-a644-f8e0cd03d396.jpeg",
+          "alt": "Me_irl"
+        }
+      ],
+      "mediaKey": "https://piefed.cdn.blahaj.zone/posts/8o/UP/8oUPL1XtMazCpdv.jpg",
+      "url": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1053201/me-irl",
+      "author": "LadyButterfly",
+      "authorUrl": "https://piefed.blahaj.zone/u/LadyButterfly",
+      "published": "2026-11-04T05:30:13.279794Z",
+      "source": "Me IRL · Lemmy World",
+      "sourceId": "me-irl",
+      "sourceUrl": "https://piefed.blahaj.zone/c/me_irl@lemmy.world/p/1053201/me-irl",
+      "imageCredit": "Posted by LadyButterfly. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-17q0l861ym3sr0",
+      "kind": "memes",
+      "title": "Новини з Білого дому виглядають якось так 😏",
+      "description": "Новини з Білого дому виглядають якось так 😏 #Memes #Меми #PopCulture",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "popculture"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/821/123/427/187/small/669d492316924506.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/821/123/427/187/original/669d492316924506.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/821/123/427/187/original/669d492316924506.jpg",
+          "original": "https://cdn4.telesco.pe/file/nsn20cEckzqx7Zux33b6chFAj6DdgTpM00MjynvoTAnXWI5S45CX3W8-D8hYNu3ZB6Lyc4hsbnBMzu54GBoTkEXTuibKjCDJ8tyMGmHNrl-xJVwweSbW1uf-iNr6nkZ8LfmIo_XhSGeEKyQGAf3qw4wjRjWCDEhlXEBeTTdBXYY6wMpgJSFQDFFeGVtf37Eb5Iqf1iYlK3AHAlw39iTy4cmpGxAKw6hVfRz3EyHT1r74e5LXrln_zK9z5jZFiAQkaS-cH1XgZR1E9kxDqzuMnyUtX2i9LcGLTiqcBtNWtPgHvQF2YDS0wXO_KE19P2RLA15KS-WlEHL8P-jKRghQNQ.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/821/123/427/187/small/669d492316924506.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/nsn20cEckzqx7Zux33b6chFAj6DdgTpM00MjynvoTAnXWI5S45CX3W8-D8hYNu3ZB6Lyc4hsbnBMzu54GBoTkEXTuibKjCDJ8tyMGmHNrl-xJVwweSbW1uf-iNr6nkZ8LfmIo_XhSGeEKyQGAf3qw4wjRjWCDEhlXEBeTTdBXYY6wMpgJSFQDFFeGVtf37Eb5Iqf1iYlK3AHAlw39iTy4cmpGxAKw6hVfRz3EyHT1r74e5LXrln_zK9z5jZFiAQkaS-cH1XgZR1E9kxDqzuMnyUtX2i9LcGLTiqcBtNWtPgHvQF2YDS0wXO_KE19P2RLA15KS-WlEHL8P-jKRghQNQ.jpg",
+      "url": "https://tg.anyfeed.cc/post/bromeeems-34077",
+      "author": "bromeeems@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/bromeeems",
+      "published": "2026-11-11T16:34:16.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/bromeeems-34077",
+      "imageCredit": "Posted by bromeeems@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-ubrmyer9icva",
+      "kind": "memes",
+      "title": "Do you want to go crazy? 🤪, BRUM 🐻🚀🌕",
+      "description": "Do you want to go crazy? 🤪, BRUM 🐻🚀🌕 # crazy # funny # fyp # brumtothemoon # BRUM",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "crazy",
+        "funny",
+        "fyp",
+        "brumtothemoon",
+        "brum"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/597/452/043/235/799/small/a938cb0ca545786a.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/597/452/043/235/799/original/a938cb0ca545786a.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/597/452/043/235/799/original/a938cb0ca545786a.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/597/452/043/235/799/small/a938cb0ca545786a.png",
+          "alt": "Do you want to go crazy? 🤪, BRUM 🐻🚀🌕 #crazy #funny #fyp #brumtothemoon #BRUM",
+          "duration": 1.158287
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/597/452/043/235/799/original/a938cb0ca545786a.mp4",
+      "url": "https://mastodon.social/@brumtothemoon/117597455643083346",
+      "author": "brumtothemoon",
+      "authorUrl": "https://mastodon.social/@brumtothemoon",
+      "published": "2026-11-11T10:59:29.949Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@brumtothemoon/117597455643083346",
+      "imageCredit": "Posted by brumtothemoon. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-15zu80frfo28n",
+      "kind": "memes",
+      "title": "The Wolf Family Moon Park: One Tall Haircut, a Giant Roller Coaster and a Mustache That Flew Away 🐺🎢 The wolf family visits Moon Park, where",
+      "description": "The Wolf Family Moon Park: One Tall Haircut, a Giant Roller Coaster and a Mustache That Flew Away 🐺🎢 The wolf family visits Moon Park, where Rufus only passes the height check because his hair counts. Then the roller coaster climbs, drops and sends everything flying: Luna's butterflies, Mom's lipstick, Rufus's hair and Dad's giant mustache. The monkey ends up wearing the mustache and gives it back for a banana. Rufus wants one more ride # shortstory # cartoon # family # funny # comedy",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "shortstory",
+        "cartoon",
+        "family",
+        "funny",
+        "comedy"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/597/346/252/816/198/small/e4befea3a4c7d003.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/597/346/252/816/198/original/e4befea3a4c7d003.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/597/346/252/816/198/original/e4befea3a4c7d003.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/597/346/252/816/198/small/e4befea3a4c7d003.png",
+          "alt": "The Wolf Family Moon Park: One Tall Haircut, a Giant Roller Coaster and a Mustache That Flew Away 🐺🎢",
+          "duration": 72
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/597/346/252/816/198/original/e4befea3a4c7d003.mp4",
+      "url": "https://mastodon.social/@wolf_family/117597347809843629",
+      "author": "wolf_family",
+      "authorUrl": "https://mastodon.social/@wolf_family",
+      "published": "2026-11-11T10:32:04.544Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@wolf_family/117597347809843629",
+      "imageCredit": "Posted by wolf_family. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-pvs2n1ckawtr",
+      "kind": "memes",
+      "title": "पुल से गिरा पांडा, और दोस्त का रिएक्शन 😂#Shorts",
+      "description": "पुल से गिरा पांडा, और दोस्त का रिएक्शन 😂#Shorts # Panda # Funny # CuteAnimals # ViralShorts",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "panda",
+        "funny",
+        "cuteanimals",
+        "viralshorts"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/thumbnails/117/596/313/359/179/775/original/35f14eeca3eeda8b.jpg",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/596/313/359/179/775/original/d8aaf5d83617352c.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/596/313/359/179/775/original/d8aaf5d83617352c.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/thumbnails/117/596/313/359/179/775/original/35f14eeca3eeda8b.jpg",
+          "alt": "",
+          "duration": 10.125
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/596/313/359/179/775/original/d8aaf5d83617352c.mp4",
+      "url": "https://mastodon.social/@tkf_decode/117596313771111274",
+      "author": "tkf_decode",
+      "authorUrl": "https://mastodon.social/@tkf_decode",
+      "published": "2026-11-11T06:09:06.365Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@tkf_decode/117596313771111274",
+      "imageCredit": "Posted by tkf_decode. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1s2sfvkr2aro6",
+      "kind": "memes",
+      "title": "From UkrMemesmineproblemes@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/766/203/039/030/small/bd904fc9cdb55181.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/766/203/039/030/original/bd904fc9cdb55181.mp4",
+          "original": "https://cdn4.telesco.pe/file/e51e64ac9d.mp4?token=kCJH3rogjcdenwKHRiyK94HXtSddN2G81i99WMIlPKqVZpUNCRm1Ix2IKDBPgLH4IeZPzYD0mpioUlIv0hRqJWQp5PmoGA1sEZO1gQFenZon03AVMT8KWr5l8y0VegJJZ6qjr7tzod-8SxdEH9DVuB0tZir9_Y8Ub-7bHACKr6Tz8PgK9X6M26loGO74g8Qdh7jaYFw2GWAcvUepn6G9T2Vzec-NMncgU3wkHiEM3BIgE1_771GWuJgx4w_3j3Z6u_UrVDixP7IQu8QF-gS5N_7yR4ZWz_DpUhcRiV-wVwHHoOOoyy3QU-TIC5F-iU3xr8axQjkuGCQM6B2uf0CSUw",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/766/203/039/030/small/bd904fc9cdb55181.png",
+          "alt": "",
+          "duration": 14.5
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/e51e64ac9d.mp4?token=kCJH3rogjcdenwKHRiyK94HXtSddN2G81i99WMIlPKqVZpUNCRm1Ix2IKDBPgLH4IeZPzYD0mpioUlIv0hRqJWQp5PmoGA1sEZO1gQFenZon03AVMT8KWr5l8y0VegJJZ6qjr7tzod-8SxdEH9DVuB0tZir9_Y8Ub-7bHACKr6Tz8PgK9X6M26loGO74g8Qdh7jaYFw2GWAcvUepn6G9T2Vzec-NMncgU3wkHiEM3BIgE1_771GWuJgx4w_3j3Z6u_UrVDixP7IQu8QF-gS5N_7yR4ZWz_DpUhcRiV-wVwHHoOOoyy3QU-TIC5F-iU3xr8axQjkuGCQM6B2uf0CSUw",
+      "url": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46467",
+      "author": "UkrMemesmineproblemes@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/UkrMemesmineproblemes",
+      "published": "2026-11-11T16:07:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46467",
+      "imageCredit": "Posted by UkrMemesmineproblemes@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-ux2qxr19km0mv",
+      "kind": "memes",
+      "title": "✈ ️ No Grip | Формула 1 – твій телеграмний асистент у світі Ф1 Якщо хочеться ще більше Формули 1 у стрічці, а також перевірити свою інтуїцію",
+      "description": "✈ ️ No Grip | Формула 1 – твій телеграмний асистент у світі Ф1 Якщо хочеться ще більше Формули 1 у стрічці, а також перевірити свою інтуїцію в прогнозах і виграти призи, тоді тобі до нас! На каналі на тебе чекають: 🟠оперативні новини зі світу Формули 1; 🟠рубрика прогнозів на Гран-прі з призами; 🟠трансляції практик; 🟠цікаві коментарі пілотів і керівників команд. ⚡️ Приєднуйся , ділися своїми прогнозами та отримуй подвійні емоції від перегляду гонок! #Memes #Меми #PopCulture",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "popculture"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/677/713/525/823/small/43aa3abd36f0d830.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/677/713/525/823/original/43aa3abd36f0d830.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/677/713/525/823/original/43aa3abd36f0d830.jpg",
+          "original": "https://cdn4.telesco.pe/file/i-YGYYRexrwgZPDRe4kH4EGmxHDlK87UZdZVLG19-kq94WhMkoOlgT92g6uq9u0XeHmc-bq6bZCJuZ32X-vmS-BJxskcQokB-Fyl4--blQmHONfHGMT-4fXdqriBfBvEy6nB3pgil6M0lop2whbU-rRRsl5Xn1FJ0WK9acdDUGGCAhL-w9S7O0ZJWvN_LZSaM4ZqTtrJaPwS7NcmSkc7oxapU6UzxVHnY4j0kTfNMCpYV-fhKml0FaGWsVYgF529tDdpOnMC0paoo9S3UgdnxdPCtwFy7Yrbasc-Zn1qwlGNOoWuS6ShOGdcdg4kyLZL2nt4JAPYGY2oR_Wcr45HbQ.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/677/713/525/823/small/43aa3abd36f0d830.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/i-YGYYRexrwgZPDRe4kH4EGmxHDlK87UZdZVLG19-kq94WhMkoOlgT92g6uq9u0XeHmc-bq6bZCJuZ32X-vmS-BJxskcQokB-Fyl4--blQmHONfHGMT-4fXdqriBfBvEy6nB3pgil6M0lop2whbU-rRRsl5Xn1FJ0WK9acdDUGGCAhL-w9S7O0ZJWvN_LZSaM4ZqTtrJaPwS7NcmSkc7oxapU6UzxVHnY4j0kTfNMCpYV-fhKml0FaGWsVYgF529tDdpOnMC0paoo9S3UgdnxdPCtwFy7Yrbasc-Zn1qwlGNOoWuS6ShOGdcdg4kyLZL2nt4JAPYGY2oR_Wcr45HbQ.jpg",
+      "url": "https://tg.anyfeed.cc/post/bromeeems-34076",
+      "author": "bromeeems@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/bromeeems",
+      "published": "2026-11-11T16:02:30.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/bromeeems-34076",
+      "imageCredit": "Posted by bromeeems@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-jltlr98nahvj",
+      "kind": "memes",
+      "title": "Why do people laugh up their sleeves? 🤔 Glendora's joke of the day!",
+      "description": "Why do people laugh up their sleeves? 🤔 Glendora's joke of the day! # funny # laugh # wholesome # clever",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "funny",
+        "laugh",
+        "wholesome",
+        "clever"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/595/632/108/704/638/small/2399770b4d2b4986.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/595/632/108/704/638/original/2399770b4d2b4986.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/595/632/108/704/638/original/2399770b4d2b4986.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/595/632/108/704/638/small/2399770b4d2b4986.png",
+          "alt": "",
+          "duration": 13.446767
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/595/632/108/704/638/original/2399770b4d2b4986.mp4",
+      "url": "https://mastodon.social/@achatwithglendora/117595633513950805",
+      "author": "achatwithglendora",
+      "authorUrl": "https://mastodon.social/@achatwithglendora",
+      "published": "2026-11-11T03:16:06.464Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@achatwithglendora/117595633513950805",
+      "imageCredit": "Posted by achatwithglendora. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1owfhrv16ahet5",
+      "kind": "memes",
+      "title": "sigh...",
+      "description": "sigh...",
+      "category": "GIFs",
+      "tags": [
+        "GIFs",
+        "Programmer Humor"
+      ],
+      "image": "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif",
+      "images": [
+        "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif"
+      ],
+      "media": [
+        {
+          "url": "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif",
+          "original": "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif",
+          "type": "image",
+          "format": "GIFs",
+          "preview": "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif",
+          "alt": "sigh..."
+        }
+      ],
+      "mediaKey": "https://misskey-taube.s3.eu-central-1.wasabisys.com/files/851c3070-f23a-4396-a663-8ed2400c1888.gif",
+      "url": "https://lemmy.blahaj.zone/post/49918781",
+      "author": "not_IO",
+      "authorUrl": "https://lemmy.blahaj.zone/u/not_IO",
+      "published": "2026-10-31T18:01:09.847180Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://lemmy.blahaj.zone/post/49918781",
+      "imageCredit": "Posted by not_IO. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-12fa2xc16x4cta",
+      "kind": "memes",
+      "title": "✨ A Sprinkle of JoyousJoyness ✨ Lovely trick! Have a JoyousJoyfulJoyness day!",
+      "description": "✨ A Sprinkle of JoyousJoyness ✨ Lovely trick! Have a JoyousJoyfulJoyness day! # funny # happy # cat # cute # joyousjoyness # repost",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "funny",
+        "happy",
+        "cat",
+        "cute",
+        "joyousjoyness",
+        "repost"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/thumbnails/117/595/573/292/873/274/original/6a60d4d30eb9e0f4.jpg",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/595/573/292/873/274/original/4dbbf7114141a598.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/595/573/292/873/274/original/4dbbf7114141a598.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/thumbnails/117/595/573/292/873/274/original/6a60d4d30eb9e0f4.jpg",
+          "alt": "",
+          "duration": 26.533333
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/595/573/292/873/274/original/4dbbf7114141a598.mp4",
+      "url": "https://mastodon.social/@joyousjoyness/117595574712312512",
+      "author": "joyousjoyness",
+      "authorUrl": "https://mastodon.social/@joyousjoyness",
+      "published": "2026-11-11T03:01:09.226Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@joyousjoyness/117595574712312512",
+      "imageCredit": "Posted by joyousjoyness. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1nrrf9kmwgax6",
+      "kind": "memes",
+      "title": "From kanalpozetuvy@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/544/491/065/273/small/df5223fa144412e3.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/544/491/065/273/original/df5223fa144412e3.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/544/491/065/273/original/df5223fa144412e3.jpg",
+          "original": "https://cdn4.telesco.pe/file/MiK25CsZzjYpn-wx2IKaJ3v2CfQSdg3_plQsv7JZNlTd6xkkj7-db8-iykWx57melMsbFR-Fu0M0M0v9_BendjlePadS8aNSPv39GrViiy6ovA9PcCeXiccAw-ulQn2Z4htLhV7z54yucju40D3A275nCMF2dXslz-w-rExeUeM5UTSYOz9GaVASjynpFXzWnVMyVWqiv09Fa6jWe8R6E2ZqYJ7MJ69bS0AUgHEfDYzzS0jTfctRIFgMvab25nWbLiD6Igof9ayqBuX5V7t2myYPK8fpxqjYDYIizrDGLUnP4N5B_OV3NfNEvRBgSXv0O7Mqw5NKwZ_rpgnZ11PiFg.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/544/491/065/273/small/df5223fa144412e3.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/MiK25CsZzjYpn-wx2IKaJ3v2CfQSdg3_plQsv7JZNlTd6xkkj7-db8-iykWx57melMsbFR-Fu0M0M0v9_BendjlePadS8aNSPv39GrViiy6ovA9PcCeXiccAw-ulQn2Z4htLhV7z54yucju40D3A275nCMF2dXslz-w-rExeUeM5UTSYOz9GaVASjynpFXzWnVMyVWqiv09Fa6jWe8R6E2ZqYJ7MJ69bS0AUgHEfDYzzS0jTfctRIFgMvab25nWbLiD6Igof9ayqBuX5V7t2myYPK8fpxqjYDYIizrDGLUnP4N5B_OV3NfNEvRBgSXv0O7Mqw5NKwZ_rpgnZ11PiFg.jpg",
+      "url": "https://tg.anyfeed.cc/post/kanalpozetuvy-2763",
+      "author": "kanalpozetuvy@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/kanalpozetuvy",
+      "published": "2026-11-11T15:19:08.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/kanalpozetuvy-2763",
+      "imageCredit": "Posted by kanalpozetuvy@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-vqcn0teeszit",
+      "kind": "memes",
+      "title": "From kanalpozetuvy@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/532/712/510/792/small/1edbf2df7810774b.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/532/712/510/792/original/1edbf2df7810774b.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/532/712/510/792/original/1edbf2df7810774b.jpg",
+          "original": "https://cdn4.telesco.pe/file/p95OAdw9_nw-AvaItwf4tPivKFy6KvgDYpA2Fmh-LP36PoYum5i5FuJjRuuZVfmohfhuVBSQ2kzuNGUugEny-UoWbms8ieBQIKHKf9IuhpXcVm2OzYCoNMYVTaKOiDoLOOsp1yKFNwTCJS-9b3W-kAHgZ1zYDMawwBCo7tX8NAcL10wcUjkXueJ3cCMXoTd_nkU9FhLHfbsHNWoftFnsEnq169dpl8sgHGQZBUCH4oq5Gv6QFCAsClIlgzWDC_3A3g1nJIFLyXLtd8BAizk1kRRmmGVINzRJZ6rmBzFDCwgetsO5Rj9i1Dr_fDJzhPsJnJfCcALpbG9pUDbovyK79w.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/532/712/510/792/small/1edbf2df7810774b.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/p95OAdw9_nw-AvaItwf4tPivKFy6KvgDYpA2Fmh-LP36PoYum5i5FuJjRuuZVfmohfhuVBSQ2kzuNGUugEny-UoWbms8ieBQIKHKf9IuhpXcVm2OzYCoNMYVTaKOiDoLOOsp1yKFNwTCJS-9b3W-kAHgZ1zYDMawwBCo7tX8NAcL10wcUjkXueJ3cCMXoTd_nkU9FhLHfbsHNWoftFnsEnq169dpl8sgHGQZBUCH4oq5Gv6QFCAsClIlgzWDC_3A3g1nJIFLyXLtd8BAizk1kRRmmGVINzRJZ6rmBzFDCwgetsO5Rj9i1Dr_fDJzhPsJnJfCcALpbG9pUDbovyK79w.jpg",
+      "url": "https://tg.anyfeed.cc/post/kanalpozetuvy-2762",
+      "author": "kanalpozetuvy@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/kanalpozetuvy",
+      "published": "2026-11-11T15:04:58.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/kanalpozetuvy-2762",
+      "imageCredit": "Posted by kanalpozetuvy@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-whwnd3s89iu9",
+      "kind": "memes",
+      "title": "From kanalpozetuvy@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/520/903/222/714/small/96e922d0d31a3944.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/520/903/222/714/original/96e922d0d31a3944.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/520/903/222/714/original/96e922d0d31a3944.jpg",
+          "original": "https://cdn4.telesco.pe/file/Be4_C9biEmtZmMNDnX6WXtvdPwkJzCfX5OjAY1l_u_g4tUNIlXq69itulvFduIgt1dIOm9xV16Dhx-Zay6UghYupm5sDgd5_nelcPDzQQuFMFwR_20FbIzTYK3wDJ5yhdpJTKqWElkYqnv7xjwjRzr8TQc9b4607MewdT7Z1VhukdqfwzGp9ZTsLhh165OFLTkruzFg3wWi0cwHdPAcMZTeMFAeMk-w98sN7ByPa9GW65A5ETzGiCtL3lj8IVTpvVZRNXbtWK0Tm1fcJKEDwvLfvg--iq9lF0UpWQ5uU3yyKWIg_-MktWK_yCfyvw2mDU2ubYU3lDzlvKfEHAvZt9w.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/520/903/222/714/small/96e922d0d31a3944.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/Be4_C9biEmtZmMNDnX6WXtvdPwkJzCfX5OjAY1l_u_g4tUNIlXq69itulvFduIgt1dIOm9xV16Dhx-Zay6UghYupm5sDgd5_nelcPDzQQuFMFwR_20FbIzTYK3wDJ5yhdpJTKqWElkYqnv7xjwjRzr8TQc9b4607MewdT7Z1VhukdqfwzGp9ZTsLhh165OFLTkruzFg3wWi0cwHdPAcMZTeMFAeMk-w98sN7ByPa9GW65A5ETzGiCtL3lj8IVTpvVZRNXbtWK0Tm1fcJKEDwvLfvg--iq9lF0UpWQ5uU3yyKWIg_-MktWK_yCfyvw2mDU2ubYU3lDzlvKfEHAvZt9w.jpg",
+      "url": "https://tg.anyfeed.cc/post/kanalpozetuvy-2761",
+      "author": "kanalpozetuvy@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/kanalpozetuvy",
+      "published": "2026-11-11T15:04:56.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/kanalpozetuvy-2761",
+      "imageCredit": "Posted by kanalpozetuvy@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-vrsd941onj9hm",
+      "kind": "memes",
+      "title": "✨ A Sprinkle of JoyousJoyness ✨ That one braincell working overtime! Have a JoyousJoyfulJoyness day!",
+      "description": "✨ A Sprinkle of JoyousJoyness ✨ That one braincell working overtime! Have a JoyousJoyfulJoyness day! # happy # cat # funny # cute # joyousjoyness # repost",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "happy",
+        "cat",
+        "funny",
+        "cute",
+        "joyousjoyness",
+        "repost"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/thumbnails/117/593/311/878/045/598/original/10f4b942bb2b5c9f.jpg",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/593/311/878/045/598/original/bc7e21fee7d4d667.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/593/311/878/045/598/original/bc7e21fee7d4d667.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/thumbnails/117/593/311/878/045/598/original/10f4b942bb2b5c9f.jpg",
+          "alt": "",
+          "duration": 26.794667
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/593/311/878/045/598/original/bc7e21fee7d4d667.mp4",
+      "url": "https://mastodon.social/@joyousjoyness/117593314673183772",
+      "author": "joyousjoyness",
+      "authorUrl": "https://mastodon.social/@joyousjoyness",
+      "published": "2026-11-10T17:26:23.761Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@joyousjoyness/117593314673183772",
+      "imageCredit": "Posted by joyousjoyness. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-crnxed1d4v8ox",
+      "kind": "memes",
+      "title": "Unpatched!",
+      "description": "Unpatched!",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "Programmer Humor"
+      ],
+      "image": "",
+      "images": [],
+      "media": [
+        {
+          "url": "https://lemmy.zip/pictrs/image/c74620e6-0d68-4059-988e-8ea25ba4279e.webm",
+          "original": "https://lemmy.zip/pictrs/image/c74620e6-0d68-4059-988e-8ea25ba4279e.webm",
+          "type": "video",
+          "format": "Videos",
+          "preview": "",
+          "alt": "Unpatched!"
+        }
+      ],
+      "mediaKey": "https://lemmy.zip/pictrs/image/c74620e6-0d68-4059-988e-8ea25ba4279e.webm",
+      "url": "https://no.lastname.nz/post/4080931",
+      "author": "cm0002",
+      "authorUrl": "https://no.lastname.nz/u/cm0002",
+      "published": "2026-10-28T04:15:08.611112Z",
+      "source": "Programmer humor · programming.dev",
+      "sourceId": "programmer-humor",
+      "sourceUrl": "https://no.lastname.nz/post/4080931",
+      "imageCredit": "Posted by cm0002. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-13xhmme150g6sk",
+      "kind": "memes",
+      "title": "From UkrMemesmineproblemes@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/512/381/134/270/small/532d09d7d75d6c00.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/512/381/134/270/original/532d09d7d75d6c00.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/512/381/134/270/original/532d09d7d75d6c00.jpg",
+          "original": "https://cdn4.telesco.pe/file/RdymDkmPhPbaCkGN1pONnOBcfRFwcgqBsnucQIkMvqQhrksWHwELUW0Zjea29uJC0gkhz5JpHvFmtWvh9m3jlUf6bDmWXCkEZ--9TNAbE8BG6I9yRilSjtQS1EABXCugSjj-76oDezAShltiAxAKiUeSKIT5G3CracetStVdrr8U8qoJUs9n_-aO0u5bKF9iYIZXp3EWvQ2jMpiRyfrF-wa60vlzCLJ4PTvOuXe-BZGpv-Z8FxfxL5XLwWoAaVBRnpJf0ZyzxElR3ITYtnZF4yWWQveVaEKIv4auME-0gUEnnxNR1hPrNPtlHUjHUec5jLeaEpwvpu-wEXsBEJwI0w.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/512/381/134/270/small/532d09d7d75d6c00.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/RdymDkmPhPbaCkGN1pONnOBcfRFwcgqBsnucQIkMvqQhrksWHwELUW0Zjea29uJC0gkhz5JpHvFmtWvh9m3jlUf6bDmWXCkEZ--9TNAbE8BG6I9yRilSjtQS1EABXCugSjj-76oDezAShltiAxAKiUeSKIT5G3CracetStVdrr8U8qoJUs9n_-aO0u5bKF9iYIZXp3EWvQ2jMpiRyfrF-wa60vlzCLJ4PTvOuXe-BZGpv-Z8FxfxL5XLwWoAaVBRnpJf0ZyzxElR3ITYtnZF4yWWQveVaEKIv4auME-0gUEnnxNR1hPrNPtlHUjHUec5jLeaEpwvpu-wEXsBEJwI0w.jpg",
+      "url": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46466",
+      "author": "UkrMemesmineproblemes@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/UkrMemesmineproblemes",
+      "published": "2026-11-11T15:07:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46466",
+      "imageCredit": "Posted by UkrMemesmineproblemes@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-tdrcqxto7hcj",
+      "kind": "memes",
+      "title": "It’s even funnier the second time!",
+      "description": "It’s even funnier the second time!",
+      "category": "GIFs",
+      "tags": [
+        "GIFs",
+        "memes"
+      ],
+      "image": "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif",
+      "images": [
+        "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif"
+      ],
+      "media": [
+        {
+          "url": "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif",
+          "original": "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif",
+          "type": "image",
+          "format": "GIFs",
+          "preview": "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif",
+          "alt": "It’s even funnier the second time!"
+        }
+      ],
+      "mediaKey": "https://lemmy.world/pictrs/image/9de5acdf-ee4c-47f7-813e-1ef40f7409d3.gif",
+      "url": "https://lemmy.world/post/54030065",
+      "author": "Ep1cFac3pa1m",
+      "authorUrl": "https://lemmy.world/u/Ep1cFac3pa1m",
+      "published": "2026-11-05T17:44:12.867283Z",
+      "source": "Memes · Lemmy World",
+      "sourceId": "lemmy-memes",
+      "sourceUrl": "https://lemmy.world/post/54030065",
+      "imageCredit": "Posted by Ep1cFac3pa1m. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-ahliwc1t95usi",
+      "kind": "memes",
+      "title": "I CAN’T *HEAR* YOU!",
+      "description": "I CAN’T *HEAR* YOU! # comic # darkhumor # funny",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "comic",
+        "darkhumor",
+        "funny"
+      ],
+      "image": "https://files.mastodon.social/cache/media_attachments/files/117/592/962/795/782/907/small/69309195669a2578.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/cache/media_attachments/files/117/592/962/795/782/907/original/69309195669a2578.mp4",
+          "original": "https://media.mstdn.social/media_attachments/files/117/592/960/484/258/243/original/f7a43b31dccdc25d.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/cache/media_attachments/files/117/592/962/795/782/907/small/69309195669a2578.png",
+          "alt": "Alarmingly Bad comic video about people rallying for a cause",
+          "duration": 11.84
+        }
+      ],
+      "mediaKey": "https://media.mstdn.social/media_attachments/files/117/592/960/484/258/243/original/f7a43b31dccdc25d.mp4",
+      "url": "https://mstdn.social/@AlarminglyBad/117592962730740527",
+      "author": "AlarminglyBad@mstdn.social",
+      "authorUrl": "https://mstdn.social/@AlarminglyBad",
+      "published": "2026-11-10T15:56:53.000Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mstdn.social/@AlarminglyBad/117592962730740527",
+      "imageCredit": "Posted by AlarminglyBad@mstdn.social. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1ef0yg64tnlt4",
+      "kind": "memes",
+      "title": "From kanalpozetuvy@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/990/422/725/small/f4e08ac96bf3f7be.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/260/990/422/725/original/f4e08ac96bf3f7be.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/990/422/725/original/f4e08ac96bf3f7be.jpg",
+          "original": "https://cdn4.telesco.pe/file/vtnDnvRrlrVNGpq-WmYTmitVBiZLw82W5Ol-KqvPWzCDFMoURi_F4DE1vj2BzVO3EaXmAXF7dEBKzmUCWWZyyB0wTlofpuC4XlsfHYOOMCQoznD5wn__GcYoYipNC5BZ7q5Xbg3qZcABSiD70SjDVMR3f4m-2k4DQOl08-EAjdFLv-NGPpzLsuqNXp5h3GGXeOJygujK4y151gB6bZh7HUcuDVqKggsnCS0cZlU0mpojP2FCSIR9mhNLFGGcawXoc8WaxZK5s926btaSqFMcbopAw0UQU2k1p4-G9dyip9-HetNvBJTe2tx2g76raz4zLJOpN-FsufrOdJS7KkNLgg.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/990/422/725/small/f4e08ac96bf3f7be.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/vtnDnvRrlrVNGpq-WmYTmitVBiZLw82W5Ol-KqvPWzCDFMoURi_F4DE1vj2BzVO3EaXmAXF7dEBKzmUCWWZyyB0wTlofpuC4XlsfHYOOMCQoznD5wn__GcYoYipNC5BZ7q5Xbg3qZcABSiD70SjDVMR3f4m-2k4DQOl08-EAjdFLv-NGPpzLsuqNXp5h3GGXeOJygujK4y151gB6bZh7HUcuDVqKggsnCS0cZlU0mpojP2FCSIR9mhNLFGGcawXoc8WaxZK5s926btaSqFMcbopAw0UQU2k1p4-G9dyip9-HetNvBJTe2tx2g76raz4zLJOpN-FsufrOdJS7KkNLgg.jpg",
+      "url": "https://tg.anyfeed.cc/post/kanalpozetuvy-2760",
+      "author": "kanalpozetuvy@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/kanalpozetuvy",
+      "published": "2026-11-11T14:11:09.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/kanalpozetuvy-2760",
+      "imageCredit": "Posted by kanalpozetuvy@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-17o98lx6j549r",
+      "kind": "memes",
+      "title": "From kanalpozetuvy@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Pictures",
+      "tags": [
+        "Pictures",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/981/919/858/small/8035199ef7d31952.jpg",
+      "images": [
+        "https://files.mastodon.online/cache/media_attachments/files/117/598/260/981/919/858/original/8035199ef7d31952.jpg"
+      ],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/981/919/858/original/8035199ef7d31952.jpg",
+          "original": "https://cdn4.telesco.pe/file/Gwe2LvbajLr-wUM17oV57sibCrNeSzHVXZXVRyk21RjxrYOFqKGzsLSmiLthovU1xyn7_in_IIw2x19Gn5hhm31Lw7x248eLUnh3juHtL-gfRLKS5aCkq-Mcb7nhyKZvj72plETFuDeQktAM5yHYbuG5zlseDu8SL-g5Jw61UryKWRWpvzEH4RxSd9R90fNWXdVVATsIS42YKfDXzhX9Mxyzs9Ek6USFR7OqCs2l9FDntUh5I6vgcnKIRqB_FgEE7dMm0o8WJh6FUZnR-Pep-0PB1eN_blgfrgqWsv-DHWx8gX_bLklpl055eFKY2N0Q29jihHhQ6k46Uu3S-mH03A.jpg",
+          "type": "image",
+          "format": "Pictures",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/260/981/919/858/small/8035199ef7d31952.jpg",
+          "alt": ""
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/Gwe2LvbajLr-wUM17oV57sibCrNeSzHVXZXVRyk21RjxrYOFqKGzsLSmiLthovU1xyn7_in_IIw2x19Gn5hhm31Lw7x248eLUnh3juHtL-gfRLKS5aCkq-Mcb7nhyKZvj72plETFuDeQktAM5yHYbuG5zlseDu8SL-g5Jw61UryKWRWpvzEH4RxSd9R90fNWXdVVATsIS42YKfDXzhX9Mxyzs9Ek6USFR7OqCs2l9FDntUh5I6vgcnKIRqB_FgEE7dMm0o8WJh6FUZnR-Pep-0PB1eN_blgfrgqWsv-DHWx8gX_bLklpl055eFKY2N0Q29jihHhQ6k46Uu3S-mH03A.jpg",
+      "url": "https://tg.anyfeed.cc/post/kanalpozetuvy-2759",
+      "author": "kanalpozetuvy@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/kanalpozetuvy",
+      "published": "2026-11-11T14:11:07.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/kanalpozetuvy-2759",
+      "imageCredit": "Posted by kanalpozetuvy@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-80cqju1jq0ww4",
+      "kind": "memes",
+      "title": "From UkrMemesmineproblemes@tg.anyfeed.cc",
+      "description": "#Memes #Меми #Гумор",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "memes",
+        "меми",
+        "гумор"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/256/770/680/082/small/40335dc419acbffc.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/256/770/680/082/original/40335dc419acbffc.mp4",
+          "original": "https://cdn4.telesco.pe/file/c7443b0f80.mp4?token=bSfSNmMVt2q2zqLRKyP9iwvOVXSjQfSwBsqSKpzp77dp5Y1CMDBgik6i6RSKKa5MVFnbRBKYb59RGa_lRbxk6GyasH1-RjYLpZenSCStMmzp8RDBVXDZUDNgPlv1wPLtttI9Oac6Jo-G_kBOEF5NYdyxsPSL3P84iXhEU4GAtiq9bkKZ4XCMQcYJOJyVRZQPSyQLwCV9m3b7tbpAMcUfUMuULaUNnMPEhp6NzyTdRtNXl9VrSod6wbLHrnMDRYaRmXLO3mz9iJCwQ_85c7nwTTd0ENDtxRJe61QcCVA_5VYuVlN-NwUaFBS4Bp8YL6P0WAXyW3MwrPecxudPKiMnxw",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/256/770/680/082/small/40335dc419acbffc.png",
+          "alt": "",
+          "duration": 24.3
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/c7443b0f80.mp4?token=bSfSNmMVt2q2zqLRKyP9iwvOVXSjQfSwBsqSKpzp77dp5Y1CMDBgik6i6RSKKa5MVFnbRBKYb59RGa_lRbxk6GyasH1-RjYLpZenSCStMmzp8RDBVXDZUDNgPlv1wPLtttI9Oac6Jo-G_kBOEF5NYdyxsPSL3P84iXhEU4GAtiq9bkKZ4XCMQcYJOJyVRZQPSyQLwCV9m3b7tbpAMcUfUMuULaUNnMPEhp6NzyTdRtNXl9VrSod6wbLHrnMDRYaRmXLO3mz9iJCwQ_85c7nwTTd0ENDtxRJe61QcCVA_5VYuVlN-NwUaFBS4Bp8YL6P0WAXyW3MwrPecxudPKiMnxw",
+      "url": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46465",
+      "author": "UkrMemesmineproblemes@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/UkrMemesmineproblemes",
+      "published": "2026-11-11T14:07:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/UkrMemesmineproblemes-46465",
+      "imageCredit": "Posted by UkrMemesmineproblemes@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1ud494s1x5w7g4",
+      "kind": "memes",
+      "title": "The Christmas Tree: One Too-Tall Tree and a Very Decorated Cat 🎄🐱 Dad buys a Christmas tree that is taller than the ceiling, wears the light",
+      "description": "The Christmas Tree: One Too-Tall Tree and a Very Decorated Cat 🎄🐱 Dad buys a Christmas tree that is taller than the ceiling, wears the lights instead of hanging them and the dog thinks the ornaments are toys. Then the cat climbs to the top, the whole tree falls and the cat comes out decorated. A funny story for every age about family traditions, tangled lights and the perfect holiday photo. Follow for more family stories. # shortstory # cartoon # family # funny # comedy",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "shortstory",
+        "cartoon",
+        "family",
+        "funny",
+        "comedy"
+      ],
+      "image": "https://files.mastodon.social/media_attachments/files/117/591/688/601/789/252/small/fef8dafcb3cc173d.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.social/media_attachments/files/117/591/688/601/789/252/original/fef8dafcb3cc173d.mp4",
+          "original": "https://files.mastodon.social/media_attachments/files/117/591/688/601/789/252/original/fef8dafcb3cc173d.mp4",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.social/media_attachments/files/117/591/688/601/789/252/small/fef8dafcb3cc173d.png",
+          "alt": "The Christmas Tree: One Too-Tall Tree and a Very Decorated Cat 🎄🐱",
+          "duration": 72.005011
+        }
+      ],
+      "mediaKey": "https://files.mastodon.social/media_attachments/files/117/591/688/601/789/252/original/fef8dafcb3cc173d.mp4",
+      "url": "https://mastodon.social/@wolf_family/117591704230244744",
+      "author": "wolf_family",
+      "authorUrl": "https://mastodon.social/@wolf_family",
+      "published": "2026-11-10T10:36:50.354Z",
+      "source": "#funny · Mastodon",
+      "sourceId": "mastodon-funny",
+      "sourceUrl": "https://mastodon.social/@wolf_family/117591704230244744",
+      "imageCredit": "Posted by wolf_family. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    },
+    {
+      "id": "meme-1eslppl1uwuux9",
+      "kind": "memes",
+      "title": "- я купила квартиру - а я купив машину - а я будинок я біля фісташок:",
+      "description": "- я купила квартиру - а я купив машину - а я будинок я біля фісташок: #Memes #Меми #PopCulture",
+      "category": "Videos",
+      "tags": [
+        "Videos",
+        "memes",
+        "меми",
+        "popculture"
+      ],
+      "image": "https://files.mastodon.online/cache/media_attachments/files/117/598/244/149/915/232/small/d0d918dca5b3dcea.png",
+      "images": [],
+      "media": [
+        {
+          "url": "https://files.mastodon.online/cache/media_attachments/files/117/598/244/149/915/232/original/d0d918dca5b3dcea.mp4",
+          "original": "https://cdn4.telesco.pe/file/da9177c56b.mp4?token=fbtpXT0Tp0PgvKiikPI2WslhX1D1G5rSpOnb4TBTBXHG0V-g1jMsX0qu4Zm8XR94xfc9b7sc55Di74M8vpZczZ-Nx9cAmZ2T4fr_eDx2DV8aKiRlgfmqG2Bd0Sl1Ybdoaxf0cMGez0yOHoWZQnmppo5eJIEpapF530wLAFyvfVkclGD3cX5YZ2oodW9N0kNI7mn_LsenUzXpVv9whYaeFdIfRNs8nObD5khdNUvOt7nTR5n5IP_X0K55dhVZvUNw_YFPr9JOkjbGXPNOARbsTihUMRJWlcpGdYptk9uu1OkQGZvgy2ppysmgSzpxGQZxrnnH7yc9mSoonjLBKen02w",
+          "type": "video",
+          "format": "Videos",
+          "preview": "https://files.mastodon.online/cache/media_attachments/files/117/598/244/149/915/232/small/d0d918dca5b3dcea.png",
+          "alt": "",
+          "duration": 8.266667
+        }
+      ],
+      "mediaKey": "https://cdn4.telesco.pe/file/da9177c56b.mp4?token=fbtpXT0Tp0PgvKiikPI2WslhX1D1G5rSpOnb4TBTBXHG0V-g1jMsX0qu4Zm8XR94xfc9b7sc55Di74M8vpZczZ-Nx9cAmZ2T4fr_eDx2DV8aKiRlgfmqG2Bd0Sl1Ybdoaxf0cMGez0yOHoWZQnmppo5eJIEpapF530wLAFyvfVkclGD3cX5YZ2oodW9N0kNI7mn_LsenUzXpVv9whYaeFdIfRNs8nObD5khdNUvOt7nTR5n5IP_X0K55dhVZvUNw_YFPr9JOkjbGXPNOARbsTihUMRJWlcpGdYptk9uu1OkQGZvgy2ppysmgSzpxGQZxrnnH7yc9mSoonjLBKen02w",
+      "url": "https://tg.anyfeed.cc/post/bromeeems-34075",
+      "author": "bromeeems@tg.anyfeed.cc",
+      "authorUrl": "https://tg.anyfeed.cc/ap/actors/bromeeems",
+      "published": "2026-11-11T14:01:01.000Z",
+      "source": "#memes · Mastodon Online",
+      "sourceId": "mastodon-online",
+      "sourceUrl": "https://tg.anyfeed.cc/post/bromeeems-34075",
+      "imageCredit": "Posted by bromeeems@tg.anyfeed.cc. Original media rights holders retain their rights",
+      "imageLicense": "No reuse license inferred; see the original post"
+    }
+  ],
+  "next": null,
+  "live": false,
+  "provider": "public-memes",
+  "query": "",
+  "filter": "All",
+  "collectedAt": "2026-11-11T18:15:14.171Z",
+  "sources": [
+    {
+      "id": "lemmy-memes",
+      "label": "Memes · Lemmy World",
+      "status": "available"
+    },
+    {
+      "id": "mastodon-funny",
+      "label": "#funny · Mastodon",
+      "status": "available"
+    },
+    {
+      "id": "programmer-humor",
+      "label": "Programmer humor · programming.dev",
+      "status": "available"
+    },
+    {
+      "id": "mastodon-memes",
+      "label": "#memes · Mastodon",
+      "status": "available"
+    },
+    {
+      "id": "me-irl",
+      "label": "Me IRL · Lemmy World",
+      "status": "available"
+    },
+    {
+      "id": "mastodon-online",
+      "label": "#memes · Mastodon Online",
+      "status": "available"
+    }
+  ],
+  "note": "Starter snapshot · 11/11/2026. Live feeds refresh when connected. Media is source-hosted."
+}

@@ -24,7 +24,8 @@ for story in corpus['stories']:
     block['src']='data:'+(mimetypes.guess_type(path.name)[0] or 'image/jpeg')+';base64,'+base64.b64encode(path.read_bytes()).decode()
 news={'mediaIndex':json.loads((dist/'news-media-index.json').read_text()),'geography':json.loads((dist/'news-geography.json').read_text()),'corpus':corpus,'feed':json.loads((dist/'feed.json').read_text()),'sources':json.loads((dist/'sources.json').read_text())}
 discovery=json.loads((dist/'discovery.json').read_text())
-routes={'index.html':'Broadsheet-preview.html',**{f'{key}.html':f'Broadsheet-{key}-preview.html' for key in ['news','recipes','places','movies']}}
+discovery['memes']=json.loads((dist/'memes.json').read_text())
+routes={'index.html':'Broadsheet-preview.html',**{f'{key}.html':f'Broadsheet-{key}-preview.html' for key in ['news','recipes','places','movies','memes']}}
 for page,dest in routes.items():
  html=(dist/page).read_text()
  def version_asset(m):

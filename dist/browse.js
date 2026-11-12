@@ -1,6 +1,7 @@
 const $ = (s) => document.querySelector(s),
   S = window.BroadsheetSpaces,
   Live = window.BroadsheetLive,
+  Memes = window.BroadsheetMemes,
   id = document.body.dataset.space,
   space = S.registry[id];
 const initial = {
@@ -41,6 +42,7 @@ const stored = S.load(id),
       ...stored.movie,
     },
     recipe: { source: "photo", cuisine: "All", meal: "All", ...stored.recipe },
+    meme: { source: "all", order: "mixed", ...stored.meme },
   };
 if (id === "movies" && !stored.movie) {
   state.query = "";
@@ -117,7 +119,7 @@ const key = () =>
     state.data?.provider || "",
     ...(id === "places" ? [state.data?.city || "preview"] : []),
     ...(id !== "places"
-      ? [JSON.stringify(id === "movies" ? state.movie : state.recipe)]
+      ? [JSON.stringify(id === "movies" ? state.movie : id === "memes" ? state.meme : state.recipe)]
       : []),
   ].join("|");
 function el(tag, cls, text) {
@@ -135,6 +137,7 @@ function http(s) {
   }
 }
 function imageURL(s) {
+  if (id === "memes") return Memes.mediaURL(s);
   try {
     const u = new URL(s, location.href);
     return (u.origin === location.origin && u.pathname.includes("/images/")) ||
@@ -193,7 +196,7 @@ function mergeItems() {
   const merged = new Map(source.items.map((s) => [s.id, s]));
   if (state.savedOnly)
     for (const s of state.saved) if (!merged.has(s.id)) merged.set(s.id, s);
-  items = [...merged.values()];
+  items = id === "memes" ? Memes.dedupe([...merged.values()]) : [...merged.values()];
   return source;
 }
 function changeFilter(filter) {
@@ -214,6 +217,7 @@ function changeFilter(filter) {
 }
 
 function filterOptions() {
+  if (id === "memes") return space.filters;
   if (id === "recipes")
     return [
       ...new Set([
@@ -266,6 +270,7 @@ function controls() {
     state.filter === "All" &&
     !state.query &&
     !state.savedOnly &&
+    (id !== "memes" || (state.meme.source === "all" && state.meme.order === "mixed")) &&
     (id !== "recipes" ||
       (state.recipe.cuisine === "All" && state.recipe.meal === "All")) &&
     (id !== "movies" ||
@@ -550,7 +555,7 @@ function makeCard(item, instance) {
   const card = el(
     "article",
     "visual-card " +
-      { recipes: "recipe-card", movies: "movie-card", places: "place-card" }[
+      { recipes: "recipe-card", movies: "movie-card", places: "place-card", memes: "meme-card" }[
         id
       ],
   );
@@ -592,6 +597,10 @@ function makeCard(item, instance) {
       );
   } else {
     imageButton.append(photo(item.image, item.title));
+    if (id === "memes") {
+      imageButton.append(el("span", "photo-badge", item.media?.some(m => m.type === "video") ? "▶ Play clip" : item.category));
+      if (!item.image) imageButton.append(el("span", "meme-placeholder", "▶"));
+    }
     if (id === "recipes" && !item.image) {
       const fallback = el("span", "recipe-text-cover");
       fallback.append(
@@ -621,7 +630,9 @@ function makeCard(item, instance) {
   title.onclick = () => openDetails(item, instance?.key);
   heading.append(title);
   const sub =
-    id === "recipes"
+    id === "memes"
+      ? [item.author, item.source].filter(Boolean).join(" · ")
+      : id === "recipes"
       ? item.needsDetails
         ? "Recipe · details load when opened"
         : `${item.ingredients?.length || 0} ingredients · ${item.cuisine || ""}`
@@ -654,7 +665,9 @@ function makeCard(item, instance) {
   const open = el(
     "button",
     "open-card",
-    id === "recipes"
+    id === "memes"
+      ? "+ Open meme"
+      : id === "recipes"
       ? "+ Unfold recipe"
       : id === "movies"
         ? "+ Unfold film"
@@ -691,6 +704,10 @@ function link(text, url, cls = "outline-button") {
   return a;
 }
 function fillDetails(item, root) {
+  if (id === "memes") {
+    fillMemeDetails(item, root);
+    return;
+  }
   if (id === "places") root.append(businessPhoto(item, "detail-streetview"));
   if (item.image && imageURL(item.image) && id !== "places")
     root.append(
@@ -1002,6 +1019,48 @@ function fillDetails(item, root) {
     );
   root.append(content);
 }
+function fillMemeDetails(item, root) {
+  const content = el("div", "detail-content meme-details");
+  content.append(el("span", "eyebrow", item.category + " · " + item.source), el("h2", "", item.title));
+  const actions = el("div", "detail-actions"), save = el("button", "primary-button", saved(item) ? "♥ Saved to collection" : "♡ Save to collection");
+  save.onclick = () => saveItem(item);
+  actions.append(save, link("Original post ↗", item.url));
+  content.append(actions);
+  for (const media of item.media || []) {
+    const src = Memes.mediaURL(media.url);
+    if (!src) continue;
+    const figure = el("figure", "meme-media");
+    if (media.type === "video") {
+      const video = el("video");
+      video.src = src;
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "none";
+      video.setAttribute("aria-label", media.alt || item.title);
+      if (media.format === "GIFs") video.loop = true;
+      const poster = Memes.mediaURL(media.preview);
+      if (poster) video.poster = poster;
+      video.addEventListener("play", () => {
+        for (const other of document.querySelectorAll(".meme-media video")) if (other !== video) other.pause();
+      });
+      const unavailable = el("p", "source-note", "This clip could not play here. Open the original post to watch it.");
+      unavailable.hidden = true;
+      video.onerror = () => { unavailable.hidden = false; };
+      figure.append(video, unavailable);
+    } else {
+      figure.append(photo(src, media.alt || item.title));
+    }
+    if (media.alt) figure.append(el("figcaption", "source-note", media.alt));
+    content.append(figure);
+  }
+  if (item.description && item.description !== item.title)
+    content.append(el("p", "meme-caption", item.description));
+  const credit = el("p", "source-note", item.imageCredit + ". " + item.imageLicense + ". ");
+  credit.append(link("Contributor ↗", item.authorUrl, "link-button"));
+  if (item.published && Number.isFinite(Date.parse(item.published))) credit.append(document.createTextNode(" · Posted " + new Date(item.published).toLocaleDateString()));
+  content.append(credit);
+  root.append(content);
+}
 function expandedCard(item, instance) {
   if (
     id === "movies" &&
@@ -1170,6 +1229,8 @@ function renderMap() {
   } else map.setView([data.center?.lat || 0, data.center?.lon || 0], 13);
 }
 function renderMode() {
+  if (id === "memes" && state.mode !== "spatial")
+    for (const video of document.querySelectorAll(".meme-media video")) video.pause();
   if (
     !["spatial", "list", "map"].includes(state.mode) ||
     (state.mode === "map" && id !== "places")
@@ -1355,6 +1416,7 @@ async function loadCatalog({
   const cursor = append ? previous.next : null;
   if (append) catalog = previous.catalog || "all";
   if (refresh) Live.clearCache();
+  if (refresh && id === "memes") Memes.clearCache();
   $("#load-more").disabled = true;
   $("#refresh-catalog").disabled = true;
   $("#result-status").textContent = append
@@ -1362,7 +1424,9 @@ async function loadCatalog({
     : "Searching live catalog…";
   try {
     let data;
-    if (id === "recipes")
+    if (id === "memes")
+      data = await Memes.catalog({ query, category: filter, ...state.meme, cursor, signal: controller.signal });
+    else if (id === "recipes")
       data = await Live.recipes({
         query,
         category: filter,
@@ -1413,6 +1477,7 @@ async function loadCatalog({
       ];
       if (refreshSameView && previous.next) data.next = previous.next;
     }
+    if (id === "memes") data.items = Memes.dedupe(data.items);
     filled =
       data.items.length > 0 &&
       (!append || data.items.length > previous.items.length);
@@ -1634,6 +1699,13 @@ function showSources() {
         "https://en.wikibooks.org/wiki/Cookbook:Recipes",
       ),
     );
+  else if (id === "memes") {
+    root.append(el("p", "", "Public image, video, and GIF posts from independent Lemmy communities and Mastodon hashtag feeds. Mastodon also includes federated posts from other networks. Each feed is paginated independently; duplicate media is collapsed and unavailable feeds can be retried. Search matches captions, creators, and tags on fetched pages, not the entire internet. Sensitive/NSFW-flagged and removed posts are excluded; community labels are not a guarantee. Media remains hosted by its source and no reuse license is inferred. Videos play only when you press play."));
+    for (const source of Memes.sources) {
+      const status = data.sources?.find(s => s.id === source.id)?.status;
+      root.append(link(source.label + (status ? " · " + status : "") + " ↗", "https://" + source.host + (source.type === "lemmy" ? "/c/" : "/tags/") + source.feed));
+    }
+  }
   else if (id === "movies")
     root.append(
       el(
@@ -1700,7 +1772,7 @@ function configure() {
   document.documentElement.style.setProperty("--accent", space.accent);
   document.querySelector('[data-nav="' + id + '"]').classList.add("active");
   $("#sidebar-title").textContent = space.label;
-  $("#space-symbol").textContent = { recipes: "✳", places: "◎", movies: "◧" }[
+  $("#space-symbol").textContent = { recipes: "✳", places: "◎", movies: "◧", memes: "☺" }[
     id
   ];
   $("#space-eyebrow").textContent = space.eyebrow;
@@ -1709,7 +1781,7 @@ function configure() {
   $("#space-search").placeholder = space.search;
   $("#space-search").value = state.query;
   $("#filter-kind").textContent =
-    id === "movies" ? "GENRE" : id === "places" ? "KIND" : "CATEGORY";
+    id === "movies" ? "GENRE" : id === "places" ? "KIND" : id === "memes" ? "FORMAT" : "CATEGORY";
   $("#space-size").value = state.size;
   $("#space-sort").value = state.sort;
   $("#search-provider").hidden = id !== "recipes";
@@ -1965,7 +2037,9 @@ async function init() {
     bundle =
       window.BROADSHEET_DISCOVERY ||
       (await (await fetch("discovery.json")).json());
-    base = bundle[id] || { items: [] };
+    base = id === "memes" && !bundle.memes
+      ? await (await fetch("memes.json")).json()
+      : bundle[id] || { items: [] };
     if (!Array.isArray(base.items)) throw Error("Collection unavailable");
     if (state.data && !Array.isArray(state.data.items)) state.data = null;
     const params = new URLSearchParams(location.search);

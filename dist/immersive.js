@@ -56,7 +56,7 @@ if (news) {
   const nav = document.createElement("nav");
   nav.setAttribute("aria-label", "Spaces");
   nav.innerHTML =
-    '<a href="index.html">Explore</a><a href="news.html" aria-current="page">News</a><a href="recipes.html">Recipes</a><a href="places.html">Places</a><a href="movies.html">Movies</a>';
+    '<a href="index.html">Explore</a><a href="news.html" aria-current="page">News</a><a href="recipes.html">Recipes</a><a href="places.html">Places</a><a href="movies.html">Movies</a><a href="memes.html">Memes</a>';
   panels.get("spaces").insertBefore(nav, header);
 }
 panels.get("browse").append(sidebar);

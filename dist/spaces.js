@@ -1,6 +1,14 @@
 /* Adding a domain requires a registry entry, normalized items, and a card renderer. */
 (function (root) {
   const registry = {
+    memes: {
+      id: "memes", title: "A little unserious", label: "Memes",
+      subtitle: "Pictures, clips, and the internet being itself.",
+      eyebrow: "THE INTERNET'S COMIC RELIEF", noun: "memes", accent: "#777035",
+      card: { w: 330, h: 450 }, filters: ["All", "Pictures", "Videos", "GIFs"],
+      search: "Search captions, creators, or tags…", source: "Lemmy / Mastodon",
+      view: "mosaic", link: "memes.html",
+    },
     recipes: {
       id: "recipes",
       title: "The kitchen",
@@ -109,6 +117,8 @@
               i.cuisine,
               i.director,
               i.city,
+              i.author,
+              i.source,
               ...tags(i),
               ...(i.ingredients || []).map((x) => x.name),
             ]

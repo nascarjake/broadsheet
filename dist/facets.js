@@ -18,7 +18,7 @@
     root.hidden = false;
     const fields = {},
       lookups = {};
-    const active = id === "movies" ? state.movie : state.recipe;
+    const active = id === "movies" ? state.movie : id === "memes" ? state.meme : state.recipe;
     function select(key, label, choices, after) {
       const wrap = node("label"),
         caption = node("span", label),
@@ -155,7 +155,9 @@
       },
       reset: () => {
         for (const [k, v] of Object.entries(
-          id === "movies"
+          id === "memes"
+            ? { source: "all", order: "mixed" }
+            : id === "movies"
             ? {
                 year: "",
                 provider: "",
@@ -187,7 +189,14 @@
       control.value = value;
       if (control.selectedIndex < 0) control.selectedIndex = 0;
     }
-    if (id === "recipes") {
+    if (id === "memes") {
+      select("source", "Meme source", [["all", "Mix every source"], ...window.BroadsheetMemes.sources.map(s => [s.id, s.label])]);
+      select("order", "Feed order", [["mixed", "Community favorites + recent hashtags"], ["newest", "Newest posts"]]);
+      const note = node("small", "Pictures, clips, and GIFs from public communities. Search captions on fetched pages; Load more keeps looking. Clips play when opened and started.");
+      note.className = "facet-note";
+      root.append(note);
+      api.load = async () => {};
+    } else if (id === "recipes") {
       const title = node(
         "p",
         "Follow a culture, an ingredient, or a mealtime.",
